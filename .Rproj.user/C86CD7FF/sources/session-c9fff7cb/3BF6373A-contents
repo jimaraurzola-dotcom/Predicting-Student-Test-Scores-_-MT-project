@@ -1,0 +1,64 @@
+---
+title: "Readme"
+output: html_document
+---
+
+## Diario para la documentación de avances del proyecto.
+Proyecto aplicado de las técnicas estadísticas vistas en el curso de métodos estadísticos.
+
+### 15/08/26
+---------------------------------
+
+**Dataset:** Predicting Student Test Scores
+
+**Avance:** Capítulo 3 — Análisis Exploratorio de Datos (EDA)
+
+**1. Descripción de los datos**
+
+Se trabajó sobre `train.csv` (630,000 observaciones, 13 variables: 4 numéricas, 
+8 categóricas, 1 variable respuesta `exam_score`). No se encontraron datos faltantes. 
+Adicionalmente se cuenta con `test.csv` (270,000 observaciones, sin la variable 
+`exam_score`) y `sample_submission.csv` (formato de entrega).
+
+Variables del dataset:
+
+- `age`, `study_hours`, `class_attendance`, `sleep_hours`: numéricas
+- `gender`, `course`, `internet_access`, `sleep_quality`, `study_method`, 
+  `facility_rating`, `exam_difficulty`: categóricas
+- `exam_score`: variable respuesta (numérica, rango 0-100)
+
+**2. Definición de la plantilla a seguir**
+
+Dado que `exam_score` es numérica, el análisis debe 
+replicar la estructura usada con el dataset `housing`:
+
+1. ETL: carga de datos, `head`, `dim`, `colnames`, `str`, revisión de NA's (`missmap`).
+2. Análisis de la variable target (`exam_score`): tabla resumen (n, media, ds, mediana, min, max, Q1, Q3, IQR), histograma con densidad y boxplot.
+3. Análisis de variables independientes:
+   - Numéricas: tabla resumen + boxplots (`patchwork`).
+   - Categóricas: tabla de frecuencias + gráfico de barras (`geom_col`).
+4. Análisis bivariado: diagramas de dispersión con línea de regresión (numéricas vs `exam_score`), boxplots y tablas resumen (categóricas vs `exam_score`), y 
+   opcionalmente `ggpairs()` de `GGally`.
+
+**3. Exploración preliminar (no gráfica)**
+
+Se calcularon las medidas de tendencia central y dispersión, tablas de frecuencia y matriz de correlación como primer acercamiento:
+
+- `study_hours` presenta la correlación más fuerte con `exam_score` (r = 0.76).
+- `class_attendance` muestra correlación moderada (r = 0.36) y `sleep_hours` 
+  correlación débil (r = 0.17). `age` no muestra relación relevante (r = 0.01).
+- Las variables categóricas con mayor efecto aparente sobre `exam_score` son 
+  `study_method`, `sleep_quality` y `facility_rating`; `gender`, `internet_access` 
+  y `exam_difficulty` no muestran diferencias notables entre grupos.
+- Se detectó un pico atípico en `exam_score = 100`, posible indicio de censura en el límite superior (dato sintético), pendiente de revisar con más detalle.
+
+**Próximos pasos:** 
+
+- Construir el script en R (`.Rmd`) siguiendo la plantilla oficial del curso.
+- Detección formal de outliers.
+- Análisis exploratorio bivariado completo (dispersión y boxplots para todas las 
+  variables independientes vs `exam_score`).
+- Definición de hipótesis a contrastar en la etapa de inferencia estadística 
+  (Capítulo 4).
+
+---------------------------------
