@@ -34,11 +34,7 @@ body {
 }
 ```
 ---
-# 1. EDA
- 
-#### Importación de liberias y el dataset:
-
-Cargamos las librerías necesarias para el análisis exploratorio de datos.
+# ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?
 
 ```{r librerias}
 library(tidyverse)
@@ -49,7 +45,6 @@ library(GGally)
 
 ```
 
-Cargamos el conjunto de datos `train.csv`, correspondiente al dataset *Predicting Student Test Scores*.
 ```{r dataset}
 trainset <- read.csv('Datos/train.csv')
 ```

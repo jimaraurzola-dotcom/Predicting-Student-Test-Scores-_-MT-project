@@ -1,0 +1,12 @@
+---
+title: "Predicting Student Test Scores"
+author: "Jimara Urzola"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+github-repo: jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project
+---
+
+# Introducción
+

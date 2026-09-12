@@ -1,0 +1,6 @@
+book_filename: "Predicting-Student-Test-Scores"
+delete_merged_file: true
+rmd_files: [
+  "index.Rmd",
+  "Predicting-student-test-scores.Rmd"
+]
