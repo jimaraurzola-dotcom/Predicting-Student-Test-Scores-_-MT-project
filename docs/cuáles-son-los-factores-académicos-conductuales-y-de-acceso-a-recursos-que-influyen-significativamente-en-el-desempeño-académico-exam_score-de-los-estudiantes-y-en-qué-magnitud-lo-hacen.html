@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen? | Predicting Student Test Scores</title>
+  <meta name="description" content="2 ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen? | Predicting Student Test Scores" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen? | Predicting Student Test Scores" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen? | Predicting Student Test Scores" />
+  
+  
+  
+
+<meta name="author" content="Jimara Urzola &amp; Jose Castro" />
+
+
+<meta name="date" content="2026-08-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"><i class="fa fa-check"></i><b>2</b> ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#an%C3%A1lisis-exploratorio-de-exam_score-target"><i class="fa fa-check"></i><b>2.1</b> 1.1 Análisis exploratorio de <code>exam_score</code> (Target)</a></li>
+<li class="chapter" data-level="2.2" data-path="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.2</b> 1.2 Análisis de las variables independientes (características)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicting Student Test Scores</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cu%C3%A1les-son-los-factores-acad%C3%A9micos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempe%C3%B1o-acad%C3%A9mico-exam_score-de-los-estudiantes-y-en-qu%C3%A9-magnitud-lo-hacen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span>
+<span id="cb1-3"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(moments)</span>
+<span id="cb1-4"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-5"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb2-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;Datos/train.csv&#39;</span>)</span></code></pre></div>
+<div id="extracción-transformación-y-carga-etl" class="section level4 hasAnchor" number="2.0.0.1">
+<h4><span class="header-section-number">2.0.0.1</span> Extracción, transformación y carga (ETL)<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#extracci%C3%B3n-transformaci%C3%B3n-y-carga-etl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Verifiquemos que leímos bien los datos observando las primeras filas:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb3-1" tabindex="-1"></a><span class="fu">head</span>(trainset, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##   id age gender  course study_hours class_attendance internet_access sleep_hours
+## 1  0  21 female    b.sc        7.91             98.8              no         4.9
+## 2  1  18  other diploma        4.95             94.8             yes         4.7
+## 3  2  20 female    b.sc        4.68             92.6             yes         5.8
+## 4  3  19   male    b.sc        2.00             49.5             yes         8.3
+## 5  4  23   male     bca        7.65             86.9             yes         9.6
+##   sleep_quality  study_method facility_rating exam_difficulty exam_score
+## 1       average online videos             low            easy       78.3
+## 2          poor    self-study          medium        moderate       46.7
+## 3          poor      coaching            high        moderate       99.0
+## 4       average   group study            high        moderate       63.9
+## 5          good    self-study            high            easy      100.0</code></pre>
+<p>Con esto podemos confirmar que la base de datos fue cargada correctamente, como prueba de ello observando las primeras 5 filas de información.</p>
+</div>
+<div id="revisemos-la-estructura-del-dataset-y-los-tipos-de-las-variables" class="section level4 hasAnchor" number="2.0.0.2">
+<h4><span class="header-section-number">2.0.0.2</span> Revisemos la estructura del dataset y los tipos de las variables:<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#revisemos-la-estructura-del-dataset-y-los-tipos-de-las-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb5-1" tabindex="-1"></a><span class="fu">colnames</span>(trainset)</span></code></pre></div>
+<pre><code>##  [1] &quot;id&quot;               &quot;age&quot;              &quot;gender&quot;           &quot;course&quot;          
+##  [5] &quot;study_hours&quot;      &quot;class_attendance&quot; &quot;internet_access&quot;  &quot;sleep_hours&quot;     
+##  [9] &quot;sleep_quality&quot;    &quot;study_method&quot;     &quot;facility_rating&quot;  &quot;exam_difficulty&quot; 
+## [13] &quot;exam_score&quot;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb7-1" tabindex="-1"></a><span class="fu">str</span>(trainset)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    630000 obs. of  13 variables:
+##  $ id              : int  0 1 2 3 4 5 6 7 8 9 ...
+##  $ age             : int  21 18 20 19 23 24 20 22 22 18 ...
+##  $ gender          : chr  &quot;female&quot; &quot;other&quot; &quot;female&quot; &quot;male&quot; ...
+##  $ course          : chr  &quot;b.sc&quot; &quot;diploma&quot; &quot;b.sc&quot; &quot;b.sc&quot; ...
+##  $ study_hours     : num  7.91 4.95 4.68 2 7.65 5.04 4.28 4.19 1.06 3.44 ...
+##  $ class_attendance: num  98.8 94.8 92.6 49.5 86.9 85.1 87 44.9 98.3 80.9 ...
+##  $ internet_access : chr  &quot;no&quot; &quot;yes&quot; &quot;yes&quot; &quot;yes&quot; ...
+##  $ sleep_hours     : num  4.9 4.7 5.8 8.3 9.6 9.4 9.1 8.8 5 6.2 ...
+##  $ sleep_quality   : chr  &quot;average&quot; &quot;poor&quot; &quot;poor&quot; &quot;average&quot; ...
+##  $ study_method    : chr  &quot;online videos&quot; &quot;self-study&quot; &quot;coaching&quot; &quot;group study&quot; ...
+##  $ facility_rating : chr  &quot;low&quot; &quot;medium&quot; &quot;high&quot; &quot;high&quot; ...
+##  $ exam_difficulty : chr  &quot;easy&quot; &quot;moderate&quot; &quot;moderate&quot; &quot;moderate&quot; ...
+##  $ exam_score      : num  78.3 46.7 99 63.9 100 70.1 63.4 76.8 46.7 58.2 ...</code></pre>
+<p>Contamos con 13 variables: 4 numéricas, 8 categóricas, 1 variable respuesta <code>exam_score</code>.</p>
+</div>
+<div id="identifiquemos-si-existen-valores-na-por-columna" class="section level4 hasAnchor" number="2.0.0.3">
+<h4><span class="header-section-number">2.0.0.3</span> Identifiquemos si existen valores <code>NA</code> por columna:<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#identifiquemos-si-existen-valores-na-por-columna" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb9-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb9-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
+<pre><code>##   id age gender course study_hours class_attendance internet_access sleep_hours
+## 1  0   0      0      0           0                0               0           0
+##   sleep_quality study_method facility_rating exam_difficulty exam_score
+## 1             0            0               0               0          0</code></pre>
+<p>No existe ningun dato faltante en el dataset <code>train.csv</code>.</p>
+</div>
+<div id="análisis-exploratorio-de-exam_score-target" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> 1.1 Análisis exploratorio de <code>exam_score</code> (Target)<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#an%C3%A1lisis-exploratorio-de-exam_score-target" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>#### Realicemos el resumen estadístico de la variable:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-1" tabindex="-1"></a>   trainset <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb11-2"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-2" tabindex="-1"></a>                 <span class="at">media =</span> <span class="fu">mean</span>(exam_score),</span>
+<span id="cb11-3"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-3" tabindex="-1"></a>                 <span class="at">sd =</span> <span class="fu">sd</span>(exam_score),</span>
+<span id="cb11-4"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-4" tabindex="-1"></a>                 <span class="at">mediana =</span> <span class="fu">median</span>(exam_score),</span>
+<span id="cb11-5"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-5" tabindex="-1"></a>                 <span class="at">RIC =</span> <span class="fu">IQR</span>(exam_score),</span>
+<span id="cb11-6"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-6" tabindex="-1"></a>                 <span class="at">Q1 =</span> <span class="fu">quantile</span>(exam_score,<span class="fl">0.25</span>),</span>
+<span id="cb11-7"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-7" tabindex="-1"></a>                 <span class="at">Q3 =</span> <span class="fu">quantile</span>(exam_score,<span class="fl">0.75</span>),</span>
+<span id="cb11-8"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-8" tabindex="-1"></a>                 <span class="at">minimo =</span> <span class="fu">min</span>(exam_score),</span>
+<span id="cb11-9"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-9" tabindex="-1"></a>                 <span class="at">maximo =</span> <span class="fu">max</span>(exam_score),</span>
+<span id="cb11-10"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-10" tabindex="-1"></a>                 <span class="at">asi =</span> <span class="fu">skewness</span>(exam_score),</span>
+<span id="cb11-11"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-11" tabindex="-1"></a>                 <span class="at">curtosis =</span> <span class="fu">kurtosis</span>(exam_score)</span>
+<span id="cb11-12"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb11-12" tabindex="-1"></a>                 )</span></code></pre></div>
+<pre><code>##        n    media       sd mediana  RIC   Q1   Q3 minimo maximo         asi curtosis
+## 1 630000 62.50667 18.91688    62.6 27.5 48.8 76.3 19.599    100 -0.04827309 2.381038</code></pre>
+<ul>
+<li><p><code>n</code>: hay 630.000 estudiantes en la muestra (recordemos que cada fila representa un estudiante, no un grupo o curso)</p></li>
+<li><p><code>media</code>: en promedio, un estudiante obtiene un puntaje de examen de 62,51 puntos</p></li>
+<li><p><code>mediana</code>: el 50% de los estudiantes obtiene un puntaje menor o igual a 62,60 puntos</p></li>
+<li><p><code>RIC</code>: el 50% central de los estudiantes se reparte a lo largo de una franja de 27,5 puntos de ancho</p></li>
+<li><p><code>Q1</code>: el 25% de los estudiantes obtiene un puntaje menor o igual a 48,80 puntos</p></li>
+<li><p><code>Q3</code>: el 75% de los estudiantes obtiene un puntaje menor o igual a 76,30 puntos</p></li>
+<li><p><code>minimo</code>: el estudiante con peor desempeño obtuvo 19,60 puntos</p></li>
+<li><p><code>maximo</code>: el estudiante con mejor desempeño obtuvo el puntaje máximo posible, 100 puntos</p></li>
+<li><p><code>asi</code>: -0,05. Prácticamente sin asimetría (simetría casi perfecta)</p></li>
+<li><p><code>curtosis</code>: 2,38. Es la curtosis de Pearson, que vale 3 en una normal, así que el exceso es de -0,62 (curtosis negativa: distribución más achatada que la normal)</p></li>
+</ul>
+<p>Interpretación. La media (62,51) y la mediana (62,60) son prácticamente idénticas, con menos de 0,1 puntos de diferencia, y eso es justo lo que anticipa una asimetría casi nula de -0,05: a diferencia de una variable con cola larga, aquí ambas medidas describen igual de bien “lo típico” de un estudiante, y cualquiera de las dos es un buen resumen central.</p>
+<p>La dispersión es moderada: una desviación estándar de 18,92 puntos sobre una media de 62,51 da un coeficiente de variación cercano al 30%. El rango total (19,60 a 100) muestra una diferencia de aproximadamente 5 veces entre el estudiante de menor y mayor desempeño.</p>
+<p>La curtosis negativa (exceso de -0,62) indica una distribución más achatada que la normal, con colas más cortas y una dispersión más repartida entre los valores centrales, algo que ya se veía en el histograma, donde los datos se distribuyen de forma bastante uniforme alrededor del centro, sin un pico muy pronunciado.</p>
+<div id="histograma-de-densidad-de-la-variable" class="section level4 hasAnchor" number="2.1.0.1">
+<h4><span class="header-section-number">2.1.0.1</span> Histograma de densidad de la variable:<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#histograma-de-densidad-de-la-variable" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> exam_score))<span class="sc">+</span></span>
+<span id="cb13-3"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb13-4"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-4" tabindex="-1"></a>                     <span class="at">binwidth =</span> <span class="dv">5</span>,</span>
+<span id="cb13-5"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-5" tabindex="-1"></a>                      <span class="at">fill =</span> <span class="st">&quot;#2f0be0&quot;</span>,</span>
+<span id="cb13-6"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-6" tabindex="-1"></a>                      <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb13-7"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-7" tabindex="-1"></a>                      <span class="at">alpha =</span> <span class="fl">0.6</span>)<span class="sc">+</span></span>
+<span id="cb13-8"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-8" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-9" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="at">expand =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Distribución de la nota media del examen&#39;</span>,</span>
+<span id="cb13-11"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Nota media del examen&#39;</span>,</span>
+<span id="cb13-12"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Densidad&#39;</span>)<span class="sc">+</span></span>
+<span id="cb13-13"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb13-13" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/exscore%20histograma-1.png" alt="" width="672" />
+Es posible apreciar que la moda se concentra entre 50 y 75 puntos de score.</p>
+</div>
+<div id="boxplot" class="section level4 hasAnchor" number="2.1.0.2">
+<h4><span class="header-section-number">2.1.0.2</span> Boxplot<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#boxplot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb14-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb14-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y=</span> exam_score))<span class="sc">+</span></span>
+<span id="cb14-3"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb14-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#16d9f2&quot;</span>, <span class="at">color =</span> <span class="st">&quot;#737778&quot;</span>,</span>
+<span id="cb14-4"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb14-4" tabindex="-1"></a>               <span class="at">outlier.color =</span> <span class="st">&#39;darkred&#39;</span>)<span class="sc">+</span></span>
+<span id="cb14-5"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb14-5" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">&#39;point&#39;</span>, <span class="at">shape =</span> <span class="dv">20</span>,</span>
+<span id="cb14-6"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb14-6" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&#39;#ff0026&#39;</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb14-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/exscore%20boxplot-1.png" alt="" width="672" />
+El boxplot confirma lo visto en el histograma: la caja es simétrica, con la mediana (62,6)
+prácticamente centrada entre Q1 (48,8) y Q3 (76,3). Los bigotes no muestran valores atípicos.</p>
+</div>
+</div>
+<div id="análisis-de-las-variables-independientes-características" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> 1.2 Análisis de las variables independientes (características)<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Inicialmente, analizaremos las variables númericas</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-1" tabindex="-1"></a>resumen_numericas <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric), <span class="sc">-</span>exam_score) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb15-4"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-4" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb15-5"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-5" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb15-6"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;valor&quot;</span></span>
+<span id="cb15-7"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-8"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-8" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb15-9"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-9" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb15-10"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-10" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(valor)),</span>
+<span id="cb15-11"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-11" tabindex="-1"></a>    <span class="at">media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">3</span>),</span>
+<span id="cb15-12"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-12" tabindex="-1"></a>    <span class="at">ds =</span> <span class="fu">round</span>(<span class="fu">sd</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">3</span>),</span>
+<span id="cb15-13"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-13" tabindex="-1"></a>    <span class="at">mediana =</span> <span class="fu">median</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-14"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-14" tabindex="-1"></a>    <span class="at">minimo =</span> <span class="fu">min</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-15"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-15" tabindex="-1"></a>    <span class="at">maximo =</span> <span class="fu">max</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-16"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-16" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(valor, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-17"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-17" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(valor, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-18"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-18" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb15-19"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-19" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb15-20"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-20" tabindex="-1"></a>  )</span>
+<span id="cb15-21"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-21" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb15-22" tabindex="-1"></a>resumen_numericas</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 10
+##   variable              n     media        ds  mediana minimo   maximo     Q1     Q3    IQR
+##   &lt;chr&gt;             &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 age              630000     20.5       2.26     21    17      2.4 e1 1.9 e1 2.3 e1 4   e0
+## 2 class_attendance 630000     72.0      17.4      72.6  40.6    9.94e1 5.7 e1 8.72e1 3.02e1
+## 3 id               630000 315000.   181865.   315000.    0      6.30e5 1.57e5 4.72e5 3.15e5
+## 4 sleep_hours      630000      7.07      1.74      7.1   4.1    9.9 e0 5.6 e0 8.6 e0 3   e0
+## 5 study_hours      630000      4.00      2.36      4     0.08   7.91e0 1.97e0 6.05e0 4.08e0</code></pre>
+<p>El resumen estadístico de las 4 variables numéricas independientes revela un comportamiento
+bastante homogéneo entre ellas, a diferencia de lo que suele verse en otros datasets. En las
+cuatro variables, la media y la mediana son prácticamente idénticas: age (20,55 vs 21,00),
+study_hours (4,00 vs 4,00), class_attendance (71,99 vs 72,60) y sleep_hours (7,07 vs 7,10).
+Esto indica que ninguna presenta asimetría relevante, y sus distribuciones son razonablemente
+simétricas, algo esperable dado que se comportan de forma casi uniforme entre sus valores
+mínimo y máximo.</p>
+<p>study_hours es la que presenta mayor dispersión relativa (RIC de 4,08 sobre un rango total
+de apenas 0,08 a 7,91), lo que sugiere que los estudiantes varían bastante en cuánto tiempo
+le dedican al estudio. class_attendance, aunque tiene el RIC más amplio en términos absolutos
+(30,2), se mueve dentro de un rango acotado (40,6% a 99,4%), reflejando que la asistencia a
+clase varía de forma considerable entre estudiantes.</p>
+<p>age es la variable con menor dispersión relativa y el rango más estrecho (17 a 24 años),
+consistente con tratarse de una población de estudiantes en un rango etario reducido.
+sleep_hours también muestra poca dispersión (RIC de 3,00), concentrándose la mayoría de los
+estudiantes entre 5,6 y 8,6 horas de sueño, un rango fisiológicamente esperable.</p>
+<div id="bloxplot-de-las-variables-númericas" class="section level4 hasAnchor" number="2.2.0.1">
+<h4><span class="header-section-number">2.2.0.1</span> Bloxplot de las variables númericas:<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#bloxplot-de-las-variables-n%C3%BAmericas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb17-2"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-2" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-3" tabindex="-1"></a><span class="co"># Boxplot de age</span></span>
+<span id="cb17-4"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-4" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#1f77b4&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Edad de los estudiantes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Edad&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-8" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb17-9"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb17-10"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-10" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-11" tabindex="-1"></a><span class="co"># Boxplot de study_hours</span></span>
+<span id="cb17-12"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-12" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb17-13"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-13" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> study_hours)) <span class="sc">+</span></span>
+<span id="cb17-14"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-14" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#ff7f0e&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb17-15"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Horas de estudio&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Horas&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-16"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-16" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb17-17"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb17-18"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-18" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-19" tabindex="-1"></a><span class="co"># Boxplot de class_attendance</span></span>
+<span id="cb17-20"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-20" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb17-21"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-21" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> class_attendance)) <span class="sc">+</span></span>
+<span id="cb17-22"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-22" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#2ca02c&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb17-23"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Porcentaje de asistencia&quot;</span>, <span class="at">y =</span> <span class="st">&quot;%&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-24"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-24" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb17-25"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb17-26"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-26" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-27" tabindex="-1"></a><span class="co"># Boxplot de sleep_hours</span></span>
+<span id="cb17-28"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-28" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb17-29"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-29" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> sleep_hours)) <span class="sc">+</span></span>
+<span id="cb17-30"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-30" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#d62728&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb17-31"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-31" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Horas de sueño&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Horas&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb17-32"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-32" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb17-33"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-33" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb17-34"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-34" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-35" tabindex="-1"></a><span class="co"># Cuadrícula 2x2</span></span>
+<span id="cb17-36"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb17-36" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> (p3 <span class="sc">+</span> p4)</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/ind%20bxplot-1.png" alt="" width="672" />
+Los boxplots muestran que las cuatro variables numéricas independientes tienen distribuciones
+bastante simétricas, sin valores atípicos notorios.</p>
+<ul>
+<li><code>age</code>: la mayoría de los estudiantes tiene entre 19 y 23 años, con una mediana de 21 años.</li>
+<li><code>study_hours</code>: las horas de estudio varían bastante entre estudiantes, desde casi 0 hasta
+cerca de 8 horas, con una mediana de 4 horas.</li>
+<li><code>class_attendance</code>: la asistencia se concentra entre 57% y 87%, con una mediana de 72,6%.</li>
+<li><code>sleep_hours</code>: la mayoría de los estudiantes duerme entre 5,6 y 8,6 horas, con una mediana
+de 7,1 horas, un rango bastante saludable.</li>
+</ul>
+<p>En general, ninguna de las cuatro variables muestra sesgos fuertes ni valores extremos que
+llamen la atención, lo cual es consistente con lo observado en las tablas resumen.</p>
+<p>A continuación, trabajaremos en los gráficos de las variables categoricas.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-1" tabindex="-1"></a>a1<span class="ot">&lt;-</span>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-2" tabindex="-1"></a>  <span class="fu">count</span>(study_method) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb18-5"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-5" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-6" tabindex="-1"></a>a2<span class="ot">&lt;-</span>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-7" tabindex="-1"></a>  <span class="fu">count</span>(gender) <span class="sc">%&gt;%</span></span>
+<span id="cb18-8"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-9"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-9" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb18-10"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-10" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-11" tabindex="-1"></a>a3<span class="ot">&lt;-</span>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb18-12"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-12" tabindex="-1"></a>  <span class="fu">count</span>(internet_access) <span class="sc">%&gt;%</span></span>
+<span id="cb18-13"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-14"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-14" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb18-15"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-15" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-16" tabindex="-1"></a>a4<span class="ot">&lt;-</span>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb18-17"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-17" tabindex="-1"></a>  <span class="fu">count</span>(course) <span class="sc">%&gt;%</span></span>
+<span id="cb18-18"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-18" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-19"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-19" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb18-20"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-20" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-21" tabindex="-1"></a>a5<span class="ot">&lt;-</span>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb18-22"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-22" tabindex="-1"></a>  <span class="fu">count</span>(sleep_quality) <span class="sc">%&gt;%</span></span>
+<span id="cb18-23"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-23" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-24"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-24" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb18-25"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-25" tabindex="-1"></a></span>
+<span id="cb18-26"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-26" tabindex="-1"></a>a6<span class="ot">&lt;-</span>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb18-27"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-27" tabindex="-1"></a>  <span class="fu">count</span>(facility_rating) <span class="sc">%&gt;%</span></span>
+<span id="cb18-28"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-28" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-29"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-29" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb18-30"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-30" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-31" tabindex="-1"></a>a7<span class="ot">&lt;-</span>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb18-32"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-32" tabindex="-1"></a>  <span class="fu">count</span>(exam_difficulty) <span class="sc">%&gt;%</span></span>
+<span id="cb18-33"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-33" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-34"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-34" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
+<span id="cb18-35"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-35" tabindex="-1"></a></span>
+<span id="cb18-36"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb18-36" tabindex="-1"></a>a1</span></code></pre></div>
+<pre><code>##    study_method      n Porcentaje
+## 1      coaching 131697      20.90
+## 2    self-study 131131      20.81
+## 3         mixed 123086      19.54
+## 4   group study 123009      19.53
+## 5 online videos 121077      19.22</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb20-1" tabindex="-1"></a>a2</span></code></pre></div>
+<pre><code>##   gender      n Porcentaje
+## 1  other 211097      33.51
+## 2   male 210593      33.43
+## 3 female 208310      33.07</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb22-1" tabindex="-1"></a>a3</span></code></pre></div>
+<pre><code>##   internet_access      n Porcentaje
+## 1             yes 579423      91.97
+## 2              no  50577       8.03</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb24-1" tabindex="-1"></a>a4</span></code></pre></div>
+<pre><code>##    course      n Porcentaje
+## 1  b.tech 131236      20.83
+## 2    b.sc 111554      17.71
+## 3   b.com 110932      17.61
+## 4     bca  88721      14.08
+## 5     bba  75644      12.01
+## 6      ba  61989       9.84
+## 7 diploma  49924       7.92</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb26-1" tabindex="-1"></a>a5</span></code></pre></div>
+<pre><code>##   sleep_quality      n Porcentaje
+## 1          poor 213675      33.92
+## 2          good 213089      33.82
+## 3       average 203236      32.26</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb28-1" tabindex="-1"></a>a6</span></code></pre></div>
+<pre><code>##   facility_rating      n Porcentaje
+## 1          medium 214082      33.98
+## 2             low 212378      33.71
+## 3            high 203540      32.31</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#cb30-1" tabindex="-1"></a>a7</span></code></pre></div>
+<pre><code>##   exam_difficulty      n Porcentaje
+## 1        moderate 353982      56.19
+## 2            easy 176540      28.02
+## 3            hard  99478      15.79</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

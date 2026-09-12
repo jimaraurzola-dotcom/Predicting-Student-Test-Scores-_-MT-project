@@ -1,0 +1,10 @@
+introducción
+cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen
+extracción-transformación-y-carga-etl
+revisemos-la-estructura-del-dataset-y-los-tipos-de-las-variables
+identifiquemos-si-existen-valores-na-por-columna
+análisis-exploratorio-de-exam_score-target
+histograma-de-densidad-de-la-variable
+boxplot
+análisis-de-las-variables-independientes-características
+bloxplot-de-las-variables-númericas
