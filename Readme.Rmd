@@ -11,54 +11,75 @@ Proyecto aplicado de las técnicas estadísticas vistas en el curso de métodos 
 
 **Dataset:** Predicting Student Test Scores
 
-**Avance:** Capítulo 3 — Análisis Exploratorio de Datos (EDA)
+**Avance:** Arranqué con el Capítulo 3 — Análisis Exploratorio de Datos (EDA)
 
-**1. Descripción de los datos**
+Empecé a meterle mano al proyecto de verdad. Esto es lo que hice:
 
-Se trabajó sobre `train.csv` (630,000 observaciones, 13 variables: 4 numéricas, 
-8 categóricas, 1 variable respuesta `exam_score`). No se encontraron datos faltantes. 
-Adicionalmente se cuenta con `test.csv` (270,000 observaciones, sin la variable 
-`exam_score`) y `sample_submission.csv` (formato de entrega).
+**Los datos**
 
-Variables del dataset:
+Trabajo con `train.csv`, que tiene 630,000 observaciones y 13 variables: 4 numéricas, 8 categóricas y la variable respuesta `exam_score`. Buena noticia: no hay datos faltantes. También tengo `test.csv` (270,000 observaciones, sin `exam_score`) y `sample_submission.csv` para cuando llegue el momento de entregar predicciones.
 
-- `age`, `study_hours`, `class_attendance`, `sleep_hours`: numéricas
-- `gender`, `course`, `internet_access`, `sleep_quality`, `study_method`, 
-  `facility_rating`, `exam_difficulty`: categóricas
-- `exam_score`: variable respuesta (numérica, rango 0-100)
+Las variables que tengo:
 
-**2. Definición de la plantilla a seguir**
+- Numéricas: `age`, `study_hours`, `class_attendance`, `sleep_hours`
+- Categóricas: `gender`, `course`, `internet_access`, `sleep_quality`, `study_method`, `facility_rating`, `exam_difficulty`
+- Respuesta: `exam_score` (numérica, va de 0 a 100)
 
-Dado que `exam_score` es numérica, el análisis debe 
-replicar la estructura usada con el dataset `housing`:
+**Cómo voy a estructurar el análisis**
 
-1. ETL: carga de datos, `head`, `dim`, `colnames`, `str`, revisión de NA's (`missmap`).
-2. Análisis de la variable target (`exam_score`): tabla resumen (n, media, ds, mediana, min, max, Q1, Q3, IQR), histograma con densidad y boxplot.
-3. Análisis de variables independientes:
-   - Numéricas: tabla resumen + boxplots (`patchwork`).
-   - Categóricas: tabla de frecuencias + gráfico de barras (`geom_col`).
-4. Análisis bivariado: diagramas de dispersión con línea de regresión (numéricas vs `exam_score`), boxplots y tablas resumen (categóricas vs `exam_score`), y 
-   opcionalmente `ggpairs()` de `GGally`.
+Como `exam_score` es numérica, voy a seguir la misma lógica que el profesor usa con el dataset de `housing` en sus notas de clase:
 
-**3. Exploración preliminar (no gráfica)**
+1. ETL: cargar los datos, revisar `head`, `dim`, `colnames`, `str`, y chequear NAs con `missmap`.
+2. Análisis de `exam_score`: tabla resumen (n, media, ds, mediana, min, max, Q1, Q3, IQR), histograma con densidad y boxplot.
+3. Variables independientes:
+   - Numéricas: tabla resumen + boxplots juntos con `patchwork`.
+   - Categóricas: tabla de frecuencias + gráfico de barras.
+4. Bivariado: dispersión con línea de tendencia para las numéricas vs `exam_score`, boxplots y tablas para las categóricas vs `exam_score`, y de pronto uso `ggpairs()` de `GGally` también.
 
-Se calcularon las medidas de tendencia central y dispersión, tablas de frecuencia y matriz de correlación como primer acercamiento:
+**Primer vistazo a los datos (sin gráficos todavía)**
 
-- `study_hours` presenta la correlación más fuerte con `exam_score` (r = 0.76).
-- `class_attendance` muestra correlación moderada (r = 0.36) y `sleep_hours` 
-  correlación débil (r = 0.17). `age` no muestra relación relevante (r = 0.01).
-- Las variables categóricas con mayor efecto aparente sobre `exam_score` son 
-  `study_method`, `sleep_quality` y `facility_rating`; `gender`, `internet_access` 
-  y `exam_difficulty` no muestran diferencias notables entre grupos.
-- Se detectó un pico atípico en `exam_score = 100`, posible indicio de censura en el límite superior (dato sintético), pendiente de revisar con más detalle.
+Ya saqué medidas de tendencia central, tablas de frecuencia y una matriz de correlación rápida para tener una idea de por dónde va esto:
 
-**Próximos pasos:** 
+- `study_hours` es, por lejos, la que más correlaciona con `exam_score` (r = 0.76).
+- `class_attendance` tiene correlación moderada (r = 0.36), `sleep_hours` es débil (r = 0.17), y `age` prácticamente no tiene relación (r = 0.01).
+- De las categóricas, `study_method`, `sleep_quality` y `facility_rating` parecen tener algo de efecto sobre `exam_score`; `gender`, `internet_access` y `exam_difficulty` no se ven muy diferentes entre grupos.
+- Noté un pico raro justo en `exam_score = 100` — puede ser que el dato esté censurado ahí arriba (como es sintético, tiene sentido). Lo reviso más adelante con calma.
 
-- Construir el script en R (`.Rmd`) siguiendo la plantilla oficial del curso.
-- Detección formal de outliers.
-- Análisis exploratorio bivariado completo (dispersión y boxplots para todas las 
-  variables independientes vs `exam_score`).
-- Definición de hipótesis a contrastar en la etapa de inferencia estadística 
-  (Capítulo 4).
+**Para la próxima:**
+
+- Armar el `.Rmd` siguiendo la plantilla del curso.
+- Revisar outliers de forma más formal.
+- Terminar el bivariado completo (todas las variables vs `exam_score`).
+- Empezar a pensar en las hipótesis que voy a contrastar en el Capítulo 4.
+
+### 13/09/26
+---------------------------------
+
+**Avance:** Terminé el EDA completo y arranqué con estadística paramétrica/no paramétrica
+
+Bastante avance desde la última entrada. Resumen de lo que hice:
+
+**EDA (Capítulo 2)**
+
+- Terminé el análisis univariado de las 4 variables numéricas y las 7 categóricas — tablas de frecuencia, boxplots y gráficos de barras para todas.
+- Hice el bivariado numérico completo: `age`, `study_hours`, `class_attendance` y `sleep_hours` vs `exam_score`, cada uno con su scatter plot + línea de tendencia. `study_hours` sigue siendo el que más se nota a simple vista, `age` prácticamente no muestra relación.
+- Decidí no replicar la sección 3.5 del libro (target categórica) porque mi variable respuesta es numérica, no aplica directamente a mi proyecto.
+
+**Estadística paramétrica y no paramétrica (Capítulo 3) — recién arrancando**
+
+- Con el tamaño de muestra que tengo (630,000), Shapiro-Wilk no sirve, así que estoy usando Lilliefors para normalidad.
+- Todas las variables que he probado hasta ahora salen no normales, así que voy directo por la vía no paramétrica (Mann-Whitney / Kruskal-Wallis) en vez de t-test/ANOVA.
+- Ya analicé `internet_access` (2 grupos) y `gender` y `sleep_quality` (3 grupos cada una) vs `exam_score`. Todas salieron "significativas" en el p-valor, pero al revisar el tamaño del efecto, `internet_access` y `gender` resultaron prácticamente irrelevantes en la práctica. `sleep_quality` dio un poquito más alto, aunque sigue siendo pequeño.
+- Aprendizaje del día: con muestras tan grandes, el p-valor solo no dice mucho — el tamaño del efecto es el que de verdad importa para saber si algo es relevante o no.
+
+**Pendientes de bookdown/GitHub**
+
+- Tuve otra vez problemas para que se actualizara el sitio publicado — resulta que había renderizado con Knit individual en vez de `render_book()`, así que nunca tocó la carpeta `docs/`. Ya lo solucioné, pero anoto la lección: siempre `render_book()` + `git add .` + commit + push, no Knit suelto.
+
+**Próximos pasos:**
+
+- Terminar el resto de variables categóricas (`facility_rating`, `exam_difficulty`, `study_method`, `course`) con la misma lógica de normalidad → prueba → tamaño del efecto.
+- Escribir una conclusión general de esta sección una vez tenga todas las variables.
+- Seguir con la parte de regresión lineal.
 
 ---------------------------------

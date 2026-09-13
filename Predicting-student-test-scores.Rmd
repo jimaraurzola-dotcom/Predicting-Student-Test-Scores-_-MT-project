@@ -521,8 +521,6 @@ A continuación, analizaremos la relación entre la variable objetivo `exam_scor
 
 ```{r}
 
-cor(trainset$age, trainset$exam_score, method = "pearson")
-
 # Diagrama de dispersión: age vs exam_score
 trainset %>%
   ggplot(aes(x = age, y = exam_score)) +
@@ -552,6 +550,10 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre las horas de estudio media y la calificación de los exámenes")
 ```
 
+El diagrama de dispersión muestra una relación positiva clara entre las horas de estudio y la calificación del examen: a medida que aumentan las horas dedicadas al estudio, la nota tiende a subir, reflejado en la marcada pendiente ascendente de la línea de tendencia. A diferencia de `age`, aquí la nube de puntos se concentra de forma más definida alrededor de la línea, especialmente en los valores intermedios, lo que sugiere que las horas de estudio están fuertemente asociadas con el desempeño académico de los estudiantes.
+
+
+
 ```{r}
 # Diagrama de dispersión: class_attendance vs exam_score
 trainset %>%
@@ -566,6 +568,10 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre la asistencia a clases media y la calificación de los exámenes")
 ```
 
+El diagrama de dispersión evidencia una relación positiva entre el porcentaje de asistencia a clases y la calificación del examen: la línea de tendencia muestra una pendiente ascendente, indicando que los estudiantes con mayor asistencia tienden a obtener mejores resultados. Sin embargo, la nube de puntos se mantiene bastante dispersa a lo largo de todo el rango de asistencia, lo que sugiere que, aunque existe una tendencia positiva, la asistencia por sí sola no explica completamente las diferencias en el desempeño académico.
+
+
+
 ```{r}
 # Diagrama de dispersión: sleep_hours vs exam_score
 trainset %>%
@@ -579,6 +585,8 @@ trainset %>%
   theme_bw() +
   facet_grid(. ~ "Dispersión horas de sueño media y la calificación de los exámenes")
 ```
+
+El diagrama de dispersión muestra una línea de tendencia con una leve pendiente positiva, sugiriendo una relación débil entre las horas de sueño y la calificación del examen. A diferencia de `study_hours`, aquí los puntos se distribuyen de manera mucho más uniforme y dispersa a lo largo de todo el rango de horas de sueño, sin un patrón visual tan marcado, lo que indica que esta variable parece tener una influencia limitada sobre el desempeño académico de los estudiantes.
 
 
 # Análisis de estadística paramétrica y no paramétrica
@@ -598,10 +606,11 @@ Nac <- trainset %>%
 Debido a que la muestra es mayor de 5.000 descartamos el uso de la Shapiro-Wilk.
 
 ```{r}
-
-lillie.test(Ac$exam_score)
-
-lillie.test(Nac$exam_score)
+trainset %>%
+  group_by(internet_access) %>%
+  summarise(n = n(),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value)
 ```
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los dos grupos analizados. En el caso de los estudiantes con acceso a internet $(D = 0.023561, p-valor < 0.001)$; mientras que para los estudiantes sin acceso a internet $(D = 0.027935, p-valor < 0.001)$.
@@ -621,7 +630,9 @@ La prueba de Mann-Whitney-Wilcoxon para muestras independientes nos indica que, 
 trainset %>%
   wilcox_effsize(exam_score ~ internet_access, paired = FALSE)
 ```
-Con base en el resultado del tamaño del efecto $r$, se obtiene un valor estimado de 0.0028 (magnitud: pequeña), lo que indica un efecto prácticamente nulo. Esto indica que, aunque la diferencia es estadísticamente significativa, no es relevante desde el punto de vista práctico — el acceso a internet no parece tener una influencia considerable en el desempeño académico de los estudiantes.
+Con base en el resultado del tamaño del efecto $r$, se obtiene un valor estimado de 0.0028 (magnitud: pequeña), lo que indica un efecto prácticamente nulo. Esto indica que, aunque la diferencia es estadísticamente significativa, no es relevante desde el punto de vista práctico; El acceso a internet no parece tener una influencia considerable en el desempeño académico de los estudiantes.
+
+En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` según el acceso a internet, su magnitud es prácticamente nula, por lo que esta variable no representa un factor relevante para explicar el desempeño académico de los estudiantes.
 
 * Sigamos con `gender` vs `exam_score`:
 
@@ -640,12 +651,11 @@ Female <- trainset %>%
 ```
 
 ```{r}
-
-lillie.test(Other$exam_score)
-
-lillie.test(Male$exam_score)
-
-lillie.test(Female$exam_score)
+trainset %>%
+  group_by(gender) %>%
+  summarise(n = n(),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value)
 ```
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según género. Para el grupo "other" $(D = 0.025855, p-valor < 0.001)$; para el grupo masculino $(D = 0.021919, p-valor < 0.001)$; y para el grupo femenino $(D = 0.023756, p-valor < 0.001)$.
@@ -663,5 +673,37 @@ trainset %>%
 
 Con base en el resultado del tamaño del efecto $(η² = 0.000126, magnitud: pequeña)$, se obtiene un valor prácticamente nulo. Esto indica que, aunque la diferencia entre los grupos de género es estadísticamente significativa, no es relevante desde el punto de vista práctico — el género explica una proporción mínima de la variabilidad en el puntaje del examen, por lo que no parece ser un factor determinante en el desempeño académico de los estudiantes.
 
-* Sigamos con 
+En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` entre los grupos de género, su magnitud es prácticamente nula, por lo que el género no representa un factor relevante para explicar el desempeño académico de los estudiantes.
 
+* Sigamos con `sleep_quality` vs `exam_score`:
+
+```{r}
+Good <- trainset %>% filter(sleep_quality == "good")
+Average <- trainset %>% filter(sleep_quality == "average")
+Poor <- trainset %>% filter(sleep_quality == "poor")
+```
+
+```{r}
+trainset %>%
+  group_by(sleep_quality) %>%
+  summarise(n = n(),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value)
+```
+
+La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según calidad del sueño. Para el grupo "average" $(D = 0.024268, p-valor < 0.001)$; para el grupo "good"$(D = 0.038146, p-valor < 0.001)$; y para el grupo "poor" $(D = 0.021183, p-valor < 0.001)$.
+
+```{r}
+kruskal.test(exam_score ~ sleep_quality, data = trainset)
+```
+
+La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de calidad del sueño $(χ²₍₂₎ = 33168, p-valor < 0.001)$.
+
+```{r}
+trainset %>%
+  kruskal_effsize(exam_score ~ sleep_quality)
+```
+
+Con base en el resultado del tamaño del efecto $(η² = 0,0526, magnitud: pequeña$, se obtiene un valor considerablemente mayor al observado en `internet_access` (0,0028) y `gender` (0,000126). Esto indica que la calidad del sueño explica una proporción algo mayor de la variabilidad en el puntaje del examen en comparación con las otras variables categóricas analizadas hasta ahora.
+
+En conjunto, estos resultados indican que existe una diferencia estadísticamente significativa en `exam_score` entre los grupos de calidad del sueño, con un tamaño del efecto mayor al de las variables anteriores, aunque aún clasificado como pequeño. Esto sugiere que, si bien la calidad del sueño podría tener alguna influencia sobre el desempeño académico, su efecto práctico sigue siendo modesto en comparación con predictores como `study_hours`.
