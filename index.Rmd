@@ -20,18 +20,18 @@ A partir de este conjunto de datos, el presente proyecto busca responder la sigu
 
 Las variables del conjunto de datos son:
 
-`age`: Edad del estudiante.
-`gender`: Género del estudiante (female, male, other).
-`study_hours`: Número de horas dedicadas al estudio.
-`study_method`: Método de estudio empleado (coaching, group study, mixed, online videos, self-study).
-`class_attendance`: Porcentaje de asistencia a clases.
-`sleep_hours`: Número de horas de sueño.
-`sleep_quality`: Calidad del sueño percibida (poor, average, good).
-`course`: Programa académico que cursa el estudiante.
-`internet_access`: Indica si el estudiante cuenta con acceso a internet (yes, no).
-`facility_rating`: Calificación de las instalaciones educativas (low, medium, high).
-`exam_difficulty`: Dificultad percibida del examen (easy, moderate, hard).
-`exam_score`: Calificación obtenida por el estudiante en el examen, en una escala de 0 a 100.
+* `age`: Edad del estudiante.
+* `gender`: Género del estudiante (female, male, other).
+* `study_hours`: Número de horas dedicadas al estudio.
+* `study_method`: Método de estudio empleado (coaching, group study, mixed, online videos, self-study).
+* `class_attendance`: Porcentaje de asistencia a clases.
+* `sleep_hours`: Número de horas de sueño.
+* `sleep_quality`: Calidad del sueño percibida (poor, average, good).
+* `course`: Programa académico que cursa el estudiante.
+* `internet_access`: Indica si el estudiante cuenta con acceso a internet (yes, no).
+* `facility_rating`: Calificación de las instalaciones educativas (low, medium, high).
+* `exam_difficulty`: Dificultad percibida del examen (easy, moderate, hard).
+* `exam_score`: Calificación obtenida por el estudiante en el examen, en una escala de 0 a 100.
 
 Iniciaremos con un análisis exploratorio de datos (EDA) del conjunto Predicting Student Test Scores, con el propósito de comprender la estructura de los datos, identificar patrones, detectar valores atípicos y analizar las relaciones entre las variables que pueden influir en el desempeño académico de los estudiantes.
 
