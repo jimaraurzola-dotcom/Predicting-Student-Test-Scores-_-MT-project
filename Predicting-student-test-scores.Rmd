@@ -127,7 +127,7 @@ trainset %>%
   ggplot(aes(x = exam_score))+
   geom_histogram(aes(y = after_stat(density)),
                      binwidth = 5,
-                      fill = "#2f0be0",
+                      fill = "#c5b0ff",
                       color = "white",
                       alpha = 0.6)+
   geom_density(color = "darkblue", linewidth = 1.2) +
@@ -148,10 +148,10 @@ Es posible apreciar que la moda se concentra entre 50 y 75 puntos de score.
 ```{r exscore boxplot}
 trainset %>%
   ggplot(aes(x = "", y= exam_score))+
-  geom_boxplot(fill = "#16d9f2", color = "#737778",
-               outlier.color = 'darkred')+
+  geom_boxplot(fill = "#c5b0ff", color = "darkblue",
+               outlier.color = '#2f0be0')+
   stat_summary(fun = mean, geom = 'point', shape = 20,
-               size = 3, color = '#ff0026') +
+               size = 3, color = 'black') +
   theme_bw()
 ```
 
@@ -160,7 +160,7 @@ El boxplot confirma lo visto en el histograma: la caja es simétrica, con la med
 
 ## Análisis de las variables independientes (características)
 
-\item{Inicialmente, analizaremos las variables númericas.}
+* Inicialmente, analizaremos las variables númericas.
 
 ```{r Ind-Num}
 resumen_numericas <- trainset %>%
@@ -262,7 +262,7 @@ tabla_study_method <- trainset %>%
   )
 
 ggplot(tabla_study_method, aes(x = reorder(study_method, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#008B8B", width = 0.4) +
+  geom_col(fill = "#c5b0ff", width = 0.4) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable study_method") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -302,7 +302,7 @@ tabla_gender <- trainset %>%
   )
 
 ggplot(tabla_gender, aes(x = reorder(gender, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#008B8B", width = 0.3) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3) +
   facet_wrap(~ "Distribución de la variable gender") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -341,7 +341,7 @@ tabla_internet_access <- trainset %>%
   )
 
 ggplot(tabla_internet_access, aes(x = reorder(internet_access, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#008B8B", width = 0.3) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable internet_access") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.6))) +
@@ -370,6 +370,7 @@ tabla_course <- trainset %>%
 
 tabla_course
 ```
+
 ```{r}
 tabla_course <- trainset %>%
   count(course, name = "Frecuencia") %>%
@@ -379,7 +380,7 @@ tabla_course <- trainset %>%
   )
 
 ggplot(tabla_course, aes(x = reorder(course, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#008B8B", width = 0.45) +
+  geom_col(fill = "#c5b0ff", width = 0.45) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 2.8) +
   facet_wrap(~ "Distribución de la variable course") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -417,7 +418,7 @@ tabla_sleep_quality <- trainset %>%
   )
 
 ggplot(tabla_sleep_quality, aes(x = reorder(sleep_quality, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#008B8B", width = 0.3) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable sleep_quality") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -447,6 +448,7 @@ tabla_facility_rating <- trainset %>%
 
 tabla_facility_rating
 ```
+
 ```{r}
 tabla_facility_rating <- trainset %>%
   count(facility_rating, name = "Frecuencia") %>%
@@ -456,7 +458,7 @@ tabla_facility_rating <- trainset %>%
   )
 
 ggplot(tabla_facility_rating, aes(x = reorder(facility_rating, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#008B8B", width = 0.3) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable facility_rating") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -485,6 +487,7 @@ tabla_exam_difficulty <- trainset %>%
 
 tabla_exam_difficulty
 ```
+
 ```{r}
 tabla_exam_difficulty <- trainset %>%
   count(exam_difficulty, name = "Frecuencia") %>%
@@ -494,7 +497,7 @@ tabla_exam_difficulty <- trainset %>%
   )
 
 ggplot(tabla_exam_difficulty, aes(x = reorder(exam_difficulty, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#008B8B", width = 0.3) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable exam_difficulty") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -523,8 +526,8 @@ cor(trainset$age, trainset$exam_score, method = "pearson")
 # Diagrama de dispersión: age vs exam_score
 trainset %>%
   ggplot(aes(x = age, y = exam_score)) +
-  geom_point(alpha = 0.4, color = "#1E90FF") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(
     x = "Edad media",
     y = "Calificación media del examen"
@@ -539,8 +542,8 @@ El diagrama de dispersión muestra que la calificación del examen se distribuye
 # Diagrama de dispersión: study_hours vs exam_score
 trainset %>%
   ggplot(aes(x = study_hours, y = exam_score)) +
-  geom_point(alpha = 0.4, color = "#1E90FF") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(
     x = "Horas de estudio media",
     y = "Calificación media del examen"
@@ -553,8 +556,8 @@ trainset %>%
 # Diagrama de dispersión: class_attendance vs exam_score
 trainset %>%
   ggplot(aes(x = class_attendance, y = exam_score)) +
-  geom_point(alpha = 0.4, color = "#1E90FF") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(
     x = "asistencia a clases media",
     y = "Calificación media del examen"
@@ -567,8 +570,8 @@ trainset %>%
 # Diagrama de dispersión: sleep_hours vs exam_score
 trainset %>%
   ggplot(aes(x = sleep_hours, y = exam_score)) +
-  geom_point(alpha = 0.4, color = "#1E90FF") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(
     x = "horas de sueño media",
     y = "Calificación media del examen"
@@ -611,7 +614,7 @@ trainset %>%
 
 ```
 
-La prueba de Mann-Whitney-Wilcoxon para muestras independientes nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre los estudiantes con y sin acceso a internet $(W=14565777034,p-valor=0.0266)$.
+La prueba de Mann-Whitney-Wilcoxon para muestras independientes nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre los estudiantes con y sin acceso a internet $(W=14565777034, p-valor=0.0266)$.
 
 ```{r}
 
@@ -644,6 +647,7 @@ lillie.test(Male$exam_score)
 
 lillie.test(Female$exam_score)
 ```
+
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según género. Para el grupo "other" $(D = 0.025855, p-valor < 0.001)$; para el grupo masculino $(D = 0.021919, p-valor < 0.001)$; y para el grupo femenino $(D = 0.023756, p-valor < 0.001)$.
 
 ```{r}
@@ -656,7 +660,8 @@ La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se conclu
 trainset %>%
   kruskal_effsize(exam_score ~ gender)
 ```
+
 Con base en el resultado del tamaño del efecto $(η² = 0.000126, magnitud: pequeña)$, se obtiene un valor prácticamente nulo. Esto indica que, aunque la diferencia entre los grupos de género es estadísticamente significativa, no es relevante desde el punto de vista práctico — el género explica una proporción mínima de la variabilidad en el puntaje del examen, por lo que no parece ser un factor determinante en el desempeño académico de los estudiantes.
 
-
+* Sigamos con 
 
