@@ -1,3 +1,4 @@
 introducción
 análisis-exploratorio-de-exam_score-target
 análisis-de-las-variables-independientes-características
+análisis-exploratorio-bivariado
