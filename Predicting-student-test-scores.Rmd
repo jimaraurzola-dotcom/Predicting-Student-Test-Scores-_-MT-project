@@ -554,4 +554,9 @@ trainset %>%
   facet_grid(. ~ "Dispersión horas de sueño media y la calificación de los exámenes")
 ```
 
+```{r}
+trainset %>% 
+  ggpairs()
+```
+
 
