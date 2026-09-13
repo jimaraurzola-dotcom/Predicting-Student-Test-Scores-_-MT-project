@@ -10,3 +10,4 @@ github-repo: jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project
 
 # Introducción
 
+¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?

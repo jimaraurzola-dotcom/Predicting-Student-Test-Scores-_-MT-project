@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -137,11 +137,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
-<li class="chapter" data-level="2" data-path="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"><i class="fa fa-check"></i><b>2</b> ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="#introducci%C3%B3n"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#an%C3%A1lisis-exploratorio-de-exam_score-target"><i class="fa fa-check"></i><b>2.1</b> 1.1 Análisis exploratorio de <code>exam_score</code> (Target)</a></li>
-<li class="chapter" data-level="2.2" data-path="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html"><a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.2</b> 1.2 Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="#an%C3%A1lisis-exploratorio-de-exam_score-target"><i class="fa fa-check"></i><b>1.1</b> Análisis exploratorio de <code>exam_score</code> (Target)</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>1.2</b> Análisis de las variables independientes (características)</a></li>
 </ul></li>
 </ul>
 
@@ -166,7 +165,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p class="date"><em>2026-08-16</em></p>
 </div>
 <div id="introducción" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Introducción<a href="index.html#introducci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">1</span> Introducción<a href="#introducci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?</p>
 
 <style>
 body {
@@ -192,6 +192,455 @@ body {
 }
 </style>
 <hr />
+<p>Carguemos las librerias y el conjunto de los datos</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ─────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.2.1     ✔ readr     2.2.0
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.2     
+## ── Conflicts ───────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span></code></pre></div>
+<pre><code>## Loading required package: Rcpp
+## ## 
+## ## Amelia II: Multiple Imputation
+## ## (Version 1.8.3, built: 2024-11-07)
+## ## Copyright (C) 2005-2026 James Honaker, Gary King and Matthew Blackwell
+## ## Refer to http://gking.harvard.edu/amelia/ for more information
+## ##</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(moments)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;Datos/train.csv&#39;</span>)</span></code></pre></div>
+<p>Verifiquemos que leímos bien los datos observando las primeras filas:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">head</span>(trainset, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##   id age gender  course study_hours class_attendance internet_access
+## 1  0  21 female    b.sc        7.91             98.8              no
+## 2  1  18  other diploma        4.95             94.8             yes
+## 3  2  20 female    b.sc        4.68             92.6             yes
+## 4  3  19   male    b.sc        2.00             49.5             yes
+## 5  4  23   male     bca        7.65             86.9             yes
+##   sleep_hours sleep_quality  study_method facility_rating exam_difficulty
+## 1         4.9       average online videos             low            easy
+## 2         4.7          poor    self-study          medium        moderate
+## 3         5.8          poor      coaching            high        moderate
+## 4         8.3       average   group study            high        moderate
+## 5         9.6          good    self-study            high            easy
+##   exam_score
+## 1       78.3
+## 2       46.7
+## 3       99.0
+## 4       63.9
+## 5      100.0</code></pre>
+<p>Con esto podemos confirmar que la base de datos fue cargada correctamente, como prueba de ello observando las primeras 5 filas de información.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">colnames</span>(trainset)</span></code></pre></div>
+<pre><code>##  [1] &quot;id&quot;               &quot;age&quot;              &quot;gender&quot;           &quot;course&quot;          
+##  [5] &quot;study_hours&quot;      &quot;class_attendance&quot; &quot;internet_access&quot;  &quot;sleep_hours&quot;     
+##  [9] &quot;sleep_quality&quot;    &quot;study_method&quot;     &quot;facility_rating&quot;  &quot;exam_difficulty&quot; 
+## [13] &quot;exam_score&quot;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">str</span>(trainset)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    630000 obs. of  13 variables:
+##  $ id              : int  0 1 2 3 4 5 6 7 8 9 ...
+##  $ age             : int  21 18 20 19 23 24 20 22 22 18 ...
+##  $ gender          : chr  &quot;female&quot; &quot;other&quot; &quot;female&quot; &quot;male&quot; ...
+##  $ course          : chr  &quot;b.sc&quot; &quot;diploma&quot; &quot;b.sc&quot; &quot;b.sc&quot; ...
+##  $ study_hours     : num  7.91 4.95 4.68 2 7.65 5.04 4.28 4.19 1.06 3.44 ...
+##  $ class_attendance: num  98.8 94.8 92.6 49.5 86.9 85.1 87 44.9 98.3 80.9 ...
+##  $ internet_access : chr  &quot;no&quot; &quot;yes&quot; &quot;yes&quot; &quot;yes&quot; ...
+##  $ sleep_hours     : num  4.9 4.7 5.8 8.3 9.6 9.4 9.1 8.8 5 6.2 ...
+##  $ sleep_quality   : chr  &quot;average&quot; &quot;poor&quot; &quot;poor&quot; &quot;average&quot; ...
+##  $ study_method    : chr  &quot;online videos&quot; &quot;self-study&quot; &quot;coaching&quot; &quot;group study&quot; ...
+##  $ facility_rating : chr  &quot;low&quot; &quot;medium&quot; &quot;high&quot; &quot;high&quot; ...
+##  $ exam_difficulty : chr  &quot;easy&quot; &quot;moderate&quot; &quot;moderate&quot; &quot;moderate&quot; ...
+##  $ exam_score      : num  78.3 46.7 99 63.9 100 70.1 63.4 76.8 46.7 58.2 ...</code></pre>
+<p>Identifiquemos si existen valores <code>NA</code> por columna:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
+<pre><code>##   id age gender course study_hours class_attendance internet_access sleep_hours
+## 1  0   0      0      0           0                0               0           0
+##   sleep_quality study_method facility_rating exam_difficulty exam_score
+## 1             0            0               0               0          0</code></pre>
+<p>No existe ningun dato faltante en el dataset <code>train.csv</code>.</p>
+<div id="análisis-exploratorio-de-exam_score-target" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Análisis exploratorio de <code>exam_score</code> (Target)<a href="#an%C3%A1lisis-exploratorio-de-exam_score-target" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>   trainset <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>                 <span class="at">media =</span> <span class="fu">mean</span>(exam_score),</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>                 <span class="at">sd =</span> <span class="fu">sd</span>(exam_score),</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>                 <span class="at">mediana =</span> <span class="fu">median</span>(exam_score),</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>                 <span class="at">RIC =</span> <span class="fu">IQR</span>(exam_score),</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>                 <span class="at">Q1 =</span> <span class="fu">quantile</span>(exam_score,<span class="fl">0.25</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>                 <span class="at">Q3 =</span> <span class="fu">quantile</span>(exam_score,<span class="fl">0.75</span>),</span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>                 <span class="at">minimo =</span> <span class="fu">min</span>(exam_score),</span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>                 <span class="at">maximo =</span> <span class="fu">max</span>(exam_score),</span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>                 <span class="at">asi =</span> <span class="fu">skewness</span>(exam_score),</span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>                 )</span></code></pre></div>
+<pre><code>##        n    media       sd mediana  RIC   Q1   Q3 minimo maximo         asi
+## 1 630000 62.50667 18.91688    62.6 27.5 48.8 76.3 19.599    100 -0.04827309</code></pre>
+<p>La variable <code>exam_score</code> fue analizada a partir de 630.000 estudiantes, donde cada fila representa un estudiante individual. El puntaje promedio es de 62,51 puntos, con una desviación estándar de 18,92 puntos, lo que refleja una dispersión moderada en el desempeño de los estudiantes.</p>
+<p>La mediana (62,60) es prácticamente idéntica a la media, y el RIC de 27,5 puntos (entre el primer cuartil de 48,80 y el tercer cuartil de 76,30) muestra que el 50% central de los estudiantes se concentra en una franja relativamente estrecha. Esta cercanía entre media y mediana ya anticipa una distribución simétrica, confirmada por el coeficiente de asimetría de -0,05, casi nulo.</p>
+<p>En los extremos, el estudiante con peor desempeño obtuvo 19,60 puntos, mientras que al menos uno alcanzó el máximo posible de 100. Esto es consistente con lo observado en el histograma, donde los puntajes se distribuyen de forma bastante uniforme alrededor del centro, sin un pico muy pronunciado ni colas extendidas.</p>
+<p>Histograma de densidad de la variable:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> exam_score))<span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>                     <span class="at">binwidth =</span> <span class="dv">5</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>                      <span class="at">fill =</span> <span class="st">&quot;#2f0be0&quot;</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>                      <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>                      <span class="at">alpha =</span> <span class="fl">0.6</span>)<span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">100</span>), <span class="at">expand =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Distribución de la nota media del examen&#39;</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;Nota media del examen&#39;</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Densidad&#39;</span>)<span class="sc">+</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/exscore%20histograma-1.png" alt="" width="672" /></p>
+<p>Es posible apreciar que la moda se concentra entre 50 y 75 puntos de score.</p>
+<p>Boxplot</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y=</span> exam_score))<span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#16d9f2&quot;</span>, <span class="at">color =</span> <span class="st">&quot;#737778&quot;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>               <span class="at">outlier.color =</span> <span class="st">&#39;darkred&#39;</span>)<span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">&#39;point&#39;</span>, <span class="at">shape =</span> <span class="dv">20</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>               <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&#39;#ff0026&#39;</span>) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/exscore%20boxplot-1.png" alt="" width="672" /></p>
+<p>El boxplot confirma lo visto en el histograma: la caja es simétrica, con la mediana (62,6) prácticamente centrada entre Q1 (48,8) y Q3 (76,3). Los bigotes no muestran valores atípicos.</p>
+</div>
+<div id="análisis-de-las-variables-independientes-características" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Análisis de las variables independientes (características)<a href="#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Inicialmente, analizaremos las variables númericas</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>resumen_numericas <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.numeric), <span class="sc">-</span>exam_score) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;valor&quot;</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(valor)),</span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>    <span class="at">media =</span> <span class="fu">round</span>(<span class="fu">mean</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">3</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>    <span class="at">ds =</span> <span class="fu">round</span>(<span class="fu">sd</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="dv">3</span>),</span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a>    <span class="at">mediana =</span> <span class="fu">median</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a>    <span class="at">minimo =</span> <span class="fu">min</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a>    <span class="at">maximo =</span> <span class="fu">max</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a>    <span class="at">Q1 =</span> <span class="fu">quantile</span>(valor, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a>    <span class="at">Q3 =</span> <span class="fu">quantile</span>(valor, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a>    <span class="at">IQR =</span> <span class="fu">IQR</span>(valor, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb19-20"><a href="#cb19-20" tabindex="-1"></a>  )</span>
+<span id="cb19-21"><a href="#cb19-21" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" tabindex="-1"></a>resumen_numericas</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 10
+##   variable            n  media     ds mediana minimo maximo     Q1     Q3    IQR
+##   &lt;chr&gt;           &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 age            630000 2.05e1 2.26e0  2.1 e1  17    2.4 e1 1.9 e1 2.3 e1 4   e0
+## 2 class_attenda… 630000 7.20e1 1.74e1  7.26e1  40.6  9.94e1 5.7 e1 8.72e1 3.02e1
+## 3 id             630000 3.15e5 1.82e5  3.15e5   0    6.30e5 1.57e5 4.72e5 3.15e5
+## 4 sleep_hours    630000 7.07e0 1.74e0  7.1 e0   4.1  9.9 e0 5.6 e0 8.6 e0 3   e0
+## 5 study_hours    630000 4.00e0 2.36e0  4   e0   0.08 7.91e0 1.97e0 6.05e0 4.08e0</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co"># Boxplot de age</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> age)) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Edad de los estudiantes&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Edad&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co"># Boxplot de study_hours</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> study_hours)) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Horas de estudio&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Horas&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a><span class="co"># Boxplot de class_attendance</span></span>
+<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> class_attendance)) <span class="sc">+</span></span>
+<span id="cb21-22"><a href="#cb21-22" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb21-23"><a href="#cb21-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Porcentaje de asistencia&quot;</span>, <span class="at">y =</span> <span class="st">&quot;%&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-24"><a href="#cb21-24" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb21-25"><a href="#cb21-25" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb21-26"><a href="#cb21-26" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" tabindex="-1"></a><span class="co"># Boxplot de sleep_hours</span></span>
+<span id="cb21-28"><a href="#cb21-28" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb21-29"><a href="#cb21-29" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> sleep_hours)) <span class="sc">+</span></span>
+<span id="cb21-30"><a href="#cb21-30" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb21-31"><a href="#cb21-31" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Horas de sueño&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Horas&quot;</span>, <span class="at">x =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb21-32"><a href="#cb21-32" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb21-33"><a href="#cb21-33" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb21-34"><a href="#cb21-34" tabindex="-1"></a></span>
+<span id="cb21-35"><a href="#cb21-35" tabindex="-1"></a><span class="co"># Cuadrícula 2x2</span></span>
+<span id="cb21-36"><a href="#cb21-36" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> (p3 <span class="sc">+</span> p4)</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/ind%20bxplot-1.png" alt="" width="672" /></p>
+<p>Los boxplots muestran que las cuatro variables numéricas independientes tienen distribuciones bastante simétricas, sin valores atípicos notorios.</p>
+<ul>
+<li><code>age</code>: la mayoría de los estudiantes tiene entre 19 y 23 años, con una mediana de 21 años.</li>
+<li><code>study_hours</code>: las horas de estudio varían bastante entre estudiantes, desde casi 0 hasta cerca de 8 horas, con una mediana de 4 horas.</li>
+<li><code>class_attendance</code>: la asistencia se concentra entre 57% y 87%, con una mediana de 72,6%.</li>
+<li><code>sleep_hours</code>: la mayoría de los estudiantes duerme entre 5,6 y 8,6 horas, con una mediana de 7,1 horas, un rango bastante saludable.</li>
+</ul>
+<p>En general, ninguna de las cuatro variables muestra sesgos fuertes ni valores extremos que llamen la atención, lo cual es consistente con lo observado en las tablas resumen.</p>
+<p>A continuación, trabajaremos en los gráficos de las variables categoricas.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>tabla_study_method <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="fu">count</span>(study_method, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="st">&quot;study_method&quot;</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>    <span class="at">Categoria =</span> <span class="fu">as.character</span>(study_method)</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>  <span class="fu">select</span>(Variable, Categoria, Frecuencia, Porcentaje)</span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>tabla_study_method</span></code></pre></div>
+<pre><code>##       Variable     Categoria Frecuencia Porcentaje
+## 1 study_method      coaching     131697      20.90
+## 2 study_method   group study     123009      19.53
+## 3 study_method         mixed     123086      19.54
+## 4 study_method online videos     121077      19.22
+## 5 study_method    self-study     131131      20.81</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>tabla_study_method <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="fu">count</span>(study_method, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>    <span class="at">Etiqueta =</span> <span class="fu">paste0</span>(Frecuencia, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>  )</span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_study_method, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(study_method, <span class="sc">-</span>Frecuencia), <span class="at">y =</span> Frecuencia)) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#110eb3&quot;</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Etiqueta), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">&quot;Distribución de la variable study_method&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Método de estudio&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia (Porcentaje)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>tabla_gender <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="fu">count</span>(gender, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="st">&quot;gender&quot;</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>    <span class="at">Categoria =</span> <span class="fu">as.character</span>(gender)</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>  <span class="fu">select</span>(Variable, Categoria, Frecuencia, Porcentaje)</span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>tabla_gender</span></code></pre></div>
+<pre><code>##   Variable Categoria Frecuencia Porcentaje
+## 1   gender    female     208310      33.07
+## 2   gender      male     210593      33.43
+## 3   gender     other     211097      33.51</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>tabla_gender <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="fu">count</span>(gender, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>    <span class="at">Etiqueta =</span> <span class="fu">paste0</span>(Frecuencia, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>  )</span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_gender, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(gender, <span class="sc">-</span>Frecuencia), <span class="at">y =</span> Frecuencia)) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#6511bf&quot;</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Etiqueta), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">&quot;Distribución de la variable gender&quot;</span>) <span class="sc">+</span></span>
+<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb27-13"><a href="#cb27-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Género&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia (Porcentaje)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb27-14"><a href="#cb27-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb27-15"><a href="#cb27-15" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb27-16"><a href="#cb27-16" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-17"><a href="#cb27-17" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb27-18"><a href="#cb27-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb27-19"><a href="#cb27-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb27-20"><a href="#cb27-20" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>tabla_internet_access <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="fu">count</span>(internet_access, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="st">&quot;internet_access&quot;</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>    <span class="at">Categoria =</span> <span class="fu">as.character</span>(internet_access)</span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>  <span class="fu">select</span>(Variable, Categoria, Frecuencia, Porcentaje)</span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>tabla_internet_access</span></code></pre></div>
+<pre><code>##          Variable Categoria Frecuencia Porcentaje
+## 1 internet_access        no      50577       8.03
+## 2 internet_access       yes     579423      91.97</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>tabla_internet_access <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="fu">count</span>(internet_access, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>    <span class="at">Etiqueta =</span> <span class="fu">paste0</span>(Frecuencia, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>  )</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_internet_access, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(internet_access, <span class="sc">-</span>Frecuencia), <span class="at">y =</span> Frecuencia)) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#68a173&quot;</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Etiqueta), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">&quot;Distribución de la variable internet_access&quot;</span>) <span class="sc">+</span></span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.6</span>))) <span class="sc">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Acceso a internet&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia (Porcentaje)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb30-14"><a href="#cb30-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb30-15"><a href="#cb30-15" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb30-16"><a href="#cb30-16" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb30-17"><a href="#cb30-17" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb30-18"><a href="#cb30-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb30-19"><a href="#cb30-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb30-20"><a href="#cb30-20" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>tabla_course <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>  <span class="fu">count</span>(course, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="st">&quot;course&quot;</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>    <span class="at">Categoria =</span> <span class="fu">as.character</span>(course)</span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a>  <span class="fu">select</span>(Variable, Categoria, Frecuencia, Porcentaje)</span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a>tabla_course</span></code></pre></div>
+<pre><code>##   Variable Categoria Frecuencia Porcentaje
+## 1   course     b.com     110932      17.61
+## 2   course      b.sc     111554      17.71
+## 3   course    b.tech     131236      20.83
+## 4   course        ba      61989       9.84
+## 5   course       bba      75644      12.01
+## 6   course       bca      88721      14.08
+## 7   course   diploma      49924       7.92</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>tabla_course <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="fu">count</span>(course, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>    <span class="at">Etiqueta =</span> <span class="fu">paste0</span>(Frecuencia, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>  )</span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_course, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(course, <span class="sc">-</span>Frecuencia), <span class="at">y =</span> Frecuencia)) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#4f0400&quot;</span>, <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Etiqueta), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">2.8</span>) <span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">&quot;Distribución de la variable course&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Curso&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia (Porcentaje)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb33-15"><a href="#cb33-15" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb33-16"><a href="#cb33-16" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb33-17"><a href="#cb33-17" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb33-18"><a href="#cb33-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb33-19"><a href="#cb33-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb33-20"><a href="#cb33-20" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>tabla_sleep_quality <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  <span class="fu">count</span>(sleep_quality, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="st">&quot;sleep_quality&quot;</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a>    <span class="at">Categoria =</span> <span class="fu">as.character</span>(sleep_quality)</span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a>  <span class="fu">select</span>(Variable, Categoria, Frecuencia, Porcentaje)</span>
+<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a>tabla_sleep_quality</span></code></pre></div>
+<pre><code>##        Variable Categoria Frecuencia Porcentaje
+## 1 sleep_quality   average     203236      32.26
+## 2 sleep_quality      good     213089      33.82
+## 3 sleep_quality      poor     213675      33.92</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>tabla_sleep_quality <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>  <span class="fu">count</span>(sleep_quality, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>    <span class="at">Etiqueta =</span> <span class="fu">paste0</span>(Frecuencia, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>  )</span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_sleep_quality, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(sleep_quality, <span class="sc">-</span>Frecuencia), <span class="at">y =</span> Frecuencia)) <span class="sc">+</span></span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#008B8B&quot;</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Etiqueta), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">&quot;Distribución de la variable sleep_quality&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Calidad del sueño&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia (Porcentaje)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb36-15"><a href="#cb36-15" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb36-16"><a href="#cb36-16" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb36-17"><a href="#cb36-17" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb36-18"><a href="#cb36-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb36-19"><a href="#cb36-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb36-20"><a href="#cb36-20" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>tabla_facility_rating <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>  <span class="fu">count</span>(facility_rating, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="st">&quot;facility_rating&quot;</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a>    <span class="at">Categoria =</span> <span class="fu">as.character</span>(facility_rating)</span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a>  <span class="fu">select</span>(Variable, Categoria, Frecuencia, Porcentaje)</span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a>tabla_facility_rating</span></code></pre></div>
+<pre><code>##          Variable Categoria Frecuencia Porcentaje
+## 1 facility_rating      high     203540      32.31
+## 2 facility_rating       low     212378      33.71
+## 3 facility_rating    medium     214082      33.98</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>tabla_facility_rating <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  <span class="fu">count</span>(facility_rating, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a>    <span class="at">Etiqueta =</span> <span class="fu">paste0</span>(Frecuencia, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>  )</span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_facility_rating, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(facility_rating, <span class="sc">-</span>Frecuencia), <span class="at">y =</span> Frecuencia)) <span class="sc">+</span></span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#8f047f&quot;</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Etiqueta), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">&quot;Distribución de la variable facility_rating&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb39-13"><a href="#cb39-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Calificación de instalaciones&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia (Porcentaje)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-14"><a href="#cb39-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb39-15"><a href="#cb39-15" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb39-16"><a href="#cb39-16" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb39-17"><a href="#cb39-17" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb39-18"><a href="#cb39-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb39-19"><a href="#cb39-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb39-20"><a href="#cb39-20" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>tabla_exam_difficulty <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>  <span class="fu">count</span>(exam_difficulty, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>),</span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a>    <span class="at">Variable =</span> <span class="st">&quot;exam_difficulty&quot;</span>,</span>
+<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a>    <span class="at">Categoria =</span> <span class="fu">as.character</span>(exam_difficulty)</span>
+<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a>  <span class="fu">select</span>(Variable, Categoria, Frecuencia, Porcentaje)</span>
+<span id="cb40-9"><a href="#cb40-9" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" tabindex="-1"></a>tabla_exam_difficulty</span></code></pre></div>
+<pre><code>##          Variable Categoria Frecuencia Porcentaje
+## 1 exam_difficulty      easy     176540      28.02
+## 2 exam_difficulty      hard      99478      15.79
+## 3 exam_difficulty  moderate     353982      56.19</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>tabla_exam_difficulty <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>  <span class="fu">count</span>(exam_difficulty, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>    <span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>    <span class="at">Etiqueta =</span> <span class="fu">paste0</span>(Frecuencia, <span class="st">&quot; (&quot;</span>, Porcentaje, <span class="st">&quot;%)&quot;</span>)</span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a>  )</span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a><span class="fu">ggplot</span>(tabla_exam_difficulty, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(exam_difficulty, <span class="sc">-</span>Frecuencia), <span class="at">y =</span> Frecuencia)) <span class="sc">+</span></span>
+<span id="cb42-9"><a href="#cb42-9" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#84c476&quot;</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb42-10"><a href="#cb42-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Etiqueta), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb42-11"><a href="#cb42-11" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> <span class="st">&quot;Distribución de la variable exam_difficulty&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-12"><a href="#cb42-12" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))) <span class="sc">+</span></span>
+<span id="cb42-13"><a href="#cb42-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Dificultad del examen&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia (Porcentaje)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-14"><a href="#cb42-14" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb42-15"><a href="#cb42-15" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb42-16"><a href="#cb42-16" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb42-17"><a href="#cb42-17" tabindex="-1"></a>    <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;gray80&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb42-18"><a href="#cb42-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb42-19"><a href="#cb42-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb42-20"><a href="#cb42-20" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" /></p>
+
+</div>
 </div>
             </section>
 
@@ -199,7 +648,7 @@ body {
         </div>
       </div>
 
-<a href="cuáles-son-los-factores-académicos-conductuales-y-de-acceso-a-recursos-que-influyen-significativamente-en-el-desempeño-académico-exam_score-de-los-estudiantes-y-en-qué-magnitud-lo-hacen.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -34,7 +34,7 @@ body {
 }
 ```
 ---
-# ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?
+Carguemos las librerias y el conjunto de los datos
 
 ```{r librerias}
 library(tidyverse)
@@ -49,7 +49,6 @@ library(GGally)
 trainset <- read.csv('Datos/train.csv')
 ```
 
-#### Extracción, transformación y carga (ETL)
 
 Verifiquemos que leímos bien los datos observando las primeras filas:
 
@@ -58,7 +57,6 @@ head(trainset, n=5)
 ```
 Con esto podemos confirmar que la base de datos fue cargada correctamente, como prueba de ello observando las primeras 5 filas de información.
 
-#### Revisemos la estructura del dataset y los tipos de las variables:
 
 ```{r variables}
 colnames(trainset)
@@ -67,9 +65,8 @@ colnames(trainset)
 ```{r tipos de variable}
 str(trainset)
 ```
-Contamos con 13 variables: 4 numéricas, 8 categóricas, 1 variable respuesta `exam_score`.
 
-#### Identifiquemos si existen valores `NA` por columna:
+Identifiquemos si existen valores `NA` por columna:
 
 ```{r valNA}
 trainset %>%
@@ -77,9 +74,7 @@ trainset %>%
 ```
 No existe ningun dato faltante en el dataset `train.csv`.
 
-## 1.1 Análisis exploratorio de `exam_score` (Target)
-
- #### Realicemos el resumen estadístico de la variable:
+## Análisis exploratorio de `exam_score` (Target)
 
 ```{r exscor resumen}
    trainset %>% summarise(n = length(exam_score),
@@ -92,37 +87,19 @@ No existe ningun dato faltante en el dataset `train.csv`.
                  minimo = min(exam_score),
                  maximo = max(exam_score),
                  asi = skewness(exam_score),
-                 curtosis = kurtosis(exam_score)
                  )
 
 ```
-* `n`: hay 630.000 estudiantes en la muestra (recordemos que cada fila representa un estudiante, no un grupo o curso)
+La variable `exam_score` fue analizada a partir de 630.000 estudiantes, donde cada fila representa un estudiante individual. El puntaje promedio es de 62,51 puntos, con una desviación estándar de 18,92 puntos, lo que refleja una dispersión moderada en el desempeño de los estudiantes. 
 
-* `media`: en promedio, un estudiante obtiene un puntaje de examen de 62,51 puntos
+La mediana (62,60) es prácticamente idéntica a la media, y el RIC de 27,5 puntos (entre el primer cuartil de 48,80 y el tercer cuartil de 76,30) muestra que el 50% central de los estudiantes se concentra en una franja relativamente estrecha. Esta cercanía entre media y mediana ya anticipa una distribución simétrica, confirmada por el coeficiente de asimetría de -0,05, casi nulo.
 
-* `mediana`: el 50% de los estudiantes obtiene un puntaje menor o igual a 62,60 puntos
+En los extremos, el estudiante con peor desempeño obtuvo 19,60 puntos, mientras que al menos uno alcanzó el máximo posible de 100. Esto es consistente con lo observado en el histograma, donde los puntajes se distribuyen de forma bastante uniforme alrededor del centro, sin un pico muy pronunciado ni colas extendidas.
 
-* `RIC`: el 50% central de los estudiantes se reparte a lo largo de una franja de 27,5 puntos de ancho
 
-* `Q1`: el 25% de los estudiantes obtiene un puntaje menor o igual a 48,80 puntos
 
-* `Q3`: el 75% de los estudiantes obtiene un puntaje menor o igual a 76,30 puntos
+Histograma de densidad de la variable:
 
-* `minimo`: el estudiante con peor desempeño obtuvo 19,60 puntos
-
-* `maximo`: el estudiante con mejor desempeño obtuvo el puntaje máximo posible, 100 puntos
-
-* `asi`: -0,05. Prácticamente sin asimetría (simetría casi perfecta)
-
-* `curtosis`: 2,38. Es la curtosis de Pearson, que vale 3 en una normal, así que el exceso es de -0,62 (curtosis negativa: distribución más achatada que la normal)
-
-Interpretación. La media (62,51) y la mediana (62,60) son prácticamente idénticas, con menos de 0,1 puntos de diferencia, y eso es justo lo que anticipa una asimetría casi nula de -0,05: a diferencia de una variable con cola larga, aquí ambas medidas describen igual de bien "lo típico" de un estudiante, y cualquiera de las dos es un buen resumen central.
-
-La dispersión es moderada: una desviación estándar de 18,92 puntos sobre una media de 62,51 da un coeficiente de variación cercano al 30%. El rango total (19,60 a 100) muestra una diferencia de aproximadamente 5 veces entre el estudiante de menor y mayor desempeño.
-
-La curtosis negativa (exceso de -0,62) indica una distribución más achatada que la normal, con colas más cortas y una dispersión más repartida entre los valores centrales, algo que ya se veía en el histograma, donde los datos se distribuyen de forma bastante uniforme alrededor del centro, sin un pico muy pronunciado.
-
-#### Histograma de densidad de la variable:
 ```{r exscore histograma}
 trainset %>%
   ggplot(aes(x = exam_score))+
@@ -138,11 +115,13 @@ trainset %>%
        y = 'Densidad')+
   theme_bw()
 ```
+
 Es posible apreciar que la moda se concentra entre 50 y 75 puntos de score.
 
 
 
-#### Boxplot
+
+Boxplot
 
 ```{r exscore boxplot}
 trainset %>%
@@ -153,10 +132,11 @@ trainset %>%
                size = 3, color = '#ff0026') +
   theme_bw()
 ```
-El boxplot confirma lo visto en el histograma: la caja es simétrica, con la mediana (62,6) 
-prácticamente centrada entre Q1 (48,8) y Q3 (76,3). Los bigotes no muestran valores atípicos.
 
-## 1.2 Análisis de las variables independientes (características)
+El boxplot confirma lo visto en el histograma: la caja es simétrica, con la mediana (62,6) prácticamente centrada entre Q1 (48,8) y Q3 (76,3). Los bigotes no muestran valores atípicos.
+
+
+## Análisis de las variables independientes (características)
 
 Inicialmente, analizaremos las variables númericas
 
@@ -184,33 +164,14 @@ resumen_numericas <- trainset %>%
 
 resumen_numericas
 ```
-El resumen estadístico de las 4 variables numéricas independientes revela un comportamiento 
-bastante homogéneo entre ellas, a diferencia de lo que suele verse en otros datasets. En las 
-cuatro variables, la media y la mediana son prácticamente idénticas: age (20,55 vs 21,00), 
-study_hours (4,00 vs 4,00), class_attendance (71,99 vs 72,60) y sleep_hours (7,07 vs 7,10). 
-Esto indica que ninguna presenta asimetría relevante, y sus distribuciones son razonablemente 
-simétricas, algo esperable dado que se comportan de forma casi uniforme entre sus valores 
-mínimo y máximo.
 
-study_hours es la que presenta mayor dispersión relativa (RIC de 4,08 sobre un rango total 
-de apenas 0,08 a 7,91), lo que sugiere que los estudiantes varían bastante en cuánto tiempo 
-le dedican al estudio. class_attendance, aunque tiene el RIC más amplio en términos absolutos 
-(30,2), se mueve dentro de un rango acotado (40,6% a 99,4%), reflejando que la asistencia a 
-clase varía de forma considerable entre estudiantes.
-
-age es la variable con menor dispersión relativa y el rango más estrecho (17 a 24 años), 
-consistente con tratarse de una población de estudiantes en un rango etario reducido. 
-sleep_hours también muestra poca dispersión (RIC de 3,00), concentrándose la mayoría de los 
-estudiantes entre 5,6 y 8,6 horas de sueño, un rango fisiológicamente esperable.
-
-#### Bloxplot de las variables númericas:
 ```{r ind bxplot}
 library(patchwork)
 
 # Boxplot de age
 p1 <- trainset %>%
   ggplot(aes(x = "", y = age)) +
-  geom_boxplot(fill = "#1f77b4", alpha = 0.7) +
+  geom_boxplot(alpha = 0.7) +
   labs(title = "Edad de los estudiantes", y = "Edad", x = "") +
   theme_bw() +
   theme(plot.title = element_text(size = 10, face = "bold"))
@@ -218,7 +179,7 @@ p1 <- trainset %>%
 # Boxplot de study_hours
 p2 <- trainset %>%
   ggplot(aes(x = "", y = study_hours)) +
-  geom_boxplot(fill = "#ff7f0e", alpha = 0.7) +
+  geom_boxplot(alpha = 0.7) +
   labs(title = "Horas de estudio", y = "Horas", x = "") +
   theme_bw() +
   theme(plot.title = element_text(size = 10, face = "bold"))
@@ -226,7 +187,7 @@ p2 <- trainset %>%
 # Boxplot de class_attendance
 p3 <- trainset %>%
   ggplot(aes(x = "", y = class_attendance)) +
-  geom_boxplot(fill = "#2ca02c", alpha = 0.7) +
+  geom_boxplot(alpha = 0.7) +
   labs(title = "Porcentaje de asistencia", y = "%", x = "") +
   theme_bw() +
   theme(plot.title = element_text(size = 10, face = "bold"))
@@ -234,7 +195,7 @@ p3 <- trainset %>%
 # Boxplot de sleep_hours
 p4 <- trainset %>%
   ggplot(aes(x = "", y = sleep_hours)) +
-  geom_boxplot(fill = "#d62728", alpha = 0.7) +
+  geom_boxplot(alpha = 0.7) +
   labs(title = "Horas de sueño", y = "Horas", x = "") +
   theme_bw() +
   theme(plot.title = element_text(size = 10, face = "bold"))
@@ -242,19 +203,15 @@ p4 <- trainset %>%
 # Cuadrícula 2x2
 (p1 + p2) / (p3 + p4)
 ```
-Los boxplots muestran que las cuatro variables numéricas independientes tienen distribuciones 
-bastante simétricas, sin valores atípicos notorios.
+
+Los boxplots muestran que las cuatro variables numéricas independientes tienen distribuciones bastante simétricas, sin valores atípicos notorios.
 
 - `age`: la mayoría de los estudiantes tiene entre 19 y 23 años, con una mediana de 21 años.
-- `study_hours`: las horas de estudio varían bastante entre estudiantes, desde casi 0 hasta 
-  cerca de 8 horas, con una mediana de 4 horas.
+- `study_hours`: las horas de estudio varían bastante entre estudiantes, desde casi 0 hasta cerca de 8 horas, con una mediana de 4 horas.
 - `class_attendance`: la asistencia se concentra entre 57% y 87%, con una mediana de 72,6%.
-- `sleep_hours`: la mayoría de los estudiantes duerme entre 5,6 y 8,6 horas, con una mediana 
-  de 7,1 horas, un rango bastante saludable.
+- `sleep_hours`: la mayoría de los estudiantes duerme entre 5,6 y 8,6 horas, con una mediana de 7,1 horas, un rango bastante saludable.
 
-En general, ninguna de las cuatro variables muestra sesgos fuertes ni valores extremos que 
-llamen la atención, lo cual es consistente con lo observado en las tablas resumen.
-
+En general, ninguna de las cuatro variables muestra sesgos fuertes ni valores extremos que llamen la atención, lo cual es consistente con lo observado en las tablas resumen.
 
 
 
@@ -262,53 +219,265 @@ llamen la atención, lo cual es consistente con lo observado en las tablas resum
 A continuación, trabajaremos en los gráficos de las variables categoricas.
 
 ```{r tbfr-cat}
-a1<-trainset %>%
-  count(study_method) %>%
-  mutate(Porcentaje = round(n / sum(n) * 100, 2)) %>%
-  arrange(desc(n))
+tabla_study_method <- trainset %>%
+  count(study_method, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "study_method",
+    Categoria = as.character(study_method)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
 
-a2<-trainset %>%
-  count(gender) %>%
-  mutate(Porcentaje = round(n / sum(n) * 100, 2)) %>%
-  arrange(desc(n))
-
-a3<-trainset %>%
-  count(internet_access) %>%
-  mutate(Porcentaje = round(n / sum(n) * 100, 2)) %>%
-  arrange(desc(n))
-
-a4<-trainset %>%
-  count(course) %>%
-  mutate(Porcentaje = round(n / sum(n) * 100, 2)) %>%
-  arrange(desc(n))
-
-a5<-trainset %>%
-  count(sleep_quality) %>%
-  mutate(Porcentaje = round(n / sum(n) * 100, 2)) %>%
-  arrange(desc(n))
-
-a6<-trainset %>%
-  count(facility_rating) %>%
-  mutate(Porcentaje = round(n / sum(n) * 100, 2)) %>%
-  arrange(desc(n))
-
-a7<-trainset %>%
-  count(exam_difficulty) %>%
-  mutate(Porcentaje = round(n / sum(n) * 100, 2)) %>%
-  arrange(desc(n))
-
-a1
-a2
-a3
-a4
-a5
-a6
-a7
-
-
-
-
+tabla_study_method
 ```
+```{r}
+tabla_study_method <- trainset %>%
+  count(study_method, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_study_method, aes(x = reorder(study_method, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#110eb3", width = 0.4) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable study_method") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Método de estudio", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+
+
+
+
+
+```{r}
+tabla_gender <- trainset %>%
+  count(gender, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "gender",
+    Categoria = as.character(gender)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+tabla_gender
+```
+
+```{r}
+tabla_gender <- trainset %>%
+  count(gender, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_gender, aes(x = reorder(gender, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#6511bf", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3) +
+  facet_wrap(~ "Distribución de la variable gender") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Género", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+
+```{r}
+tabla_internet_access <- trainset %>%
+  count(internet_access, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "internet_access",
+    Categoria = as.character(internet_access)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+tabla_internet_access
+```
+
+```{r}
+tabla_internet_access <- trainset %>%
+  count(internet_access, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_internet_access, aes(x = reorder(internet_access, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#68a173", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable internet_access") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.6))) +
+  labs(x = "Acceso a internet", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+
+```{r}
+tabla_course <- trainset %>%
+  count(course, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "course",
+    Categoria = as.character(course)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+tabla_course
+```
+```{r}
+tabla_course <- trainset %>%
+  count(course, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_course, aes(x = reorder(course, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#4f0400", width = 0.4) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 2.8) +
+  facet_wrap(~ "Distribución de la variable course") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Curso", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+```{r}
+tabla_sleep_quality <- trainset %>%
+  count(sleep_quality, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "sleep_quality",
+    Categoria = as.character(sleep_quality)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+tabla_sleep_quality
+```
+
+```{r}
+tabla_sleep_quality <- trainset %>%
+  count(sleep_quality, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_sleep_quality, aes(x = reorder(sleep_quality, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#008B8B", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable sleep_quality") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Calidad del sueño", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+```{r}
+tabla_facility_rating <- trainset %>%
+  count(facility_rating, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "facility_rating",
+    Categoria = as.character(facility_rating)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+tabla_facility_rating
+```
+```{r}
+tabla_facility_rating <- trainset %>%
+  count(facility_rating, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_facility_rating, aes(x = reorder(facility_rating, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#8f047f", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable facility_rating") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Calificación de instalaciones", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+
+
+```{r}
+tabla_exam_difficulty <- trainset %>%
+  count(exam_difficulty, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "exam_difficulty",
+    Categoria = as.character(exam_difficulty)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+tabla_exam_difficulty
+```
+```{r}
+tabla_exam_difficulty <- trainset %>%
+  count(exam_difficulty, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_exam_difficulty, aes(x = reorder(exam_difficulty, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#84c476", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable exam_difficulty") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Dificultad del examen", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+
+
+
 
 
 
