@@ -1,0 +1,7 @@
+introducción
+contexto-de-los-datos-de-student-test-scores
+análisis-exploratorio-de-datos-eda
+análisis-exploratorio-de-exam_score-target
+análisis-de-las-variables-independientes-características
+análisis-exploratorio-bivariado
+análisis-de-estadística-paramétrica-y-no-paramétrica

@@ -178,18 +178,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="contexto-de-los-datos-de-student-test-scores" class="section level3 hasAnchor" number="1.0.1">
 <h3><span class="header-section-number">1.0.1</span> Contexto de los datos de student test scores<a href="index.html#contexto-de-los-datos-de-student-test-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Las variables del conjunto de datos son:</p>
-<p><code>age</code>: Edad del estudiante.
-<code>gender</code>: Género del estudiante (female, male, other).
-<code>study_hours</code>: Número de horas dedicadas al estudio.
-<code>study_method</code>: Método de estudio empleado (coaching, group study, mixed, online videos, self-study).
-<code>class_attendance</code>: Porcentaje de asistencia a clases.
-<code>sleep_hours</code>: Número de horas de sueño.
-<code>sleep_quality</code>: Calidad del sueño percibida (poor, average, good).
-<code>course</code>: Programa académico que cursa el estudiante.
-<code>internet_access</code>: Indica si el estudiante cuenta con acceso a internet (yes, no).
-<code>facility_rating</code>: Calificación de las instalaciones educativas (low, medium, high).
-<code>exam_difficulty</code>: Dificultad percibida del examen (easy, moderate, hard).
-<code>exam_score</code>: Calificación obtenida por el estudiante en el examen, en una escala de 0 a 100.</p>
+<ul>
+<li><p><code>age</code>: Edad del estudiante.</p></li>
+<li><p><code>gender</code>: Género del estudiante (female, male, other).</p></li>
+<li><p><code>study_hours</code>: Número de horas dedicadas al estudio.</p></li>
+<li><p><code>study_method</code>: Método de estudio empleado (coaching, group study, mixed, online videos, self-study).</p></li>
+<li><p><code>class_attendance</code>: Porcentaje de asistencia a clases.</p></li>
+<li><p><code>sleep_hours</code>: Número de horas de sueño.</p></li>
+<li><p><code>sleep_quality</code>: Calidad del sueño percibida (poor, average, good).</p></li>
+<li><p><code>course</code>: Programa académico que cursa el estudiante.</p></li>
+<li><p><code>internet_access</code>: Indica si el estudiante cuenta con acceso a internet (yes, no).</p></li>
+<li><p><code>facility_rating</code>: Calificación de las instalaciones educativas (low, medium, high).</p></li>
+<li><p><code>exam_difficulty</code>: Dificultad percibida del examen (easy, moderate, hard).</p></li>
+<li><p><code>exam_score</code>: Calificación obtenida por el estudiante en el examen, en una escala de 0 a 100.</p></li>
+</ul>
 <p>Iniciaremos con un análisis exploratorio de datos (EDA) del conjunto Predicting Student Test Scores, con el propósito de comprender la estructura de los datos, identificar patrones, detectar valores atípicos y analizar las relaciones entre las variables que pueden influir en el desempeño académico de los estudiantes.</p>
 
 <style>
@@ -218,13 +220,13 @@ body {
 <hr />
 <p>Carguemos las librerias y el conjunto de los datos</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────────────────────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.2.1     ✔ readr     2.2.0
 ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
 ## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
 ## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
 ## ✔ purrr     1.2.2     
-## ── Conflicts ────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
@@ -264,9 +266,9 @@ body {
 ## 5            high            easy      100.0</code></pre>
 <p>Con esto podemos confirmar que la base de datos fue cargada correctamente, como prueba de ello observando las primeras 5 filas de información.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="index.html#cb10-1" tabindex="-1"></a><span class="fu">colnames</span>(trainset)</span></code></pre></div>
-<pre><code>##  [1] &quot;id&quot;               &quot;age&quot;              &quot;gender&quot;           &quot;course&quot;           &quot;study_hours&quot;      &quot;class_attendance&quot;
-##  [7] &quot;internet_access&quot;  &quot;sleep_hours&quot;      &quot;sleep_quality&quot;    &quot;study_method&quot;     &quot;facility_rating&quot;  &quot;exam_difficulty&quot; 
-## [13] &quot;exam_score&quot;</code></pre>
+<pre><code>##  [1] &quot;id&quot;               &quot;age&quot;              &quot;gender&quot;           &quot;course&quot;           &quot;study_hours&quot;     
+##  [6] &quot;class_attendance&quot; &quot;internet_access&quot;  &quot;sleep_hours&quot;      &quot;sleep_quality&quot;    &quot;study_method&quot;    
+## [11] &quot;facility_rating&quot;  &quot;exam_difficulty&quot;  &quot;exam_score&quot;</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1" tabindex="-1"></a><span class="fu">str</span>(trainset)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    630000 obs. of  13 variables:
 ##  $ id              : int  0 1 2 3 4 5 6 7 8 9 ...
