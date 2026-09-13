@@ -1,5 +1,21 @@
 ---
 title: "Predicting Student Test Scores"
+author: "Jimara Urzola"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+github-repo: jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project
+---
+
+# Introducción
+
+¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?
+
+<!--chapter:end:index.Rmd-->
+
+---
+title: "Predicting Student Test Scores"
 author: "Jimara Urzola & Jose Castro"
 date: "2026-08-16"
 output: 
@@ -659,4 +675,7 @@ trainset %>%
 Con base en el resultado del tamaño del efecto $(η² = 0.000126, magnitud: pequeña)$, se obtiene un valor prácticamente nulo. Esto indica que, aunque la diferencia entre los grupos de género es estadísticamente significativa, no es relevante desde el punto de vista práctico — el género explica una proporción mínima de la variabilidad en el puntaje del examen, por lo que no parece ser un factor determinante en el desempeño académico de los estudiantes.
 
 
+
+
+<!--chapter:end:Predicting-student-test-scores.Rmd-->
 

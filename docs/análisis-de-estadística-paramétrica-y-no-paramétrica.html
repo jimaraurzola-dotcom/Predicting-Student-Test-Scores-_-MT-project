@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Predicting Student Test Scores</title>
-  <meta name="description" content="Page not found | Predicting Student Test Scores" />
+  <title>3 Análisis de estadística paramétrica y no paramétrica | Predicting Student Test Scores</title>
+  <meta name="description" content="3 Análisis de estadística paramétrica y no paramétrica | Predicting Student Test Scores" />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Predicting Student Test Scores" />
+  <meta property="og:title" content="3 Análisis de estadística paramétrica y no paramétrica | Predicting Student Test Scores" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Predicting Student Test Scores" />
+  <meta name="twitter:title" content="3 Análisis de estadística paramétrica y no paramétrica | Predicting Student Test Scores" />
   
   
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="análisis-exploratorio-de-datos-eda.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -162,18 +162,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="análisis-de-estadística-paramétrica-y-no-paramétrica" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Análisis de estadística paramétrica y no paramétrica<a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#an%C3%A1lisis-de-estad%C3%ADstica-param%C3%A9trica-y-no-param%C3%A9trica" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>{Empecemos con <code>internet_access</code> vs <code>exam_score</code>}</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-1" tabindex="-1"></a><span class="co"># dataframe de acceso</span></span>
+<span id="cb50-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-2" tabindex="-1"></a>Ac <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span> </span>
+<span id="cb50-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-3" tabindex="-1"></a>  <span class="fu">filter</span>(internet_access <span class="sc">==</span> <span class="st">&quot;yes&quot;</span>)</span>
+<span id="cb50-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-4" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-5" tabindex="-1"></a><span class="co"># dataframe de no acceso</span></span>
+<span id="cb50-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-6" tabindex="-1"></a>Nac <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span> </span>
+<span id="cb50-7"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-7" tabindex="-1"></a>  <span class="fu">filter</span>(internet_access <span class="sc">==</span> <span class="st">&quot;no&quot;</span>)</span></code></pre></div>
+<p>Debido a que la muestra es mayor de 5.000 descartamos el uso de la Shapiro-Wilk.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb51-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Ac<span class="sc">$</span>exam_score)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Ac$exam_score
+## D = 0.023561, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Nac<span class="sc">$</span>exam_score)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Nac$exam_score
+## D = 0.027935, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb55-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb55-2" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   .y.        group1 group2    n1     n2    statistic      p
+## * &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+## 1 exam_score no     yes    50577 579423 14565777034. 0.0266</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb57-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb57-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   .y.        group1 group2 effsize    n1     n2 magnitude
+## * &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;int&gt; &lt;ord&gt;    
+## 1 exam_score no     yes    0.00279 50577 579423 small</code></pre>
+<p>La prueba de Mann-Whitney-Wilcoxon indica que existe una diferencia estadísticamente significativa en la distribución de <code>exam_score</code> entre los estudiantes con acceso a internet y aquellos sin acceso <span class="math inline">\((W = 14.565.777.034, p = 0,027)\)</span>. Sin embargo, el tamaño del efecto calculado (r = 0,0028) es extremadamente pequeño — prácticamente nulo —, lo que indica que, aunque la diferencia es estadísticamente detectable, no tiene relevancia práctica.</p>
+<p>En términos prácticos, el acceso a internet no parece ser un factor que influya de manera considerable en el desempeño académico de los estudiantes.</p>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="análisis-exploratorio-de-datos-eda.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
