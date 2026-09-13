@@ -197,13 +197,13 @@ body {
 <hr />
 <p>Carguemos las librerias y el conjunto de los datos</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────────────────── tidyverse 2.0.0 ──
+<pre><code>## ── Attaching core tidyverse packages ────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.2.1     ✔ readr     2.2.0
 ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
 ## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
 ## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
 ## ✔ purrr     1.2.2     
-## ── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
@@ -229,29 +229,22 @@ body {
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;Datos/train.csv&#39;</span>)</span></code></pre></div>
 <p>Verifiquemos que leímos bien los datos observando las primeras filas:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="index.html#cb8-1" tabindex="-1"></a><span class="fu">head</span>(trainset, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>##   id age gender  course study_hours class_attendance internet_access
-## 1  0  21 female    b.sc        7.91             98.8              no
-## 2  1  18  other diploma        4.95             94.8             yes
-## 3  2  20 female    b.sc        4.68             92.6             yes
-## 4  3  19   male    b.sc        2.00             49.5             yes
-## 5  4  23   male     bca        7.65             86.9             yes
-##   sleep_hours sleep_quality  study_method facility_rating exam_difficulty
-## 1         4.9       average online videos             low            easy
-## 2         4.7          poor    self-study          medium        moderate
-## 3         5.8          poor      coaching            high        moderate
-## 4         8.3       average   group study            high        moderate
-## 5         9.6          good    self-study            high            easy
-##   exam_score
-## 1       78.3
-## 2       46.7
-## 3       99.0
-## 4       63.9
-## 5      100.0</code></pre>
+<pre><code>##   id age gender  course study_hours class_attendance internet_access sleep_hours sleep_quality  study_method facility_rating
+## 1  0  21 female    b.sc        7.91             98.8              no         4.9       average online videos             low
+## 2  1  18  other diploma        4.95             94.8             yes         4.7          poor    self-study          medium
+## 3  2  20 female    b.sc        4.68             92.6             yes         5.8          poor      coaching            high
+## 4  3  19   male    b.sc        2.00             49.5             yes         8.3       average   group study            high
+## 5  4  23   male     bca        7.65             86.9             yes         9.6          good    self-study            high
+##   exam_difficulty exam_score
+## 1            easy       78.3
+## 2        moderate       46.7
+## 3        moderate       99.0
+## 4        moderate       63.9
+## 5            easy      100.0</code></pre>
 <p>Con esto podemos confirmar que la base de datos fue cargada correctamente, como prueba de ello observando las primeras 5 filas de información.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="index.html#cb10-1" tabindex="-1"></a><span class="fu">colnames</span>(trainset)</span></code></pre></div>
-<pre><code>##  [1] &quot;id&quot;               &quot;age&quot;              &quot;gender&quot;           &quot;course&quot;          
-##  [5] &quot;study_hours&quot;      &quot;class_attendance&quot; &quot;internet_access&quot;  &quot;sleep_hours&quot;     
-##  [9] &quot;sleep_quality&quot;    &quot;study_method&quot;     &quot;facility_rating&quot;  &quot;exam_difficulty&quot; 
+<pre><code>##  [1] &quot;id&quot;               &quot;age&quot;              &quot;gender&quot;           &quot;course&quot;           &quot;study_hours&quot;      &quot;class_attendance&quot;
+##  [7] &quot;internet_access&quot;  &quot;sleep_hours&quot;      &quot;sleep_quality&quot;    &quot;study_method&quot;     &quot;facility_rating&quot;  &quot;exam_difficulty&quot; 
 ## [13] &quot;exam_score&quot;</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1" tabindex="-1"></a><span class="fu">str</span>(trainset)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    630000 obs. of  13 variables:
@@ -271,10 +264,18 @@ body {
 <p>Identifiquemos si existen valores <code>NA</code> por columna:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="index.html#cb14-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="index.html#cb14-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
-<pre><code>##   id age gender course study_hours class_attendance internet_access sleep_hours
-## 1  0   0      0      0           0                0               0           0
-##   sleep_quality study_method facility_rating exam_difficulty exam_score
-## 1             0            0               0               0          0</code></pre>
+<pre><code>##   id age gender course study_hours class_attendance internet_access sleep_hours sleep_quality study_method facility_rating
+## 1  0   0      0      0           0                0               0           0             0            0               0
+##   exam_difficulty exam_score
+## 1               0          0</code></pre>
+<p>Comprobamos con las variables cátegoricas.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="index.html#cb16-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="index.html#cb16-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.character)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="index.html#cb16-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), <span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
+<pre><code>##   NA_gender NA_course NA_internet_access NA_sleep_quality NA_study_method NA_facility_rating NA_exam_difficulty
+## 1         0         0                  0                0               0                  0                  0</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="index.html#cb18-1" tabindex="-1"></a><span class="fu">missmap</span>(trainset)</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
 <p>No existe ningun dato faltante en el dataset <code>train.csv</code>.</p>
 </div>
             </section>

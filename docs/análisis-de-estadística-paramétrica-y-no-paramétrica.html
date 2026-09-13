@@ -164,41 +164,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="análisis-de-estadística-paramétrica-y-no-paramétrica" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">3</span> Análisis de estadística paramétrica y no paramétrica<a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#an%C3%A1lisis-de-estad%C3%ADstica-param%C3%A9trica-y-no-param%C3%A9trica" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>{Empecemos con <code>internet_access</code> vs <code>exam_score</code>}</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-1" tabindex="-1"></a><span class="co"># dataframe de acceso</span></span>
-<span id="cb50-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-2" tabindex="-1"></a>Ac <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span> </span>
-<span id="cb50-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-3" tabindex="-1"></a>  <span class="fu">filter</span>(internet_access <span class="sc">==</span> <span class="st">&quot;yes&quot;</span>)</span>
-<span id="cb50-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-4" tabindex="-1"></a></span>
-<span id="cb50-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-5" tabindex="-1"></a><span class="co"># dataframe de no acceso</span></span>
-<span id="cb50-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-6" tabindex="-1"></a>Nac <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span> </span>
-<span id="cb50-7"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb50-7" tabindex="-1"></a>  <span class="fu">filter</span>(internet_access <span class="sc">==</span> <span class="st">&quot;no&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Empecemos con <code>internet_access</code> vs <code>exam_score</code></li>
+</ul>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-1" tabindex="-1"></a><span class="co"># dataframe de acceso</span></span>
+<span id="cb53-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-2" tabindex="-1"></a>Ac <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span> </span>
+<span id="cb53-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-3" tabindex="-1"></a>  <span class="fu">filter</span>(internet_access <span class="sc">==</span> <span class="st">&quot;yes&quot;</span>)</span>
+<span id="cb53-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-4" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-5" tabindex="-1"></a><span class="co"># dataframe de no acceso</span></span>
+<span id="cb53-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-6" tabindex="-1"></a>Nac <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span> </span>
+<span id="cb53-7"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-7" tabindex="-1"></a>  <span class="fu">filter</span>(internet_access <span class="sc">==</span> <span class="st">&quot;no&quot;</span>)</span></code></pre></div>
 <p>Debido a que la muestra es mayor de 5.000 descartamos el uso de la Shapiro-Wilk.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb51-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Ac<span class="sc">$</span>exam_score)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb54-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Ac<span class="sc">$</span>exam_score)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  Ac$exam_score
 ## D = 0.023561, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb53-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Nac<span class="sc">$</span>exam_score)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb56-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Nac<span class="sc">$</span>exam_score)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  Nac$exam_score
 ## D = 0.027935, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb55-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb55-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb55-2" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>La prueba de Lilliefors muestra que el puntaje del examen <code>exam_score</code> no presenta un comportamiento normal en ninguno de los dos grupos analizados. En el caso de los estudiantes con acceso a internet <span class="math inline">\((D = 0.023561, p-valor &lt; 0.001)\)</span>; mientras que para los estudiantes sin acceso a internet <span class="math inline">\((D = 0.027935, p-valor &lt; 0.001)\)</span>.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb58-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb58-2" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   .y.        group1 group2    n1     n2    statistic      p
 ## * &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;        &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 exam_score no     yes    50577 579423 14565777034. 0.0266</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb57-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb57-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb57-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>La prueba de Mann-Whitney-Wilcoxon para muestras independientes nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen <code>exam_score</code> entre los estudiantes con y sin acceso a internet <span class="math inline">\((W=14565777034, p-valor=0.0266)\)</span>.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb60-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb60-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   .y.        group1 group2 effsize    n1     n2 magnitude
 ## * &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;int&gt; &lt;ord&gt;    
 ## 1 exam_score no     yes    0.00279 50577 579423 small</code></pre>
-<p>La prueba de Mann-Whitney-Wilcoxon indica que existe una diferencia estadísticamente significativa en la distribución de <code>exam_score</code> entre los estudiantes con acceso a internet y aquellos sin acceso <span class="math inline">\((W = 14.565.777.034, p = 0,027)\)</span>. Sin embargo, el tamaño del efecto calculado (r = 0,0028) es extremadamente pequeño — prácticamente nulo —, lo que indica que, aunque la diferencia es estadísticamente detectable, no tiene relevancia práctica.</p>
-<p>En términos prácticos, el acceso a internet no parece ser un factor que influya de manera considerable en el desempeño académico de los estudiantes.</p>
+<p>Con base en el resultado del tamaño del efecto <span class="math inline">\(r\)</span>, se obtiene un valor estimado de 0.0028 (magnitud: pequeña), lo que indica un efecto prácticamente nulo. Esto indica que, aunque la diferencia es estadísticamente significativa, no es relevante desde el punto de vista práctico — el acceso a internet no parece tener una influencia considerable en el desempeño académico de los estudiantes.</p>
+<ul>
+<li>Sigamos con <code>gender</code> vs <code>exam_score</code>:</li>
+</ul>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-1" tabindex="-1"></a><span class="co"># OTHER</span></span>
+<span id="cb62-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-2" tabindex="-1"></a>Other <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span> </span>
+<span id="cb62-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-3" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;other&quot;</span>)</span>
+<span id="cb62-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-4" tabindex="-1"></a></span>
+<span id="cb62-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-5" tabindex="-1"></a><span class="co"># MALE</span></span>
+<span id="cb62-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-6" tabindex="-1"></a>Male <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span> </span>
+<span id="cb62-7"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-7" tabindex="-1"></a>  <span class="fu">filter</span>(gender <span class="sc">==</span> <span class="st">&quot;male&quot;</span>)</span>
+<span id="cb62-8"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-8" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-9" tabindex="-1"></a><span class="co"># FEMALE</span></span>
+<span id="cb62-10"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-10" tabindex="-1"></a>Female <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb62-11"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-11" tabindex="-1"></a>  <span class="fu">filter</span> (gender <span class="sc">==</span> <span class="st">&quot;female&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb63-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Other<span class="sc">$</span>exam_score)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Other$exam_score
+## D = 0.025855, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb65-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Male<span class="sc">$</span>exam_score)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Male$exam_score
+## D = 0.021919, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb67-1" tabindex="-1"></a><span class="fu">lillie.test</span>(Female<span class="sc">$</span>exam_score)</span></code></pre></div>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  Female$exam_score
+## D = 0.023756, p-value &lt; 2.2e-16</code></pre>
+<p>La prueba de Lilliefors muestra que el puntaje del examen <code>exam_score</code> no presenta un comportamiento normal en ninguno de los tres grupos analizados según género. Para el grupo “other” <span class="math inline">\((D = 0.025855, p-valor &lt; 0.001)\)</span>; para el grupo masculino <span class="math inline">\((D = 0.021919, p-valor &lt; 0.001)\)</span>; y para el grupo femenino <span class="math inline">\((D = 0.023756, p-valor &lt; 0.001)\)</span>.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb69-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> gender, <span class="at">data =</span> trainset)</span></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  exam_score by gender
+## Kruskal-Wallis chi-squared = 81.54, df = 2, p-value &lt; 2.2e-16</code></pre>
+<p>La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen <code>exam_score</code> entre al menos uno de los grupos de género <span class="math inline">\((χ²₍₂₎ = 81.54, p-valor &lt; 0.001)\)</span>.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb71-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb71-2" tabindex="-1"></a>  <span class="fu">kruskal_effsize</span>(exam_score <span class="sc">~</span> gender)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 5
+##   .y.             n  effsize method  magnitude
+## * &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
+## 1 exam_score 630000 0.000126 eta2[H] small</code></pre>
+<p>Con base en el resultado del tamaño del efecto <span class="math inline">\((η² = 0.000126, magnitud: pequeña)\)</span>, se obtiene un valor prácticamente nulo. Esto indica que, aunque la diferencia entre los grupos de género es estadísticamente significativa, no es relevante desde el punto de vista práctico — el género explica una proporción mínima de la variabilidad en el puntaje del examen, por lo que no parece ser un factor determinante en el desempeño académico de los estudiantes.</p>
+<ul>
+<li>Sigamos con</li>
+</ul>
 
 </div>
             </section>
