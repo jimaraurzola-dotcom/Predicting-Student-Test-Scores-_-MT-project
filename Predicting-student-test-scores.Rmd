@@ -239,7 +239,7 @@ tabla_study_method <- trainset %>%
   )
 
 ggplot(tabla_study_method, aes(x = reorder(study_method, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#110eb3", width = 0.4) +
+  geom_col(fill = "#008B8B", width = 0.4) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable study_method") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -253,8 +253,7 @@ ggplot(tabla_study_method, aes(x = reorder(study_method, -Frecuencia), y = Frecu
   )
 ```
 
-
-
+Las cinco categorías de `study_method` están bastante equilibradas entre sí: coaching (20,90%) y self-study (20,81%) son las más frecuentes, seguidas de cerca por mixed (19,54%), group study (19,53%) y online videos (19,22%). A diferencia de otras variables del dataset, aquí no se observa ninguna categoría dominante ni ninguna subrepresentada, lo que sugiere una distribución prácticamente uniforme de los métodos de estudio entre los estudiantes.
 
 
 
@@ -280,7 +279,7 @@ tabla_gender <- trainset %>%
   )
 
 ggplot(tabla_gender, aes(x = reorder(gender, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#6511bf", width = 0.3) +
+  geom_col(fill = "#008B8B", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3) +
   facet_wrap(~ "Distribución de la variable gender") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -293,6 +292,8 @@ ggplot(tabla_gender, aes(x = reorder(gender, -Frecuencia), y = Frecuencia)) +
     panel.grid.major.x = element_blank()
   )
 ```
+
+La variable gender presenta una distribución muy pareja entre sus tres categorías: other (33,51%), male (33,43%) y female (33,07%), con diferencias de apenas 0,4 puntos porcentuales entre ellas. No se observa ningún desbalance relevante.
 
 
 ```{r}
@@ -317,7 +318,7 @@ tabla_internet_access <- trainset %>%
   )
 
 ggplot(tabla_internet_access, aes(x = reorder(internet_access, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#68a173", width = 0.3) +
+  geom_col(fill = "#008B8B", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable internet_access") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.6))) +
@@ -330,6 +331,8 @@ ggplot(tabla_internet_access, aes(x = reorder(internet_access, -Frecuencia), y =
     panel.grid.major.x = element_blank()
   )
 ```
+
+Aquí sí hay un desbalance marcado: el 91,97% de los estudiantes cuenta con acceso a internet (yes), mientras que solo el 8,03% no lo tiene (no). Esto podría influir en la robustez de futuras comparaciones entre ambos grupos, dado el tamaño tan reducido de quienes no cuentan con acceso.
 
 
 ```{r}
@@ -353,7 +356,7 @@ tabla_course <- trainset %>%
   )
 
 ggplot(tabla_course, aes(x = reorder(course, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#4f0400", width = 0.4) +
+  geom_col(fill = "#008B8B", width = 0.45) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 2.8) +
   facet_wrap(~ "Distribución de la variable course") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -366,6 +369,8 @@ ggplot(tabla_course, aes(x = reorder(course, -Frecuencia), y = Frecuencia)) +
     panel.grid.major.x = element_blank()
   )
 ```
+
+La categoría b.tech concentra la mayor proporción de estudiantes (20,83%), seguida por b.sc (17,71%) y b.com (17,61%). En conjunto, estas tres representan cerca del 56% del total. En el otro extremo, diploma es la categoría menos representada (7,92%), seguida por ba (9,84%). A diferencia de internet_access, aquí el desbalance es más moderado, con 7 categorías que oscilan entre el 8% y el 21%.
 
 ```{r}
 tabla_sleep_quality <- trainset %>%
@@ -403,6 +408,10 @@ ggplot(tabla_sleep_quality, aes(x = reorder(sleep_quality, -Frecuencia), y = Fre
   )
 ```
 
+Las tres categorías de sleep_quality están distribuidas de forma casi idéntica: poor (33,92%), good (33,82%) y average (32,26%), con una diferencia máxima de apenas 1,7 puntos porcentuales entre ellas. No se evidencia ningún patrón de concentración hacia una categoría en particular.
+
+
+
 ```{r}
 tabla_facility_rating <- trainset %>%
   count(facility_rating, name = "Frecuencia") %>%
@@ -424,7 +433,7 @@ tabla_facility_rating <- trainset %>%
   )
 
 ggplot(tabla_facility_rating, aes(x = reorder(facility_rating, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#8f047f", width = 0.3) +
+  geom_col(fill = "#008B8B", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable facility_rating") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -438,6 +447,7 @@ ggplot(tabla_facility_rating, aes(x = reorder(facility_rating, -Frecuencia), y =
   )
 ```
 
+De forma similar a sleep_quality, las tres categorías de facility_rating se reparten de manera equilibrada: medium (33,98%), low (33,71%) y high (32,31%), sin ninguna diferencia relevante entre ellas.
 
 
 ```{r}
@@ -461,7 +471,7 @@ tabla_exam_difficulty <- trainset %>%
   )
 
 ggplot(tabla_exam_difficulty, aes(x = reorder(exam_difficulty, -Frecuencia), y = Frecuencia)) +
-  geom_col(fill = "#84c476", width = 0.3) +
+  geom_col(fill = "#008B8B", width = 0.3) +
   geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
   facet_wrap(~ "Distribución de la variable exam_difficulty") +
   scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
@@ -475,9 +485,73 @@ ggplot(tabla_exam_difficulty, aes(x = reorder(exam_difficulty, -Frecuencia), y =
   )
 ```
 
+Esta es la variable categórica con mayor desbalance después de internet_access: la categoría moderate concentra más de la mitad de las observaciones (56,19%), mientras que easy representa el 28,02% y hard apenas el 15,79%. Esto sugiere que la mayoría de los exámenes fueron catalogados con una dificultad intermedia, y muy pocos como difíciles.
 
 
+## Análisis exploratorio bivariado
+
+A continuación, analizaremos la relación entre la variable objetivo `exam_score` y las variables numéricas independientes, con el fin de identificar posibles patrones, tendencias y asociaciones que puedan ser útiles para la construcción de modelos.
 
 
+```{r}
+
+cor(trainset$age, trainset$exam_score, method = "pearson")
+
+# Diagrama de dispersión: age vs exam_score
+trainset %>%
+  ggplot(aes(x = age, y = exam_score)) +
+  geom_point(alpha = 0.4, color = "#1E90FF") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  labs(
+    x = "Edad media",
+    y = "Calificación media del examen"
+  ) +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la edad media y la calificación de los exámenes")
+```
+
+El diagrama de dispersión muestra que la calificación del examen se distribuye de forma similar en todas las edades (17 a 24 años), con puntos que cubren prácticamente todo el rango de 20 a 100 puntos en cada grupo etario. La línea de tendencia es casi plana, lo que sugiere que no existe una relación lineal relevante entre la edad y el desempeño académico: los estudiantes más jóvenes y los mayores obtienen calificaciones igual de variadas.
+
+```{r}
+# Diagrama de dispersión: study_hours vs exam_score
+trainset %>%
+  ggplot(aes(x = study_hours, y = exam_score)) +
+  geom_point(alpha = 0.4, color = "#1E90FF") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  labs(
+    x = "Horas de estudio media",
+    y = "Calificación media del examen"
+  ) +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre las horas de estudio media y la calificación de los exámenes")
+```
+
+```{r}
+# Diagrama de dispersión: class_attendance vs exam_score
+trainset %>%
+  ggplot(aes(x = class_attendance, y = exam_score)) +
+  geom_point(alpha = 0.4, color = "#1E90FF") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  labs(
+    x = "asistencia a clases media",
+    y = "Calificación media del examen"
+  ) +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la asistencia a clases media y la calificación de los exámenes")
+```
+
+```{r}
+# Diagrama de dispersión: sleep_hours vs exam_score
+trainset %>%
+  ggplot(aes(x = sleep_hours, y = exam_score)) +
+  geom_point(alpha = 0.4, color = "#1E90FF") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "red") +
+  labs(
+    x = "horas de sueño media",
+    y = "Calificación media del examen"
+  ) +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión horas de sueño media y la calificación de los exámenes")
+```
 
 
