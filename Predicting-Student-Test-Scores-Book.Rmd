@@ -1,3 +1,57 @@
+---
+title: "Predicting Student Test Scores"
+author: "Jimara Urzola"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+github-repo: jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project
+---
+
+# Introducción
+
+Para el desarrollo del análisis trabajaremos con el conjunto de datos Predicting Student Test Scores, un conjunto de datos sintético diseñado para problemas de regresión en el ámbito educativo. Este conjunto contiene información sobre características académicas, conductuales y de acceso a recursos de 630.000 estudiantes, con el objetivo de analizar y predecir el desempeño académico a partir de variables como las horas de estudio, la asistencia a clases, el método de estudio empleado y el acceso a recursos como internet.
+
+A partir de este conjunto de datos, el presente proyecto busca responder la siguiente pregunta de investigación:
+
+¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?
+
+### Contexto de los datos de student test scores
+
+Las variables del conjunto de datos son:
+
+* `age`: Edad del estudiante.
+
+* `gender`: Género del estudiante (female, male, other).
+
+* `study_hours`: Número de horas dedicadas al estudio.
+
+* `study_method`: Método de estudio empleado (coaching, group study, mixed, online videos, self-study).
+
+* `class_attendance`: Porcentaje de asistencia a clases.
+
+* `sleep_hours`: Número de horas de sueño.
+
+* `sleep_quality`: Calidad del sueño percibida (poor, average, good).
+
+* `course`: Programa académico que cursa el estudiante.
+
+* `internet_access`: Indica si el estudiante cuenta con acceso a internet (yes, no).
+
+* `facility_rating`: Calificación de las instalaciones educativas (low, medium, high).
+
+* `exam_difficulty`: Dificultad percibida del examen (easy, moderate, hard).
+
+* `exam_score`: Calificación obtenida por el estudiante en el examen, en una escala de 0 a 100.
+
+
+Iniciaremos con un análisis exploratorio de datos (EDA) del conjunto Predicting Student Test Scores, con el propósito de comprender la estructura de los datos, identificar patrones, detectar valores atípicos y analizar las relaciones entre las variables que pueden influir en el desempeño académico de los estudiantes.
+
+
+
+
+<!--chapter:end:index.Rmd-->
+
 <style>
 body {
        background-color: #ffe4e1;
@@ -1036,4 +1090,7 @@ cor.test(trainset$age, trainset$exam_score, method = "spearman", exact = FALSE)
 Se obtiene un coeficiente $\rho = 0.0072$ $(S = 4.1376e+16, p-valor = 1.303e-08)$. A pesar de que el tamaño de muestra hace que hasta esta correlación tan pequeña resulte "significativa", el coeficiente es prácticamente cero: la edad del estudiante no tiene ninguna relación relevante con su desempeño en el examen, confirmando lo que ya se veía en el diagrama de dispersión del EDA.
 
 En conjunto, de las cuatro variables numéricas independientes, `study_hours` es por mucho la que mejor se relaciona con `exam_score` (ρ = 0,77, correlación muy fuerte), seguida bastante más atrás por `class_attendance` (ρ = 0,35, débil-moderada). `sleep_hours` (ρ = 0,16) y `age` (ρ ≈ 0) prácticamente no aportan nada. Y comparando con las secciones anteriores, ninguna variable categórica (ni siquiera `sleep_quality` o `study_method`) se acerca a la fuerza de esta relación. Todo apunta a que `study_hours` va a ser el predictor más importante cuando lleguemos a la regresión lineal.
+
+
+<!--chapter:end:Predicting-student-test-scores.Rmd-->
 
