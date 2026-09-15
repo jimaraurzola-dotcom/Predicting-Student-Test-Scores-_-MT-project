@@ -1,0 +1,11 @@
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+_book
+_bookdown_files
+# figuras intermedias de la raíz (las de docs/ sí se publican)
+/Predicting-Student-Test-Scores-Book_files
+Rplots.pdf
+.claude/

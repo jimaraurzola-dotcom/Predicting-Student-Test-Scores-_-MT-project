@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Tabla de contingencia | Predicting Student Test Scores</title>
+  <meta name="description" content="4 Tabla de contingencia | Predicting Student Test Scores" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Tabla de contingencia | Predicting Student Test Scores" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Tabla de contingencia | Predicting Student Test Scores" />
+  
+  
+  
+
+<meta name="author" content="Jimara Urzola" />
+
+
+<meta name="date" content="2026-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"/>
+<link rel="next" href="correlación.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#contexto-de-los-datos-de-student-test-scores"><i class="fa fa-check"></i><b>1.0.1</b> Contexto de los datos de student test scores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html"><i class="fa fa-check"></i><b>2</b> Análisis exploratorio de datos (EDA)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-de-exam_score-target"><i class="fa fa-check"></i><b>2.1</b> Análisis exploratorio de <code>exam_score</code> (Target)</a></li>
+<li class="chapter" data-level="2.2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.2</b> Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="2.3" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-bivariado"><i class="fa fa-check"></i><b>2.3</b> Análisis exploratorio bivariado</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>3</b> Análisis de estadística paramétrica y no paramétrica</a></li>
+<li class="chapter" data-level="4" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>4</b> Tabla de contingencia</a></li>
+<li class="chapter" data-level="5" data-path="correlación.html"><a href="correlación.html"><i class="fa fa-check"></i><b>5</b> Correlación</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicting Student Test Scores</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tabla-de-contingencia" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Tabla de contingencia<a href="tabla-de-contingencia.html#tabla-de-contingencia" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Hasta ahora hemos comparado <code>exam_score</code> (numérica) entre los grupos de cada variable categórica. Una forma complementaria de explorar relaciones es a través de tablas de contingencia, que permiten estudiar la asociación entre dos variables categóricas usando la prueba χ² de independencia.</p>
+<p>Para conectar este análisis con la pregunta de investigación del proyecto, creamos una versión categórica de la variable respuesta: <code>resultado</code>, que clasifica a cada estudiante como <code>aprobado</code> (<code>exam_score &gt;= 60</code>) o <code>reprobado</code> (<code>exam_score &lt; 60</code>).</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="tabla-de-contingencia.html#cb96-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb96-2"><a href="tabla-de-contingencia.html#cb96-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">ifelse</span>(exam_score <span class="sc">&gt;=</span> <span class="dv">60</span>, <span class="st">&quot;aprobado&quot;</span>, <span class="st">&quot;reprobado&quot;</span>))</span>
+<span id="cb96-3"><a href="tabla-de-contingencia.html#cb96-3" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="tabla-de-contingencia.html#cb96-4" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb96-5"><a href="tabla-de-contingencia.html#cb96-5" tabindex="-1"></a>  <span class="fu">count</span>(resultado, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb96-6"><a href="tabla-de-contingencia.html#cb96-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##   resultado Frecuencia Porcentaje
+## 1  aprobado     347803      55.21
+## 2 reprobado     282197      44.79</code></pre>
+<p>El 55,21% de los estudiantes aprueba (<code>exam_score &gt;= 60</code>) y el 44,79% reprueba, una distribución razonablemente balanceada para el análisis.</p>
+<p>A continuación, evaluamos si <code>resultado</code> está asociado con las dos variables categóricas que mostraron el mayor tamaño del efecto en la sección anterior: <code>sleep_quality</code> y <code>study_method</code>.</p>
+<ul>
+<li><code>resultado</code> vs <code>sleep_quality</code></li>
+</ul>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="tabla-de-contingencia.html#cb98-1" tabindex="-1"></a>tabla_resultado_sq <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>sleep_quality)</span>
+<span id="cb98-2"><a href="tabla-de-contingencia.html#cb98-2" tabindex="-1"></a>tabla_resultado_sq</span></code></pre></div>
+<pre><code>##            
+##             average   good   poor
+##   aprobado   111912 140482  95409
+##   reprobado   91324  72607 118266</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="tabla-de-contingencia.html#cb100-1" tabindex="-1"></a>chisq_sq <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_resultado_sq)</span>
+<span id="cb100-2"><a href="tabla-de-contingencia.html#cb100-2" tabindex="-1"></a>chisq_sq</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  tabla_resultado_sq
+## X-squared = 19531, df = 2, p-value &lt; 2.2e-16</code></pre>
+<p>Antes de interpretar la prueba, verificamos el supuesto de χ²: todas las frecuencias esperadas deben ser mayores o iguales a 5.</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="tabla-de-contingencia.html#cb102-1" tabindex="-1"></a><span class="fu">min</span>(chisq_sq<span class="sc">$</span>expected)</span></code></pre></div>
+<pre><code>## [1] 91035.86</code></pre>
+<p>La frecuencia esperada mínima es de 91.035,86, muy por encima de 5, por lo que se cumple el supuesto y la prueba χ² es válida.</p>
+<p>Con una confianza del 95%, la prueba χ² de independencia <span class="math inline">\((χ²₍₂₎ = 19531, p-valor &lt; 0.001)\)</span> nos indica que <code>resultado</code> y <code>sleep_quality</code> no son independientes; existe asociación estadísticamente significativa entre la calidad del sueño y el hecho de aprobar o reprobar el examen.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="tabla-de-contingencia.html#cb104-1" tabindex="-1"></a>k_sq <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(tabla_resultado_sq) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(tabla_resultado_sq) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb104-2"><a href="tabla-de-contingencia.html#cb104-2" tabindex="-1"></a>v_sq <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chisq_sq<span class="sc">$</span>statistic <span class="sc">/</span> (<span class="fu">sum</span>(tabla_resultado_sq) <span class="sc">*</span> k_sq))</span>
+<span id="cb104-3"><a href="tabla-de-contingencia.html#cb104-3" tabindex="-1"></a>v_sq</span></code></pre></div>
+<pre><code>## X-squared 
+## 0.1760708</code></pre>
+<p>La V de Cramer obtenida es de 0,1761, lo que indica una asociación débil entre ambas variables. Esto es consistente con el tamaño del efecto pequeño (η² = 0,0526) encontrado con Kruskal-Wallis en la sección anterior: la calidad del sueño está relacionada con el desempeño académico, pero de forma modesta.</p>
+<ul>
+<li><code>resultado</code> vs <code>study_method</code></li>
+</ul>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="tabla-de-contingencia.html#cb106-1" tabindex="-1"></a>tabla_resultado_sm <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>study_method)</span>
+<span id="cb106-2"><a href="tabla-de-contingencia.html#cb106-2" tabindex="-1"></a>tabla_resultado_sm</span></code></pre></div>
+<pre><code>##            
+##             coaching group study mixed online videos self-study
+##   aprobado     88790       63351 76249         59758      59655
+##   reprobado    42907       59658 46837         61319      71476</code></pre>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="tabla-de-contingencia.html#cb108-1" tabindex="-1"></a>chisq_sm <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_resultado_sm)</span>
+<span id="cb108-2"><a href="tabla-de-contingencia.html#cb108-2" tabindex="-1"></a>chisq_sm</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  tabla_resultado_sm
+## X-squared = 17569, df = 4, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="tabla-de-contingencia.html#cb110-1" tabindex="-1"></a><span class="fu">min</span>(chisq_sm<span class="sc">$</span>expected)</span></code></pre></div>
+<pre><code>## [1] 54234.23</code></pre>
+<p>La frecuencia esperada mínima es de 54.234,23, también muy por encima de 5, por lo que se cumple el supuesto de la prueba χ².</p>
+<p>Con una confianza del 95%, la prueba χ² de independencia <span class="math inline">\((χ²₍₄₎ = 17569, p-valor &lt; 0.001)\)</span> nos indica que <code>resultado</code> y <code>study_method</code> tampoco son independientes.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="tabla-de-contingencia.html#cb112-1" tabindex="-1"></a>k_sm <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(tabla_resultado_sm) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(tabla_resultado_sm) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb112-2"><a href="tabla-de-contingencia.html#cb112-2" tabindex="-1"></a>v_sm <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chisq_sm<span class="sc">$</span>statistic <span class="sc">/</span> (<span class="fu">sum</span>(tabla_resultado_sm) <span class="sc">*</span> k_sm))</span>
+<span id="cb112-3"><a href="tabla-de-contingencia.html#cb112-3" tabindex="-1"></a>v_sm</span></code></pre></div>
+<pre><code>## X-squared 
+## 0.1669942</code></pre>
+<p>La V de Cramer para <code>study_method</code> es de 0,1670, prácticamente igual a la obtenida con <code>sleep_quality</code> (0,1761), lo que vuelve a confirmar una asociación débil.</p>
+<p>En conjunto, ambas pruebas χ² resultan estadísticamente significativas, pero al igual que con Kruskal-Wallis, el tamaño del efecto (V de Cramer ≈ 0,17 en los dos casos) confirma que la asociación entre estas variables categóricas y el resultado del examen (<code>resultado</code>) es real pero débil. Ninguna de las dos alcanza sola para predecir con fuerza si un estudiante va a aprobar o no.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="correlación.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

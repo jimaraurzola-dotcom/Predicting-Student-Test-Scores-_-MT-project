@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Predicting Student Test Scores</title>
+  <meta name="description" content="Predicting Student Test Scores" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Predicting Student Test Scores" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Predicting Student Test Scores" />
+  
+  
+  
+
+<meta name="author" content="Jimara Urzola" />
+
+
+<meta name="date" content="2026-09-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="análisis-exploratorio-de-datos-eda.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#contexto-de-los-datos-de-student-test-scores"><i class="fa fa-check"></i><b>1.0.1</b> Contexto de los datos de student test scores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html"><i class="fa fa-check"></i><b>2</b> Análisis exploratorio de datos (EDA)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-de-exam_score-target"><i class="fa fa-check"></i><b>2.1</b> Análisis exploratorio de <code>exam_score</code> (Target)</a></li>
+<li class="chapter" data-level="2.2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.2</b> Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="2.3" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-bivariado"><i class="fa fa-check"></i><b>2.3</b> Análisis exploratorio bivariado</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>3</b> Análisis de estadística paramétrica y no paramétrica</a></li>
+<li class="chapter" data-level="4" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>4</b> Tabla de contingencia</a></li>
+<li class="chapter" data-level="5" data-path="correlación.html"><a href="correlación.html"><i class="fa fa-check"></i><b>5</b> Correlación</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicting Student Test Scores</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Predicting Student Test Scores</h1>
+<p class="author"><em>Jimara Urzola</em></p>
+<p class="date"><em>2026-09-15</em></p>
+</div>
+<div id="introducción" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Introducción<a href="index.html#introducci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Para el desarrollo del análisis trabajaremos con el conjunto de datos Predicting Student Test Scores, un conjunto de datos sintético diseñado para problemas de regresión en el ámbito educativo. Este conjunto contiene información sobre características académicas, conductuales y de acceso a recursos de 630.000 estudiantes, con el objetivo de analizar y predecir el desempeño académico a partir de variables como las horas de estudio, la asistencia a clases, el método de estudio empleado y el acceso a recursos como internet.</p>
+<p>A partir de este conjunto de datos, el presente proyecto busca responder la siguiente pregunta de investigación:</p>
+<p>¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?</p>
+<div id="contexto-de-los-datos-de-student-test-scores" class="section level3 hasAnchor" number="1.0.1">
+<h3><span class="header-section-number">1.0.1</span> Contexto de los datos de student test scores<a href="index.html#contexto-de-los-datos-de-student-test-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las variables del conjunto de datos son:</p>
+<ul>
+<li><p><code>age</code>: Edad del estudiante.</p></li>
+<li><p><code>gender</code>: Género del estudiante (female, male, other).</p></li>
+<li><p><code>study_hours</code>: Número de horas dedicadas al estudio.</p></li>
+<li><p><code>study_method</code>: Método de estudio empleado (coaching, group study, mixed, online videos, self-study).</p></li>
+<li><p><code>class_attendance</code>: Porcentaje de asistencia a clases.</p></li>
+<li><p><code>sleep_hours</code>: Número de horas de sueño.</p></li>
+<li><p><code>sleep_quality</code>: Calidad del sueño percibida (poor, average, good).</p></li>
+<li><p><code>course</code>: Programa académico que cursa el estudiante.</p></li>
+<li><p><code>internet_access</code>: Indica si el estudiante cuenta con acceso a internet (yes, no).</p></li>
+<li><p><code>facility_rating</code>: Calificación de las instalaciones educativas (low, medium, high).</p></li>
+<li><p><code>exam_difficulty</code>: Dificultad percibida del examen (easy, moderate, hard).</p></li>
+<li><p><code>exam_score</code>: Calificación obtenida por el estudiante en el examen, en una escala de 0 a 100.</p></li>
+</ul>
+<p>Iniciaremos con un análisis exploratorio de datos (EDA) del conjunto Predicting Student Test Scores, con el propósito de comprender la estructura de los datos, identificar patrones, detectar valores atípicos y analizar las relaciones entre las variables que pueden influir en el desempeño académico de los estudiantes.</p>
+
+<style>
+body {
+       background-color: #ffe4e1;
+       font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+       color: f4f4f4;
+}
+
+a {
+       color: f4f4f4;
+       text-decoration: none;
+}
+a: hover {
+       text-decoration: underline;
+}
+</style>
+<style type="text/css">
+body {
+  background-color: #F8F4FF;
+}
+</style>
+<p>Carguemos las librerias y el conjunto de los datos</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.2.1     ✔ readr     2.2.0
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.2     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span></code></pre></div>
+<pre><code>## Loading required package: Rcpp
+## ## 
+## ## Amelia II: Multiple Imputation
+## ## (Version 1.8.3, built: 2024-11-07)
+## ## Copyright (C) 2005-2026 James Honaker, Gary King and Matthew Blackwell
+## ## Refer to http://gking.harvard.edu/amelia/ for more information
+## ##</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(moments)</span>
+<span id="cb5-2"><a href="index.html#cb5-2" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb5-3"><a href="index.html#cb5-3" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb5-4"><a href="index.html#cb5-4" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
+<span id="cb5-5"><a href="index.html#cb5-5" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;rstatix&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;Datos/train.csv&#39;</span>)</span></code></pre></div>
+<p>Verifiquemos que leímos bien los datos observando las primeras filas:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="index.html#cb8-1" tabindex="-1"></a><span class="fu">head</span>(trainset, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##   id age gender  course study_hours class_attendance internet_access
+## 1  0  21 female    b.sc        7.91             98.8              no
+## 2  1  18  other diploma        4.95             94.8             yes
+## 3  2  20 female    b.sc        4.68             92.6             yes
+## 4  3  19   male    b.sc        2.00             49.5             yes
+## 5  4  23   male     bca        7.65             86.9             yes
+##   sleep_hours sleep_quality  study_method facility_rating exam_difficulty
+## 1         4.9       average online videos             low            easy
+## 2         4.7          poor    self-study          medium        moderate
+## 3         5.8          poor      coaching            high        moderate
+## 4         8.3       average   group study            high        moderate
+## 5         9.6          good    self-study            high            easy
+##   exam_score
+## 1       78.3
+## 2       46.7
+## 3       99.0
+## 4       63.9
+## 5      100.0</code></pre>
+<p>Con esto podemos confirmar que la base de datos fue cargada correctamente, como prueba de ello observando las primeras 5 filas de información.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="index.html#cb10-1" tabindex="-1"></a><span class="fu">colnames</span>(trainset)</span></code></pre></div>
+<pre><code>##  [1] &quot;id&quot;               &quot;age&quot;              &quot;gender&quot;           &quot;course&quot;          
+##  [5] &quot;study_hours&quot;      &quot;class_attendance&quot; &quot;internet_access&quot;  &quot;sleep_hours&quot;     
+##  [9] &quot;sleep_quality&quot;    &quot;study_method&quot;     &quot;facility_rating&quot;  &quot;exam_difficulty&quot; 
+## [13] &quot;exam_score&quot;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1" tabindex="-1"></a><span class="fu">str</span>(trainset)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    630000 obs. of  13 variables:
+##  $ id              : int  0 1 2 3 4 5 6 7 8 9 ...
+##  $ age             : int  21 18 20 19 23 24 20 22 22 18 ...
+##  $ gender          : chr  &quot;female&quot; &quot;other&quot; &quot;female&quot; &quot;male&quot; ...
+##  $ course          : chr  &quot;b.sc&quot; &quot;diploma&quot; &quot;b.sc&quot; &quot;b.sc&quot; ...
+##  $ study_hours     : num  7.91 4.95 4.68 2 7.65 5.04 4.28 4.19 1.06 3.44 ...
+##  $ class_attendance: num  98.8 94.8 92.6 49.5 86.9 85.1 87 44.9 98.3 80.9 ...
+##  $ internet_access : chr  &quot;no&quot; &quot;yes&quot; &quot;yes&quot; &quot;yes&quot; ...
+##  $ sleep_hours     : num  4.9 4.7 5.8 8.3 9.6 9.4 9.1 8.8 5 6.2 ...
+##  $ sleep_quality   : chr  &quot;average&quot; &quot;poor&quot; &quot;poor&quot; &quot;average&quot; ...
+##  $ study_method    : chr  &quot;online videos&quot; &quot;self-study&quot; &quot;coaching&quot; &quot;group study&quot; ...
+##  $ facility_rating : chr  &quot;low&quot; &quot;medium&quot; &quot;high&quot; &quot;high&quot; ...
+##  $ exam_difficulty : chr  &quot;easy&quot; &quot;moderate&quot; &quot;moderate&quot; &quot;moderate&quot; ...
+##  $ exam_score      : num  78.3 46.7 99 63.9 100 70.1 63.4 76.8 46.7 58.2 ...</code></pre>
+<p>Identifiquemos si existen valores <code>NA</code> por columna:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="index.html#cb14-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="index.html#cb14-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.))))</span></code></pre></div>
+<pre><code>##   id age gender course study_hours class_attendance internet_access sleep_hours
+## 1  0   0      0      0           0                0               0           0
+##   sleep_quality study_method facility_rating exam_difficulty exam_score
+## 1             0            0               0               0          0</code></pre>
+<p>Comprobamos con las variables cátegoricas.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="index.html#cb16-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="index.html#cb16-2" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(is.character)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="index.html#cb16-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), <span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
+<pre><code>##   NA_gender NA_course NA_internet_access NA_sleep_quality NA_study_method
+## 1         0         0                  0                0               0
+##   NA_facility_rating NA_exam_difficulty
+## 1                  0                  0</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="index.html#cb18-1" tabindex="-1"></a><span class="fu">missmap</span>(trainset)</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
+<p>No existe ningun dato faltante en el dataset <code>train.csv</code>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="análisis-exploratorio-de-datos-eda.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

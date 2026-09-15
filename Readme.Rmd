@@ -1,0 +1,118 @@
+---
+title: "Readme"
+output: html_document
+---
+
+## Diario para la documentación de avances del proyecto.
+Proyecto aplicado de las técnicas estadísticas vistas en el curso de métodos estadísticos.
+
+### 15/08/26
+---------------------------------
+
+**Dataset:** Predicting Student Test Scores
+
+**Avance:** Arranqué con el Capítulo 3 — Análisis Exploratorio de Datos (EDA)
+
+Empecé a meterle mano al proyecto de verdad. Esto es lo que hice:
+
+**Los datos**
+
+Trabajo con `train.csv`, que tiene 630,000 observaciones y 13 variables: 4 numéricas, 8 categóricas y la variable respuesta `exam_score`. Buena noticia: no hay datos faltantes. También tengo `test.csv` (270,000 observaciones, sin `exam_score`) y `sample_submission.csv` para cuando llegue el momento de entregar predicciones.
+
+Las variables que tengo:
+
+- Numéricas: `age`, `study_hours`, `class_attendance`, `sleep_hours`
+- Categóricas: `gender`, `course`, `internet_access`, `sleep_quality`, `study_method`, `facility_rating`, `exam_difficulty`
+- Respuesta: `exam_score` (numérica, va de 0 a 100)
+
+**Cómo voy a estructurar el análisis**
+
+Como `exam_score` es numérica, voy a seguir la misma lógica que el profesor usa con el dataset de `housing` en sus notas de clase:
+
+1. ETL: cargar los datos, revisar `head`, `dim`, `colnames`, `str`, y chequear NAs con `missmap`.
+2. Análisis de `exam_score`: tabla resumen (n, media, ds, mediana, min, max, Q1, Q3, IQR), histograma con densidad y boxplot.
+3. Variables independientes:
+   - Numéricas: tabla resumen + boxplots juntos con `patchwork`.
+   - Categóricas: tabla de frecuencias + gráfico de barras.
+4. Bivariado: dispersión con línea de tendencia para las numéricas vs `exam_score`, boxplots y tablas para las categóricas vs `exam_score`, y de pronto uso `ggpairs()` de `GGally` también.
+
+**Primer vistazo a los datos (sin gráficos todavía)**
+
+Ya saqué medidas de tendencia central, tablas de frecuencia y una matriz de correlación rápida para tener una idea de por dónde va esto:
+
+- `study_hours` es, por lejos, la que más correlaciona con `exam_score` (r = 0.76).
+- `class_attendance` tiene correlación moderada (r = 0.36), `sleep_hours` es débil (r = 0.17), y `age` prácticamente no tiene relación (r = 0.01).
+- De las categóricas, `study_method`, `sleep_quality` y `facility_rating` parecen tener algo de efecto sobre `exam_score`; `gender`, `internet_access` y `exam_difficulty` no se ven muy diferentes entre grupos.
+- Noté un pico raro justo en `exam_score = 100` — puede ser que el dato esté censurado ahí arriba (como es sintético, tiene sentido). Lo reviso más adelante con calma.
+
+**Para la próxima:**
+
+- Armar el `.Rmd` siguiendo la plantilla del curso.
+- Revisar outliers de forma más formal.
+- Terminar el bivariado completo (todas las variables vs `exam_score`).
+- Empezar a pensar en las hipótesis que voy a contrastar en el Capítulo 4.
+
+### 13/09/26
+---------------------------------
+
+**Avance:** Terminé el EDA completo y arranqué con estadística paramétrica/no paramétrica
+
+Bastante avance desde la última entrada. Resumen de lo que hice:
+
+**EDA (Capítulo 2)**
+
+- Terminé el análisis univariado de las 4 variables numéricas y las 7 categóricas — tablas de frecuencia, boxplots y gráficos de barras para todas.
+- Hice el bivariado numérico completo: `age`, `study_hours`, `class_attendance` y `sleep_hours` vs `exam_score`, cada uno con su scatter plot + línea de tendencia. `study_hours` sigue siendo el que más se nota a simple vista, `age` prácticamente no muestra relación.
+- Decidí no replicar la sección 3.5 del libro (target categórica) porque mi variable respuesta es numérica, no aplica directamente a mi proyecto.
+
+**Estadística paramétrica y no paramétrica (Capítulo 3) — recién arrancando**
+
+- Con el tamaño de muestra que tengo (630,000), Shapiro-Wilk no sirve, así que estoy usando Lilliefors para normalidad.
+- Todas las variables que he probado hasta ahora salen no normales, así que voy directo por la vía no paramétrica (Mann-Whitney / Kruskal-Wallis) en vez de t-test/ANOVA.
+- Ya analicé `internet_access` (2 grupos) y `gender` y `sleep_quality` (3 grupos cada una) vs `exam_score`. Todas salieron "significativas" en el p-valor, pero al revisar el tamaño del efecto, `internet_access` y `gender` resultaron prácticamente irrelevantes en la práctica. `sleep_quality` dio un poquito más alto, aunque sigue siendo pequeño.
+- Aprendizaje del día: con muestras tan grandes, el p-valor solo no dice mucho — el tamaño del efecto es el que de verdad importa para saber si algo es relevante o no.
+
+**Pendientes de bookdown/GitHub**
+
+- Tuve otra vez problemas para que se actualizara el sitio publicado — resulta que había renderizado con Knit individual en vez de `render_book()`, así que nunca tocó la carpeta `docs/`. Ya lo solucioné, pero anoto la lección: siempre `render_book()` + `git add .` + commit + push, no Knit suelto.
+
+**Próximos pasos:**
+
+- Terminar el resto de variables categóricas (`facility_rating`, `exam_difficulty`, `study_method`, `course`) con la misma lógica de normalidad → prueba → tamaño del efecto.
+- Escribir una conclusión general de esta sección una vez tenga todas las variables.
+- Seguir con la parte de regresión lineal.
+
+---------------------------------
+
+### 15/09/26
+---------------------------------
+
+**Avance:** Terminé el Capítulo 3 completo y agregué tabla de contingencia y correlación
+
+**Estadística paramétrica y no paramétrica (Capítulo 3) — cerrado**
+
+- Terminé las cuatro variables categóricas que quedaban pendientes (`facility_rating`, `exam_difficulty`, `study_method`, `course`), siguiendo siempre la misma lógica: Lilliefors por grupo → Kruskal-Wallis (todas tienen 3+ categorías) → `kruskal_effsize`.
+- Armé una tabla resumen con los tamaños del efecto de las 7 variables categóricas. Ranking final: `sleep_quality` (η²=0,0526) > `study_method` (η²=0,0469) > `facility_rating` (η²=0,0328) >> `course`, `gender`, `exam_difficulty`, `internet_access` (todas prácticamente nulas). Ninguna sale de la magnitud "pequeña".
+- Conclusión de la sección: con 630.000 observaciones el p-valor casi siempre da significativo, así que el tamaño del efecto es el único criterio confiable para saber si una variable categórica realmente importa. Ninguna lo hace de forma contundente.
+
+**Tabla de contingencia (Capítulo 4) — nuevo**
+
+- Creé `resultado` (aprobado si `exam_score >= 60`, reprobado si no) para tener una variable categórica de la respuesta y poder aplicar χ² de independencia.
+- Probé `resultado` vs las dos variables con mayor efecto del capítulo anterior: `sleep_quality` (V de Cramer = 0,176) y `study_method` (V de Cramer = 0,167). Verifiqué el supuesto de frecuencias esperadas ≥5 en ambos casos (se cumple de sobra con este tamaño de muestra). Ambas asociaciones son significativas pero débiles, coherente con los tamaños del efecto de Kruskal-Wallis.
+
+**Correlación (Capítulo 5) — nuevo**
+
+- Comprobé con Lilliefors que ninguna de las 4 variables numéricas independientes es normal, así que usé Spearman en vez de Pearson (mismo criterio no paramétrico del resto del proyecto).
+- Matriz de correlación + `cor.test` individuales: `study_hours` (ρ=0,77, muy fuerte) sigue siendo el predictor más fuerte de todo el dataset, lejos de cualquier variable categórica. `class_attendance` (ρ=0,35) es débil-moderada, y `sleep_hours` (ρ=0,16) y `age` (ρ≈0) son irrelevantes en la práctica.
+
+**Housekeeping**
+
+- Encontré la causa real de los problemas para actualizar `docs/`: `book_filename` en `_bookdown.yml` estaba como `"Predicting-Student-Test-Scores"`, que en macOS (sistema de archivos no sensible a mayúsculas) colisiona con el archivo `Predicting-student-test-scores.Rmd`. El archivo de fusión temporal de bookdown se estaba guardando literalmente encima de mi capítulo, dejando basura de YAML y marcadores `<!--chapter:end:...-->` mezclados con mi contenido real. Lo renombré a `"Predicting-Student-Test-Scores-Book"` para que no vuelva a pasar.
+- Limpié esos restos del `.Rmd` y volví a correr `render_book()` para refrescar `docs/` de verdad.
+
+**Próximos pasos:**
+
+- Capítulo de regresión lineal simple/múltiple, usando `study_hours` como predictor principal y `class_attendance` como complemento.
+- Revisar si vale la pena una regresión logística para `resultado` (aprobado/reprobado).
+
+---------------------------------
