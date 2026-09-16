@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Correlación lineal | Predicting Student Test Scores</title>
+  <meta name="description" content="6 Correlación lineal | Predicting Student Test Scores" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Correlación lineal | Predicting Student Test Scores" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Correlación lineal | Predicting Student Test Scores" />
+  
+  
+  
+
+<meta name="author" content="Jimara Urzola" />
+
+
+<meta name="date" content="2026-09-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tabla-de-contingencia.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#contexto-de-los-datos-de-student-test-scores"><i class="fa fa-check"></i><b>1.0.1</b> Contexto de los datos de student test scores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html"><i class="fa fa-check"></i><b>2</b> Análisis exploratorio de datos (EDA)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-de-exam_score-target"><i class="fa fa-check"></i><b>2.1</b> Análisis exploratorio de <code>exam_score</code> (Target)</a></li>
+<li class="chapter" data-level="2.2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.2</b> Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="2.3" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-bivariado"><i class="fa fa-check"></i><b>2.3</b> Análisis exploratorio bivariado</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html"><i class="fa fa-check"></i><b>3</b> ANOVA (análisis de varianza)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#el-modelo-y-las-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.1</b> El modelo y las hipótesis</a></li>
+<li class="chapter" data-level="3.2" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>3.2</b> Supuesto de normalidad</a></li>
+<li class="chapter" data-level="3.3" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#supuesto-de-homogeneidad-de-varianzas"><i class="fa fa-check"></i><b>3.3</b> Supuesto de homogeneidad de varianzas</a></li>
+<li class="chapter" data-level="3.4" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#se-puede-aplicar-el-anova"><i class="fa fa-check"></i><b>3.4</b> ¿Se puede aplicar el ANOVA?</a></li>
+<li class="chapter" data-level="3.5" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#verificaci%C3%B3n-del-teorema-de-descomposici%C3%B3n"><i class="fa fa-check"></i><b>3.5</b> Verificación del teorema de descomposición</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>4</b> Análisis de estadística paramétrica y no paramétrica</a></li>
+<li class="chapter" data-level="5" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>5</b> Tabla de contingencia</a></li>
+<li class="chapter" data-level="6" data-path="correlación-lineal.html"><a href="correlación-lineal.html"><i class="fa fa-check"></i><b>6</b> Correlación lineal</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicting Student Test Scores</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="correlación-lineal" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Correlación lineal<a href="correlación-lineal.html#correlaci%C3%B3n-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En el EDA ya habíamos observado, a través de diagramas de dispersión, que <code>study_hours</code> y <code>class_attendance</code> parecían tener una relación positiva con <code>exam_score</code>, mientras que <code>age</code> y <code>sleep_hours</code> no mostraban un patrón claro. En esta sección cuantificamos esas relaciones con el coeficiente de correlación.</p>
+<p>El coeficiente de Pearson es una medida paramétrica y exige, entre otros supuestos, que ambas variables tengan un comportamiento normal. Como ya establecimos que <code>exam_score</code> no sigue una distribución normal, verificamos ahora la normalidad de las cuatro variables numéricas independientes para decidir entre la correlación de Pearson (paramétrica) y la de Spearman (no paramétrica). Al igual que antes, descartamos Shapiro-Wilk por el tamaño de la muestra (630.000) y usamos la prueba de Lilliefors.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="correlación-lineal.html#cb242-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb242-2"><a href="correlación-lineal.html#cb242-2" tabindex="-1"></a>  <span class="fu">select</span>(age, study_hours, class_attendance, sleep_hours) <span class="sc">%&gt;%</span></span>
+<span id="cb242-3"><a href="correlación-lineal.html#cb242-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb242-4"><a href="correlación-lineal.html#cb242-4" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb242-5"><a href="correlación-lineal.html#cb242-5" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb242-6"><a href="correlación-lineal.html#cb242-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;valor&quot;</span></span>
+<span id="cb242-7"><a href="correlación-lineal.html#cb242-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb242-8"><a href="correlación-lineal.html#cb242-8" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb242-9"><a href="correlación-lineal.html#cb242-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(valor),</span>
+<span id="cb242-10"><a href="correlación-lineal.html#cb242-10" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(valor)<span class="sc">$</span>statistic,</span>
+<span id="cb242-11"><a href="correlación-lineal.html#cb242-11" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(valor)<span class="sc">$</span>p.value)</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 4
+##   variable              n est_lt  p_lt
+##   &lt;chr&gt;             &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt;
+## 1 age              630000 0.115      0
+## 2 class_attendance 630000 0.0611     0
+## 3 sleep_hours      630000 0.0738     0
+## 4 study_hours      630000 0.0628     0</code></pre>
+<p>Con una confianza del <span class="math inline">\(95\%\)</span>, ninguna de las cuatro variables numéricas proviene de una distribución normal (<code>age</code>: <span class="math inline">\(D = 0.1152\)</span>; <code>study_hours</code>: <span class="math inline">\(D = 0.0628\)</span>; <code>class_attendance</code>: <span class="math inline">\(D = 0.0611\)</span>; <code>sleep_hours</code>: <span class="math inline">\(D = 0.0738\)</span>; en los cuatro casos <span class="math inline">\(p-valor &lt; 0.001\)</span>). Al no cumplirse el supuesto de normalidad, usamos el coeficiente de correlación de Spearman en lugar del de Pearson, consistente con el enfoque no paramétrico usado en todo el proyecto.</p>
+<ul>
+<li><code>study_hours</code> vs <code>exam_score</code></li>
+</ul>
+<p>Hallemos primero el coeficiente de Spearman paso a paso. Como la variable tiene empates, los rangos se asignan por promedios y el coeficiente se calcula como la correlación de Pearson aplicada a esos rangos:</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="correlación-lineal.html#cb244-1" tabindex="-1"></a><span class="co"># 1) Vectores, rangos y tamaño muestral</span></span>
+<span id="cb244-2"><a href="correlación-lineal.html#cb244-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> trainset<span class="sc">$</span>study_hours</span>
+<span id="cb244-3"><a href="correlación-lineal.html#cb244-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> trainset<span class="sc">$</span>exam_score</span>
+<span id="cb244-4"><a href="correlación-lineal.html#cb244-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb244-5"><a href="correlación-lineal.html#cb244-5" tabindex="-1"></a></span>
+<span id="cb244-6"><a href="correlación-lineal.html#cb244-6" tabindex="-1"></a>rx <span class="ot">&lt;-</span> <span class="fu">rank</span>(x)</span>
+<span id="cb244-7"><a href="correlación-lineal.html#cb244-7" tabindex="-1"></a>ry <span class="ot">&lt;-</span> <span class="fu">rank</span>(y)</span>
+<span id="cb244-8"><a href="correlación-lineal.html#cb244-8" tabindex="-1"></a></span>
+<span id="cb244-9"><a href="correlación-lineal.html#cb244-9" tabindex="-1"></a><span class="co"># 2) promedios de los rangos</span></span>
+<span id="cb244-10"><a href="correlación-lineal.html#cb244-10" tabindex="-1"></a>rxbar <span class="ot">&lt;-</span> <span class="fu">sum</span>(rx) <span class="sc">/</span> n</span>
+<span id="cb244-11"><a href="correlación-lineal.html#cb244-11" tabindex="-1"></a>rybar <span class="ot">&lt;-</span> <span class="fu">sum</span>(ry) <span class="sc">/</span> n</span>
+<span id="cb244-12"><a href="correlación-lineal.html#cb244-12" tabindex="-1"></a></span>
+<span id="cb244-13"><a href="correlación-lineal.html#cb244-13" tabindex="-1"></a><span class="co"># 3) desviaciones</span></span>
+<span id="cb244-14"><a href="correlación-lineal.html#cb244-14" tabindex="-1"></a>rxc <span class="ot">&lt;-</span> rx <span class="sc">-</span> rxbar</span>
+<span id="cb244-15"><a href="correlación-lineal.html#cb244-15" tabindex="-1"></a>ryc <span class="ot">&lt;-</span> ry <span class="sc">-</span> rybar</span>
+<span id="cb244-16"><a href="correlación-lineal.html#cb244-16" tabindex="-1"></a></span>
+<span id="cb244-17"><a href="correlación-lineal.html#cb244-17" tabindex="-1"></a>Sxy <span class="ot">&lt;-</span> <span class="fu">sum</span>(rxc <span class="sc">*</span> ryc)   <span class="co"># sumatoria de productos centrados</span></span>
+<span id="cb244-18"><a href="correlación-lineal.html#cb244-18" tabindex="-1"></a>Sxx <span class="ot">&lt;-</span> <span class="fu">sum</span>(rxc<span class="sc">^</span><span class="dv">2</span>)       <span class="co"># sumatoria de cuadrados centrados de los rangos de x</span></span>
+<span id="cb244-19"><a href="correlación-lineal.html#cb244-19" tabindex="-1"></a>Syy <span class="ot">&lt;-</span> <span class="fu">sum</span>(ryc<span class="sc">^</span><span class="dv">2</span>)       <span class="co"># sumatoria de cuadrados centrados de los rangos de y</span></span>
+<span id="cb244-20"><a href="correlación-lineal.html#cb244-20" tabindex="-1"></a></span>
+<span id="cb244-21"><a href="correlación-lineal.html#cb244-21" tabindex="-1"></a><span class="co"># 4) Coeficiente de correlación de Spearman</span></span>
+<span id="cb244-22"><a href="correlación-lineal.html#cb244-22" tabindex="-1"></a>rho <span class="ot">&lt;-</span> Sxy <span class="sc">/</span> <span class="fu">sqrt</span>(Sxx <span class="sc">*</span> Syy)</span>
+<span id="cb244-23"><a href="correlación-lineal.html#cb244-23" tabindex="-1"></a>rho</span></code></pre></div>
+<pre><code>## [1] 0.7697575</code></pre>
+<p>Usando la función <code>cor</code> tenemos:</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="correlación-lineal.html#cb246-1" tabindex="-1"></a><span class="fu">cor</span>(x, y, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] 0.7697575</code></pre>
+<p>Ahora veamos si la correlación es significativa. El estadístico de prueba para <span class="math inline">\(H_0: \rho_S = 0\)</span> es</p>
+<p><span class="math display">\[
+t_0 = \rho_S \sqrt{\frac{n-2}{1 - \rho_S^2}}
+\]</span></p>
+<p>con <span class="math inline">\(n-2\)</span> grados de libertad:</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="correlación-lineal.html#cb248-1" tabindex="-1"></a><span class="co"># 5) Estadístico t para H0: rho_S = 0</span></span>
+<span id="cb248-2"><a href="correlación-lineal.html#cb248-2" tabindex="-1"></a>gl <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb248-3"><a href="correlación-lineal.html#cb248-3" tabindex="-1"></a>t_0 <span class="ot">&lt;-</span> rho <span class="sc">*</span> <span class="fu">sqrt</span>(gl <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> rho<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb248-4"><a href="correlación-lineal.html#cb248-4" tabindex="-1"></a>t_0</span></code></pre></div>
+<pre><code>## [1] 957.1365</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="correlación-lineal.html#cb250-1" tabindex="-1"></a><span class="co"># 6) Valor crítico t_(alpha/2, gl) para alpha = 0.05 (bilateral)</span></span>
+<span id="cb250-2"><a href="correlación-lineal.html#cb250-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb250-3"><a href="correlación-lineal.html#cb250-3" tabindex="-1"></a>t_tab <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>, <span class="at">df =</span> gl)</span>
+<span id="cb250-4"><a href="correlación-lineal.html#cb250-4" tabindex="-1"></a>t_tab</span></code></pre></div>
+<pre><code>## [1] 1.959968</code></pre>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="correlación-lineal.html#cb252-1" tabindex="-1"></a><span class="co"># decisión</span></span>
+<span id="cb252-2"><a href="correlación-lineal.html#cb252-2" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">abs</span>(t_0) <span class="sc">&gt;</span> t_tab) {</span>
+<span id="cb252-3"><a href="correlación-lineal.html#cb252-3" tabindex="-1"></a>  decision <span class="ot">&lt;-</span> <span class="st">&quot;Rechazar H0: la correlación es significativa&quot;</span></span>
+<span id="cb252-4"><a href="correlación-lineal.html#cb252-4" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb252-5"><a href="correlación-lineal.html#cb252-5" tabindex="-1"></a>  decision <span class="ot">&lt;-</span> <span class="st">&quot;No rechazar H0: no hay evidencia suficiente de correlación&quot;</span></span>
+<span id="cb252-6"><a href="correlación-lineal.html#cb252-6" tabindex="-1"></a>}</span>
+<span id="cb252-7"><a href="correlación-lineal.html#cb252-7" tabindex="-1"></a>decision</span></code></pre></div>
+<pre><code>## [1] &quot;Rechazar H0: la correlación es significativa&quot;</code></pre>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="correlación-lineal.html#cb254-1" tabindex="-1"></a><span class="co"># 7) p-valor (bilateral) desde la t de Student</span></span>
+<span id="cb254-2"><a href="correlación-lineal.html#cb254-2" tabindex="-1"></a>p_valor <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_0), <span class="at">df =</span> gl)</span>
+<span id="cb254-3"><a href="correlación-lineal.html#cb254-3" tabindex="-1"></a>p_valor</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Usando la función <code>cor.test</code> nos queda:</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="correlación-lineal.html#cb256-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>study_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Spearman&#39;s rank correlation rho
+## 
+## data:  trainset$study_hours and trainset$exam_score
+## S = 9.5952e+15, p-value &lt; 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.7697575</code></pre>
+<p>El coeficiente obtenido a mano, <span class="math inline">\(\rho_S = 0.7698\)</span>, coincide exactamente con el de <code>cor()</code> y con el de <code>cor.test()</code> <span class="math inline">\((S = 9.5952\times 10^{15},\ p-valor &lt; 0.001)\)</span>. Según la tabla de interpretación del curso, un valor entre 0,75 y 1,00 corresponde a una <strong>correlación positiva muy fuerte</strong>. Con una confianza del <span class="math inline">\(95\%\)</span> se rechaza la hipótesis nula de ausencia de correlación: a más horas de estudio, mayor es la nota. Este es, por lejos, el predictor numérico más fuerte del conjunto de datos.</p>
+<p>Para las tres variables restantes aplicamos directamente <code>cor.test</code>.</p>
+<ul>
+<li><code>class_attendance</code> vs <code>exam_score</code></li>
+</ul>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="correlación-lineal.html#cb258-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>class_attendance, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Spearman&#39;s rank correlation rho
+## 
+## data:  trainset$class_attendance and trainset$exam_score
+## S = 2.7025e+16, p-value &lt; 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##      rho 
+## 0.351515</code></pre>
+<p>Se obtiene un coeficiente <span class="math inline">\(\rho = 0.3515\)</span> <span class="math inline">\((S = 2.7025\times 10^{16},\ p-valor &lt; 0.001)\)</span>, que al estar en el rango de 0,25 a 0,50 corresponde a una <strong>correlación positiva débil</strong>. La asistencia a clases está relacionada con el desempeño académico, pero de forma bastante más modesta que las horas de estudio.</p>
+<ul>
+<li><code>sleep_hours</code> vs <code>exam_score</code></li>
+</ul>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="correlación-lineal.html#cb260-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>sleep_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Spearman&#39;s rank correlation rho
+## 
+## data:  trainset$sleep_hours and trainset$exam_score
+## S = 3.5005e+16, p-value &lt; 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.1600479</code></pre>
+<p>Se obtiene un coeficiente <span class="math inline">\(\rho = 0.1600\)</span> <span class="math inline">\((S = 3.5005\times 10^{16},\ p-valor &lt; 0.001)\)</span>. Al caer en el rango de <span class="math inline">\(-0,25\)</span> a <span class="math inline">\(0,25\)</span>, la tabla lo clasifica como <strong>sin correlación o muy débil</strong>: aunque el contraste resulta estadísticamente significativo, dormir más o menos horas prácticamente no se traduce en diferencias en el puntaje del examen.</p>
+<ul>
+<li><code>age</code> vs <code>exam_score</code></li>
+</ul>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="correlación-lineal.html#cb262-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>age, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Spearman&#39;s rank correlation rho
+## 
+## data:  trainset$age and trainset$exam_score
+## S = 4.1376e+16, p-value = 1.303e-08
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##         rho 
+## 0.007163204</code></pre>
+<p>Se obtiene un coeficiente <span class="math inline">\(\rho = 0.0072\)</span> <span class="math inline">\((S = 4.1376\times 10^{16},\ p-valor = 1.303\times 10^{-8})\)</span>, es decir, <strong>sin correlación</strong>. A pesar de que el tamaño de muestra hace que hasta un coeficiente tan pequeño resulte significativo, su valor es prácticamente cero: la edad del estudiante no tiene ninguna relación relevante con su desempeño en el examen, confirmando lo que ya se veía en el diagrama de dispersión del EDA.</p>
+<p>Este es un buen ejemplo de la advertencia que hace el curso sobre el coeficiente de correlación: una correlación débil puede ser estadísticamente significativa y una fuerte puede no serlo, dependiendo del tamaño de muestra, la variabilidad y el poder de la prueba. Con 630.000 observaciones, la significancia estadística deja de ser informativa por sí sola y hay que apoyarse en la magnitud del coeficiente.</p>
+<p>En conjunto, de las cuatro variables numéricas independientes, <code>study_hours</code> es por mucho la que mejor se relaciona con <code>exam_score</code> (<span class="math inline">\(\rho = 0,77\)</span>, correlación positiva muy fuerte), seguida bastante más atrás por <code>class_attendance</code> (<span class="math inline">\(\rho = 0,35\)</span>, correlación positiva débil). <code>sleep_hours</code> (<span class="math inline">\(\rho = 0,16\)</span>) y <code>age</code> (<span class="math inline">\(\rho \approx 0\)</span>) prácticamente no aportan nada. Y comparando con las secciones anteriores, ninguna variable categórica (ni siquiera <code>sleep_quality</code> o <code>study_method</code>) se acerca a la fuerza de esta relación. Todo apunta a que <code>study_hours</code> va a ser el predictor más importante cuando lleguemos a la regresión lineal simple.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tabla-de-contingencia.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

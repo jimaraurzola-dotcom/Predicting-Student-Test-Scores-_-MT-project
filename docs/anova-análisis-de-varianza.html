@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 ANOVA (análisis de varianza) | Predicting Student Test Scores</title>
+  <meta name="description" content="3 ANOVA (análisis de varianza) | Predicting Student Test Scores" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 ANOVA (análisis de varianza) | Predicting Student Test Scores" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 ANOVA (análisis de varianza) | Predicting Student Test Scores" />
+  
+  
+  
+
+<meta name="author" content="Jimara Urzola" />
+
+
+<meta name="date" content="2026-09-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análisis-exploratorio-de-datos-eda.html"/>
+<link rel="next" href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#contexto-de-los-datos-de-student-test-scores"><i class="fa fa-check"></i><b>1.0.1</b> Contexto de los datos de student test scores</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html"><i class="fa fa-check"></i><b>2</b> Análisis exploratorio de datos (EDA)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-de-exam_score-target"><i class="fa fa-check"></i><b>2.1</b> Análisis exploratorio de <code>exam_score</code> (Target)</a></li>
+<li class="chapter" data-level="2.2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.2</b> Análisis de las variables independientes (características)</a></li>
+<li class="chapter" data-level="2.3" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-bivariado"><i class="fa fa-check"></i><b>2.3</b> Análisis exploratorio bivariado</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html"><i class="fa fa-check"></i><b>3</b> ANOVA (análisis de varianza)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#el-modelo-y-las-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.1</b> El modelo y las hipótesis</a></li>
+<li class="chapter" data-level="3.2" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>3.2</b> Supuesto de normalidad</a></li>
+<li class="chapter" data-level="3.3" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#supuesto-de-homogeneidad-de-varianzas"><i class="fa fa-check"></i><b>3.3</b> Supuesto de homogeneidad de varianzas</a></li>
+<li class="chapter" data-level="3.4" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#se-puede-aplicar-el-anova"><i class="fa fa-check"></i><b>3.4</b> ¿Se puede aplicar el ANOVA?</a></li>
+<li class="chapter" data-level="3.5" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#verificaci%C3%B3n-del-teorema-de-descomposici%C3%B3n"><i class="fa fa-check"></i><b>3.5</b> Verificación del teorema de descomposición</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>4</b> Análisis de estadística paramétrica y no paramétrica</a></li>
+<li class="chapter" data-level="5" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>5</b> Tabla de contingencia</a></li>
+<li class="chapter" data-level="6" data-path="correlación-lineal.html"><a href="correlación-lineal.html"><i class="fa fa-check"></i><b>6</b> Correlación lineal</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicting Student Test Scores</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="anova-análisis-de-varianza" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> ANOVA (análisis de varianza)<a href="anova-análisis-de-varianza.html#anova-an%C3%A1lisis-de-varianza" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Antes de pasar a las pruebas no paramétricas conviene preguntarse si el camino paramétrico es viable. Para comparar los promedios de <code>exam_score</code> entre los grupos de una variable categórica con más de dos niveles, la técnica indicada es el análisis de varianza de un factor (ANOVA). En esta sección planteamos el modelo, verificamos sus supuestos y decidimos si podemos usarlo.</p>
+<p>Trabajaremos con <code>study_method</code>, que es la variable categórica con mayor separación entre grupos según el análisis bivariado. La conclusión que obtengamos aquí sobre los supuestos se traslada al resto de las variables categóricas, porque todas comparten la misma variable respuesta.</p>
+<div id="el-modelo-y-las-hipótesis" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> El modelo y las hipótesis<a href="anova-análisis-de-varianza.html#el-modelo-y-las-hip%C3%B3tesis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se consideran <span class="math inline">\(k\)</span> grupos correspondientes a los <span class="math inline">\(k\)</span> niveles del factor. El modelo asume que las observaciones de cada grupo están normalmente distribuidas, con medias poblacionales <span class="math inline">\(\mu_1, \mu_2, \dots, \mu_k\)</span>, y que comparten una misma varianza común <span class="math inline">\(\sigma^2\)</span>:</p>
+<p><span class="math display">\[
+Y_{ij} \sim \mathcal{N}(\mu_{j}, \sigma^2), \quad i = 1, \dots, n_{j}, \quad j = 1, \dots, k.
+\]</span></p>
+<p>Sea <span class="math inline">\(\mu_j\)</span> el puntaje promedio poblacional de <code>exam_score</code> para el método de estudio <span class="math inline">\(j\)</span>, donde <span class="math inline">\(j = 1\)</span> es <code>coaching</code>, <span class="math inline">\(j = 2\)</span> es <code>group study</code>, <span class="math inline">\(j = 3\)</span> es <code>mixed</code>, <span class="math inline">\(j = 4\)</span> es <code>online videos</code> y <span class="math inline">\(j = 5\)</span> es <code>self-study</code>. Las hipótesis son:</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0: &amp;\quad \mu_1 = \mu_2 = \mu_3 = \mu_4 = \mu_5 \quad \text{(todas las medias son iguales)} \ vs \\
+H_1: &amp;\quad \text{Al menos una media difiere de las demás}
+\end{aligned}
+\]</span></p>
+<p>Los supuestos que deben verificarse son tres: normalidad dentro de cada grupo, homogeneidad de varianzas (homocedasticidad) e independencia de las observaciones. La independencia se sostiene por el diseño del conjunto de datos, donde cada fila es un estudiante distinto, así que solo nos queda comprobar los dos primeros.</p>
+</div>
+<div id="supuesto-de-normalidad" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Supuesto de normalidad<a href="anova-análisis-de-varianza.html#supuesto-de-normalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Como el tamaño de muestra es de 630.000 observaciones, la prueba de Shapiro-Wilk no es aplicable (solo admite hasta 5.000 datos), por lo que usamos la prueba de Lilliefors.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="anova-análisis-de-varianza.html#cb86-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="anova-análisis-de-varianza.html#cb86-2" tabindex="-1"></a>  <span class="fu">group_by</span>(study_method) <span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="anova-análisis-de-varianza.html#cb86-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb86-4"><a href="anova-análisis-de-varianza.html#cb86-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
+<span id="cb86-5"><a href="anova-análisis-de-varianza.html#cb86-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 4
+##   study_method       n est_lt      p_lt
+##   &lt;chr&gt;          &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+## 1 coaching      131697 0.0478 0        
+## 2 group study   123009 0.0199 1.75e-124
+## 3 mixed         123086 0.0317 9.88e-324
+## 4 online videos 121077 0.0238 1.05e-176
+## 5 self-study    131131 0.0258 4.69e-225</code></pre>
+<p>La prueba de Lilliefors muestra que <code>exam_score</code> no tiene comportamiento normal en ninguno de los cinco métodos de estudio: <code>coaching</code> <span class="math inline">\((D = 0.0478)\)</span>, <code>group study</code> <span class="math inline">\((D = 0.0199)\)</span>, <code>mixed</code> <span class="math inline">\((D = 0.0317)\)</span>, <code>online videos</code> <span class="math inline">\((D = 0.0238)\)</span> y <code>self-study</code> <span class="math inline">\((D = 0.0258)\)</span>, con <span class="math inline">\(p-valor &lt; 0.001\)</span> en los cinco casos. <strong>No se cumple el supuesto de normalidad.</strong></p>
+</div>
+<div id="supuesto-de-homogeneidad-de-varianzas" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Supuesto de homogeneidad de varianzas<a href="anova-análisis-de-varianza.html#supuesto-de-homogeneidad-de-varianzas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Aunque la normalidad ya falló, verificamos también la homocedasticidad con las tres pruebas vistas en clase, para dejar documentado el comportamiento de cada una.</p>
+<p>La prueba de Bartlett compara la varianza combinada contra las varianzas de cada grupo mediante una razón de verosimilitudes; su estadístico se distribuye aproximadamente <span class="math inline">\(\chi^2\)</span> con <span class="math inline">\(k-1\)</span> grados de libertad. Es la más potente cuando los grupos son normales, pero muy sensible a la falta de normalidad, por lo que aquí solo la reportamos como referencia.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="anova-análisis-de-varianza.html#cb88-1" tabindex="-1"></a><span class="fu">bartlett.test</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(study_method), <span class="at">data =</span> trainset)</span></code></pre></div>
+<pre><code>## 
+##  Bartlett test of homogeneity of variances
+## 
+## data:  exam_score by factor(study_method)
+## Bartlett&#39;s K-squared = 141.9, df = 4, p-value &lt; 2.2e-16</code></pre>
+<p>La prueba de Levene sustituye cada observación por su desviación absoluta respecto a la mediana de su grupo y aplica un ANOVA de un factor sobre esas desviaciones; su estadístico se distribuye <span class="math inline">\(F\)</span> con <span class="math inline">\((k-1,\ N-k)\)</span> grados de libertad. Es más robusta que Bartlett ante datos no normales.</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="anova-análisis-de-varianza.html#cb90-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(study_method), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
+##           Df F value    Pr(&gt;F)    
+## group      4  63.867 &lt; 2.2e-16 ***
+##       629995                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>La prueba de Fligner-Killeen es no paramétrica: rankea las desviaciones absolutas respecto a la mediana de cada grupo y contrasta si esos rangos difieren; su estadístico se distribuye <span class="math inline">\(\chi^2\)</span> con <span class="math inline">\(k-1\)</span> grados de libertad. Es la más robusta de las tres frente a no normalidad y valores atípicos, así que es la que más peso tiene en este caso.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="anova-análisis-de-varianza.html#cb92-1" tabindex="-1"></a><span class="fu">fligner.test</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(study_method), <span class="at">data =</span> trainset)</span></code></pre></div>
+<pre><code>## 
+##  Fligner-Killeen test of homogeneity of variances
+## 
+## data:  exam_score by factor(study_method)
+## Fligner-Killeen:med chi-squared = 241, df = 4, p-value &lt; 2.2e-16</code></pre>
+<p>Las tres pruebas rechazan <span class="math inline">\(H_0\)</span>: Bartlett <span class="math inline">\((K^2_{(4)} = 141.9,\ p-valor &lt; 0.001)\)</span>, Levene <span class="math inline">\((F_{(4,\,629995)} = 63.87,\ p-valor &lt; 0.001)\)</span> y Fligner-Killeen <span class="math inline">\((\chi^2_{(4)} = 241,\ p-valor &lt; 0.001)\)</span>. <strong>Tampoco se cumple el supuesto de homocedasticidad</strong>, aunque hay que leer este resultado con cautela: las desviaciones estándar de los cinco grupos están entre 18,22 y 18,73 puntos, es decir, media hora de diferencia en una escala de 0 a 100. Con 630.000 observaciones cualquier diferencia mínima resulta significativa.</p>
+</div>
+<div id="se-puede-aplicar-el-anova" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> ¿Se puede aplicar el ANOVA?<a href="anova-análisis-de-varianza.html#se-puede-aplicar-el-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>No.</strong> De los tres supuestos, el de normalidad falla de forma clara en los cinco grupos y el de homocedasticidad también se rechaza. Por lo tanto el análisis de varianza no es la técnica adecuada para estos datos y la inferencia válida es la que aporta su alternativa no paramétrica, la prueba de Kruskal-Wallis, que aplicamos en la sección siguiente a las siete variables categóricas del conjunto de datos.</p>
+</div>
+<div id="verificación-del-teorema-de-descomposición" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Verificación del teorema de descomposición<a href="anova-análisis-de-varianza.html#verificaci%C3%B3n-del-teorema-de-descomposici%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Aunque el ANOVA no sea aplicable, dejamos documentada la descomposición de la suma de cuadrados calculada paso a paso, para verificar contra la salida de la función <code>aov()</code> que el teorema de descomposición se cumple. Este bloque es una verificación del cálculo, no la prueba de hipótesis del proyecto.</p>
+<p>Hallemos los tamaños de cada grupo y el número de tratamientos:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="anova-análisis-de-varianza.html#cb94-1" tabindex="-1"></a>grupos <span class="ot">&lt;-</span> <span class="fu">split</span>(trainset<span class="sc">$</span>exam_score, trainset<span class="sc">$</span>study_method)</span>
+<span id="cb94-2"><a href="anova-análisis-de-varianza.html#cb94-2" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="anova-análisis-de-varianza.html#cb94-3" tabindex="-1"></a>n_j <span class="ot">&lt;-</span> <span class="fu">sapply</span>(grupos, length)   <span class="co"># tamaño de muestra de cada grupo</span></span>
+<span id="cb94-4"><a href="anova-análisis-de-varianza.html#cb94-4" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">sum</span>(n_j)                   <span class="co"># tamaño muestral total</span></span>
+<span id="cb94-5"><a href="anova-análisis-de-varianza.html#cb94-5" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">length</span>(grupos)             <span class="co"># número de poblaciones</span></span>
+<span id="cb94-6"><a href="anova-análisis-de-varianza.html#cb94-6" tabindex="-1"></a></span>
+<span id="cb94-7"><a href="anova-análisis-de-varianza.html#cb94-7" tabindex="-1"></a>n_j</span></code></pre></div>
+<pre><code>##      coaching   group study         mixed online videos    self-study 
+##        131697        123009        123086        121077        131131</code></pre>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="anova-análisis-de-varianza.html#cb96-1" tabindex="-1"></a>N</span></code></pre></div>
+<pre><code>## [1] 630000</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="anova-análisis-de-varianza.html#cb98-1" tabindex="-1"></a>k</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Hallemos los promedios de cada grupo y el promedio global:</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="anova-análisis-de-varianza.html#cb100-1" tabindex="-1"></a>xbar_j <span class="ot">&lt;-</span> <span class="fu">sapply</span>(grupos, mean)</span>
+<span id="cb100-2"><a href="anova-análisis-de-varianza.html#cb100-2" tabindex="-1"></a>xbar_total <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">sapply</span>(grupos, sum)) <span class="sc">/</span> N</span>
+<span id="cb100-3"><a href="anova-análisis-de-varianza.html#cb100-3" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="anova-análisis-de-varianza.html#cb100-4" tabindex="-1"></a>xbar_j</span></code></pre></div>
+<pre><code>##      coaching   group study         mixed online videos    self-study 
+##      69.26667      60.53184      65.10174      59.72761      57.70015</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="anova-análisis-de-varianza.html#cb102-1" tabindex="-1"></a>xbar_total</span></code></pre></div>
+<pre><code>## [1] 62.50667</code></pre>
+<p>Hallemos la suma de cuadrados total (SST):</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="anova-análisis-de-varianza.html#cb104-1" tabindex="-1"></a>SST <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">sapply</span>(grupos, <span class="cf">function</span>(x) <span class="fu">sum</span>((x <span class="sc">-</span> xbar_total)<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb104-2"><a href="anova-análisis-de-varianza.html#cb104-2" tabindex="-1"></a>SST</span></code></pre></div>
+<pre><code>## [1] 225444201</code></pre>
+<p>Hallemos la suma de cuadrados entre grupos (SSA):</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="anova-análisis-de-varianza.html#cb106-1" tabindex="-1"></a>SSA <span class="ot">&lt;-</span> <span class="fu">sum</span>(n_j <span class="sc">*</span> (xbar_j <span class="sc">-</span> xbar_total)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb106-2"><a href="anova-análisis-de-varianza.html#cb106-2" tabindex="-1"></a>SSA</span></code></pre></div>
+<pre><code>## [1] 11291432</code></pre>
+<p>Ahora, hallemos la suma de cuadrados dentro de grupos (SSE):</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="anova-análisis-de-varianza.html#cb108-1" tabindex="-1"></a>SSE <span class="ot">&lt;-</span> SST <span class="sc">-</span> SSA</span>
+<span id="cb108-2"><a href="anova-análisis-de-varianza.html#cb108-2" tabindex="-1"></a>SSE</span></code></pre></div>
+<pre><code>## [1] 214152769</code></pre>
+<p>Calculemos los cuadrados medios y el estadístico de Fisher:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="anova-análisis-de-varianza.html#cb110-1" tabindex="-1"></a>MSA <span class="ot">&lt;-</span> SSA <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb110-2"><a href="anova-análisis-de-varianza.html#cb110-2" tabindex="-1"></a>MSE <span class="ot">&lt;-</span> SSE <span class="sc">/</span> (N <span class="sc">-</span> k)</span>
+<span id="cb110-3"><a href="anova-análisis-de-varianza.html#cb110-3" tabindex="-1"></a></span>
+<span id="cb110-4"><a href="anova-análisis-de-varianza.html#cb110-4" tabindex="-1"></a>F <span class="ot">&lt;-</span> MSA <span class="sc">/</span> MSE</span>
+<span id="cb110-5"><a href="anova-análisis-de-varianza.html#cb110-5" tabindex="-1"></a></span>
+<span id="cb110-6"><a href="anova-análisis-de-varianza.html#cb110-6" tabindex="-1"></a>MSA</span></code></pre></div>
+<pre><code>## [1] 2822858</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="anova-análisis-de-varianza.html#cb112-1" tabindex="-1"></a>MSE</span></code></pre></div>
+<pre><code>## [1] 339.9277</code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="anova-análisis-de-varianza.html#cb114-1" tabindex="-1"></a>F</span></code></pre></div>
+<pre><code>## [1] 8304.289</code></pre>
+<p>Hallemos el <span class="math inline">\(F\)</span> crítico y el p-valor:</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="anova-análisis-de-varianza.html#cb116-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb116-2"><a href="anova-análisis-de-varianza.html#cb116-2" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> k <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb116-3"><a href="anova-análisis-de-varianza.html#cb116-3" tabindex="-1"></a>v2 <span class="ot">&lt;-</span> N <span class="sc">-</span> k</span>
+<span id="cb116-4"><a href="anova-análisis-de-varianza.html#cb116-4" tabindex="-1"></a></span>
+<span id="cb116-5"><a href="anova-análisis-de-varianza.html#cb116-5" tabindex="-1"></a>F_critico <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="at">p =</span> <span class="dv">1</span> <span class="sc">-</span> alpha, <span class="at">df1 =</span> v1, <span class="at">df2 =</span> v2)</span>
+<span id="cb116-6"><a href="anova-análisis-de-varianza.html#cb116-6" tabindex="-1"></a>F_critico</span></code></pre></div>
+<pre><code>## [1] 2.371932</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="anova-análisis-de-varianza.html#cb118-1" tabindex="-1"></a>pvalor <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F, v1, v2)</span>
+<span id="cb118-2"><a href="anova-análisis-de-varianza.html#cb118-2" tabindex="-1"></a>pvalor</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Comparemos con la salida de la función <code>aov</code>:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="anova-análisis-de-varianza.html#cb120-1" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">aov</span>(exam_score <span class="sc">~</span> study_method, <span class="at">data =</span> trainset)</span>
+<span id="cb120-2"><a href="anova-análisis-de-varianza.html#cb120-2" tabindex="-1"></a><span class="fu">summary</span>(modelo)</span></code></pre></div>
+<pre><code>##                  Df    Sum Sq Mean Sq F value Pr(&gt;F)    
+## study_method      4  11291432 2822858    8304 &lt;2e-16 ***
+## Residuals    629995 214152769     340                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Los valores coinciden: <span class="math inline">\(SSA = 11.291.432\)</span> con 4 grados de libertad, <span class="math inline">\(SSE = 214.152.769\)</span> con 629.995 grados de libertad, <span class="math inline">\(MSA = 2.822.858\)</span>, <span class="math inline">\(MSE = 339{,}93\)</span> y <span class="math inline">\(F = 8304{,}29\)</span>, exactamente lo que devuelve <code>aov()</code>. El teorema de descomposición se verifica. De todos modos, como los supuestos de normalidad y homocedasticidad no se cumplen, este <span class="math inline">\(F\)</span> no puede usarse para decidir sobre <span class="math inline">\(H_0\)</span>; la conclusión del proyecto sobre <code>study_method</code> se apoya en la prueba de Kruskal-Wallis de la sección siguiente.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análisis-exploratorio-de-datos-eda.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

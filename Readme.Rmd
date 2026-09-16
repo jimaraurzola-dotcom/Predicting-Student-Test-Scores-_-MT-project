@@ -116,3 +116,62 @@ Bastante avance desde la última entrada. Resumen de lo que hice:
 - Revisar si vale la pena una regresión logística para `resultado` (aprobado/reprobado).
 
 ---------------------------------
+
+### 16/09/26
+---------------------------------
+
+**Avance:** Revisión completa del proyecto contra las notas de clase
+
+Al revisar el proyecto con las notas del profesor (<https://cdeoroaguado.github.io/rbook_met_estad/>) al lado me di cuenta de que había metido varias cosas que no se ven en el curso, y de que me estaba saltando pasos del procedimiento que sí están en las notas. Dediqué la sesión a corregir eso.
+
+**Cosas que saqué (no aparecen en las notas)**
+
+- `moments::skewness()` en el resumen de `exam_score`. Las notas nunca calculan el coeficiente de asimetría: la asimetría se argumenta comparando media contra mediana, como hace el profesor con `median_house_value`. Reescribí la tabla resumen con exactamente las columnas de las notas (`n, media, ds, mediana, minimo, maximo, Q1, Q3, IQR`) y rehice la interpretación con ese criterio.
+- `GGally::ggcorr()` para el mapa de calor de correlaciones. De `GGally` las notas solo enseñan `ggpairs()`, así que el heatmap no tiene respaldo en el curso. Me quedé con la matriz `cor(..., method = "spearman")` y los `cor.test` individuales, que es lo que sí hace el capítulo 6.
+- `rstatix::kruskal_effsize()` (el $\eta^2$). Este fue el error más grande: las notas solo usan tamaño del efecto en la comparación de dos grupos (`wilcox_effsize` y `cohen.d`); para Kruskal-Wallis no dan ningún $\eta^2$. Todo el ranking de variables categóricas estaba construido sobre un estadístico que no vimos en clase.
+
+**Pasos del procedimiento que me faltaban**
+
+- **Prueba de Levene.** En las notas, tanto antes de la $U$ de Mann-Whitney como antes de Kruskal-Wallis se verifica la homogeneidad de varianzas con `leveneTest(..., center = "median")`. Yo pasaba de la normalidad directo a la prueba. Lo agregué para las siete variables categóricas. Resultado interesante: Levene rechaza $H_0$ en las siete, pero las desviaciones estándar de todos los grupos están entre 18,1 y 19,3 puntos — otra vez el efecto del tamaño de muestra. Lo dejé anotado en cada interpretación.
+- **Post-hoc después de Kruskal-Wallis.** Las notas son explícitas: si Kruskal-Wallis sale significativo hay que aplicar un post-hoc para saber qué grupos difieren. Agregué `pairwise.wilcox.test(..., p.adjust.method = "bonferroni")` en las seis variables con tres o más grupos. Esto además reemplaza bien lo que yo intentaba hacer con el $\eta^2$: en `study_method` los cinco métodos se diferencian entre sí, mientras que en `course` la mayoría de los pares sale con $p = 1$, y eso ya dice qué variable importa y cuál no.
+- **Procedimiento completo de la tabla de contingencia.** Yo iba directo a `chisq.test()`. Las notas hacen primero todo el cálculo a mano (totales por fila y columna, esperados con `outer()`, estadístico $\chi^2$, grados de libertad, valor crítico con `qchisq()`, decisión y p-valor con `pchisq()`) y recién al final comparan con `chisq.test()`. Rehice las dos tablas así. La $V$ de Cramer la mantuve porque es el ejercicio que dejó el profesor en la clase de contingencia.
+- **Tablas resumen por grupo en el bivariado.** Las notas acompañan cada boxplot de la variable respuesta contra una categórica con un `group_by()` + `summarise()` (el bloque `ocean_house` del capítulo 3). Yo solo tenía los boxplots. Agregué la tabla para las siete variables y, de paso, los boxplots de `internet_access`, `sleep_quality` y `exam_difficulty`, que ni siquiera estaban.
+- **Líneas de tendencia.** Las devolví a todos los diagramas de dispersión, porque en las notas todos los scatterplots llevan `geom_smooth(method = "lm")` y mis propias interpretaciones ya hablaban de "la línea de tendencia es casi plana".
+
+**Otros arreglos menores**
+
+- Agregué `dim(trainset)`, que en el ETL de las notas va junto con `head`, `colnames` y `str`.
+- El encabezado de `study_hours` vs `exam_score` estaba metido en medio de la interpretación de `age`.
+- Las etiquetas de los ejes decían "Edad media", "Calificación media del examen", etc. Eso venía de copiar el dataset de housing, donde cada fila es un sector censal; aquí cada fila es un estudiante, así que no son promedios.
+- Renombré el capítulo a "Correlación lineal", como se llama en las notas.
+- La interpretación de la fuerza de cada correlación la ajusté a la tabla 6.1 del curso: $\rho = 0,35$ es "correlación positiva débil" (no "débil-moderada") y $\rho = 0,16$ cae en "sin correlación o muy débil".
+
+**Lección del día:** antes de agregar una función hay que verificar que esté en las notas. `kruskal_effsize` parecía la continuación natural de `wilcox_effsize`, pero no lo es, y me llevó a construir toda una conclusión sobre algo que no vimos en clase.
+
+**Segunda pasada: comparación con mis propios talleres**
+
+Después repasé mis scripts de clase (`anova/analisis.R`, `correlacion/correlacion.R`, `kruskal/kruskal.R`, `contingencia/contingencia.R`, `parametrica/paranopara.R`, `rls/rls.R`, `parcial1_yo/parcial1_yo.R`) y noté que en todos sigo el mismo patrón que aquí me estaba saltando: **primero calculo el estadístico paso a paso con la fórmula y después lo verifico con la función de R**. Lo hago con la $t$ y la varianza combinada en `paranopara.R`, con el $\chi^2$ y los esperados en `contingencia.R`, con la $r$ de Pearson en `correlacion.R` y con toda la descomposición de sumas de cuadrados en `anova/analisis.R` y en el quinto punto del parcial. En el proyecto solo estaba llamando a las funciones. Lo corregí:
+
+- **Estadístico $H$ de Kruskal-Wallis** calculado a mano (rangos, $R_j$, $n_j$, la fórmula completa, valor crítico y p-valor) para `study_method`, y comparado con `kruskal.test()`. Da $H = 29547{,}88$ en los dos casos.
+- **Coeficiente de Spearman** calculado paso a paso para `study_hours` vs `exam_score`, con la misma estructura de `correlacion.R` (vectores, promedios, desviaciones, $S_{xy}$, $S_{xx}$, $S_{yy}$) pero aplicada sobre los rangos, porque hay empates. Después el estadístico $t_0$, el $t$ tabulado, la decisión y el p-valor. Coincide con `cor()` y con `cor.test()`: $\rho_S = 0{,}7698$.
+
+**Capítulo nuevo: ANOVA**
+
+Faltaba esta etapa. Lo desarrollé sobre `study_method`, que es la categórica con mayor separación entre grupos:
+
+- Planteé el modelo $Y_{ij} \sim \mathcal{N}(\mu_j, \sigma^2)$ y las hipótesis.
+- **Supuesto de normalidad:** Lilliefors por grupo. Falla en los cinco métodos ($p < 0{,}001$).
+- **Supuesto de homocedasticidad:** las tres pruebas que comparé en `paranopara.R` — Bartlett $(K^2_{(4)} = 141{,}9)$, Levene $(F_{(4,\,629995)} = 63{,}87)$ y Fligner-Killeen $(\chi^2_{(4)} = 241)$. Las tres rechazan.
+- **Conclusión: el ANOVA no aplica.** Ni normalidad ni homocedasticidad se cumplen, así que la inferencia válida es la de Kruskal-Wallis. Eso además justifica formalmente todo el enfoque no paramétrico del capítulo siguiente, que antes solo estaba justificado por la normalidad.
+- Igual dejé la **verificación del teorema de descomposición** calculando $SST$, $SSA$, $SSE$, $MSA$, $MSE$ y $F$ a mano y comparando con `aov()`: $SSA = 11.291.432$, $SSE = 214.152.769$, $F = 8304{,}29$, idéntico en ambos. Está marcado explícitamente como verificación del cálculo, no como la prueba de hipótesis del proyecto.
+
+**Otra cosa que saqué**
+
+- La matriz de correlación completa (`cor(numericas, method = "spearman")`). Ni en las notas ni en ninguno de mis talleres uso `cor()` sobre un data frame entero: siempre es entre dos variables. Quedaron los cuatro `cor.test` individuales, que es lo que hace el capítulo 6.
+
+**Próximos pasos:**
+
+- Capítulo de regresión lineal simple (capítulo 7 de las notas), usando `study_hours` como predictor. Puedo reusar la estructura de `rls/rls.R`: estimar $\hat\beta_0$ y $\hat\beta_1$ con las fórmulas y después verificar con `lm()`.
+- Incluir el análisis de residuales y la validación de supuestos tal como los plantea la sección 7.8.
+
+---------------------------------
