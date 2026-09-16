@@ -246,13 +246,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-21"><a href="análisis-exploratorio-de-datos-eda.html#cb23-21" tabindex="-1"></a></span>
 <span id="cb23-22"><a href="análisis-exploratorio-de-datos-eda.html#cb23-22" tabindex="-1"></a>resumen_numericas</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 10
-##   variable            n  media     ds mediana minimo maximo     Q1     Q3    IQR
-##   &lt;chr&gt;           &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1 age            630000 2.05e1 2.26e0  2.1 e1  17    2.4 e1 1.9 e1 2.3 e1 4   e0
-## 2 class_attenda… 630000 7.20e1 1.74e1  7.26e1  40.6  9.94e1 5.7 e1 8.72e1 3.02e1
-## 3 id             630000 3.15e5 1.82e5  3.15e5   0    6.30e5 1.57e5 4.72e5 3.15e5
-## 4 sleep_hours    630000 7.07e0 1.74e0  7.1 e0   4.1  9.9 e0 5.6 e0 8.6 e0 3   e0
-## 5 study_hours    630000 4.00e0 2.36e0  4   e0   0.08 7.91e0 1.97e0 6.05e0 4.08e0</code></pre>
+##   variable              n     media        ds  mediana minimo    maximo       Q1     Q3    IQR
+##   &lt;chr&gt;             &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 age              630000     20.5       2.26     21    17        24      1.9 e1 2.3 e1 4   e0
+## 2 class_attendance 630000     72.0      17.4      72.6  40.6      99.4    5.7 e1 8.72e1 3.02e1
+## 3 id               630000 315000.   181865.   315000.    0    629999      1.57e5 4.72e5 3.15e5
+## 4 sleep_hours      630000      7.07      1.74      7.1   4.1       9.9    5.6 e0 8.6 e0 3   e0
+## 5 study_hours      630000      4.00      2.36      4     0.08      7.91   1.97e0 6.05e0 4.08e0</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="análisis-exploratorio-de-datos-eda.html#cb25-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb25-2"><a href="análisis-exploratorio-de-datos-eda.html#cb25-2" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="análisis-exploratorio-de-datos-eda.html#cb25-3" tabindex="-1"></a><span class="co"># Boxplot de age</span></span>
@@ -597,7 +597,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="análisis-exploratorio-bivariado" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Análisis exploratorio bivariado<a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-bivariado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A continuación, analizaremos la relación entre la variable objetivo <code>exam_score</code> y las variables numéricas independientes, con el fin de identificar posibles patrones, tendencias y asociaciones que puedan ser útiles para la construcción de modelos.</p>
+<ul>
+<li>A continuación, analizaremos la relación entre la variable objetivo <code>exam_score</code> y las variables numéricas independientes, con el fin de identificar posibles patrones, tendencias y asociaciones que puedan ser útiles para la construcción de modelos.</li>
+</ul>
+<p><code>age vs exam_score</code></p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="análisis-exploratorio-de-datos-eda.html#cb51-1" tabindex="-1"></a><span class="co"># Diagrama de dispersión: age vs exam_score</span></span>
 <span id="cb51-2"><a href="análisis-exploratorio-de-datos-eda.html#cb51-2" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
 <span id="cb51-3"><a href="análisis-exploratorio-de-datos-eda.html#cb51-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
@@ -609,7 +612,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb51-9"><a href="análisis-exploratorio-de-datos-eda.html#cb51-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb51-10"><a href="análisis-exploratorio-de-datos-eda.html#cb51-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb51-11"><a href="análisis-exploratorio-de-datos-eda.html#cb51-11" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre la edad media y la calificación de los exámenes&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-22-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-23-1.png" alt="" width="672" /></p>
+<p><code>study_hours</code> vs <code>exam_score</code></p>
 <p>El diagrama de dispersión muestra que la calificación del examen se distribuye de forma similar en todas las edades (17 a 24 años), con puntos que cubren prácticamente todo el rango de 20 a 100 puntos en cada grupo etario. La línea de tendencia es casi plana, lo que sugiere que no existe una relación lineal relevante entre la edad y el desempeño académico: los estudiantes más jóvenes y los mayores obtienen calificaciones igual de variadas.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="análisis-exploratorio-de-datos-eda.html#cb52-1" tabindex="-1"></a><span class="co"># Diagrama de dispersión: study_hours vs exam_score</span></span>
 <span id="cb52-2"><a href="análisis-exploratorio-de-datos-eda.html#cb52-2" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -622,8 +626,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-9"><a href="análisis-exploratorio-de-datos-eda.html#cb52-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb52-10"><a href="análisis-exploratorio-de-datos-eda.html#cb52-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb52-11"><a href="análisis-exploratorio-de-datos-eda.html#cb52-11" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre las horas de estudio media y la calificación de los exámenes&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-23-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-24-1.png" alt="" width="672" /></p>
 <p>El diagrama de dispersión muestra una relación positiva clara entre las horas de estudio y la calificación del examen: a medida que aumentan las horas dedicadas al estudio, la nota tiende a subir, reflejado en la marcada pendiente ascendente de la línea de tendencia. A diferencia de <code>age</code>, aquí la nube de puntos se concentra de forma más definida alrededor de la línea, especialmente en los valores intermedios, lo que sugiere que las horas de estudio están fuertemente asociadas con el desempeño académico de los estudiantes.</p>
+<p><code>class_attendance</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="análisis-exploratorio-de-datos-eda.html#cb53-1" tabindex="-1"></a><span class="co"># Diagrama de dispersión: class_attendance vs exam_score</span></span>
 <span id="cb53-2"><a href="análisis-exploratorio-de-datos-eda.html#cb53-2" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
 <span id="cb53-3"><a href="análisis-exploratorio-de-datos-eda.html#cb53-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> class_attendance, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
@@ -635,8 +640,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb53-9"><a href="análisis-exploratorio-de-datos-eda.html#cb53-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb53-10"><a href="análisis-exploratorio-de-datos-eda.html#cb53-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb53-11"><a href="análisis-exploratorio-de-datos-eda.html#cb53-11" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre la asistencia a clases media y la calificación de los exámenes&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-24-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" /></p>
 <p>El diagrama de dispersión evidencia una relación positiva entre el porcentaje de asistencia a clases y la calificación del examen: la línea de tendencia muestra una pendiente ascendente, indicando que los estudiantes con mayor asistencia tienden a obtener mejores resultados. Sin embargo, la nube de puntos se mantiene bastante dispersa a lo largo de todo el rango de asistencia, lo que sugiere que, aunque existe una tendencia positiva, la asistencia por sí sola no explica completamente las diferencias en el desempeño académico.</p>
+<p><code>sleep_hours</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="análisis-exploratorio-de-datos-eda.html#cb54-1" tabindex="-1"></a><span class="co"># Diagrama de dispersión: sleep_hours vs exam_score</span></span>
 <span id="cb54-2"><a href="análisis-exploratorio-de-datos-eda.html#cb54-2" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
 <span id="cb54-3"><a href="análisis-exploratorio-de-datos-eda.html#cb54-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sleep_hours, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
@@ -648,8 +654,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-9"><a href="análisis-exploratorio-de-datos-eda.html#cb54-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb54-10"><a href="análisis-exploratorio-de-datos-eda.html#cb54-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb54-11"><a href="análisis-exploratorio-de-datos-eda.html#cb54-11" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión horas de sueño media y la calificación de los exámenes&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-25-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-26-1.png" alt="" width="672" /></p>
 <p>El diagrama de dispersión muestra una línea de tendencia con una leve pendiente positiva, sugiriendo una relación débil entre las horas de sueño y la calificación del examen. A diferencia de <code>study_hours</code>, aquí los puntos se distribuyen de manera mucho más uniforme y dispersa a lo largo de todo el rango de horas de sueño, sin un patrón visual tan marcado, lo que indica que esta variable parece tener una influencia limitada sobre el desempeño académico de los estudiantes.</p>
+<ul>
+<li>A continuación, analizaremos la relación entre la variable objetivo exam_score y las variables categóricas independientes, con el fin de identificar si existen diferencias en el desempeño académico según los grupos de cada una de ellas.</li>
+</ul>
+<p><code>gender</code> vs <code>exam_score</code></p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="análisis-exploratorio-de-datos-eda.html#cb55-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="análisis-exploratorio-de-datos-eda.html#cb55-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> gender, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="análisis-exploratorio-de-datos-eda.html#cb55-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb55-4"><a href="análisis-exploratorio-de-datos-eda.html#cb55-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según gender&quot;</span>,</span>
+<span id="cb55-5"><a href="análisis-exploratorio-de-datos-eda.html#cb55-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Género&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="análisis-exploratorio-de-datos-eda.html#cb55-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-27-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="análisis-exploratorio-de-datos-eda.html#cb56-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="análisis-exploratorio-de-datos-eda.html#cb56-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> internet_access, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
+<span id="cb56-3"><a href="análisis-exploratorio-de-datos-eda.html#cb56-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="análisis-exploratorio-de-datos-eda.html#cb56-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según internet_access&quot;</span>,</span>
+<span id="cb56-5"><a href="análisis-exploratorio-de-datos-eda.html#cb56-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Acceso a internet&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="análisis-exploratorio-de-datos-eda.html#cb56-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-28-1.png" alt="" width="672" /></p>
+<p><code>course</code> vs <code>exam_score</code></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="análisis-exploratorio-de-datos-eda.html#cb57-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="análisis-exploratorio-de-datos-eda.html#cb57-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> course, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="análisis-exploratorio-de-datos-eda.html#cb57-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb57-4"><a href="análisis-exploratorio-de-datos-eda.html#cb57-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según course&quot;</span>,</span>
+<span id="cb57-5"><a href="análisis-exploratorio-de-datos-eda.html#cb57-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Curso&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-6"><a href="análisis-exploratorio-de-datos-eda.html#cb57-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb57-7"><a href="análisis-exploratorio-de-datos-eda.html#cb57-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-29-1.png" alt="" width="672" /></p>
+<p><code>sleep_quality</code> vs <code>exam_score</code></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="análisis-exploratorio-de-datos-eda.html#cb58-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="análisis-exploratorio-de-datos-eda.html#cb58-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sleep_quality, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
+<span id="cb58-3"><a href="análisis-exploratorio-de-datos-eda.html#cb58-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="análisis-exploratorio-de-datos-eda.html#cb58-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según sleep_quality&quot;</span>,</span>
+<span id="cb58-5"><a href="análisis-exploratorio-de-datos-eda.html#cb58-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Calidad del sueño&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="análisis-exploratorio-de-datos-eda.html#cb58-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-30-1.png" alt="" width="672" /></p>
+<p><code>facility_rating</code> vs <code>exam_score</code></p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="análisis-exploratorio-de-datos-eda.html#cb59-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="análisis-exploratorio-de-datos-eda.html#cb59-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> facility_rating, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="análisis-exploratorio-de-datos-eda.html#cb59-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb59-4"><a href="análisis-exploratorio-de-datos-eda.html#cb59-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según facility_rating&quot;</span>,</span>
+<span id="cb59-5"><a href="análisis-exploratorio-de-datos-eda.html#cb59-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Calificación de instalaciones&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-6"><a href="análisis-exploratorio-de-datos-eda.html#cb59-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-31-1.png" alt="" width="672" /></p>
+<p><code>exam_difficulty</code> vs <code>exam_score</code></p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="análisis-exploratorio-de-datos-eda.html#cb60-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb60-2"><a href="análisis-exploratorio-de-datos-eda.html#cb60-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> exam_difficulty, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
+<span id="cb60-3"><a href="análisis-exploratorio-de-datos-eda.html#cb60-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb60-4"><a href="análisis-exploratorio-de-datos-eda.html#cb60-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según exam_difficulty&quot;</span>,</span>
+<span id="cb60-5"><a href="análisis-exploratorio-de-datos-eda.html#cb60-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Dificultad del examen&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="análisis-exploratorio-de-datos-eda.html#cb60-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-32-1.png" alt="" width="672" /></p>
+<p><code>study_method</code> vs <code>exam_score</code></p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="análisis-exploratorio-de-datos-eda.html#cb61-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="análisis-exploratorio-de-datos-eda.html#cb61-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> study_method, <span class="at">y =</span> exam_score)) <span class="sc">+</span></span>
+<span id="cb61-3"><a href="análisis-exploratorio-de-datos-eda.html#cb61-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb61-4"><a href="análisis-exploratorio-de-datos-eda.html#cb61-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según study_method&quot;</span>,</span>
+<span id="cb61-5"><a href="análisis-exploratorio-de-datos-eda.html#cb61-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Método de estudio&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="análisis-exploratorio-de-datos-eda.html#cb61-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb61-7"><a href="análisis-exploratorio-de-datos-eda.html#cb61-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-33-1.png" alt="" width="672" /></p>
 </div>
 </div>
             </section>

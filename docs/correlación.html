@@ -171,16 +171,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">5</span> Correlación<a href="correlación.html#correlaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>En el EDA ya habíamos observado, a través de diagramas de dispersión, que <code>study_hours</code> y <code>class_attendance</code> parecían tener una relación positiva con <code>exam_score</code>, mientras que <code>age</code> y <code>sleep_hours</code> no mostraban un patrón claro. En esta sección cuantificamos esas relaciones con el coeficiente de correlación.</p>
 <p>Como ya establecimos que <code>exam_score</code> no sigue una distribución normal (Lilliefors, sección anterior), primero verificamos la normalidad de las cuatro variables numéricas independientes para decidir entre correlación de Pearson (paramétrica) o de Spearman (no paramétrica). Al igual que antes, descartamos Shapiro-Wilk por el tamaño de la muestra (630.000) y usamos Lilliefors.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="correlación.html#cb118-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">age =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>age)<span class="sc">$</span>statistic,</span>
-<span id="cb118-2"><a href="correlación.html#cb118-2" tabindex="-1"></a>  <span class="at">study_hours =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>study_hours)<span class="sc">$</span>statistic,</span>
-<span id="cb118-3"><a href="correlación.html#cb118-3" tabindex="-1"></a>  <span class="at">class_attendance =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>class_attendance)<span class="sc">$</span>statistic,</span>
-<span id="cb118-4"><a href="correlación.html#cb118-4" tabindex="-1"></a>  <span class="at">sleep_hours =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>sleep_hours)<span class="sc">$</span>statistic)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="correlación.html#cb125-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">age =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>age)<span class="sc">$</span>statistic,</span>
+<span id="cb125-2"><a href="correlación.html#cb125-2" tabindex="-1"></a>  <span class="at">study_hours =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>study_hours)<span class="sc">$</span>statistic,</span>
+<span id="cb125-3"><a href="correlación.html#cb125-3" tabindex="-1"></a>  <span class="at">class_attendance =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>class_attendance)<span class="sc">$</span>statistic,</span>
+<span id="cb125-4"><a href="correlación.html#cb125-4" tabindex="-1"></a>  <span class="at">sleep_hours =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>sleep_hours)<span class="sc">$</span>statistic)</span></code></pre></div>
 <pre><code>##              age.D      study_hours.D class_attendance.D      sleep_hours.D 
 ##         0.11515884         0.06276541         0.06111424         0.07380016</code></pre>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="correlación.html#cb120-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">age =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>age)<span class="sc">$</span>p.value,</span>
-<span id="cb120-2"><a href="correlación.html#cb120-2" tabindex="-1"></a>  <span class="at">study_hours =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>study_hours)<span class="sc">$</span>p.value,</span>
-<span id="cb120-3"><a href="correlación.html#cb120-3" tabindex="-1"></a>  <span class="at">class_attendance =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>class_attendance)<span class="sc">$</span>p.value,</span>
-<span id="cb120-4"><a href="correlación.html#cb120-4" tabindex="-1"></a>  <span class="at">sleep_hours =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>sleep_hours)<span class="sc">$</span>p.value)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="correlación.html#cb127-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">age =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>age)<span class="sc">$</span>p.value,</span>
+<span id="cb127-2"><a href="correlación.html#cb127-2" tabindex="-1"></a>  <span class="at">study_hours =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>study_hours)<span class="sc">$</span>p.value,</span>
+<span id="cb127-3"><a href="correlación.html#cb127-3" tabindex="-1"></a>  <span class="at">class_attendance =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>class_attendance)<span class="sc">$</span>p.value,</span>
+<span id="cb127-4"><a href="correlación.html#cb127-4" tabindex="-1"></a>  <span class="at">sleep_hours =</span> <span class="fu">lillie.test</span>(trainset<span class="sc">$</span>sleep_hours)<span class="sc">$</span>p.value)</span></code></pre></div>
 <pre><code>##              age      study_hours class_attendance      sleep_hours 
 ##                0                0                0                0</code></pre>
 <p>Ninguna de las cuatro variables numéricas sigue una distribución normal (<code>age</code>: D = 0,1152; <code>study_hours</code>: D = 0,0628; <code>class_attendance</code>: D = 0,0611; <code>sleep_hours</code>: D = 0,0738; en los cuatro casos p-valor &lt; 0,001). Por lo tanto, usamos el coeficiente de correlación de Spearman en lugar de Pearson, consistente con el enfoque no paramétrico usado en toda la sección anterior.</p>
@@ -188,27 +188,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Matriz de correlación de Spearman entre las variables numéricas:
 , cache=TRUE</li>
 </ul>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="correlación.html#cb122-1" tabindex="-1"></a>numericas <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
-<span id="cb122-2"><a href="correlación.html#cb122-2" tabindex="-1"></a>  <span class="fu">select</span>(age, study_hours, class_attendance, sleep_hours, exam_score)</span>
-<span id="cb122-3"><a href="correlación.html#cb122-3" tabindex="-1"></a></span>
-<span id="cb122-4"><a href="correlación.html#cb122-4" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(numericas, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="correlación.html#cb129-1" tabindex="-1"></a>numericas <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb129-2"><a href="correlación.html#cb129-2" tabindex="-1"></a>  <span class="fu">select</span>(age, study_hours, class_attendance, sleep_hours, exam_score)</span>
+<span id="cb129-3"><a href="correlación.html#cb129-3" tabindex="-1"></a></span>
+<span id="cb129-4"><a href="correlación.html#cb129-4" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">cor</span>(numericas, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##                    age study_hours class_attendance sleep_hours exam_score
 ## age              1.000       0.008            0.006       0.006      0.007
 ## study_hours      0.008       1.000            0.087       0.043      0.770
 ## class_attendance 0.006       0.087            1.000       0.029      0.352
 ## sleep_hours      0.006       0.043            0.029       1.000      0.160
 ## exam_score       0.007       0.770            0.352       0.160      1.000</code></pre>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="correlación.html#cb124-1" tabindex="-1"></a><span class="fu">ggcorr</span>(numericas, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;pairwise&quot;</span>, <span class="st">&quot;spearman&quot;</span>),</span>
-<span id="cb124-2"><a href="correlación.html#cb124-2" tabindex="-1"></a>       <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">label_round =</span> <span class="dv">2</span>,</span>
-<span id="cb124-3"><a href="correlación.html#cb124-3" tabindex="-1"></a>       <span class="at">low =</span> <span class="st">&quot;#f8f4ff&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#2f0be0&quot;</span>,</span>
-<span id="cb124-4"><a href="correlación.html#cb124-4" tabindex="-1"></a>       <span class="at">hjust =</span> <span class="fl">0.8</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb124-5"><a href="correlación.html#cb124-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Matriz de correlación de Spearman&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="correlación.html#cb131-1" tabindex="-1"></a><span class="fu">ggcorr</span>(numericas, <span class="at">method =</span> <span class="fu">c</span>(<span class="st">&quot;pairwise&quot;</span>, <span class="st">&quot;spearman&quot;</span>),</span>
+<span id="cb131-2"><a href="correlación.html#cb131-2" tabindex="-1"></a>       <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">label_round =</span> <span class="dv">2</span>,</span>
+<span id="cb131-3"><a href="correlación.html#cb131-3" tabindex="-1"></a>       <span class="at">low =</span> <span class="st">&quot;#f8f4ff&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;#c5b0ff&quot;</span>, <span class="at">high =</span> <span class="st">&quot;#2f0be0&quot;</span>,</span>
+<span id="cb131-4"><a href="correlación.html#cb131-4" tabindex="-1"></a>       <span class="at">hjust =</span> <span class="fl">0.8</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb131-5"><a href="correlación.html#cb131-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Matriz de correlación de Spearman&quot;</span>)</span></code></pre></div>
 <p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/correlacion%20heatmap-1.png" alt="" width="672" /></p>
 <p>La matriz confirma lo observado visualmente en el EDA: <code>study_hours</code> es, por lejos, la variable más correlacionada con <code>exam_score</code>; le sigue <code>class_attendance</code> con una correlación moderada-débil; <code>sleep_hours</code> y <code>age</code> muestran correlaciones muy débiles, tanto con <code>exam_score</code> como entre ellas.</p>
 <ul>
 <li><code>study_hours</code> vs <code>exam_score</code></li>
 </ul>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="correlación.html#cb125-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>study_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="correlación.html#cb132-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>study_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>class_attendance</code> vs <code>exam_score</code></li>
 </ul>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="correlación.html#cb127-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>class_attendance, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="correlación.html#cb134-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>class_attendance, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
@@ -236,7 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>sleep_hours</code> vs <code>exam_score</code></li>
 </ul>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="correlación.html#cb129-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>sleep_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="correlación.html#cb136-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>sleep_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
@@ -250,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>age</code> vs <code>exam_score</code></li>
 </ul>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="correlación.html#cb131-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>age, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="correlación.html#cb138-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>age, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 

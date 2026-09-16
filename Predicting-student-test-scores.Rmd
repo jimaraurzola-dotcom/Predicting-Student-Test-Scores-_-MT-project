@@ -78,8 +78,6 @@ trainset %>%
 missmap(trainset)
 ```
 
-
-
 No existe ningun dato faltante en el dataset `train.csv`.
 
 # Análisis exploratorio de datos (EDA)
@@ -563,11 +561,18 @@ ggplot(tabla_exam_difficulty, aes(x = reorder(exam_difficulty, -Frecuencia), y =
 
 Esta es la variable categórica con mayor desbalance después de internet_access: la categoría moderate concentra más de la mitad de las observaciones (56,19%), mientras que easy representa el 28,02% y hard apenas el 15,79%. Esto sugiere que la mayoría de los exámenes fueron catalogados con una dificultad intermedia, y muy pocos como difíciles.
 
+```{r, include = FALSE}
+rm(list = setdiff(ls(), "trainset"))
+
+gc()
+```
 
 ## Análisis exploratorio bivariado
 
-A continuación, analizaremos la relación entre la variable objetivo `exam_score` y las variables numéricas independientes, con el fin de identificar posibles patrones, tendencias y asociaciones que puedan ser útiles para la construcción de modelos.
+* A continuación, analizaremos la relación entre la variable objetivo `exam_score` y las variables numéricas independientes, con el fin de identificar posibles patrones, tendencias y asociaciones que puedan ser útiles para la construcción de modelos.
 
+
+`age vs exam_score`
 
 ```{r, cache=TRUE}
 
@@ -583,6 +588,8 @@ trainset %>%
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la edad media y la calificación de los exámenes")
 ```
+
+`study_hours` vs `exam_score`
 
 El diagrama de dispersión muestra que la calificación del examen se distribuye de forma similar en todas las edades (17 a 24 años), con puntos que cubren prácticamente todo el rango de 20 a 100 puntos en cada grupo etario. La línea de tendencia es casi plana, lo que sugiere que no existe una relación lineal relevante entre la edad y el desempeño académico: los estudiantes más jóvenes y los mayores obtienen calificaciones igual de variadas.
 
@@ -603,6 +610,7 @@ trainset %>%
 El diagrama de dispersión muestra una relación positiva clara entre las horas de estudio y la calificación del examen: a medida que aumentan las horas dedicadas al estudio, la nota tiende a subir, reflejado en la marcada pendiente ascendente de la línea de tendencia. A diferencia de `age`, aquí la nube de puntos se concentra de forma más definida alrededor de la línea, especialmente en los valores intermedios, lo que sugiere que las horas de estudio están fuertemente asociadas con el desempeño académico de los estudiantes.
 
 
+`class_attendance` vs `exam_score`
 
 ```{r, cache=TRUE}
 # Diagrama de dispersión: class_attendance vs exam_score
@@ -620,7 +628,7 @@ trainset %>%
 
 El diagrama de dispersión evidencia una relación positiva entre el porcentaje de asistencia a clases y la calificación del examen: la línea de tendencia muestra una pendiente ascendente, indicando que los estudiantes con mayor asistencia tienden a obtener mejores resultados. Sin embargo, la nube de puntos se mantiene bastante dispersa a lo largo de todo el rango de asistencia, lo que sugiere que, aunque existe una tendencia positiva, la asistencia por sí sola no explica completamente las diferencias en el desempeño académico.
 
-
+`sleep_hours` vs `exam_score`
 
 ```{r, cache=TRUE}
 # Diagrama de dispersión: sleep_hours vs exam_score
@@ -638,6 +646,97 @@ trainset %>%
 
 El diagrama de dispersión muestra una línea de tendencia con una leve pendiente positiva, sugiriendo una relación débil entre las horas de sueño y la calificación del examen. A diferencia de `study_hours`, aquí los puntos se distribuyen de manera mucho más uniforme y dispersa a lo largo de todo el rango de horas de sueño, sin un patrón visual tan marcado, lo que indica que esta variable parece tener una influencia limitada sobre el desempeño académico de los estudiantes.
 
+
+
+* A continuación, analizaremos la relación entre la variable objetivo exam_score y las variables categóricas independientes, con el fin de identificar si existen diferencias en el desempeño académico según los grupos de cada una de ellas.
+
+`gender` vs `exam_score`
+
+```{r}
+trainset %>%
+  ggplot(aes(x = gender, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "exam_score según gender",
+       x = "Género", y = "Calificación del examen") +
+  theme_bw()
+```
+
+```{r}
+trainset %>%
+  ggplot(aes(x = internet_access, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "exam_score según internet_access",
+       x = "Acceso a internet", y = "Calificación del examen") +
+  theme_bw()
+```
+
+
+`course` vs `exam_score`
+
+```{r}
+trainset %>%
+  ggplot(aes(x = course, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "exam_score según course",
+       x = "Curso", y = "Calificación del examen") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+`sleep_quality` vs `exam_score`
+
+```{r}
+trainset %>%
+  ggplot(aes(x = sleep_quality, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "exam_score según sleep_quality",
+       x = "Calidad del sueño", y = "Calificación del examen") +
+  theme_bw()
+```
+
+
+`facility_rating` vs `exam_score`
+
+```{r}
+trainset %>%
+  ggplot(aes(x = facility_rating, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "exam_score según facility_rating",
+       x = "Calificación de instalaciones", y = "Calificación del examen") +
+  theme_bw()
+```
+
+
+`exam_difficulty` vs `exam_score`
+
+```{r}
+trainset %>%
+  ggplot(aes(x = exam_difficulty, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "exam_score según exam_difficulty",
+       x = "Dificultad del examen", y = "Calificación del examen") +
+  theme_bw()
+```
+
+
+`study_method` vs `exam_score`
+
+```{r}
+trainset %>%
+  ggplot(aes(x = study_method, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "exam_score según study_method",
+       x = "Método de estudio", y = "Calificación del examen") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+```{r, include = FALSE}
+rm(list = setdiff(ls(), "trainset"))
+
+gc()
+```
+ 
 
 # Análisis de estadística paramétrica y no paramétrica
 
