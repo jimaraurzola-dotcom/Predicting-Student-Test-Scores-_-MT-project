@@ -767,6 +767,7 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre la edad y las horas de estudio")
 ```
 
+La nube de puntos se ve completamente dispersa a lo largo de todo el rango de ambas variables, sin ninguna tendencia visible en la línea de trazado, que se mantiene prácticamente horizontal. Esto confirma que la edad del estudiante no determina cuántas horas dedica al estudio: tanto los más jóvenes como los mayores se reparten de forma pareja entre pocas y muchas horas de estudio, sin que exista un patrón etario detrás de este hábito.
 
 `age` vs `clase_attendance`
 
@@ -780,7 +781,7 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre la edad y la asistencia a clases")
 ```
 
-
+Igual que con study_hours, la línea de tendencia se ve casi plana a lo largo de todo el rango de edades. La asistencia a clases se comporta de manera prácticamente idéntica sin importar si el estudiante tiene 17 o 24 años, lo que sugiere que el porcentaje de asistencia responde más a factores individuales o de contexto que a la edad del estudiante.
 
 `age` vs `sleep_hours`
 
@@ -794,7 +795,7 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre la edad y las horas de sueño")
 ```
 
-
+Nuevamente, un coeficiente prácticamente nulo; los puntos se distribuyen de forma uniforme sin importar la edad del estudiante, y la línea de tendencia no muestra ninguna inclinación relevante. Los hábitos de sueño parecen ser independientes de cuántos años tiene el estudiante, al menos dentro del rango etario relativamente estrecho (17-24 años) que cubre el dataset.
 
 `study_hours` vs `class_attendance`
 
@@ -809,6 +810,7 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre las horas de estudio y la asistencia a clases")
 ```
 
+Este es el par con la correlación más alta de los seis, aunque sigue siendo muy débil en términos prácticos. Se puede notar una leve tendencia positiva en la línea de trazado, sugiriendo que los estudiantes que dedican más horas a estudiar también tienden a asistir un poco más a clases. Sin embargo, la nube de puntos permanece bastante dispersa alrededor de esa línea, por lo que esta asociación es más una curiosidad estadística que un patrón con relevancia real: conocer las horas de estudio de un estudiante no permite predecir de forma confiable su nivel de asistencia.
 
 `study_hours` vs `sleep_hours`
 
@@ -822,6 +824,7 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre las horas de estudio y las horas de sueño")
 ```
 
+Correlación muy débil, casi nula; la línea de tendencia apenas se despega de la horizontal, con una inclinación mínima. Esto indica que dormir más o menos horas no está relacionado de forma relevante con cuánto tiempo dedica el estudiante a estudiar, descartando la idea de que quienes estudian más sacrifiquen (o ganen) horas de sueño de manera sistemática.
 
 `class_attendance` vs `sleep_hours`
 
@@ -834,6 +837,8 @@ trainset %>%
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la asistencia a clases y las horas de sueño")
 ```
+
+El coeficiente más bajo de los seis después de los de age; no se observa ninguna relación relevante entre la asistencia a clases y las horas de sueño, con una nube de puntos homogénea en todo el rango de ambas variables.
 
 
 
