@@ -74,7 +74,7 @@ trainset %>%
 ```
 
 
-```{r}
+```{r, cache=TRUE}
 missmap(trainset)
 ```
 
@@ -108,7 +108,7 @@ En los extremos, el estudiante con peor desempeño obtuvo 19,60 puntos, mientras
 
 * Histograma de densidad de la variable:
 
-```{r exscore histograma}
+```{r exscore histograma, cache=TRUE}
 trainset %>%
   ggplot(aes(x = exam_score))+
   geom_histogram(aes(y = after_stat(density)),
@@ -179,7 +179,7 @@ library(patchwork)
 # Boxplot de age
 p1 <- trainset %>%
   ggplot(aes(x = "", y = age)) +
-  geom_boxplot(alpha = 0.7) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
   labs(title = "Edad de los estudiantes", y = "Edad", x = "") +
   theme_bw() +
   theme(plot.title = element_text(size = 10, face = "bold"))
@@ -187,7 +187,7 @@ p1 <- trainset %>%
 # Boxplot de study_hours
 p2 <- trainset %>%
   ggplot(aes(x = "", y = study_hours)) +
-  geom_boxplot(alpha = 0.7) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
   labs(title = "Horas de estudio", y = "Horas", x = "") +
   theme_bw() +
   theme(plot.title = element_text(size = 10, face = "bold"))
@@ -195,7 +195,7 @@ p2 <- trainset %>%
 # Boxplot de class_attendance
 p3 <- trainset %>%
   ggplot(aes(x = "", y = class_attendance)) +
-  geom_boxplot(alpha = 0.7) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
   labs(title = "Porcentaje de asistencia", y = "%", x = "") +
   theme_bw() +
   theme(plot.title = element_text(size = 10, face = "bold"))
@@ -203,7 +203,7 @@ p3 <- trainset %>%
 # Boxplot de sleep_hours
 p4 <- trainset %>%
   ggplot(aes(x = "", y = sleep_hours)) +
-  geom_boxplot(alpha = 0.7) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
   labs(title = "Horas de sueño", y = "Horas", x = "") +
   theme_bw() +
   theme(plot.title = element_text(size = 10, face = "bold"))
@@ -652,7 +652,7 @@ El diagrama de dispersión muestra una línea de tendencia con una leve pendient
 
 `gender` vs `exam_score`
 
-```{r}
+```{r, cache=TRUE}
 trainset %>%
   ggplot(aes(x = gender, y = exam_score)) +
   geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
@@ -661,7 +661,11 @@ trainset %>%
   theme_bw()
 ```
 
-```{r}
+En los tres grupos, el 50% de los datos es menor o igual a un valor prácticamente idéntico (62,5 - 62,6), con cuartiles casi iguales. Las cajas se superponen casi por completo; el género no marca ninguna diferencia visible en el desempeño.
+
+`internet_acces` vs `exam_score`
+
+```{r, cache=TRUE}
 trainset %>%
   ggplot(aes(x = internet_access, y = exam_score)) +
   geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
@@ -669,6 +673,8 @@ trainset %>%
        x = "Acceso a internet", y = "Calificación del examen") +
   theme_bw()
 ```
+
+El 50% de los datos es menor o igual a 61,9 en el grupo sin internet y a 62,6 en el grupo con internet, una diferencia mínima de menos de un punto. Las cajas se solapan casi por completo; tener o no acceso a internet no se refleja en el boxplot.
 
 
 `course` vs `exam_score`
@@ -683,9 +689,11 @@ trainset %>%
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
+El 50% de los datos es menor o igual a un valor que va de 61,8 (diploma) a 63,6 (bba), un rango muy estrecho de apenas 1,8 puntos entre los siete cursos. Los cuartiles se solapan entre todos ellos; ningún programa académico se distingue del resto.
+
 `sleep_quality` vs `exam_score`
 
-```{r}
+```{r, cache=TRUE}
 trainset %>%
   ggplot(aes(x = sleep_quality, y = exam_score)) +
   geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
@@ -694,10 +702,11 @@ trainset %>%
   theme_bw()
 ```
 
+El patrón más marcado hasta ahora entre las simples: el 50% de los datos es menor o igual a 57,2 en poor, 62,6 en average y 68,2 en good, 11 puntos de diferencia entre los extremos. Las cajas apenas se solapan, mostrando una tendencia visual clara: mejor sueño, mejor nota.
 
 `facility_rating` vs `exam_score`
 
-```{r}
+```{r, cache=TRUE}
 trainset %>%
   ggplot(aes(x = facility_rating, y = exam_score)) +
   geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
@@ -706,10 +715,11 @@ trainset %>%
   theme_bw()
 ```
 
+Aquí sí hay un patrón claro: el 50% de los datos es menor o igual a 58,3 en low, 63,1 en medium y 67,3 en high, unos 9 puntos de diferencia entre extremos. Las cajas se ven claramente desplazadas hacia arriba a medida que mejora la calificación de las instalaciones.
 
 `exam_difficulty` vs `exam_score`
 
-```{r}
+```{r, cache=TRUE}
 trainset %>%
   ggplot(aes(x = exam_difficulty, y = exam_score)) +
   geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
@@ -718,10 +728,12 @@ trainset %>%
   theme_bw()
 ```
 
+El 50% de los datos es menor o igual a un valor casi idéntico en las tres categorías (62,5 - 62,8). Las cajas prácticamente coinciden; la dificultad percibida del examen no genera diferencias visibles en la nota.
+
 
 `study_method` vs `exam_score`
 
-```{r}
+```{r, cache=TRUE}
 trainset %>%
   ggplot(aes(x = study_method, y = exam_score)) +
   geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
@@ -731,12 +743,99 @@ trainset %>%
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
+La variable con mayor dispersión: el 50% de los datos es menor o igual a apenas 57,3 en self-study, frente a 69,3 en coaching, 12 puntos de diferencia. Las cajas quedan bastante separadas entre sí, especialmente coaching y mixed respecto a self-study y online videos, mostrando el patrón visual más marcado de todas las categóricas.
+
+
 ```{r, include = FALSE}
 rm(list = setdiff(ls(), "trainset"))
 
 gc()
 ```
  
+
+* Para complementar el análisis bivariado, exploraremos también cómo se relacionan entre sí las variables numéricas independientes (age, study_hours, class_attendance, sleep_hours), con el fin de identificar posibles asociaciones entre ellas más allá de su relación individual con `exam_score`.
+
+`age` vs `study_hours`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = age, y = study_hours)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
+  labs(x = "Edad", y = "Horas de estudio") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la edad y las horas de estudio")
+```
+
+
+`age` vs `clase_attendance`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = age, y = class_attendance)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
+  labs(x = "Edad", y = "Asistencia a clases (%)") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la edad y la asistencia a clases")
+```
+
+
+
+`age` vs `sleep_hours`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = age, y = sleep_hours)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
+  labs(x = "Edad", y = "Horas de sueño") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la edad y las horas de sueño")
+```
+
+
+
+`study_hours` vs `class_attendance`
+
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = study_hours, y = class_attendance)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
+  labs(x = "Horas de estudio", y = "Asistencia a clases (%)") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre las horas de estudio y la asistencia a clases")
+```
+
+
+`study_hours` vs `sleep_hours`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = study_hours, y = sleep_hours)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
+  labs(x = "Horas de estudio", y = "Horas de sueño") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre las horas de estudio y las horas de sueño")
+```
+
+
+`class_attendance` vs `sleep_hours`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = class_attendance, y = sleep_hours)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
+  labs(x = "Asistencia a clases (%)", y = "Horas de sueño") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la asistencia a clases y las horas de sueño")
+```
+
+
 
 # Análisis de estadística paramétrica y no paramétrica
 
