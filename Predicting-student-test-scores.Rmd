@@ -580,7 +580,7 @@ gc()
 trainset %>%
   ggplot(aes(x = age, y = exam_score)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
+ 
   labs(
     x = "Edad media",
     y = "Calificación media del examen"
@@ -598,7 +598,6 @@ El diagrama de dispersión muestra que la calificación del examen se distribuye
 trainset %>%
   ggplot(aes(x = study_hours, y = exam_score)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(
     x = "Horas de estudio media",
     y = "Calificación media del examen"
@@ -607,7 +606,7 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre las horas de estudio media y la calificación de los exámenes")
 ```
 
-El diagrama de dispersión muestra una relación positiva clara entre las horas de estudio y la calificación del examen: a medida que aumentan las horas dedicadas al estudio, la nota tiende a subir, reflejado en la marcada pendiente ascendente de la línea de tendencia. A diferencia de `age`, aquí la nube de puntos se concentra de forma más definida alrededor de la línea, especialmente en los valores intermedios, lo que sugiere que las horas de estudio están fuertemente asociadas con el desempeño académico de los estudiantes.
+El diagrama de dispersión muestra una relación positiva clara entre las horas de estudio y la calificación del examen: a medida que aumentan las horas dedicadas al estudio, la nota tiende a subir. A diferencia de `age`, aquí la nube de puntos se concentra de forma más definida, especialmente en los valores intermedios, lo que sugiere que las horas de estudio están fuertemente asociadas con el desempeño académico de los estudiantes.
 
 
 `class_attendance` vs `exam_score`
@@ -617,7 +616,6 @@ El diagrama de dispersión muestra una relación positiva clara entre las horas 
 trainset %>%
   ggplot(aes(x = class_attendance, y = exam_score)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(
     x = "asistencia a clases media",
     y = "Calificación media del examen"
@@ -626,7 +624,7 @@ trainset %>%
   facet_grid(. ~ "Dispersión entre la asistencia a clases media y la calificación de los exámenes")
 ```
 
-El diagrama de dispersión evidencia una relación positiva entre el porcentaje de asistencia a clases y la calificación del examen: la línea de tendencia muestra una pendiente ascendente, indicando que los estudiantes con mayor asistencia tienden a obtener mejores resultados. Sin embargo, la nube de puntos se mantiene bastante dispersa a lo largo de todo el rango de asistencia, lo que sugiere que, aunque existe una tendencia positiva, la asistencia por sí sola no explica completamente las diferencias en el desempeño académico.
+El diagrama de dispersión evidencia una relación positiva entre el porcentaje de asistencia a clases y la calificación del examen. Sin embargo, la nube de puntos se mantiene bastante dispersa a lo largo de todo el rango de asistencia, lo que sugiere que, aunque existe una tendencia positiva, la asistencia por sí sola no explica completamente las diferencias en el desempeño académico.
 
 `sleep_hours` vs `exam_score`
 
@@ -635,7 +633,6 @@ El diagrama de dispersión evidencia una relación positiva entre el porcentaje 
 trainset %>%
   ggplot(aes(x = sleep_hours, y = exam_score)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(
     x = "horas de sueño media",
     y = "Calificación media del examen"
@@ -644,7 +641,7 @@ trainset %>%
   facet_grid(. ~ "Dispersión horas de sueño media y la calificación de los exámenes")
 ```
 
-El diagrama de dispersión muestra una línea de tendencia con una leve pendiente positiva, sugiriendo una relación débil entre las horas de sueño y la calificación del examen. A diferencia de `study_hours`, aquí los puntos se distribuyen de manera mucho más uniforme y dispersa a lo largo de todo el rango de horas de sueño, sin un patrón visual tan marcado, lo que indica que esta variable parece tener una influencia limitada sobre el desempeño académico de los estudiantes.
+El diagrama de dispersión sugiere una relación débil entre las horas de sueño y la calificación del examen. A diferencia de `study_hours`, aquí los puntos se distribuyen de manera mucho más uniforme y dispersa a lo largo de todo el rango de horas de sueño, sin un patrón visual tan marcado, lo que indica que esta variable parece tener una influencia limitada sobre el desempeño académico de los estudiantes.
 
 
 
@@ -761,13 +758,12 @@ gc()
 trainset %>%
   ggplot(aes(x = age, y = study_hours)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(x = "Edad", y = "Horas de estudio") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la edad y las horas de estudio")
 ```
 
-La nube de puntos se ve completamente dispersa a lo largo de todo el rango de ambas variables, sin ninguna tendencia visible en la línea de trazado, que se mantiene prácticamente horizontal. Esto confirma que la edad del estudiante no determina cuántas horas dedica al estudio: tanto los más jóvenes como los mayores se reparten de forma pareja entre pocas y muchas horas de estudio, sin que exista un patrón etario detrás de este hábito.
+La nube de puntos se ve completamente dispersa a lo largo de todo el rango de ambas variables, sin ninguna tendencia visible. Esto confirma que la edad del estudiante no determina cuántas horas dedica al estudio: tanto los más jóvenes como los mayores se reparten de forma pareja entre pocas y muchas horas de estudio, sin que exista un patrón detrás de este hábito.
 
 `age` vs `clase_attendance`
 
@@ -775,13 +771,12 @@ La nube de puntos se ve completamente dispersa a lo largo de todo el rango de am
 trainset %>%
   ggplot(aes(x = age, y = class_attendance)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(x = "Edad", y = "Asistencia a clases (%)") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la edad y la asistencia a clases")
 ```
 
-Igual que con study_hours, la línea de tendencia se ve casi plana a lo largo de todo el rango de edades. La asistencia a clases se comporta de manera prácticamente idéntica sin importar si el estudiante tiene 17 o 24 años, lo que sugiere que el porcentaje de asistencia responde más a factores individuales o de contexto que a la edad del estudiante.
+Igual que con `study_hours`, la asistencia a clases se comporta de manera prácticamente idéntica sin importar si el estudiante tiene 17 o 24 años, lo que sugiere que el porcentaje de asistencia responde más a factores individuales o de contexto que a la edad del estudiante.
 
 `age` vs `sleep_hours`
 
@@ -789,13 +784,12 @@ Igual que con study_hours, la línea de tendencia se ve casi plana a lo largo de
 trainset %>%
   ggplot(aes(x = age, y = sleep_hours)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(x = "Edad", y = "Horas de sueño") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la edad y las horas de sueño")
 ```
 
-Nuevamente, un coeficiente prácticamente nulo; los puntos se distribuyen de forma uniforme sin importar la edad del estudiante, y la línea de tendencia no muestra ninguna inclinación relevante. Los hábitos de sueño parecen ser independientes de cuántos años tiene el estudiante, al menos dentro del rango etario relativamente estrecho (17-24 años) que cubre el dataset.
+Nuevamente, un coeficiente prácticamente nulo; los puntos se distribuyen de forma uniforme sin importar la edad del estudiante. Los hábitos de sueño parecen ser independientes de cuántos años tiene el estudiante, al menos dentro del rango etario relativamente estrecho (17-24 años) que cubre el dataset.
 
 `study_hours` vs `class_attendance`
 
@@ -804,13 +798,12 @@ Nuevamente, un coeficiente prácticamente nulo; los puntos se distribuyen de for
 trainset %>%
   ggplot(aes(x = study_hours, y = class_attendance)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(x = "Horas de estudio", y = "Asistencia a clases (%)") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre las horas de estudio y la asistencia a clases")
 ```
 
-Este es el par con la correlación más alta de los seis, aunque sigue siendo muy débil en términos prácticos. Se puede notar una leve tendencia positiva en la línea de trazado, sugiriendo que los estudiantes que dedican más horas a estudiar también tienden a asistir un poco más a clases. Sin embargo, la nube de puntos permanece bastante dispersa alrededor de esa línea, por lo que esta asociación es más una curiosidad estadística que un patrón con relevancia real: conocer las horas de estudio de un estudiante no permite predecir de forma confiable su nivel de asistencia.
+Los puntos están distribuidos de forma prácticamente uniforme en todo el rango de horas de estudio, sin que se aprecie a simple vista una tendencia ascendente o descendente. La nube de puntos es simplemente dispersa, sin una dirección visible. Esto sugiere que, al menos de forma visual, conocer las horas de estudio de un estudiante no permite anticipar su nivel de asistencia a clases.
 
 `study_hours` vs `sleep_hours`
 
@@ -818,13 +811,12 @@ Este es el par con la correlación más alta de los seis, aunque sigue siendo mu
 trainset %>%
   ggplot(aes(x = study_hours, y = sleep_hours)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
   labs(x = "Horas de estudio", y = "Horas de sueño") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre las horas de estudio y las horas de sueño")
 ```
 
-Correlación muy débil, casi nula; la línea de tendencia apenas se despega de la horizontal, con una inclinación mínima. Esto indica que dormir más o menos horas no está relacionado de forma relevante con cuánto tiempo dedica el estudiante a estudiar, descartando la idea de que quienes estudian más sacrifiquen (o ganen) horas de sueño de manera sistemática.
+Correlación muy débil, casi nula. Esto indica que dormir más o menos horas no está relacionado de forma relevante con cuánto tiempo dedica el estudiante a estudiar, descartando la idea de que quienes estudian más sacrifiquen (o ganen) horas de sueño de manera sistemática.
 
 `class_attendance` vs `sleep_hours`
 
@@ -832,13 +824,13 @@ Correlación muy débil, casi nula; la línea de tendencia apenas se despega de 
 trainset %>%
   ggplot(aes(x = class_attendance, y = sleep_hours)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "darkblue") +
+  
   labs(x = "Asistencia a clases (%)", y = "Horas de sueño") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la asistencia a clases y las horas de sueño")
 ```
 
-El coeficiente más bajo de los seis después de los de age; no se observa ninguna relación relevante entre la asistencia a clases y las horas de sueño, con una nube de puntos homogénea en todo el rango de ambas variables.
+No se observa ninguna relación relevante entre la asistencia a clases y las horas de sueño, con una nube de puntos homogénea en todo el rango de ambas variables.
 
 
 
