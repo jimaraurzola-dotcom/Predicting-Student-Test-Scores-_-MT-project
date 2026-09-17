@@ -6,4 +6,5 @@ análisis-de-las-variables-independientes-características
 análisis-exploratorio-bivariado
 análisis-de-estadística-paramétrica-y-no-paramétrica
 tabla-de-contingencia
-correlación
+correlación-lineal
+conclusiones

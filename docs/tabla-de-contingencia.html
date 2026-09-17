@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"/>
-<link rel="next" href="correlación.html"/>
+<link rel="next" href="correlación-lineal.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -149,7 +149,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>3</b> Análisis de estadística paramétrica y no paramétrica</a></li>
 <li class="chapter" data-level="4" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>4</b> Tabla de contingencia</a></li>
-<li class="chapter" data-level="5" data-path="correlación.html"><a href="correlación.html"><i class="fa fa-check"></i><b>5</b> Correlación</a></li>
+<li class="chapter" data-level="5" data-path="correlación-lineal.html"><a href="correlación-lineal.html"><i class="fa fa-check"></i><b>5</b> Correlación lineal</a></li>
+<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a></li>
 </ul>
 
       </nav>
@@ -169,77 +170,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="tabla-de-contingencia" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Tabla de contingencia<a href="tabla-de-contingencia.html#tabla-de-contingencia" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Hasta ahora hemos comparado <code>exam_score</code> (numérica) entre los grupos de cada variable categórica. Una forma complementaria de explorar relaciones es a través de tablas de contingencia, que permiten estudiar la asociación entre dos variables categóricas usando la prueba χ² de independencia.</p>
-<p>Para conectar este análisis con la pregunta de investigación del proyecto, creamos una versión categórica de la variable respuesta: <code>resultado</code>, que clasifica a cada estudiante como <code>aprobado</code> (<code>exam_score &gt;= 60</code>) o <code>reprobado</code> (<code>exam_score &lt; 60</code>).</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="tabla-de-contingencia.html#cb108-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
-<span id="cb108-2"><a href="tabla-de-contingencia.html#cb108-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">ifelse</span>(exam_score <span class="sc">&gt;=</span> <span class="dv">60</span>, <span class="st">&quot;aprobado&quot;</span>, <span class="st">&quot;reprobado&quot;</span>))</span>
-<span id="cb108-3"><a href="tabla-de-contingencia.html#cb108-3" tabindex="-1"></a></span>
-<span id="cb108-4"><a href="tabla-de-contingencia.html#cb108-4" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb108-5"><a href="tabla-de-contingencia.html#cb108-5" tabindex="-1"></a>  <span class="fu">count</span>(resultado, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb108-6"><a href="tabla-de-contingencia.html#cb108-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
+<p>Para estudiar la asociación entre dos variables categóricas creamos <code>resultado</code>, que clasifica a cada estudiante como <code>aprobado</code> (<code>exam_score &gt;= 60</code>) o <code>reprobado</code>.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="tabla-de-contingencia.html#cb120-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb120-2"><a href="tabla-de-contingencia.html#cb120-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">ifelse</span>(exam_score <span class="sc">&gt;=</span> <span class="dv">60</span>, <span class="st">&quot;aprobado&quot;</span>, <span class="st">&quot;reprobado&quot;</span>))</span>
+<span id="cb120-3"><a href="tabla-de-contingencia.html#cb120-3" tabindex="-1"></a></span>
+<span id="cb120-4"><a href="tabla-de-contingencia.html#cb120-4" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb120-5"><a href="tabla-de-contingencia.html#cb120-5" tabindex="-1"></a>  <span class="fu">count</span>(resultado, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb120-6"><a href="tabla-de-contingencia.html#cb120-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>##   resultado Frecuencia Porcentaje
 ## 1  aprobado     347803      55.21
 ## 2 reprobado     282197      44.79</code></pre>
-<p>El 55,21% de los estudiantes aprueba (<code>exam_score &gt;= 60</code>) y el 44,79% reprueba, una distribución razonablemente balanceada para el análisis.</p>
-<p>A continuación, evaluamos si <code>resultado</code> está asociado con las dos variables categóricas que mostraron el mayor tamaño del efecto en la sección anterior: <code>sleep_quality</code> y <code>study_method</code>.</p>
+<p>El 55,21% aprueba y el 44,79% reprueba. Como cada estudiante se clasifica según dos atributos, el contraste que corresponde es el de independencia:</p>
+<p><span class="math display">\[
+H_0: \text{los dos atributos son independientes} \quad vs \quad H_1: \text{no lo son}
+\]</span></p>
+<p>Evaluamos <code>resultado</code> frente a las dos categóricas con mayor diferencia entre grupos: <code>sleep_quality</code> y <code>study_method</code>.</p>
 <ul>
 <li><code>resultado</code> vs <code>sleep_quality</code></li>
 </ul>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="tabla-de-contingencia.html#cb110-1" tabindex="-1"></a>tabla_resultado_sq <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>sleep_quality)</span>
-<span id="cb110-2"><a href="tabla-de-contingencia.html#cb110-2" tabindex="-1"></a>tabla_resultado_sq</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="tabla-de-contingencia.html#cb122-1" tabindex="-1"></a>observados <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>sleep_quality)</span>
+<span id="cb122-2"><a href="tabla-de-contingencia.html#cb122-2" tabindex="-1"></a>observados</span></code></pre></div>
 <pre><code>##            
 ##             average   good   poor
 ##   aprobado   111912 140482  95409
 ##   reprobado   91324  72607 118266</code></pre>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="tabla-de-contingencia.html#cb112-1" tabindex="-1"></a>chisq_sq <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_resultado_sq)</span>
-<span id="cb112-2"><a href="tabla-de-contingencia.html#cb112-2" tabindex="-1"></a>chisq_sq</span></code></pre></div>
+<p>Hallemos los totales y los valores esperados:</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="tabla-de-contingencia.html#cb124-1" tabindex="-1"></a>fila_totales <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observados)</span>
+<span id="cb124-2"><a href="tabla-de-contingencia.html#cb124-2" tabindex="-1"></a>col_totales <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observados)</span>
+<span id="cb124-3"><a href="tabla-de-contingencia.html#cb124-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(observados)</span>
+<span id="cb124-4"><a href="tabla-de-contingencia.html#cb124-4" tabindex="-1"></a></span>
+<span id="cb124-5"><a href="tabla-de-contingencia.html#cb124-5" tabindex="-1"></a>esperados <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila_totales, col_totales) <span class="sc">/</span> n</span>
+<span id="cb124-6"><a href="tabla-de-contingencia.html#cb124-6" tabindex="-1"></a>esperados</span></code></pre></div>
+<pre><code>##             average      good      poor
+## aprobado  112200.14 117639.67 117963.18
+## reprobado  91035.86  95449.33  95711.82</code></pre>
+<p>Todos los esperados son mayores que 5, así que la prueba es válida. Calculemos el estadístico, los grados de libertad, el valor crítico y el p-valor:</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="tabla-de-contingencia.html#cb126-1" tabindex="-1"></a>chi_cuadrado <span class="ot">&lt;-</span> <span class="fu">sum</span>((observados <span class="sc">-</span> esperados)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperados)</span>
+<span id="cb126-2"><a href="tabla-de-contingencia.html#cb126-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb126-3"><a href="tabla-de-contingencia.html#cb126-3" tabindex="-1"></a></span>
+<span id="cb126-4"><a href="tabla-de-contingencia.html#cb126-4" tabindex="-1"></a>alfa <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb126-5"><a href="tabla-de-contingencia.html#cb126-5" tabindex="-1"></a>valor_critico <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alfa, df)</span>
+<span id="cb126-6"><a href="tabla-de-contingencia.html#cb126-6" tabindex="-1"></a>valor_p <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_cuadrado, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb126-7"><a href="tabla-de-contingencia.html#cb126-7" tabindex="-1"></a></span>
+<span id="cb126-8"><a href="tabla-de-contingencia.html#cb126-8" tabindex="-1"></a>chi_cuadrado</span></code></pre></div>
+<pre><code>## [1] 19530.58</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="tabla-de-contingencia.html#cb128-1" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="tabla-de-contingencia.html#cb130-1" tabindex="-1"></a>valor_critico</span></code></pre></div>
+<pre><code>## [1] 5.991465</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="tabla-de-contingencia.html#cb132-1" tabindex="-1"></a>valor_p</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Con la función <code>chisq.test</code> nos queda:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="tabla-de-contingencia.html#cb134-1" tabindex="-1"></a><span class="fu">chisq.test</span>(observados)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
-## data:  tabla_resultado_sq
+## data:  observados
 ## X-squared = 19531, df = 2, p-value &lt; 2.2e-16</code></pre>
-<p>Antes de interpretar la prueba, verificamos el supuesto de χ²: todas las frecuencias esperadas deben ser mayores o iguales a 5.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="tabla-de-contingencia.html#cb114-1" tabindex="-1"></a><span class="fu">min</span>(chisq_sq<span class="sc">$</span>expected)</span></code></pre></div>
-<pre><code>## [1] 91035.86</code></pre>
-<p>La frecuencia esperada mínima es de 91.035,86, muy por encima de 5, por lo que se cumple el supuesto y la prueba χ² es válida.</p>
-<p>Con una confianza del 95%, la prueba χ² de independencia <span class="math inline">\((χ²₍₂₎ = 19531, p-valor &lt; 0.001)\)</span> nos indica que <code>resultado</code> y <code>sleep_quality</code> no son independientes; existe asociación estadísticamente significativa entre la calidad del sueño y el hecho de aprobar o reprobar el examen.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="tabla-de-contingencia.html#cb116-1" tabindex="-1"></a>k_sq <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(tabla_resultado_sq) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(tabla_resultado_sq) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb116-2"><a href="tabla-de-contingencia.html#cb116-2" tabindex="-1"></a>v_sq <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chisq_sq<span class="sc">$</span>statistic <span class="sc">/</span> (<span class="fu">sum</span>(tabla_resultado_sq) <span class="sc">*</span> k_sq))</span>
-<span id="cb116-3"><a href="tabla-de-contingencia.html#cb116-3" tabindex="-1"></a>v_sq</span></code></pre></div>
-<pre><code>## X-squared 
-## 0.1760708</code></pre>
-<p>La V de Cramer obtenida es de 0,1761, lo que indica una asociación débil entre ambas variables. Esto es consistente con el tamaño del efecto pequeño (η² = 0,0526) encontrado con Kruskal-Wallis en la sección anterior: la calidad del sueño está relacionada con el desempeño académico, pero de forma modesta.</p>
+<p>Como <span class="math inline">\(\chi^2 = 19531 &gt; \chi^2_{0.05} = 5{,}99\)</span>, con una confianza del 95% se rechaza <span class="math inline">\(H_0\)</span>: <code>resultado</code> y <code>sleep_quality</code> no son independientes <span class="math inline">\((\chi^2_{(2)} = 19531,\ p-valor &lt; 0.001)\)</span>.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="tabla-de-contingencia.html#cb136-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb136-2"><a href="tabla-de-contingencia.html#cb136-2" tabindex="-1"></a>v_cramer <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_cuadrado <span class="sc">/</span> (n <span class="sc">*</span> k))</span>
+<span id="cb136-3"><a href="tabla-de-contingencia.html#cb136-3" tabindex="-1"></a>v_cramer</span></code></pre></div>
+<pre><code>## [1] 0.1760708</code></pre>
+<p>La V de Cramer es 0,176, es decir, la asociación existe pero es débil.</p>
 <ul>
 <li><code>resultado</code> vs <code>study_method</code></li>
 </ul>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="tabla-de-contingencia.html#cb118-1" tabindex="-1"></a>tabla_resultado_sm <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>study_method)</span>
-<span id="cb118-2"><a href="tabla-de-contingencia.html#cb118-2" tabindex="-1"></a>tabla_resultado_sm</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="tabla-de-contingencia.html#cb138-1" tabindex="-1"></a>observados <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>study_method)</span>
+<span id="cb138-2"><a href="tabla-de-contingencia.html#cb138-2" tabindex="-1"></a>observados</span></code></pre></div>
 <pre><code>##            
-##             coaching group study mixed online videos
-##   aprobado     88790       63351 76249         59758
-##   reprobado    42907       59658 46837         61319
-##            
-##             self-study
-##   aprobado       59655
-##   reprobado      71476</code></pre>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="tabla-de-contingencia.html#cb120-1" tabindex="-1"></a>chisq_sm <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_resultado_sm)</span>
-<span id="cb120-2"><a href="tabla-de-contingencia.html#cb120-2" tabindex="-1"></a>chisq_sm</span></code></pre></div>
+##             coaching group study mixed online videos self-study
+##   aprobado     88790       63351 76249         59758      59655
+##   reprobado    42907       59658 46837         61319      71476</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="tabla-de-contingencia.html#cb140-1" tabindex="-1"></a>fila_totales <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observados)</span>
+<span id="cb140-2"><a href="tabla-de-contingencia.html#cb140-2" tabindex="-1"></a>col_totales <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observados)</span>
+<span id="cb140-3"><a href="tabla-de-contingencia.html#cb140-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(observados)</span>
+<span id="cb140-4"><a href="tabla-de-contingencia.html#cb140-4" tabindex="-1"></a></span>
+<span id="cb140-5"><a href="tabla-de-contingencia.html#cb140-5" tabindex="-1"></a>esperados <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila_totales, col_totales) <span class="sc">/</span> n</span>
+<span id="cb140-6"><a href="tabla-de-contingencia.html#cb140-6" tabindex="-1"></a>esperados</span></code></pre></div>
+<pre><code>##           coaching group study    mixed online videos self-study
+## aprobado  72705.73    67909.36 67951.87      66842.77   72393.26
+## reprobado 58991.27    55099.64 55134.13      54234.23   58737.74</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="tabla-de-contingencia.html#cb142-1" tabindex="-1"></a>chi_cuadrado <span class="ot">&lt;-</span> <span class="fu">sum</span>((observados <span class="sc">-</span> esperados)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperados)</span>
+<span id="cb142-2"><a href="tabla-de-contingencia.html#cb142-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb142-3"><a href="tabla-de-contingencia.html#cb142-3" tabindex="-1"></a></span>
+<span id="cb142-4"><a href="tabla-de-contingencia.html#cb142-4" tabindex="-1"></a>valor_critico <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alfa, df)</span>
+<span id="cb142-5"><a href="tabla-de-contingencia.html#cb142-5" tabindex="-1"></a>valor_p <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_cuadrado, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb142-6"><a href="tabla-de-contingencia.html#cb142-6" tabindex="-1"></a></span>
+<span id="cb142-7"><a href="tabla-de-contingencia.html#cb142-7" tabindex="-1"></a>chi_cuadrado</span></code></pre></div>
+<pre><code>## [1] 17568.86</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="tabla-de-contingencia.html#cb144-1" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="tabla-de-contingencia.html#cb146-1" tabindex="-1"></a>valor_critico</span></code></pre></div>
+<pre><code>## [1] 9.487729</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="tabla-de-contingencia.html#cb148-1" tabindex="-1"></a>valor_p</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="tabla-de-contingencia.html#cb150-1" tabindex="-1"></a><span class="fu">chisq.test</span>(observados)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
-## data:  tabla_resultado_sm
+## data:  observados
 ## X-squared = 17569, df = 4, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="tabla-de-contingencia.html#cb122-1" tabindex="-1"></a><span class="fu">min</span>(chisq_sm<span class="sc">$</span>expected)</span></code></pre></div>
-<pre><code>## [1] 54234.23</code></pre>
-<p>La frecuencia esperada mínima es de 54.234,23, también muy por encima de 5, por lo que se cumple el supuesto de la prueba χ².</p>
-<p>Con una confianza del 95%, la prueba χ² de independencia <span class="math inline">\((χ²₍₄₎ = 17569, p-valor &lt; 0.001)\)</span> nos indica que <code>resultado</code> y <code>study_method</code> tampoco son independientes.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="tabla-de-contingencia.html#cb124-1" tabindex="-1"></a>k_sm <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(tabla_resultado_sm) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(tabla_resultado_sm) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb124-2"><a href="tabla-de-contingencia.html#cb124-2" tabindex="-1"></a>v_sm <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chisq_sm<span class="sc">$</span>statistic <span class="sc">/</span> (<span class="fu">sum</span>(tabla_resultado_sm) <span class="sc">*</span> k_sm))</span>
-<span id="cb124-3"><a href="tabla-de-contingencia.html#cb124-3" tabindex="-1"></a>v_sm</span></code></pre></div>
-<pre><code>## X-squared 
-## 0.1669942</code></pre>
-<p>La V de Cramer para <code>study_method</code> es de 0,1670, prácticamente igual a la obtenida con <code>sleep_quality</code> (0,1761), lo que vuelve a confirmar una asociación débil.</p>
-<p>En conjunto, ambas pruebas χ² resultan estadísticamente significativas, pero al igual que con Kruskal-Wallis, el tamaño del efecto (V de Cramer ≈ 0,17 en los dos casos) confirma que la asociación entre estas variables categóricas y el resultado del examen (<code>resultado</code>) es real pero débil. Ninguna de las dos alcanza sola para predecir con fuerza si un estudiante va a aprobar o no.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="tabla-de-contingencia.html#cb152-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb152-2"><a href="tabla-de-contingencia.html#cb152-2" tabindex="-1"></a>v_cramer <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_cuadrado <span class="sc">/</span> (n <span class="sc">*</span> k))</span>
+<span id="cb152-3"><a href="tabla-de-contingencia.html#cb152-3" tabindex="-1"></a>v_cramer</span></code></pre></div>
+<pre><code>## [1] 0.1669942</code></pre>
+<p>También se rechaza <span class="math inline">\(H_0\)</span> <span class="math inline">\((\chi^2_{(4)} = 17569,\ p-valor &lt; 0.001)\)</span>, con una V de Cramer de 0,167. En los dos casos la asociación es estadísticamente significativa pero débil: ninguna de las dos variables alcanza sola para predecir si un estudiante aprueba.</p>
 </div>
             </section>
 
@@ -247,7 +283,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="correlación.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="correlación-lineal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

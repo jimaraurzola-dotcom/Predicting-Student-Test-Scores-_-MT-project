@@ -175,3 +175,14 @@ Faltaba esta etapa. Lo desarrollé sobre `study_method`, que es la categórica c
 - Incluir el análisis de residuales y la validación de supuestos tal como los plantea la sección 7.8.
 
 ---------------------------------
+
+### 17/09/26
+---------------------------------
+
+**Avance:** Corregí contingencia y correlación, y agregué las conclusiones
+
+- **Tabla de contingencia:** la rehice con el procedimiento del capítulo 5 de las notas — totales por fila y columna, esperados con `outer()`, estadístico $\chi^2$, grados de libertad, valor crítico con `qchisq()` y p-valor con `pchisq()` — y solo al final la comparo con `chisq.test()`. Antes iba directo a la función. La V de Cramer la dejé porque es el ejercicio de `contingencia.R`.
+- **Correlación:** saqué la matriz `cor()` completa y el heatmap de `ggcorr()`. Ni en las notas ni en mis talleres uso `cor()` sobre un data frame entero ni `ggcorr()`; de `GGally` solo aparece `ggpairs()`. Quedaron los `lillie.test()` individuales (como en `rls.R`) y los cuatro `cor.test` de Spearman, con la fuerza de cada coeficiente leída de la tabla 6.1.
+- **Conclusiones:** capítulo nuevo al final respondiendo la pregunta de investigación.
+
+---------------------------------

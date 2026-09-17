@@ -1114,9 +1114,7 @@ Con las siete variables categóricas ya analizadas, el panorama es bastante cons
 
 # Tabla de contingencia
 
-Hasta ahora hemos comparado `exam_score` (numérica) entre los grupos de cada variable categórica. Una forma complementaria de explorar relaciones es a través de tablas de contingencia, que permiten estudiar la asociación entre dos variables categóricas usando la prueba χ² de independencia.
-
-Para conectar este análisis con la pregunta de investigación del proyecto, creamos una versión categórica de la variable respuesta: `resultado`, que clasifica a cada estudiante como `aprobado` (`exam_score >= 60`) o `reprobado` (`exam_score < 60`).
+Para estudiar la asociación entre dos variables categóricas creamos `resultado`, que clasifica a cada estudiante como `aprobado` (`exam_score >= 60`) o `reprobado`.
 
 ```{r, cache=TRUE}
 trainset <- trainset %>%
@@ -1127,108 +1125,121 @@ trainset %>%
   mutate(Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2))
 ```
 
-El 55,21% de los estudiantes aprueba (`exam_score >= 60`) y el 44,79% reprueba, una distribución razonablemente balanceada para el análisis.
+El 55,21% aprueba y el 44,79% reprueba. Como cada estudiante se clasifica según dos atributos, el contraste que corresponde es el de independencia:
 
-A continuación, evaluamos si `resultado` está asociado con las dos variables categóricas que mostraron el mayor tamaño del efecto en la sección anterior: `sleep_quality` y `study_method`.
+$$
+H_0: \text{los dos atributos son independientes} \quad vs \quad H_1: \text{no lo son}
+$$
+
+Evaluamos `resultado` frente a las dos categóricas con mayor diferencia entre grupos: `sleep_quality` y `study_method`.
 
 * `resultado` vs `sleep_quality`
 
 ```{r, cache=TRUE}
-tabla_resultado_sq <- table(trainset$resultado, trainset$sleep_quality)
-tabla_resultado_sq
+observados <- table(trainset$resultado, trainset$sleep_quality)
+observados
 ```
+
+Hallemos los totales y los valores esperados:
 
 ```{r, cache=TRUE}
-chisq_sq <- chisq.test(tabla_resultado_sq)
-chisq_sq
+fila_totales <- rowSums(observados)
+col_totales <- colSums(observados)
+n <- sum(observados)
+
+esperados <- outer(fila_totales, col_totales) / n
+esperados
 ```
 
-Antes de interpretar la prueba, verificamos el supuesto de χ²: todas las frecuencias esperadas deben ser mayores o iguales a 5.
+Todos los esperados son mayores que 5, así que la prueba es válida. Calculemos el estadístico, los grados de libertad, el valor crítico y el p-valor:
 
 ```{r, cache=TRUE}
-min(chisq_sq$expected)
+chi_cuadrado <- sum((observados - esperados)^2 / esperados)
+df <- (nrow(observados) - 1) * (ncol(observados) - 1)
+
+alfa <- 0.05
+valor_critico <- qchisq(1 - alfa, df)
+valor_p <- pchisq(chi_cuadrado, df, lower.tail = FALSE)
+
+chi_cuadrado
+df
+valor_critico
+valor_p
 ```
 
-La frecuencia esperada mínima es de 91.035,86, muy por encima de 5, por lo que se cumple el supuesto y la prueba χ² es válida.
-
-Con una confianza del 95%, la prueba χ² de independencia $(χ²₍₂₎ = 19531, p-valor < 0.001)$ nos indica que `resultado` y `sleep_quality` no son independientes; existe asociación estadísticamente significativa entre la calidad del sueño y el hecho de aprobar o reprobar el examen.
+Con la función `chisq.test` nos queda:
 
 ```{r, cache=TRUE}
-k_sq <- min(nrow(tabla_resultado_sq) - 1, ncol(tabla_resultado_sq) - 1)
-v_sq <- sqrt(chisq_sq$statistic / (sum(tabla_resultado_sq) * k_sq))
-v_sq
+chisq.test(observados)
 ```
 
-La V de Cramer obtenida es de 0,1761, lo que indica una asociación débil entre ambas variables. Esto es consistente con el tamaño del efecto pequeño (η² = 0,0526) encontrado con Kruskal-Wallis en la sección anterior: la calidad del sueño está relacionada con el desempeño académico, pero de forma modesta.
+Como $\chi^2 = 19531 > \chi^2_{0.05} = 5{,}99$, con una confianza del 95% se rechaza $H_0$: `resultado` y `sleep_quality` no son independientes $(\chi^2_{(2)} = 19531,\ p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+k <- min(nrow(observados) - 1, ncol(observados) - 1)
+v_cramer <- sqrt(chi_cuadrado / (n * k))
+v_cramer
+```
+
+La V de Cramer es 0,176, es decir, la asociación existe pero es débil.
 
 * `resultado` vs `study_method`
 
 ```{r, cache=TRUE}
-tabla_resultado_sm <- table(trainset$resultado, trainset$study_method)
-tabla_resultado_sm
+observados <- table(trainset$resultado, trainset$study_method)
+observados
+
+fila_totales <- rowSums(observados)
+col_totales <- colSums(observados)
+n <- sum(observados)
+
+esperados <- outer(fila_totales, col_totales) / n
+esperados
 ```
 
 ```{r, cache=TRUE}
-chisq_sm <- chisq.test(tabla_resultado_sm)
-chisq_sm
+chi_cuadrado <- sum((observados - esperados)^2 / esperados)
+df <- (nrow(observados) - 1) * (ncol(observados) - 1)
+
+valor_critico <- qchisq(1 - alfa, df)
+valor_p <- pchisq(chi_cuadrado, df, lower.tail = FALSE)
+
+chi_cuadrado
+df
+valor_critico
+valor_p
+
+chisq.test(observados)
 ```
 
 ```{r, cache=TRUE}
-min(chisq_sm$expected)
+k <- min(nrow(observados) - 1, ncol(observados) - 1)
+v_cramer <- sqrt(chi_cuadrado / (n * k))
+v_cramer
 ```
 
-La frecuencia esperada mínima es de 54.234,23, también muy por encima de 5, por lo que se cumple el supuesto de la prueba χ².
+```{r, include=FALSE}
+rm(observados, esperados, fila_totales, col_totales, n, chi_cuadrado,
+   df, alfa, valor_critico, valor_p, k, v_cramer)
+gc()
+```
 
-Con una confianza del 95%, la prueba χ² de independencia $(χ²₍₄₎ = 17569, p-valor < 0.001)$ nos indica que `resultado` y `study_method` tampoco son independientes.
+También se rechaza $H_0$ $(\chi^2_{(4)} = 17569,\ p-valor < 0.001)$, con una V de Cramer de 0,167. En los dos casos la asociación es estadísticamente significativa pero débil: ninguna de las dos variables alcanza sola para predecir si un estudiante aprueba.
+
+# Correlación lineal
+
+En el EDA vimos que `study_hours` y `class_attendance` parecían tener relación positiva con `exam_score`, mientras que `age` y `sleep_hours` no mostraban un patrón claro. Aquí cuantificamos esas relaciones.
+
+El coeficiente de Pearson exige normalidad, así que primero la verificamos. Por el tamaño de muestra (630.000) descartamos Shapiro-Wilk y usamos Lilliefors:
 
 ```{r, cache=TRUE}
-k_sm <- min(nrow(tabla_resultado_sm) - 1, ncol(tabla_resultado_sm) - 1)
-v_sm <- sqrt(chisq_sm$statistic / (sum(tabla_resultado_sm) * k_sm))
-v_sm
+lillie.test(trainset$study_hours)
+lillie.test(trainset$class_attendance)
+lillie.test(trainset$sleep_hours)
+lillie.test(trainset$age)
 ```
 
-La V de Cramer para `study_method` es de 0,1670, prácticamente igual a la obtenida con `sleep_quality` (0,1761), lo que vuelve a confirmar una asociación débil.
-
-En conjunto, ambas pruebas χ² resultan estadísticamente significativas, pero al igual que con Kruskal-Wallis, el tamaño del efecto (V de Cramer ≈ 0,17 en los dos casos) confirma que la asociación entre estas variables categóricas y el resultado del examen (`resultado`) es real pero débil. Ninguna de las dos alcanza sola para predecir con fuerza si un estudiante va a aprobar o no.
-
-# Correlación
-
-En el EDA ya habíamos observado, a través de diagramas de dispersión, que `study_hours` y `class_attendance` parecían tener una relación positiva con `exam_score`, mientras que `age` y `sleep_hours` no mostraban un patrón claro. En esta sección cuantificamos esas relaciones con el coeficiente de correlación.
-
-Como ya establecimos que `exam_score` no sigue una distribución normal (Lilliefors, sección anterior), primero verificamos la normalidad de las cuatro variables numéricas independientes para decidir entre correlación de Pearson (paramétrica) o de Spearman (no paramétrica). Al igual que antes, descartamos Shapiro-Wilk por el tamaño de la muestra (630.000) y usamos Lilliefors.
-
-```{r, cache=TRUE}
-c(age = lillie.test(trainset$age)$statistic,
-  study_hours = lillie.test(trainset$study_hours)$statistic,
-  class_attendance = lillie.test(trainset$class_attendance)$statistic,
-  sleep_hours = lillie.test(trainset$sleep_hours)$statistic)
-
-c(age = lillie.test(trainset$age)$p.value,
-  study_hours = lillie.test(trainset$study_hours)$p.value,
-  class_attendance = lillie.test(trainset$class_attendance)$p.value,
-  sleep_hours = lillie.test(trainset$sleep_hours)$p.value)
-```
-
-Ninguna de las cuatro variables numéricas sigue una distribución normal (`age`: D = 0,1152; `study_hours`: D = 0,0628; `class_attendance`: D = 0,0611; `sleep_hours`: D = 0,0738; en los cuatro casos p-valor < 0,001). Por lo tanto, usamos el coeficiente de correlación de Spearman en lugar de Pearson, consistente con el enfoque no paramétrico usado en toda la sección anterior.
-
-* Matriz de correlación de Spearman entre las variables numéricas:
-, cache=TRUE
-```{r}
-numericas <- trainset %>%
-  select(age, study_hours, class_attendance, sleep_hours, exam_score)
-
-round(cor(numericas, method = "spearman"), 3)
-```
-
-```{r correlacion heatmap, cache=TRUE}
-ggcorr(numericas, method = c("pairwise", "spearman"),
-       label = TRUE, label_round = 2,
-       low = "#f8f4ff", mid = "#c5b0ff", high = "#2f0be0",
-       hjust = 0.8, size = 4) +
-  labs(title = "Matriz de correlación de Spearman")
-```
-
-La matriz confirma lo observado visualmente en el EDA: `study_hours` es, por lejos, la variable más correlacionada con `exam_score`; le sigue `class_attendance` con una correlación moderada-débil; `sleep_hours` y `age` muestran correlaciones muy débiles, tanto con `exam_score` como entre ellas.
+Con una confianza del 95%, ninguna de las cuatro variables tiene comportamiento normal (`study_hours`: $D = 0{,}0628$; `class_attendance`: $D = 0{,}0611$; `sleep_hours`: $D = 0{,}0738$; `age`: $D = 0{,}1152$; en los cuatro casos $p-valor < 0.001$). Usamos entonces el coeficiente de Spearman.
 
 * `study_hours` vs `exam_score`
 
@@ -1236,7 +1247,7 @@ La matriz confirma lo observado visualmente en el EDA: `study_hours` es, por lej
 cor.test(trainset$study_hours, trainset$exam_score, method = "spearman", exact = FALSE)
 ```
 
-Se obtiene un coeficiente $\rho = 0.7698$ $(S = 9.5952e+15, p-valor < 0.001)$. Con una confianza del 95%, existe evidencia de una correlación positiva muy fuerte y estadísticamente significativa entre las horas de estudio y la calificación del examen: a más horas de estudio, mayor es la nota. Este es, por lejos, el predictor numérico más fuerte del dataset.
+Se obtiene $\rho = 0{,}7698$ $(S = 9{,}5952\times 10^{15},\ p-valor < 0.001)$: correlación positiva muy fuerte. A más horas de estudio, mayor es la nota. Es el predictor numérico más fuerte del conjunto de datos.
 
 * `class_attendance` vs `exam_score`
 
@@ -1244,7 +1255,7 @@ Se obtiene un coeficiente $\rho = 0.7698$ $(S = 9.5952e+15, p-valor < 0.001)$. C
 cor.test(trainset$class_attendance, trainset$exam_score, method = "spearman", exact = FALSE)
 ```
 
-Se obtiene un coeficiente $\rho = 0.3515$ $(S = 2.7025e+16, p-valor < 0.001)$, lo que corresponde a una correlación positiva débil-moderada: la asistencia a clases está relacionada con el desempeño académico, pero de forma bastante más modesta que las horas de estudio.
+Se obtiene $\rho = 0{,}3515$ $(S = 2{,}7025\times 10^{16},\ p-valor < 0.001)$: correlación positiva débil. La asistencia se relaciona con la nota, pero mucho menos que las horas de estudio.
 
 * `sleep_hours` vs `exam_score`
 
@@ -1252,7 +1263,7 @@ Se obtiene un coeficiente $\rho = 0.3515$ $(S = 2.7025e+16, p-valor < 0.001)$, l
 cor.test(trainset$sleep_hours, trainset$exam_score, method = "spearman", exact = FALSE)
 ```
 
-Se obtiene un coeficiente $\rho = 0.1600$ $(S = 3.5005e+16, p-valor < 0.001)$. Aunque estadísticamente significativa, la correlación es muy débil, casi nula en la práctica: dormir más o menos horas prácticamente no se traduce en diferencias en el puntaje del examen.
+Se obtiene $\rho = 0{,}1600$ $(S = 3{,}5005\times 10^{16},\ p-valor < 0.001)$: sin correlación o muy débil. Dormir más o menos horas prácticamente no cambia el puntaje.
 
 * `age` vs `exam_score`
 
@@ -1260,7 +1271,20 @@ Se obtiene un coeficiente $\rho = 0.1600$ $(S = 3.5005e+16, p-valor < 0.001)$. A
 cor.test(trainset$age, trainset$exam_score, method = "spearman", exact = FALSE)
 ```
 
-Se obtiene un coeficiente $\rho = 0.0072$ $(S = 4.1376e+16, p-valor = 1.303e-08)$. A pesar de que el tamaño de muestra hace que hasta esta correlación tan pequeña resulte "significativa", el coeficiente es prácticamente cero: la edad del estudiante no tiene ninguna relación relevante con su desempeño en el examen, confirmando lo que ya se veía en el diagrama de dispersión del EDA.
+Se obtiene $\rho = 0{,}0072$ $(S = 4{,}1376\times 10^{16},\ p-valor = 1{,}303\times 10^{-8})$: sin correlación. El coeficiente es prácticamente cero aunque el p-valor sea significativo, lo que confirma lo visto en el diagrama de dispersión del EDA.
 
-En conjunto, de las cuatro variables numéricas independientes, `study_hours` es por mucho la que mejor se relaciona con `exam_score` (ρ = 0,77, correlación muy fuerte), seguida bastante más atrás por `class_attendance` (ρ = 0,35, débil-moderada). `sleep_hours` (ρ = 0,16) y `age` (ρ ≈ 0) prácticamente no aportan nada. Y comparando con las secciones anteriores, ninguna variable categórica (ni siquiera `sleep_quality` o `study_method`) se acerca a la fuerza de esta relación. Todo apunta a que `study_hours` va a ser el predictor más importante cuando lleguemos a la regresión lineal.
+De las cuatro variables numéricas, `study_hours` ($\rho = 0{,}77$) es la única con una relación fuerte con `exam_score`; `class_attendance` ($\rho = 0{,}35$) queda bastante más atrás y `sleep_hours` ($\rho = 0{,}16$) y `age` ($\rho \approx 0$) no aportan nada.
 
+# Conclusiones
+
+La pregunta de investigación era qué factores influyen en el desempeño académico (`exam_score`) y en qué magnitud. Con el análisis completo podemos responderla.
+
+**Variables numéricas.** `study_hours` es el factor determinante: $\rho = 0{,}77$, correlación positiva muy fuerte. Le sigue `class_attendance` con $\rho = 0{,}35$, una correlación débil. Ni `sleep_hours` ($\rho = 0{,}16$) ni `age` ($\rho \approx 0$) tienen relación relevante con la nota.
+
+**Variables categóricas.** Las siete arrojaron diferencias estadísticamente significativas, pero solo tres muestran una separación apreciable entre grupos: `study_method` (de 57,7 puntos en `self-study` a 69,3 en `coaching`), `sleep_quality` (de 57,0 en `poor` a 67,9 en `good`) y `facility_rating` (de 58,0 en `low` a 66,7 en `high`). En cambio `gender`, `course`, `exam_difficulty` e `internet_access` se mueven en rangos de menos de 1,5 puntos, sin relevancia práctica.
+
+**Asociación con aprobar o reprobar.** Las tablas de contingencia confirman lo anterior: `sleep_quality` y `study_method` están asociadas con `resultado`, pero con una V de Cramer de 0,176 y 0,167, es decir, asociaciones débiles.
+
+**Sobre el tamaño de muestra.** Con 630.000 observaciones todas las pruebas resultaron significativas, incluso las de variables que no aportan nada. La lección del proyecto es que el p-valor por sí solo no sirve para decidir si algo es relevante: hay que mirar siempre la magnitud del coeficiente o de la diferencia entre grupos.
+
+**En resumen**, el desempeño académico depende sobre todo de cuánto estudia el estudiante y de cómo lo hace, y en menor medida de su asistencia, su calidad de sueño y las instalaciones. Características como la edad, el género, el programa académico o el acceso a internet no lo explican. El siguiente paso es ajustar una regresión lineal simple de `exam_score` sobre `study_hours`.
