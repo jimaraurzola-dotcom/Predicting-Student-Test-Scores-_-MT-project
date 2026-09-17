@@ -661,6 +661,7 @@ trainset %>%
 
 En los tres grupos, el 50% de los datos es menor o igual a un valor prácticamente idéntico (62,5 - 62,6), con cuartiles casi iguales. Las cajas se superponen casi por completo; el género no marca ninguna diferencia visible en el desempeño.
 
+
 `internet_acces` vs `exam_score`
 
 ```{r, cache=TRUE}
