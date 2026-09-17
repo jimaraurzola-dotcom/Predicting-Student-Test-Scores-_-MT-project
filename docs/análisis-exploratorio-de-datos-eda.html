@@ -308,7 +308,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb21-5"><a href="análisis-exploratorio-de-datos-eda.html#cb21-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Edad de los estudiantes&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Edad&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
 <span id="cb21-6"><a href="análisis-exploratorio-de-datos-eda.html#cb21-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb21-7"><a href="análisis-exploratorio-de-datos-eda.html#cb21-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-5-1.png" alt="" width="672" /></p>
 <p>La distribución muestra barras de altura muy similar entre los 17 y 24 años, confirmando que se trata de una variable discreta y prácticamente uniforme; No hay una edad que predomine claramente sobre las demás, lo que es consistente con lo observado en el resumen numérico (rango estrecho y baja dispersión).</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="análisis-exploratorio-de-datos-eda.html#cb22-1" tabindex="-1"></a><span class="co"># Histograma de study_hours</span></span>
 <span id="cb22-2"><a href="análisis-exploratorio-de-datos-eda.html#cb22-2" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -317,7 +317,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-5"><a href="análisis-exploratorio-de-datos-eda.html#cb22-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Horas de estudio&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Horas&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
 <span id="cb22-6"><a href="análisis-exploratorio-de-datos-eda.html#cb22-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb22-7"><a href="análisis-exploratorio-de-datos-eda.html#cb22-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" /></p>
 <p>la distribución es bastante uniforme a lo largo de todo el rango (0 a 8 horas), sin un pico claramente dominante, aunque se observan algunas barras puntuales con mayor frecuencia. Esto sugiere que los estudiantes se reparten de forma pareja entre quienes dedican pocas y muchas horas al estudio.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="análisis-exploratorio-de-datos-eda.html#cb23-1" tabindex="-1"></a><span class="co"># Histograma de class_attendance</span></span>
 <span id="cb23-2"><a href="análisis-exploratorio-de-datos-eda.html#cb23-2" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -326,7 +326,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb23-5"><a href="análisis-exploratorio-de-datos-eda.html#cb23-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Porcentaje de asistencia&quot;</span>, <span class="at">x =</span> <span class="st">&quot;%&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
 <span id="cb23-6"><a href="análisis-exploratorio-de-datos-eda.html#cb23-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb23-7"><a href="análisis-exploratorio-de-datos-eda.html#cb23-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" /></p>
 <p>Se observa una distribución relativamente uniforme entre 40% y 90%, con un incremento notorio hacia el extremo superior (cerca del 100%), lo que indica que existe un grupo considerable de estudiantes con asistencia casi perfecta.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="análisis-exploratorio-de-datos-eda.html#cb24-1" tabindex="-1"></a><span class="co"># Histograma de sleep_hours</span></span>
 <span id="cb24-2"><a href="análisis-exploratorio-de-datos-eda.html#cb24-2" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -335,7 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb24-5"><a href="análisis-exploratorio-de-datos-eda.html#cb24-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Horas de sueño&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Horas&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">+</span></span>
 <span id="cb24-6"><a href="análisis-exploratorio-de-datos-eda.html#cb24-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb24-7"><a href="análisis-exploratorio-de-datos-eda.html#cb24-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
 <p>La distribución es bastante homogénea entre 4 y 10 horas, sin un patrón de concentración marcado, reflejando que los estudiantes duermen una cantidad de horas bastante variada, sin un comportamiento dominante.</p>
 <ul>
 <li>A continuación, trabajaremos en los gráficos de las variables categoricas.</li>
@@ -376,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb27-18"><a href="análisis-exploratorio-de-datos-eda.html#cb27-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb27-19"><a href="análisis-exploratorio-de-datos-eda.html#cb27-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb27-20"><a href="análisis-exploratorio-de-datos-eda.html#cb27-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Las cinco categorías de <code>study_method</code> están bastante equilibradas entre sí: coaching (20,90%) y self-study (20,81%) son las más frecuentes, seguidas de cerca por mixed (19,54%), group study (19,53%) y online videos (19,22%). A diferencia de otras variables del dataset, aquí no se observa ninguna categoría dominante ni ninguna subrepresentada, lo que sugiere una distribución prácticamente uniforme de los métodos de estudio entre los estudiantes.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="análisis-exploratorio-de-datos-eda.html#cb28-1" tabindex="-1"></a>tabla_gender <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb28-2"><a href="análisis-exploratorio-de-datos-eda.html#cb28-2" tabindex="-1"></a>  <span class="fu">count</span>(gender, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -412,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-18"><a href="análisis-exploratorio-de-datos-eda.html#cb30-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb30-19"><a href="análisis-exploratorio-de-datos-eda.html#cb30-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb30-20"><a href="análisis-exploratorio-de-datos-eda.html#cb30-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>La variable gender presenta una distribución muy pareja entre sus tres categorías: other (33,51%), male (33,43%) y female (33,07%), con diferencias de apenas 0,4 puntos porcentuales entre ellas. No se observa ningún desbalance relevante.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="análisis-exploratorio-de-datos-eda.html#cb31-1" tabindex="-1"></a>tabla_internet_access <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="análisis-exploratorio-de-datos-eda.html#cb31-2" tabindex="-1"></a>  <span class="fu">count</span>(internet_access, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -447,7 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb33-18"><a href="análisis-exploratorio-de-datos-eda.html#cb33-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb33-19"><a href="análisis-exploratorio-de-datos-eda.html#cb33-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb33-20"><a href="análisis-exploratorio-de-datos-eda.html#cb33-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Aquí sí hay un desbalance marcado: el 91,97% de los estudiantes cuenta con acceso a internet (yes), mientras que solo el 8,03% no lo tiene (no). Esto podría influir en la robustez de futuras comparaciones entre ambos grupos, dado el tamaño tan reducido de quienes no cuentan con acceso.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="análisis-exploratorio-de-datos-eda.html#cb34-1" tabindex="-1"></a>tabla_course <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb34-2"><a href="análisis-exploratorio-de-datos-eda.html#cb34-2" tabindex="-1"></a>  <span class="fu">count</span>(course, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -487,7 +487,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb36-18"><a href="análisis-exploratorio-de-datos-eda.html#cb36-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb36-19"><a href="análisis-exploratorio-de-datos-eda.html#cb36-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb36-20"><a href="análisis-exploratorio-de-datos-eda.html#cb36-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>La categoría b.tech concentra la mayor proporción de estudiantes (20,83%), seguida por b.sc (17,71%) y b.com (17,61%). En conjunto, estas tres representan cerca del 56% del total. En el otro extremo, diploma es la categoría menos representada (7,92%), seguida por ba (9,84%). A diferencia de internet_access, aquí el desbalance es más moderado, con 7 categorías que oscilan entre el 8% y el 21%.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="análisis-exploratorio-de-datos-eda.html#cb37-1" tabindex="-1"></a>tabla_sleep_quality <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb37-2"><a href="análisis-exploratorio-de-datos-eda.html#cb37-2" tabindex="-1"></a>  <span class="fu">count</span>(sleep_quality, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -523,7 +523,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb39-18"><a href="análisis-exploratorio-de-datos-eda.html#cb39-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb39-19"><a href="análisis-exploratorio-de-datos-eda.html#cb39-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb39-20"><a href="análisis-exploratorio-de-datos-eda.html#cb39-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Las tres categorías de sleep_quality están distribuidas de forma casi idéntica: poor (33,92%), good (33,82%) y average (32,26%), con una diferencia máxima de apenas 1,7 puntos porcentuales entre ellas. No se evidencia ningún patrón de concentración hacia una categoría en particular.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="análisis-exploratorio-de-datos-eda.html#cb40-1" tabindex="-1"></a>tabla_facility_rating <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb40-2"><a href="análisis-exploratorio-de-datos-eda.html#cb40-2" tabindex="-1"></a>  <span class="fu">count</span>(facility_rating, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -559,7 +559,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb42-18"><a href="análisis-exploratorio-de-datos-eda.html#cb42-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb42-19"><a href="análisis-exploratorio-de-datos-eda.html#cb42-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb42-20"><a href="análisis-exploratorio-de-datos-eda.html#cb42-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>De forma similar a sleep_quality, las tres categorías de facility_rating se reparten de manera equilibrada: medium (33,98%), low (33,71%) y high (32,31%), sin ninguna diferencia relevante entre ellas.</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="análisis-exploratorio-de-datos-eda.html#cb43-1" tabindex="-1"></a>tabla_exam_difficulty <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb43-2"><a href="análisis-exploratorio-de-datos-eda.html#cb43-2" tabindex="-1"></a>  <span class="fu">count</span>(exam_difficulty, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -595,7 +595,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb45-18"><a href="análisis-exploratorio-de-datos-eda.html#cb45-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb45-19"><a href="análisis-exploratorio-de-datos-eda.html#cb45-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb45-20"><a href="análisis-exploratorio-de-datos-eda.html#cb45-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>Esta es la variable categórica con mayor desbalance después de internet_access: la categoría moderate concentra más de la mitad de las observaciones (56,19%), mientras que easy representa el 28,02% y hard apenas el 15,79%. Esto sugiere que la mayoría de los exámenes fueron catalogados con una dificultad intermedia, y muy pocos como difíciles.</p>
 </div>
 <div id="análisis-exploratorio-bivariado" class="section level2 hasAnchor" number="2.3">
@@ -615,7 +615,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb46-9"><a href="análisis-exploratorio-de-datos-eda.html#cb46-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb46-10"><a href="análisis-exploratorio-de-datos-eda.html#cb46-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb46-11"><a href="análisis-exploratorio-de-datos-eda.html#cb46-11" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre la edad media y la calificación de los exámenes&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p><code>study_hours</code> vs <code>exam_score</code></p>
 <p>El diagrama de dispersión muestra que la calificación del examen se distribuye de forma similar en todas las edades (17 a 24 años), con puntos que cubren prácticamente todo el rango de 20 a 100 puntos en cada grupo etario. La línea de tendencia es casi plana, lo que sugiere que no existe una relación lineal relevante entre la edad y el desempeño académico: los estudiantes más jóvenes y los mayores obtienen calificaciones igual de variadas.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="análisis-exploratorio-de-datos-eda.html#cb47-1" tabindex="-1"></a><span class="co"># Diagrama de dispersión: study_hours vs exam_score</span></span>
@@ -628,7 +628,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb47-8"><a href="análisis-exploratorio-de-datos-eda.html#cb47-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb47-9"><a href="análisis-exploratorio-de-datos-eda.html#cb47-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb47-10"><a href="análisis-exploratorio-de-datos-eda.html#cb47-10" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre las horas de estudio media y la calificación de los exámenes&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p>El diagrama de dispersión muestra una relación positiva clara entre las horas de estudio y la calificación del examen: a medida que aumentan las horas dedicadas al estudio, la nota tiende a subir. A diferencia de <code>age</code>, aquí la nube de puntos se concentra de forma más definida, especialmente en los valores intermedios, lo que sugiere que las horas de estudio están fuertemente asociadas con el desempeño académico de los estudiantes.</p>
 <p><code>class_attendance</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="análisis-exploratorio-de-datos-eda.html#cb48-1" tabindex="-1"></a><span class="co"># Diagrama de dispersión: class_attendance vs exam_score</span></span>
@@ -641,7 +641,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb48-8"><a href="análisis-exploratorio-de-datos-eda.html#cb48-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb48-9"><a href="análisis-exploratorio-de-datos-eda.html#cb48-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb48-10"><a href="análisis-exploratorio-de-datos-eda.html#cb48-10" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre la asistencia a clases media y la calificación de los exámenes&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>El diagrama de dispersión evidencia una relación positiva entre el porcentaje de asistencia a clases y la calificación del examen. Sin embargo, la nube de puntos se mantiene bastante dispersa a lo largo de todo el rango de asistencia, lo que sugiere que, aunque existe una tendencia positiva, la asistencia por sí sola no explica completamente las diferencias en el desempeño académico.</p>
 <p><code>sleep_hours</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="análisis-exploratorio-de-datos-eda.html#cb49-1" tabindex="-1"></a><span class="co"># Diagrama de dispersión: sleep_hours vs exam_score</span></span>
@@ -654,7 +654,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb49-8"><a href="análisis-exploratorio-de-datos-eda.html#cb49-8" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb49-9"><a href="análisis-exploratorio-de-datos-eda.html#cb49-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb49-10"><a href="análisis-exploratorio-de-datos-eda.html#cb49-10" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión horas de sueño media y la calificación de los exámenes&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-26-1.png" alt="" width="672" /></p>
 <p>El diagrama de dispersión sugiere una relación débil entre las horas de sueño y la calificación del examen. A diferencia de <code>study_hours</code>, aquí los puntos se distribuyen de manera mucho más uniforme y dispersa a lo largo de todo el rango de horas de sueño, sin un patrón visual tan marcado, lo que indica que esta variable parece tener una influencia limitada sobre el desempeño académico de los estudiantes.</p>
 <ul>
 <li>A continuación, analizaremos la relación entre la variable objetivo exam_score y las variables categóricas independientes, con el fin de identificar si existen diferencias en el desempeño académico según los grupos de cada una de ellas.</li>
@@ -666,7 +666,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb50-4"><a href="análisis-exploratorio-de-datos-eda.html#cb50-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según gender&quot;</span>,</span>
 <span id="cb50-5"><a href="análisis-exploratorio-de-datos-eda.html#cb50-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Género&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
 <span id="cb50-6"><a href="análisis-exploratorio-de-datos-eda.html#cb50-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-27-1.png" alt="" width="672" /></p>
 <p>En los tres grupos, el 50% de los datos es menor o igual a un valor prácticamente idéntico (62,5 - 62,6), con cuartiles casi iguales. Las cajas se superponen casi por completo; el género no marca ninguna diferencia visible en el desempeño.</p>
 <p><code>internet_acces</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="análisis-exploratorio-de-datos-eda.html#cb51-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -675,7 +675,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb51-4"><a href="análisis-exploratorio-de-datos-eda.html#cb51-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según internet_access&quot;</span>,</span>
 <span id="cb51-5"><a href="análisis-exploratorio-de-datos-eda.html#cb51-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Acceso a internet&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
 <span id="cb51-6"><a href="análisis-exploratorio-de-datos-eda.html#cb51-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-28-1.png" alt="" width="672" /></p>
 <p>El 50% de los datos es menor o igual a 61,9 en el grupo sin internet y a 62,6 en el grupo con internet, una diferencia mínima de menos de un punto. Las cajas se solapan casi por completo; tener o no acceso a internet no se refleja en el boxplot.</p>
 <p><code>course</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="análisis-exploratorio-de-datos-eda.html#cb52-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -685,7 +685,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb52-5"><a href="análisis-exploratorio-de-datos-eda.html#cb52-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Curso&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
 <span id="cb52-6"><a href="análisis-exploratorio-de-datos-eda.html#cb52-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb52-7"><a href="análisis-exploratorio-de-datos-eda.html#cb52-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
 <p>El 50% de los datos es menor o igual a un valor que va de 61,8 (diploma) a 63,6 (bba), un rango muy estrecho de apenas 1,8 puntos entre los siete cursos. Los cuartiles se solapan entre todos ellos; ningún programa académico se distingue del resto.</p>
 <p><code>sleep_quality</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="análisis-exploratorio-de-datos-eda.html#cb53-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -694,7 +694,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb53-4"><a href="análisis-exploratorio-de-datos-eda.html#cb53-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según sleep_quality&quot;</span>,</span>
 <span id="cb53-5"><a href="análisis-exploratorio-de-datos-eda.html#cb53-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Calidad del sueño&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
 <span id="cb53-6"><a href="análisis-exploratorio-de-datos-eda.html#cb53-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-30-1.png" alt="" width="672" /></p>
 <p>El patrón más marcado hasta ahora entre las simples: el 50% de los datos es menor o igual a 57,2 en poor, 62,6 en average y 68,2 en good, 11 puntos de diferencia entre los extremos. Las cajas apenas se solapan, mostrando una tendencia visual clara: mejor sueño, mejor nota.</p>
 <p><code>facility_rating</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="análisis-exploratorio-de-datos-eda.html#cb54-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -703,7 +703,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-4"><a href="análisis-exploratorio-de-datos-eda.html#cb54-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según facility_rating&quot;</span>,</span>
 <span id="cb54-5"><a href="análisis-exploratorio-de-datos-eda.html#cb54-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Calificación de instalaciones&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
 <span id="cb54-6"><a href="análisis-exploratorio-de-datos-eda.html#cb54-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-31-1.png" alt="" width="672" /></p>
 <p>Aquí sí hay un patrón claro: el 50% de los datos es menor o igual a 58,3 en low, 63,1 en medium y 67,3 en high, unos 9 puntos de diferencia entre extremos. Las cajas se ven claramente desplazadas hacia arriba a medida que mejora la calificación de las instalaciones.</p>
 <p><code>exam_difficulty</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="análisis-exploratorio-de-datos-eda.html#cb55-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -712,7 +712,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb55-4"><a href="análisis-exploratorio-de-datos-eda.html#cb55-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;exam_score según exam_difficulty&quot;</span>,</span>
 <span id="cb55-5"><a href="análisis-exploratorio-de-datos-eda.html#cb55-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Dificultad del examen&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
 <span id="cb55-6"><a href="análisis-exploratorio-de-datos-eda.html#cb55-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-32-1.png" alt="" width="672" /></p>
 <p>El 50% de los datos es menor o igual a un valor casi idéntico en las tres categorías (62,5 - 62,8). Las cajas prácticamente coinciden; la dificultad percibida del examen no genera diferencias visibles en la nota.</p>
 <p><code>study_method</code> vs <code>exam_score</code></p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="análisis-exploratorio-de-datos-eda.html#cb56-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -722,7 +722,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb56-5"><a href="análisis-exploratorio-de-datos-eda.html#cb56-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Método de estudio&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
 <span id="cb56-6"><a href="análisis-exploratorio-de-datos-eda.html#cb56-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb56-7"><a href="análisis-exploratorio-de-datos-eda.html#cb56-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">30</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-33-1.png" alt="" width="672" /></p>
 <p>La variable con mayor dispersión: el 50% de los datos es menor o igual a apenas 57,3 en self-study, frente a 69,3 en coaching, 12 puntos de diferencia. Las cajas quedan bastante separadas entre sí, especialmente coaching y mixed respecto a self-study y online videos, mostrando el patrón visual más marcado de todas las categóricas.</p>
 <ul>
 <li>Para complementar el análisis bivariado, exploraremos también cómo se relacionan entre sí las variables numéricas independientes (age, study_hours, class_attendance, sleep_hours), con el fin de identificar posibles asociaciones entre ellas más allá de su relación individual con <code>exam_score</code>.</li>
@@ -734,7 +734,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb57-4"><a href="análisis-exploratorio-de-datos-eda.html#cb57-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Edad&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Horas de estudio&quot;</span>) <span class="sc">+</span></span>
 <span id="cb57-5"><a href="análisis-exploratorio-de-datos-eda.html#cb57-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb57-6"><a href="análisis-exploratorio-de-datos-eda.html#cb57-6" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre la edad y las horas de estudio&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-35-1.png" alt="" width="672" /></p>
 <p>La nube de puntos se ve completamente dispersa a lo largo de todo el rango de ambas variables, sin ninguna tendencia visible. Esto confirma que la edad del estudiante no determina cuántas horas dedica al estudio: tanto los más jóvenes como los mayores se reparten de forma pareja entre pocas y muchas horas de estudio, sin que exista un patrón detrás de este hábito.</p>
 <p><code>age</code> vs <code>clase_attendance</code></p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="análisis-exploratorio-de-datos-eda.html#cb58-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -743,7 +743,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb58-4"><a href="análisis-exploratorio-de-datos-eda.html#cb58-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Edad&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Asistencia a clases (%)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb58-5"><a href="análisis-exploratorio-de-datos-eda.html#cb58-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb58-6"><a href="análisis-exploratorio-de-datos-eda.html#cb58-6" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre la edad y la asistencia a clases&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-36-1.png" alt="" width="672" /></p>
 <p>Igual que con <code>study_hours</code>, la asistencia a clases se comporta de manera prácticamente idéntica sin importar si el estudiante tiene 17 o 24 años, lo que sugiere que el porcentaje de asistencia responde más a factores individuales o de contexto que a la edad del estudiante.</p>
 <p><code>age</code> vs <code>sleep_hours</code></p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="análisis-exploratorio-de-datos-eda.html#cb59-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -752,7 +752,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-4"><a href="análisis-exploratorio-de-datos-eda.html#cb59-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Edad&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Horas de sueño&quot;</span>) <span class="sc">+</span></span>
 <span id="cb59-5"><a href="análisis-exploratorio-de-datos-eda.html#cb59-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb59-6"><a href="análisis-exploratorio-de-datos-eda.html#cb59-6" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre la edad y las horas de sueño&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-37-1.png" alt="" width="672" /></p>
 <p>Nuevamente, un coeficiente prácticamente nulo; los puntos se distribuyen de forma uniforme sin importar la edad del estudiante. Los hábitos de sueño parecen ser independientes de cuántos años tiene el estudiante, al menos dentro del rango etario relativamente estrecho (17-24 años) que cubre el dataset.</p>
 <p><code>study_hours</code> vs <code>class_attendance</code></p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="análisis-exploratorio-de-datos-eda.html#cb60-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -761,7 +761,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb60-4"><a href="análisis-exploratorio-de-datos-eda.html#cb60-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Horas de estudio&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Asistencia a clases (%)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb60-5"><a href="análisis-exploratorio-de-datos-eda.html#cb60-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb60-6"><a href="análisis-exploratorio-de-datos-eda.html#cb60-6" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre las horas de estudio y la asistencia a clases&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-38-1.png" alt="" width="672" /></p>
 <p>Los puntos están distribuidos de forma prácticamente uniforme en todo el rango de horas de estudio, sin que se aprecie a simple vista una tendencia ascendente o descendente. La nube de puntos es simplemente dispersa, sin una dirección visible. Esto sugiere que, al menos de forma visual, conocer las horas de estudio de un estudiante no permite anticipar su nivel de asistencia a clases.</p>
 <p><code>study_hours</code> vs <code>sleep_hours</code></p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="análisis-exploratorio-de-datos-eda.html#cb61-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -770,7 +770,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb61-4"><a href="análisis-exploratorio-de-datos-eda.html#cb61-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Horas de estudio&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Horas de sueño&quot;</span>) <span class="sc">+</span></span>
 <span id="cb61-5"><a href="análisis-exploratorio-de-datos-eda.html#cb61-5" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb61-6"><a href="análisis-exploratorio-de-datos-eda.html#cb61-6" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre las horas de estudio y las horas de sueño&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-39-1.png" alt="" width="672" /></p>
 <p>Correlación muy débil, casi nula. Esto indica que dormir más o menos horas no está relacionado de forma relevante con cuánto tiempo dedica el estudiante a estudiar, descartando la idea de que quienes estudian más sacrifiquen (o ganen) horas de sueño de manera sistemática.</p>
 <p><code>class_attendance</code> vs <code>sleep_hours</code></p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="análisis-exploratorio-de-datos-eda.html#cb62-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
@@ -780,7 +780,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb62-5"><a href="análisis-exploratorio-de-datos-eda.html#cb62-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Asistencia a clases (%)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Horas de sueño&quot;</span>) <span class="sc">+</span></span>
 <span id="cb62-6"><a href="análisis-exploratorio-de-datos-eda.html#cb62-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
 <span id="cb62-7"><a href="análisis-exploratorio-de-datos-eda.html#cb62-7" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> <span class="st">&quot;Dispersión entre la asistencia a clases y las horas de sueño&quot;</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>No se observa ninguna relación relevante entre la asistencia a clases y las horas de sueño, con una nube de puntos homogénea en todo el rango de ambas variables.</p>
 </div>
 </div>
