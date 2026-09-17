@@ -26,13 +26,15 @@ body {
 Carguemos las librerias y el conjunto de los datos
 
 ```{r librerias}
+library(dplyr)
 library(tidyverse)
 library(Amelia)
+library(moments)
 library(patchwork)
+library(GGally)
 library(nortest)
-library(car)
 library(rstatix)
-
+library(car)
 ```
 
 ```{r dataset}
@@ -48,12 +50,6 @@ head(trainset, n=5)
 
 Con esto podemos confirmar que la base de datos fue cargada correctamente, como prueba de ello observando las primeras 5 filas de información.
 
-
-Las dimensiones, los nombres de las columnas y la estructura de la base de datos se obtienen con los códigos:
-
-```{r dimension}
-dim(trainset)
-```
 
 ```{r variables}
 colnames(trainset)
@@ -90,25 +86,25 @@ No existe ningun dato faltante en el dataset `train.csv`.
 ## Análisis exploratorio de `exam_score` (Target)
 
 ```{r exscor resumen}
-trainset %>% 
-  summarise(
-    n = length(exam_score),
-    media = mean(exam_score),
-    ds = sd(exam_score),
-    mediana = median(exam_score),
-    minimo = min(exam_score),
-    maximo = max(exam_score),
-    Q1 = quantile(exam_score, 0.25),
-    Q3 = quantile(exam_score, 0.75),
-    IQR = IQR(exam_score)
-  )
+   trainset %>% summarise(n = length(exam_score),
+                 media = mean(exam_score),
+                 sd = sd(exam_score),
+                 mediana = median(exam_score),
+                 RIC = IQR(exam_score),
+                 Q1 = quantile(exam_score,0.25),
+                 Q3 = quantile(exam_score,0.75),
+                 minimo = min(exam_score),
+                 maximo = max(exam_score),
+                 asi = skewness(exam_score),
+                 )
+
 ```
 
-La variable `exam_score` fue analizada a partir de 630.000 observaciones, donde cada fila corresponde a un estudiante individual. Se obtuvo un puntaje promedio de 62,51 puntos ($DS = 18,92$ puntos), donde el $50\%$ de los estudiantes obtiene un puntaje por debajo de 62,60 puntos.
+La variable `exam_score` fue analizada a partir de 630.000 estudiantes, donde cada fila representa un estudiante individual. El puntaje promedio es de 62,51 puntos, con una desviación estándar de 18,92 puntos, lo que refleja una dispersión moderada en el desempeño de los estudiantes.
 
-El puntaje mínimo registrado fue de 19,60 puntos, mientras que el máximo alcanzó el tope de la escala, 100 puntos. El rango intercuartílico indica que el $50\%$ central de los estudiantes se encuentra entre 48,80 y 76,30 puntos, con una amplitud de 27,5 puntos.
+El 50% de los estudiantes obtiene un puntaje menor o igual a 62,60 puntos, un valor prácticamente idéntico a la media, y el RIC de 27,5 puntos (entre el primer cuartil de 48,80 y el tercer cuartil de 76,30) muestra que el 50% central de los estudiantes se concentra en una franja relativamente estrecha. Esta cercanía entre la media y el 50% ya anticipa una distribución simétrica, confirmada por el coeficiente de asimetría de -0,05, casi nulo.
 
-La media (62,51) y la mediana (62,60) son prácticamente iguales, lo que sugiere una distribución simétrica, sin la asimetría que suele producirse cuando existen valores extremos en alguno de los dos lados. No obstante, el valor máximo coincide con el límite superior de la escala de calificación, por lo que será necesario evaluar más adelante su posible influencia durante el análisis y la construcción de los modelos.
+En los extremos, el estudiante con peor desempeño obtuvo 19,60 puntos, mientras que al menos uno alcanzó el máximo posible de 100. Esto es consistente con lo observado en el histograma, donde los puntajes se distribuyen de forma bastante uniforme alrededor del centro, sin un pico muy pronunciado ni colas extendidas.
 
 
 * Histograma de densidad de la variable:
@@ -577,38 +573,38 @@ gc()
 * A continuación, analizaremos la relación entre la variable objetivo `exam_score` y las variables numéricas independientes, con el fin de identificar posibles patrones, tendencias y asociaciones que puedan ser útiles para la construcción de modelos.
 
 
-`age` vs `exam_score`
+`age vs exam_score`
 
 ```{r, cache=TRUE}
+
 # Diagrama de dispersión: age vs exam_score
 trainset %>%
   ggplot(aes(x = age, y = exam_score)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
+ 
   labs(
-    x = "Edad",
-    y = "Calificación del examen"
+    x = "Edad media",
+    y = "Calificación media del examen"
   ) +
   theme_bw() +
-  facet_grid(. ~ "Dispersión entre la edad y la calificación de los exámenes")
+  facet_grid(. ~ "Dispersión entre la edad media y la calificación de los exámenes")
 ```
 
-El diagrama de dispersión muestra que la calificación del examen se distribuye de forma similar en todas las edades (17 a 24 años), con puntos que cubren prácticamente todo el rango de 20 a 100 puntos en cada grupo etario. La línea de tendencia es casi plana, lo que sugiere que no existe una relación lineal relevante entre la edad y el desempeño académico: los estudiantes más jóvenes y los mayores obtienen calificaciones igual de variadas.
-
 `study_hours` vs `exam_score`
+
+El diagrama de dispersión muestra que la calificación del examen se distribuye de forma similar en todas las edades (17 a 24 años), con puntos que cubren prácticamente todo el rango de 20 a 100 puntos en cada grupo etario. La línea de tendencia es casi plana, lo que sugiere que no existe una relación lineal relevante entre la edad y el desempeño académico: los estudiantes más jóvenes y los mayores obtienen calificaciones igual de variadas.
 
 ```{r, cache=TRUE}
 # Diagrama de dispersión: study_hours vs exam_score
 trainset %>%
   ggplot(aes(x = study_hours, y = exam_score)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   labs(
-    x = "Horas de estudio",
-    y = "Calificación del examen"
+    x = "Horas de estudio media",
+    y = "Calificación media del examen"
   ) +
   theme_bw() +
-  facet_grid(. ~ "Dispersión entre las horas de estudio y la calificación de los exámenes")
+  facet_grid(. ~ "Dispersión entre las horas de estudio media y la calificación de los exámenes")
 ```
 
 El diagrama de dispersión muestra una relación positiva clara entre las horas de estudio y la calificación del examen: a medida que aumentan las horas dedicadas al estudio, la nota tiende a subir. A diferencia de `age`, aquí la nube de puntos se concentra de forma más definida, especialmente en los valores intermedios, lo que sugiere que las horas de estudio están fuertemente asociadas con el desempeño académico de los estudiantes.
@@ -621,13 +617,12 @@ El diagrama de dispersión muestra una relación positiva clara entre las horas 
 trainset %>%
   ggplot(aes(x = class_attendance, y = exam_score)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   labs(
-    x = "Asistencia a clases (%)",
-    y = "Calificación del examen"
+    x = "asistencia a clases media",
+    y = "Calificación media del examen"
   ) +
   theme_bw() +
-  facet_grid(. ~ "Dispersión entre la asistencia a clases y la calificación de los exámenes")
+  facet_grid(. ~ "Dispersión entre la asistencia a clases media y la calificación de los exámenes")
 ```
 
 El diagrama de dispersión evidencia una relación positiva entre el porcentaje de asistencia a clases y la calificación del examen. Sin embargo, la nube de puntos se mantiene bastante dispersa a lo largo de todo el rango de asistencia, lo que sugiere que, aunque existe una tendencia positiva, la asistencia por sí sola no explica completamente las diferencias en el desempeño académico.
@@ -639,41 +634,21 @@ El diagrama de dispersión evidencia una relación positiva entre el porcentaje 
 trainset %>%
   ggplot(aes(x = sleep_hours, y = exam_score)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   labs(
-    x = "Horas de sueño",
-    y = "Calificación del examen"
+    x = "horas de sueño media",
+    y = "Calificación media del examen"
   ) +
   theme_bw() +
-  facet_grid(. ~ "Dispersión entre las horas de sueño y la calificación de los exámenes")
+  facet_grid(. ~ "Dispersión horas de sueño media y la calificación de los exámenes")
 ```
 
 El diagrama de dispersión sugiere una relación débil entre las horas de sueño y la calificación del examen. A diferencia de `study_hours`, aquí los puntos se distribuyen de manera mucho más uniforme y dispersa a lo largo de todo el rango de horas de sueño, sin un patrón visual tan marcado, lo que indica que esta variable parece tener una influencia limitada sobre el desempeño académico de los estudiantes.
 
 
 
-* A continuación, analizaremos la relación entre la variable objetivo `exam_score` y las variables categóricas independientes, con el fin de identificar si existen diferencias en el desempeño académico según los grupos de cada una de ellas. Para cada variable construimos una tabla resumen de `exam_score` por nivel y su correspondiente diagrama de cajas y bigotes.
+* A continuación, analizaremos la relación entre la variable objetivo exam_score y las variables categóricas independientes, con el fin de identificar si existen diferencias en el desempeño académico según los grupos de cada una de ellas.
 
 `gender` vs `exam_score`
-
-```{r}
-trainset %>%
-  group_by(gender) %>%
-  summarise(
-    n = length(exam_score),
-    media = mean(exam_score),
-    ds = sd(exam_score),
-    mediana = median(exam_score),
-    minimo = min(exam_score),
-    maximo = max(exam_score),
-    Q1 = quantile(exam_score, 0.25),
-    Q3 = quantile(exam_score, 0.75),
-    IQR = IQR(exam_score),
-    .groups = "drop"
-  ) %>%
-  mutate(variable = "gender", niveles = as.character(gender)) %>%
-  select(variable, niveles, everything(), -gender)
-```
 
 ```{r, cache=TRUE}
 trainset %>%
@@ -684,61 +659,9 @@ trainset %>%
   theme_bw()
 ```
 
-Las tres categorías de `gender` presentan un desempeño prácticamente idéntico: el promedio va de 62,18 puntos en `male` a 62,78 puntos en `other`, apenas 0,6 puntos de diferencia, y las medianas son 62,5 en los tres casos. Las desviaciones estándar también son muy similares (entre 18,77 y 19,09 puntos). Las cajas del boxplot se superponen casi por completo, de modo que el género no marca ninguna diferencia visible en el desempeño.
+En los tres grupos, el 50% de los datos es menor o igual a un valor prácticamente idéntico (62,5 - 62,6), con cuartiles casi iguales. Las cajas se superponen casi por completo; el género no marca ninguna diferencia visible en el desempeño.
 
-`course` vs `exam_score`
-
-```{r}
-trainset %>%
-  group_by(course) %>%
-  summarise(
-    n = length(exam_score),
-    media = mean(exam_score),
-    ds = sd(exam_score),
-    mediana = median(exam_score),
-    minimo = min(exam_score),
-    maximo = max(exam_score),
-    Q1 = quantile(exam_score, 0.25),
-    Q3 = quantile(exam_score, 0.75),
-    IQR = IQR(exam_score),
-    .groups = "drop"
-  ) %>%
-  mutate(variable = "course", niveles = as.character(course)) %>%
-  select(variable, niveles, everything(), -course)
-```
-
-```{r, cache=TRUE}
-trainset %>%
-  ggplot(aes(x = course, y = exam_score)) +
-  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
-  labs(title = "exam_score según course",
-       x = "Curso", y = "Calificación del examen") +
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 30, hjust = 1))
-```
-
-El promedio de `exam_score` va de 61,89 puntos en `ba` a 63,23 puntos en `bba`, un rango de apenas 1,3 puntos entre los siete programas, y las medianas oscilan entre 61,8 (`diploma`) y 63,6 (`bba`). Los cuartiles se solapan entre todos ellos, por lo que ningún programa académico se distingue del resto.
-
-`internet_access` vs `exam_score`
-
-```{r}
-trainset %>%
-  group_by(internet_access) %>%
-  summarise(
-    n = length(exam_score),
-    media = mean(exam_score),
-    ds = sd(exam_score),
-    mediana = median(exam_score),
-    minimo = min(exam_score),
-    maximo = max(exam_score),
-    Q1 = quantile(exam_score, 0.25),
-    Q3 = quantile(exam_score, 0.75),
-    IQR = IQR(exam_score),
-    .groups = "drop"
-  ) %>%
-  mutate(variable = "internet_access", niveles = as.character(internet_access)) %>%
-  select(variable, niveles, everything(), -internet_access)
-```
+`internet_acces` vs `exam_score`
 
 ```{r, cache=TRUE}
 trainset %>%
@@ -749,28 +672,24 @@ trainset %>%
   theme_bw()
 ```
 
-Los estudiantes sin acceso a internet ($n = 50.577$) obtienen un promedio de 62,48 puntos y los que sí tienen acceso ($n = 579.423$) uno de 62,51 puntos: una diferencia de apenas 0,03 puntos. Las medianas (61,9 frente a 62,6) y los rangos intercuartílicos (28,5 frente a 27,4) también son muy parecidos, de modo que las dos cajas resultan prácticamente indistinguibles pese al fuerte desbalance de tamaños entre ambos grupos.
+El 50% de los datos es menor o igual a 61,9 en el grupo sin internet y a 62,6 en el grupo con internet, una diferencia mínima de menos de un punto. Las cajas se solapan casi por completo; tener o no acceso a internet no se refleja en el boxplot.
 
-`sleep_quality` vs `exam_score`
+
+`course` vs `exam_score`
 
 ```{r}
 trainset %>%
-  group_by(sleep_quality) %>%
-  summarise(
-    n = length(exam_score),
-    media = mean(exam_score),
-    ds = sd(exam_score),
-    mediana = median(exam_score),
-    minimo = min(exam_score),
-    maximo = max(exam_score),
-    Q1 = quantile(exam_score, 0.25),
-    Q3 = quantile(exam_score, 0.75),
-    IQR = IQR(exam_score),
-    .groups = "drop"
-  ) %>%
-  mutate(variable = "sleep_quality", niveles = as.character(sleep_quality)) %>%
-  select(variable, niveles, everything(), -sleep_quality)
+  ggplot(aes(x = course, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "exam_score según course",
+       x = "Curso", y = "Calificación del examen") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
+
+El 50% de los datos es menor o igual a un valor que va de 61,8 (diploma) a 63,6 (bba), un rango muy estrecho de apenas 1,8 puntos entre los siete cursos. Los cuartiles se solapan entre todos ellos; ningún programa académico se distingue del resto.
+
+`sleep_quality` vs `exam_score`
 
 ```{r, cache=TRUE}
 trainset %>%
@@ -781,28 +700,9 @@ trainset %>%
   theme_bw()
 ```
 
-Aquí sí aparece un patrón claro y ordenado: el promedio pasa de 57,00 puntos en `poor` a 62,66 en `average` y 67,88 en `good`, casi 11 puntos de diferencia entre los extremos; las medianas siguen exactamente el mismo orden (57,2, 62,6 y 68,2). La dispersión se mantiene estable en los tres grupos ($DS$ entre 18,12 y 18,60 puntos), por lo que el desplazamiento de las cajas hacia arriba refleja una diferencia real de nivel y no un cambio en la variabilidad.
+El patrón más marcado hasta ahora entre las simples: el 50% de los datos es menor o igual a 57,2 en poor, 62,6 en average y 68,2 en good, 11 puntos de diferencia entre los extremos. Las cajas apenas se solapan, mostrando una tendencia visual clara: mejor sueño, mejor nota.
 
 `facility_rating` vs `exam_score`
-
-```{r}
-trainset %>%
-  group_by(facility_rating) %>%
-  summarise(
-    n = length(exam_score),
-    media = mean(exam_score),
-    ds = sd(exam_score),
-    mediana = median(exam_score),
-    minimo = min(exam_score),
-    maximo = max(exam_score),
-    Q1 = quantile(exam_score, 0.25),
-    Q3 = quantile(exam_score, 0.75),
-    IQR = IQR(exam_score),
-    .groups = "drop"
-  ) %>%
-  mutate(variable = "facility_rating", niveles = as.character(facility_rating)) %>%
-  select(variable, niveles, everything(), -facility_rating)
-```
 
 ```{r, cache=TRUE}
 trainset %>%
@@ -813,28 +713,9 @@ trainset %>%
   theme_bw()
 ```
 
-El comportamiento es análogo al de `sleep_quality`: el promedio sube de 57,95 puntos en `low` a 63,03 en `medium` y 66,71 en `high`, unos 8,8 puntos entre extremos, con medianas de 58,3, 63,1 y 67,3 respectivamente. Las cajas se ven claramente desplazadas hacia arriba a medida que mejora la calificación de las instalaciones.
+Aquí sí hay un patrón claro: el 50% de los datos es menor o igual a 58,3 en low, 63,1 en medium y 67,3 en high, unos 9 puntos de diferencia entre extremos. Las cajas se ven claramente desplazadas hacia arriba a medida que mejora la calificación de las instalaciones.
 
 `exam_difficulty` vs `exam_score`
-
-```{r}
-trainset %>%
-  group_by(exam_difficulty) %>%
-  summarise(
-    n = length(exam_score),
-    media = mean(exam_score),
-    ds = sd(exam_score),
-    mediana = median(exam_score),
-    minimo = min(exam_score),
-    maximo = max(exam_score),
-    Q1 = quantile(exam_score, 0.25),
-    Q3 = quantile(exam_score, 0.75),
-    IQR = IQR(exam_score),
-    .groups = "drop"
-  ) %>%
-  mutate(variable = "exam_difficulty", niveles = as.character(exam_difficulty)) %>%
-  select(variable, niveles, everything(), -exam_difficulty)
-```
 
 ```{r, cache=TRUE}
 trainset %>%
@@ -845,28 +726,10 @@ trainset %>%
   theme_bw()
 ```
 
-Contra lo que cabría esperar, la dificultad percibida no ordena el desempeño: el promedio es de 62,21 puntos en `easy`, 62,61 en `moderate` y 62,67 en `hard`, menos de medio punto de diferencia, y las medianas son prácticamente iguales (62,5, 62,5 y 62,8). Las tres cajas se superponen por completo.
+El 50% de los datos es menor o igual a un valor casi idéntico en las tres categorías (62,5 - 62,8). Las cajas prácticamente coinciden; la dificultad percibida del examen no genera diferencias visibles en la nota.
+
 
 `study_method` vs `exam_score`
-
-```{r}
-trainset %>%
-  group_by(study_method) %>%
-  summarise(
-    n = length(exam_score),
-    media = mean(exam_score),
-    ds = sd(exam_score),
-    mediana = median(exam_score),
-    minimo = min(exam_score),
-    maximo = max(exam_score),
-    Q1 = quantile(exam_score, 0.25),
-    Q3 = quantile(exam_score, 0.75),
-    IQR = IQR(exam_score),
-    .groups = "drop"
-  ) %>%
-  mutate(variable = "study_method", niveles = as.character(study_method)) %>%
-  select(variable, niveles, everything(), -study_method)
-```
 
 ```{r, cache=TRUE}
 trainset %>%
@@ -878,7 +741,8 @@ trainset %>%
   theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
-Es la variable categórica con mayor separación entre grupos: `coaching` alcanza un promedio de 69,27 puntos y `self-study` apenas 57,70, casi 11,6 puntos de diferencia; `mixed` (65,10), `group study` (60,53) y `online videos` (59,73) se ubican en posiciones intermedias. Las medianas reproducen el mismo orden (69,3, 65,7, 60,8, 59,6 y 57,3) y las cajas quedan visiblemente separadas, en especial `coaching` y `mixed` frente a `online videos` y `self-study`.
+La variable con mayor dispersión: el 50% de los datos es menor o igual a apenas 57,3 en self-study, frente a 69,3 en coaching, 12 puntos de diferencia. Las cajas quedan bastante separadas entre sí, especialmente coaching y mixed respecto a self-study y online videos, mostrando el patrón visual más marcado de todas las categóricas.
+
 
 ```{r, include = FALSE}
 rm(list = setdiff(ls(), "trainset"))
@@ -895,7 +759,6 @@ gc()
 trainset %>%
   ggplot(aes(x = age, y = study_hours)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   labs(x = "Edad", y = "Horas de estudio") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la edad y las horas de estudio")
@@ -909,7 +772,6 @@ La nube de puntos se ve completamente dispersa a lo largo de todo el rango de am
 trainset %>%
   ggplot(aes(x = age, y = class_attendance)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   labs(x = "Edad", y = "Asistencia a clases (%)") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la edad y la asistencia a clases")
@@ -923,7 +785,6 @@ Igual que con `study_hours`, la asistencia a clases se comporta de manera práct
 trainset %>%
   ggplot(aes(x = age, y = sleep_hours)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   labs(x = "Edad", y = "Horas de sueño") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre la edad y las horas de sueño")
@@ -938,7 +799,6 @@ Nuevamente, un coeficiente prácticamente nulo; los puntos se distribuyen de for
 trainset %>%
   ggplot(aes(x = study_hours, y = class_attendance)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   labs(x = "Horas de estudio", y = "Asistencia a clases (%)") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre las horas de estudio y la asistencia a clases")
@@ -952,7 +812,6 @@ Los puntos están distribuidos de forma prácticamente uniforme en todo el rango
 trainset %>%
   ggplot(aes(x = study_hours, y = sleep_hours)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   labs(x = "Horas de estudio", y = "Horas de sueño") +
   theme_bw() +
   facet_grid(. ~ "Dispersión entre las horas de estudio y las horas de sueño")
@@ -966,7 +825,6 @@ Correlación muy débil, casi nula. Esto indica que dormir más o menos horas no
 trainset %>%
   ggplot(aes(x = class_attendance, y = sleep_hours)) +
   geom_point(alpha = 0.4, color = "#c5b0ff") +
-  geom_smooth(formula = 'y ~ x', method = "lm", se = FALSE, color = "red") +
   
   labs(x = "Asistencia a clases (%)", y = "Horas de sueño") +
   theme_bw() +
@@ -977,318 +835,190 @@ No se observa ninguna relación relevante entre la asistencia a clases y las hor
 
 
 
-# ANOVA (análisis de varianza)
-
-Antes de pasar a las pruebas no paramétricas conviene preguntarse si el camino paramétrico es viable. Para comparar los promedios de `exam_score` entre los grupos de una variable categórica con más de dos niveles, la técnica indicada es el análisis de varianza de un factor (ANOVA). En esta sección planteamos el modelo, verificamos sus supuestos y decidimos si podemos usarlo.
-
-Trabajaremos con `study_method`, que es la variable categórica con mayor separación entre grupos según el análisis bivariado. La conclusión que obtengamos aquí sobre los supuestos se traslada al resto de las variables categóricas, porque todas comparten la misma variable respuesta.
-
-## El modelo y las hipótesis
-
-Se consideran $k$ grupos correspondientes a los $k$ niveles del factor. El modelo asume que las observaciones de cada grupo están normalmente distribuidas, con medias poblacionales $\mu_1, \mu_2, \dots, \mu_k$, y que comparten una misma varianza común $\sigma^2$:
-
-$$
-Y_{ij} \sim \mathcal{N}(\mu_{j}, \sigma^2), \quad i = 1, \dots, n_{j}, \quad j = 1, \dots, k.
-$$
-
-Sea $\mu_j$ el puntaje promedio poblacional de `exam_score` para el método de estudio $j$, donde $j = 1$ es `coaching`, $j = 2$ es `group study`, $j = 3$ es `mixed`, $j = 4$ es `online videos` y $j = 5$ es `self-study`. Las hipótesis son:
-
-$$
-\begin{aligned}
-H_0: &\quad \mu_1 = \mu_2 = \mu_3 = \mu_4 = \mu_5 \quad \text{(todas las medias son iguales)} \ vs \\
-H_1: &\quad \text{Al menos una media difiere de las demás}
-\end{aligned}
-$$
-
-Los supuestos que deben verificarse son tres: normalidad dentro de cada grupo, homogeneidad de varianzas (homocedasticidad) e independencia de las observaciones. La independencia se sostiene por el diseño del conjunto de datos, donde cada fila es un estudiante distinto, así que solo nos queda comprobar los dos primeros.
-
-## Supuesto de normalidad
-
-Como el tamaño de muestra es de 630.000 observaciones, la prueba de Shapiro-Wilk no es aplicable (solo admite hasta 5.000 datos), por lo que usamos la prueba de Lilliefors.
-
-```{r anova normalidad, cache=TRUE}
-trainset %>%
-  group_by(study_method) %>%
-  summarise(n = length(exam_score),
-            est_lt = lillie.test(exam_score)$statistic,
-            p_lt = lillie.test(exam_score)$p.value)
-```
-
-La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal en ninguno de los cinco métodos de estudio: `coaching` $(D = 0.0478)$, `group study` $(D = 0.0199)$, `mixed` $(D = 0.0317)$, `online videos` $(D = 0.0238)$ y `self-study` $(D = 0.0258)$, con $p-valor < 0.001$ en los cinco casos. **No se cumple el supuesto de normalidad.**
-
-## Supuesto de homogeneidad de varianzas
-
-Aunque la normalidad ya falló, verificamos también la homocedasticidad con las tres pruebas vistas en clase, para dejar documentado el comportamiento de cada una.
-
-La prueba de Bartlett compara la varianza combinada contra las varianzas de cada grupo mediante una razón de verosimilitudes; su estadístico se distribuye aproximadamente $\chi^2$ con $k-1$ grados de libertad. Es la más potente cuando los grupos son normales, pero muy sensible a la falta de normalidad, por lo que aquí solo la reportamos como referencia.
-
-```{r anova bartlett, cache=TRUE}
-bartlett.test(exam_score ~ factor(study_method), data = trainset)
-```
-
-La prueba de Levene sustituye cada observación por su desviación absoluta respecto a la mediana de su grupo y aplica un ANOVA de un factor sobre esas desviaciones; su estadístico se distribuye $F$ con $(k-1,\ N-k)$ grados de libertad. Es más robusta que Bartlett ante datos no normales.
-
-```{r anova levene, cache=TRUE}
-leveneTest(exam_score ~ factor(study_method), data = trainset, center = "median")
-```
-
-La prueba de Fligner-Killeen es no paramétrica: rankea las desviaciones absolutas respecto a la mediana de cada grupo y contrasta si esos rangos difieren; su estadístico se distribuye $\chi^2$ con $k-1$ grados de libertad. Es la más robusta de las tres frente a no normalidad y valores atípicos, así que es la que más peso tiene en este caso.
-
-```{r anova fligner, cache=TRUE}
-fligner.test(exam_score ~ factor(study_method), data = trainset)
-```
-
-Las tres pruebas rechazan $H_0$: Bartlett $(K^2_{(4)} = 141.9,\ p-valor < 0.001)$, Levene $(F_{(4,\,629995)} = 63.87,\ p-valor < 0.001)$ y Fligner-Killeen $(\chi^2_{(4)} = 241,\ p-valor < 0.001)$. **Tampoco se cumple el supuesto de homocedasticidad**, aunque hay que leer este resultado con cautela: las desviaciones estándar de los cinco grupos están entre 18,22 y 18,73 puntos, es decir, media hora de diferencia en una escala de 0 a 100. Con 630.000 observaciones cualquier diferencia mínima resulta significativa.
-
-## ¿Se puede aplicar el ANOVA?
-
-**No.** De los tres supuestos, el de normalidad falla de forma clara en los cinco grupos y el de homocedasticidad también se rechaza. Por lo tanto el análisis de varianza no es la técnica adecuada para estos datos y la inferencia válida es la que aporta su alternativa no paramétrica, la prueba de Kruskal-Wallis, que aplicamos en la sección siguiente a las siete variables categóricas del conjunto de datos.
-
-## Verificación del teorema de descomposición
-
-Aunque el ANOVA no sea aplicable, dejamos documentada la descomposición de la suma de cuadrados calculada paso a paso, para verificar contra la salida de la función `aov()` que el teorema de descomposición se cumple. Este bloque es una verificación del cálculo, no la prueba de hipótesis del proyecto.
-
-Hallemos los tamaños de cada grupo y el número de tratamientos:
-
-```{r anova tamanos, cache=TRUE}
-grupos <- split(trainset$exam_score, trainset$study_method)
-
-n_j <- sapply(grupos, length)   # tamaño de muestra de cada grupo
-N <- sum(n_j)                   # tamaño muestral total
-k <- length(grupos)             # número de poblaciones
-
-n_j
-N
-k
-```
-
-Hallemos los promedios de cada grupo y el promedio global:
-
-```{r anova promedios, cache=TRUE}
-xbar_j <- sapply(grupos, mean)
-xbar_total <- sum(sapply(grupos, sum)) / N
-
-xbar_j
-xbar_total
-```
-
-Hallemos la suma de cuadrados total (SST):
-
-```{r anova sst, cache=TRUE}
-SST <- sum(sapply(grupos, function(x) sum((x - xbar_total)^2)))
-SST
-```
-
-Hallemos la suma de cuadrados entre grupos (SSA):
-
-```{r anova ssa, cache=TRUE}
-SSA <- sum(n_j * (xbar_j - xbar_total)^2)
-SSA
-```
-
-Ahora, hallemos la suma de cuadrados dentro de grupos (SSE):
-
-```{r anova sse, cache=TRUE}
-SSE <- SST - SSA
-SSE
-```
-
-Calculemos los cuadrados medios y el estadístico de Fisher:
-
-```{r anova f, cache=TRUE}
-MSA <- SSA / (k - 1)
-MSE <- SSE / (N - k)
-
-F <- MSA / MSE
-
-MSA
-MSE
-F
-```
-
-Hallemos el $F$ crítico y el p-valor:
-
-```{r anova decision, cache=TRUE}
-alpha <- 0.05
-v1 <- k - 1
-v2 <- N - k
-
-F_critico <- qf(p = 1 - alpha, df1 = v1, df2 = v2)
-F_critico
-
-pvalor <- 1 - pf(F, v1, v2)
-pvalor
-```
-
-Comparemos con la salida de la función `aov`:
-
-```{r anova aov, cache=TRUE}
-modelo <- aov(exam_score ~ study_method, data = trainset)
-summary(modelo)
-```
-
-```{r, include=FALSE}
-rm(grupos, n_j, xbar_j, xbar_total, SST, SSA, SSE, MSA, MSE, F,
-   alpha, v1, v2, F_critico, pvalor, modelo, N, k)
-gc()
-```
-
-Los valores coinciden: $SSA = 11.291.432$ con 4 grados de libertad, $SSE = 214.152.769$ con 629.995 grados de libertad, $MSA = 2.822.858$, $MSE = 339{,}93$ y $F = 8304{,}29$, exactamente lo que devuelve `aov()`. El teorema de descomposición se verifica. De todos modos, como los supuestos de normalidad y homocedasticidad no se cumplen, este $F$ no puede usarse para decidir sobre $H_0$; la conclusión del proyecto sobre `study_method` se apoya en la prueba de Kruskal-Wallis de la sección siguiente.
-
 # Análisis de estadística paramétrica y no paramétrica
 
-En la sección anterior comprobamos que `exam_score` no cumple los supuestos de normalidad ni de homocedasticidad, por lo que el ANOVA queda descartado. En esta sección aplicamos entonces las pruebas no paramétricas equivalentes a las siete variables categóricas del conjunto de datos.
-
-Siguiendo el procedimiento del curso, para cada variable verificamos primero el supuesto de normalidad, luego el de homogeneidad de varianzas con la prueba de Levene y, según el resultado, aplicamos la prueba correspondiente: la $U$ de Mann-Whitney cuando hay dos grupos y la prueba de Kruskal-Wallis cuando hay tres o más. Cuando la prueba de Kruskal-Wallis resulta significativa aplicamos además un análisis post-hoc para identificar qué grupos difieren entre sí.
-
-Como el tamaño de muestra es de 630.000 observaciones, la prueba de Shapiro-Wilk no es aplicable (solo admite muestras de hasta 5.000 datos), por lo que usamos la prueba de Lilliefors del paquete `nortest`.
 
 * ¿El hecho de contar con acceso a internet influye en el desempeño académico de los estudiantes?
 
-Para responder esto, empecemos con `internet_access` vs `exam_score`.
+Para responder esto, empecemos con `internet_access` vs `exam_score`
 
-Veamos si tienen comportamiento normal:
+```{r, cache=TRUE}
+# dataframe de acceso
+Ac <- trainset %>% 
+  filter(internet_access == "yes")
+
+# dataframe de no acceso
+Nac <- trainset %>% 
+  filter(internet_access == "no")
+
+```
+
+Debido a que la muestra es mayor de 5.000 descartamos el uso de la Shapiro-Wilk.
 
 ```{r, cache=TRUE}
 trainset %>%
   group_by(internet_access) %>%
-  summarise(n = length(exam_score),
+  summarise(n = n(),
             est_lt = lillie.test(exam_score)$statistic,
             p_lt = lillie.test(exam_score)$p.value)
 ```
 
-La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los dos grupos analizados. En el caso de los estudiantes con acceso a internet $(D = 0.023561,\ p-valor < 0.001)$; mientras que para los estudiantes sin acceso a internet $(D = 0.027935,\ p-valor < 0.001)$.
+La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los dos grupos analizados. En el caso de los estudiantes con acceso a internet $(D = 0.023561, p-valor < 0.001)$; mientras que para los estudiantes sin acceso a internet $(D = 0.027935, p-valor < 0.001)$.
 
-Dado que no se cumple el supuesto de normalidad, la comparación de varianzas debe realizarse con una prueba robusta a esta condición, por lo que empleamos el test de Levene centrado en la mediana.
-
-```{r, cache=TRUE}
-leveneTest(exam_score ~ factor(internet_access), data = trainset, center = "median")
-```
-
-La prueba de Levene indica que existen diferencias estadísticamente significativas en la varianza de `exam_score` entre ambos grupos $(F_{(1,\,629998)} = 60.97,\ p-valor < 0.001)$. Conviene sin embargo leer este resultado con cautela: las desviaciones estándar observadas en la sección anterior son de 19,28 puntos en el grupo sin acceso y 18,89 puntos en el grupo con acceso, una diferencia de apenas 0,4 puntos que resulta significativa únicamente por el enorme tamaño de la muestra. En términos prácticos las dispersiones son equivalentes, de modo que se mantiene razonablemente la condición de igual forma de las distribuciones que exige la prueba no paramétrica.
-
-Veamos si hay diferencia entre los dos grupos:
 
 ```{r, cache=TRUE}
+
 trainset %>%
   wilcox_test(exam_score ~ internet_access, paired = FALSE)
+
 ```
 
-La prueba de $U$ de Mann-Whitney para muestras independientes nos indica que, con una confianza del $95\%$, existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre los estudiantes con y sin acceso a internet $(U = 14565777034,\ p-valor = 0.0266)$.
+La prueba de Mann-Whitney-Wilcoxon para muestras independientes nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre los estudiantes con y sin acceso a internet $(W=14565777034, p-valor=0.0266)$.
 
 ```{r, cache=TRUE}
+
 trainset %>%
   wilcox_effsize(exam_score ~ internet_access, paired = FALSE)
 ```
 
-El tamaño del efecto obtenido es $r = 0.0028$ (magnitud: pequeña), es decir, prácticamente nulo. Aunque la diferencia es estadísticamente significativa, no es relevante desde el punto de vista práctico: como vimos en el análisis bivariado, los promedios de ambos grupos difieren en apenas 0,03 puntos. En otras palabras, el acceso a internet no influye de manera importante en el desempeño académico de los estudiantes.
+
+```{r, include=FALSE}
+
+rm(Ac, Nac)
+gc()
+```
+
+Con base en el resultado del tamaño del efecto $r$, se obtiene un valor estimado de 0.0028 (magnitud: pequeña), lo que indica un efecto prácticamente nulo. Esto indica que, aunque la diferencia es estadísticamente significativa, no es relevante desde el punto de vista práctico; El acceso a internet no parece tener una influencia considerable en el desempeño académico de los estudiantes.
+
+En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` según el acceso a internet, su magnitud es prácticamente nula, por lo que esta variable no representa un factor relevante para explicar el desempeño académico de los estudiantes. En otras palabras, el acceso a internet no parece influir de manera importante en el desempeño académico.
+
 
 * ¿Existen diferencias en el desempeño académico según el género del estudiante?
 
 Para esto analicemos `gender` vs `exam_score`:
 
 ```{r, cache=TRUE}
+# OTHER
+Other <- trainset %>% 
+  filter(gender == "other")
+
+# MALE
+Male <- trainset %>% 
+  filter(gender == "male")
+
+# FEMALE
+Female <- trainset %>%
+  filter (gender == "female")
+
+
+```
+
+```{r, cache=TRUE}
 trainset %>%
   group_by(gender) %>%
-  summarise(n = length(exam_score),
+  summarise(n = n(),
             est_lt = lillie.test(exam_score)$statistic,
             p_lt = lillie.test(exam_score)$p.value)
 ```
 
-La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según género. Para el grupo `other` $(D = 0.025855,\ p-valor < 0.001)$; para el grupo `male` $(D = 0.021919,\ p-valor < 0.001)$; y para el grupo `female` $(D = 0.023756,\ p-valor < 0.001)$.
-
-```{r, cache=TRUE}
-leveneTest(exam_score ~ factor(gender), data = trainset, center = "median")
-```
-
-La prueba de Levene arroja diferencias significativas en la varianza entre los tres géneros $(F_{(2,\,629997)} = 64.94,\ p-valor < 0.001)$, aunque nuevamente se trata de un resultado inflado por el tamaño de muestra: las desviaciones estándar van de 18,77 a 19,09 puntos, prácticamente iguales entre sí.
+La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según género. Para el grupo "other" $(D = 0.025855, p-valor < 0.001)$; para el grupo masculino $(D = 0.021919, p-valor < 0.001)$; y para el grupo femenino $(D = 0.023756, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ gender, data = trainset)
 ```
 
-La prueba de Kruskal-Wallis nos indica que, con una confianza del $95\%$, existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de género $(\chi^2_{(2)} = 81.54,\ p-valor < 0.001)$.
-
-Apliquemos una prueba post-hoc para ver qué géneros son diferentes:
+La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de género $(χ²₍₂₎ = 81.54, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
-pairwise.wilcox.test(x = trainset$exam_score,
-                     g = trainset$gender,
-                     exact = FALSE,
-                     p.adjust.method = "bonferroni")
+trainset %>%
+  kruskal_effsize(exam_score ~ gender)
 ```
 
-Con el ajuste de Bonferroni las tres comparaciones resultan significativas ($p < 0.001$ en todos los casos). Sin embargo, al contrastar este resultado con la tabla resumen del análisis bivariado, las diferencias de promedio involucradas son de 0,2 a 0,6 puntos sobre una escala de 0 a 100, por lo que carecen de relevancia práctica. En otras palabras, el género no genera diferencias importantes en el desempeño académico.
+```{r, include=FALSE}
+rm(Female, Male, Other)
+gc()
+```
+
+
+
+Con base en el resultado del tamaño del efecto $(η² = 0.000126, magnitud: pequeña)$, se obtiene un valor prácticamente nulo. Esto indica que, aunque la diferencia entre los grupos de género es estadísticamente significativa, no es relevante desde el punto de vista práctico — el género explica una proporción mínima de la variabilidad en el puntaje del examen, por lo que no parece ser un factor determinante en el desempeño académico de los estudiantes.
+
+En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` entre los grupos de género, su magnitud es prácticamente nula, por lo que el género no representa un factor relevante para explicar el desempeño académico de los estudiantes. En otras palabras, el género no genera diferencias importantes en el desempeño académico.
+
 
 * ¿La calidad del sueño percibida por el estudiante se relaciona con su desempeño en el examen?
 
 Analicemos `sleep_quality` vs `exam_score`:
 
 ```{r, cache=TRUE}
+Good <- trainset %>% filter(sleep_quality == "good")
+Average <- trainset %>% filter(sleep_quality == "average")
+Poor <- trainset %>% filter(sleep_quality == "poor")
+
+
+```
+
+```{r, cache=TRUE}
 trainset %>%
   group_by(sleep_quality) %>%
-  summarise(n = length(exam_score),
+  summarise(n = n(),
             est_lt = lillie.test(exam_score)$statistic,
             p_lt = lillie.test(exam_score)$p.value)
 ```
 
-La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según calidad del sueño. Para el grupo `average` $(D = 0.024268,\ p-valor < 0.001)$; para el grupo `good` $(D = 0.038146,\ p-valor < 0.001)$; y para el grupo `poor` $(D = 0.021183,\ p-valor < 0.001)$.
-
-```{r, cache=TRUE}
-leveneTest(exam_score ~ factor(sleep_quality), data = trainset, center = "median")
-```
-
-La prueba de Levene resulta significativa $(F_{(2,\,629997)} = 85.10,\ p-valor < 0.001)$, si bien las desviaciones estándar de los tres grupos (18,12, 18,60 y 18,42 puntos) son muy similares entre sí.
+La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según calidad del sueño. Para el grupo "average" $(D = 0.024268, p-valor < 0.001)$; para el grupo "good" $(D = 0.038146, p-valor < 0.001)$; y para el grupo "poor" $(D = 0.021183, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ sleep_quality, data = trainset)
 ```
 
-La prueba de Kruskal-Wallis nos indica que, con una confianza del $95\%$, existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de calidad del sueño $(\chi^2_{(2)} = 33168,\ p-valor < 0.001)$.
+La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de calidad del sueño $(χ²₍₂₎ = 33168, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
-pairwise.wilcox.test(x = trainset$exam_score,
-                     g = trainset$sleep_quality,
-                     exact = FALSE,
-                     p.adjust.method = "bonferroni")
+trainset %>%
+  kruskal_effsize(exam_score ~ sleep_quality)
 ```
 
-Las tres comparaciones por pares resultan significativas con el ajuste de Bonferroni ($p < 0.001$). A diferencia de `gender`, aquí las diferencias sí son de magnitud apreciable: los estudiantes con buena calidad de sueño superan en casi 11 puntos a los de mala calidad, y el grupo intermedio se ubica exactamente entre ambos. La calidad del sueño sí se relaciona con el desempeño académico.
+```{r, include=FALSE}
+rm(Good, Average, Poor)
+gc()
+```
 
-* ¿La calificación que los estudiantes dan a las instalaciones educativas está relacionada con su desempeño académico?
+Con base en el resultado del tamaño del efecto $(η² = 0,0526, magnitud: pequeña$, se obtiene un valor considerablemente mayor al observado en `internet_access` (0,0028) y `gender` (0,000126). Esto indica que la calidad del sueño explica una proporción algo mayor de la variabilidad en el puntaje del examen en comparación con las otras variables categóricas analizadas hasta ahora.
+
+En conjunto, estos resultados indican que existe una diferencia estadísticamente significativa en `exam_score` entre los grupos de calidad del sueño, con un tamaño del efecto mayor al de las variables anteriores, aunque aún clasificado como pequeño. En otras palabras, la calidad del sueño sí se relaciona con el desempeño académico, aunque de forma modesta.
+
+
+* ¿La calificación que los estudiantes dan a las instalaciones educativas está relacionada con su desempeño académico? 
 
 Es necesario analizar `facility_rating` vs `exam_score`:
 
 ```{r, cache=TRUE}
 trainset %>%
   group_by(facility_rating) %>%
-  summarise(n = length(exam_score),
+  summarise(n = n(),
             est_lt = lillie.test(exam_score)$statistic,
             p_lt = lillie.test(exam_score)$p.value)
 ```
 
-La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las tres categorías de calificación de instalaciones. Para `high` $(D = 0.0362,\ p-valor < 0.001)$; para `low` $(D = 0.0207,\ p-valor < 0.001)$; y para `medium` $(D = 0.0236,\ p-valor < 0.001)$.
-
-```{r, cache=TRUE}
-leveneTest(exam_score ~ factor(facility_rating), data = trainset, center = "median")
-```
-
-La prueba de Levene es la única de todas las variables analizadas que queda cerca del umbral de decisión $(F_{(2,\,629997)} = 3.98,\ p-valor = 0.0187)$; las desviaciones estándar de los tres grupos (18,53, 18,56 y 18,64 puntos) son casi idénticas.
+La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las tres categorías de calificación de instalaciones. Para `high` $(D = 0.0362, p-valor < 0.001)$; para `low` $(D = 0.0207, p-valor < 0.001)$; y para `medium` $(D = 0.0236, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ facility_rating, data = trainset)
 ```
 
-La prueba de Kruskal-Wallis nos indica que, con una confianza del $95\%$, existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de calificación de instalaciones $(\chi^2_{(2)} = 20684,\ p-valor < 0.001)$.
+La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de calificación de instalaciones $(χ²₍₂₎ = 20684, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
-pairwise.wilcox.test(x = trainset$exam_score,
-                     g = trainset$facility_rating,
-                     exact = FALSE,
-                     p.adjust.method = "bonferroni")
+trainset %>%
+  kruskal_effsize(exam_score ~ facility_rating)
 ```
 
-Las tres comparaciones resultan significativas ($p < 0.001$). El orden es el esperado y las diferencias son apreciables: `high` supera a `medium` en unos 3,7 puntos y a `low` en unos 8,8 puntos. La calificación de las instalaciones sí está relacionada con el desempeño académico.
+Con base en el resultado del tamaño del efecto $(η² = 0,0328, magnitud: pequeña)$, se obtiene un valor intermedio entre lo observado en `study_method` (que veremos a continuación) y variables como `gender` o `internet_access`. Esto sugiere que la calidad de las instalaciones tiene alguna influencia sobre el desempeño académico, aunque, al igual que las demás variables categóricas, su efecto práctico sigue siendo pequeño.
+
+En conjunto, estos resultados indican que existe una diferencia estadísticamente significativa en `exam_score` según `facility_rating`, con un tamaño del efecto pequeño, similar en orden de magnitud al de `sleep_quality`. En otras palabras, la calificación de las instalaciones sí está relacionada con el desempeño académico, aunque de forma limitada.
+
+
 
 * ¿La dificultad percibida del examen afecta la calificación obtenida por los estudiantes?
 
@@ -1297,33 +1027,28 @@ Para responder esta pregunta debemos analizar `exam_difficulty` vs `exam_score`:
 ```{r, cache=TRUE}
 trainset %>%
   group_by(exam_difficulty) %>%
-  summarise(n = length(exam_score),
+  summarise(n = n(),
             est_lt = lillie.test(exam_score)$statistic,
             p_lt = lillie.test(exam_score)$p.value)
 ```
 
-La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las tres categorías de dificultad del examen. Para `easy` $(D = 0.0217,\ p-valor < 0.001)$; para `hard` $(D = 0.0255,\ p-valor < 0.001)$; y para `moderate` $(D = 0.0243,\ p-valor < 0.001)$.
-
-```{r, cache=TRUE}
-leveneTest(exam_score ~ factor(exam_difficulty), data = trainset, center = "median")
-```
-
-La prueba de Levene resulta significativa $(F_{(2,\,629997)} = 50.33,\ p-valor < 0.001)$, con desviaciones estándar entre 18,71 y 19,14 puntos.
+La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las tres categorías de dificultad del examen. Para `easy` $(D = 0.0217, p-valor < 0.001)$; para `hard` $(D = 0.0255, p-valor < 0.001)$; y para `moderate` $(D = 0.0243, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ exam_difficulty, data = trainset)
 ```
 
-La prueba de Kruskal-Wallis nos indica que, con una confianza del $95\%$, existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de dificultad del examen $(\chi^2_{(2)} = 53.954,\ p-valor < 0.001)$.
+La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de dificultad del examen $(χ²₍₂₎ = 53.954, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
-pairwise.wilcox.test(x = trainset$exam_score,
-                     g = trainset$exam_difficulty,
-                     exact = FALSE,
-                     p.adjust.method = "bonferroni")
+trainset %>%
+  kruskal_effsize(exam_score ~ exam_difficulty)
 ```
 
-El post-hoc muestra que `easy` difiere de `hard` ($p = 3.0\times 10^{-9}$) y de `moderate` ($p = 1.9\times 10^{-10}$), mientras que `hard` y `moderate` no se diferencian entre sí ($p = 0.41$). Las diferencias de promedio involucradas son, en el mejor de los casos, de medio punto, y además van en sentido contrario al esperado (los exámenes calificados como difíciles obtienen puntajes levemente más altos). La dificultad percibida del examen no afecta de manera importante la calificación obtenida.
+Con base en el resultado del tamaño del efecto $(η² = 0,0000825, magnitud: pequeña)$, se obtiene el valor más bajo de todas las variables categóricas analizadas hasta ahora, incluso menor que `gender` (0,000126). Esto indica que la dificultad percibida del examen prácticamente no explica variabilidad alguna en `exam_score`.
+
+En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` según `exam_difficulty`, su magnitud es prácticamente nula, por lo que esta variable no representa un factor relevante para explicar el desempeño académico de los estudiantes. En otras palabras, la dificultad percibida del examen no afecta de manera importante la calificación obtenida.
+
 
 * ¿El método de estudio empleado influye en el puntaje obtenido en el examen?
 
@@ -1332,77 +1057,28 @@ Analicemos `study_method` vs `exam_score`:
 ```{r, cache=TRUE}
 trainset %>%
   group_by(study_method) %>%
-  summarise(n = length(exam_score),
+  summarise(n = n(),
             est_lt = lillie.test(exam_score)$statistic,
             p_lt = lillie.test(exam_score)$p.value)
 ```
 
-La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las cinco categorías de método de estudio. Para `coaching` $(D = 0.0478,\ p-valor < 0.001)$; para `group study` $(D = 0.0199,\ p-valor < 0.001)$; para `mixed` $(D = 0.0317,\ p-valor < 0.001)$; para `online videos` $(D = 0.0238,\ p-valor < 0.001)$; y para `self-study` $(D = 0.0258,\ p-valor < 0.001)$.
-
-```{r, cache=TRUE}
-leveneTest(exam_score ~ factor(study_method), data = trainset, center = "median")
-```
-
-La prueba de Levene resulta significativa $(F_{(4,\,629995)} = 63.87,\ p-valor < 0.001)$, con desviaciones estándar entre 18,22 y 18,73 puntos.
+La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las cinco categorías de método de estudio. Para `coaching` $(D = 0.0478, p-valor < 0.001)$; para `group study` $(D = 0.0199, p-valor < 0.001)$; para `mixed` $(D = 0.0317, p-valor < 0.001)$; para `online videos` $(D = 0.0238, p-valor < 0.001)$; y para `self-study` $(D = 0.0258, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ study_method, data = trainset)
 ```
 
-La prueba de Kruskal-Wallis nos indica que, con una confianza del $95\%$, existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de método de estudio $(\chi^2_{(4)} = 29548,\ p-valor < 0.001)$.
-
-Verifiquemos este resultado calculando el estadístico $H$ paso a paso a partir de su fórmula:
-
-$$
-H = \frac{12}{N(N+1)} \sum_{j=1}^{k} \frac{R_j^2}{n_j} - 3(N+1)
-$$
-
-donde $N$ es el número total de observaciones, $k$ el número de grupos, $R_j$ la suma de rangos del grupo $j$ y $n_j$ su tamaño.
-
-```{r kw manual, cache=TRUE}
-# rangos de toda la muestra
-R <- rank(trainset$exam_score)
-
-# suma de rangos y tamaño de cada grupo
-R_j <- tapply(R, trainset$study_method, sum)
-n_j <- tapply(R, trainset$study_method, length)
-
-N <- length(R)
-k <- length(R_j)
-
-R_j
-n_j
-
-# estadístico H
-H <- 12 / (N * (N + 1)) * sum(R_j^2 / n_j) - 3 * (N + 1)
-H
-
-# valor crítico y p-valor
-alpha <- 0.05
-chi_critico <- qchisq(1 - alpha, df = k - 1)
-chi_critico
-
-pvalor_H <- pchisq(H, df = k - 1, lower.tail = FALSE)
-pvalor_H
-```
-
-```{r, include=FALSE}
-rm(R, R_j, n_j, N, k, H, alpha, chi_critico, pvalor_H)
-gc()
-```
-
-El estadístico calculado a mano es $H = 29547{,}88$ con 4 grados de libertad, idéntico al que devuelve `kruskal.test()`, y supera ampliamente el valor crítico $\chi^2_{0.05,\,4} = 9{,}4877$, por lo que se rechaza $H_0$.
-
-Apliquemos ahora la prueba post-hoc para ver qué métodos son diferentes:
+La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los grupos de método de estudio $(χ²₍₄₎ = 29548, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
-pairwise.wilcox.test(x = trainset$exam_score,
-                     g = trainset$study_method,
-                     exact = FALSE,
-                     p.adjust.method = "bonferroni")
+trainset %>%
+  kruskal_effsize(exam_score ~ study_method)
 ```
 
-Las diez comparaciones por pares resultan significativas ($p < 0.001$ en todos los casos), es decir, los cinco métodos de estudio se diferencian entre sí. El orden que se obtiene es `coaching` > `mixed` > `group study` > `online videos` > `self-study`, con una diferencia de casi 11,6 puntos entre el mejor y el peor método. Junto con `sleep_quality`, es la variable categórica con mayor separación entre grupos.
+Con base en el resultado del tamaño del efecto $(η² = 0,0469, magnitud: pequeña)$, se obtiene el segundo valor más alto entre todas las variables categóricas analizadas, muy cerca del observado en `sleep_quality` (0,0526) y por encima de `facility_rating` (0,0328). Esto sugiere que el método de estudio, junto con la calidad del sueño, es de las variables categóricas con mayor relación (aunque todavía modesta) con el desempeño académico.
+
+En conjunto, estos resultados indican que existe una diferencia estadísticamente significativa en exam_score según study_method, con un tamaño del efecto pequeño pero comparativamente de los más altos entre las variables categóricas del dataset. En otras palabras, el método de estudio sí influye en el desempeño académico, siendo una de las variables más relevantes encontradas.
+
 
 * ¿El programa académico que cursa el estudiante se relaciona con su desempeño en el examen?
 
@@ -1411,7 +1087,7 @@ Finalicemos analizando `course` vs `exam_score`:
 ```{r, cache=TRUE}
 trainset %>%
   group_by(course) %>%
-  summarise(n = length(exam_score),
+  summarise(n = n(),
             est_lt = lillie.test(exam_score)$statistic,
             p_lt = lillie.test(exam_score)$p.value)
 ```
@@ -1419,33 +1095,25 @@ trainset %>%
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las siete categorías de programa académico (en todos los casos $p-valor < 0.001$).
 
 ```{r, cache=TRUE}
-leveneTest(exam_score ~ factor(course), data = trainset, center = "median")
-```
-
-La prueba de Levene resulta significativa $(F_{(6,\,629993)} = 49.59,\ p-valor < 0.001)$, con desviaciones estándar entre 18,40 y 19,30 puntos.
-
-```{r, cache=TRUE}
 kruskal.test(exam_score ~ course, data = trainset)
 ```
 
-La prueba de Kruskal-Wallis nos indica que, con una confianza del $95\%$, existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los programas académicos $(\chi^2_{(6)} = 199.28,\ p-valor < 0.001)$.
+La prueba de Kruskal-Wallis nos indica que, con una confianza del 95%, se concluye que existe una diferencia estadísticamente significativa en el puntaje del examen `exam_score` entre al menos uno de los programas académicos $(χ²₍₆₎ = 199.28, p-valor < 0.001)$.
 
 ```{r, cache=TRUE}
-pairwise.wilcox.test(x = trainset$exam_score,
-                     g = trainset$course,
-                     exact = FALSE,
-                     p.adjust.method = "bonferroni")
+trainset %>%
+  kruskal_effsize(exam_score ~ course)
 ```
 
-A diferencia de `study_method`, aquí el post-hoc muestra que la mayoría de los pares no se diferencian entre sí (`b.com`, `b.sc`, `b.tech`, `bca` y `diploma` son indistinguibles con $p = 1$ en casi todas sus comparaciones). Solo `bba` y `ba`, los dos extremos, se separan del resto, y aun así con diferencias de promedio de apenas 1,3 puntos. El programa académico no se relaciona de manera importante con el desempeño de los estudiantes.
+Con base en el resultado del tamaño del efecto $(η² = 0,000307, magnitud: pequeña)$, se obtiene un valor prácticamente nulo, similar al de `gender` y muy por debajo del de `sleep_quality` o `study_method`. Esto indica que el programa académico que cursa el estudiante no explica una proporción relevante de la variabilidad en `exam_score`.
 
-Con las siete variables categóricas ya analizadas, el panorama es bastante consistente: en todos los casos el p-valor resultó estadísticamente significativo, pero esto es esperable dado el tamaño de muestra (630.000 observaciones), donde hasta diferencias mínimas terminan siendo "significativas". Lo mismo ocurrió con la prueba de Levene, que rechazó la homogeneidad de varianzas en las siete variables pese a que las desviaciones estándar de todos los grupos se mantienen en una franja estrecha (entre 18,1 y 19,3 puntos).
+En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` según `course`, su magnitud es prácticamente nula, por lo que esta variable no representa un factor relevante para explicar el desempeño académico de los estudiantes. En otras palabras, el programa académico no se relaciona de manera importante con el desempeño de los estudiantes.
 
-Lo que de verdad permite distinguir entre variables es la magnitud de la diferencia entre los grupos, y ahí el orden queda así: `study_method` (11,6 puntos entre `coaching` y `self-study`, con los cinco métodos diferenciados entre sí en el post-hoc) y `sleep_quality` (10,9 puntos entre `good` y `poor`) encabezan la lista, seguidas por `facility_rating` (8,8 puntos entre `high` y `low`). Bastante más atrás quedan `course` (1,3 puntos y la mayoría de los pares sin diferencias en el post-hoc), `gender` (0,6 puntos), `exam_difficulty` (0,5 puntos) e `internet_access` (0,03 puntos y un tamaño del efecto de $r = 0.0028$). Esto confirma lo que ya había anotado en el diario del proyecto: con muestras tan grandes, el p-valor solo no sirve para decidir si algo es relevante; hay que mirar siempre la magnitud de la diferencia.
+Con las siete variables categóricas ya analizadas, el panorama es bastante consistente: en todos los casos el p-valor resultó estadísticamente significativo, pero esto es esperable dado el tamaño de muestra (630.000 observaciones), donde hasta diferencias mínimas terminan "significativas". Lo que de verdad permite distinguir entre variables es el tamaño del efecto, y ahí el orden queda así: `sleep_quality` (η² = 0,0526) por encima de `study_method` (η² = 0,0469) y `facility_rating` (η² = 0,0328); bastante más atrás quedan `course` (η² = 0,000307), `gender` (η² = 0,000126), `exam_difficulty` (η² = 0,0000825) e `internet_access` (r = 0,0028), todas prácticamente nulas. Ni siquiera las tres primeras superan la magnitud "pequeña", así que ninguna variable categórica por sí sola explica gran cosa del desempeño académico. Esto confirma lo que ya había anotado en el diario del proyecto: con muestras tan grandes, el p-valor solo no sirve para decidir si algo es relevante, hay que mirar siempre el tamaño del efecto.
 
 # Tabla de contingencia
 
-Hasta ahora hemos comparado `exam_score` (numérica) entre los grupos de cada variable categórica. Una forma complementaria de explorar relaciones es a través de tablas de contingencia, que permiten estudiar la asociación entre dos variables categóricas usando la prueba $\chi^2$ de independencia.
+Hasta ahora hemos comparado `exam_score` (numérica) entre los grupos de cada variable categórica. Una forma complementaria de explorar relaciones es a través de tablas de contingencia, que permiten estudiar la asociación entre dos variables categóricas usando la prueba χ² de independencia.
 
 Para conectar este análisis con la pregunta de investigación del proyecto, creamos una versión categórica de la variable respuesta: `resultado`, que clasifica a cada estudiante como `aprobado` (`exam_score >= 60`) o `reprobado` (`exam_score < 60`).
 
@@ -1458,301 +1126,116 @@ trainset %>%
   mutate(Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2))
 ```
 
-El $55,21\%$ de los estudiantes aprueba (`exam_score >= 60`) y el $44,79\%$ reprueba, una distribución razonablemente balanceada para el análisis.
+El 55,21% de los estudiantes aprueba (`exam_score >= 60`) y el 44,79% reprueba, una distribución razonablemente balanceada para el análisis.
 
-Como cada estudiante es una única unidad experimental clasificada simultáneamente según dos atributos, el contraste que corresponde es el de **independencia** y no el de homogeneidad. La hipótesis nula es entonces:
-
-$$
-H_0: \text{los dos atributos en la población son independientes,}
-$$
-
-es decir, $p_{ij} = p_{i\cdot}\, p_{\cdot j}$ para todo $i$ y todo $j$, frente a la alternativa de que no lo son.
-
-A continuación, evaluamos si `resultado` está asociado con las dos variables categóricas que mostraron la mayor separación entre grupos en la sección anterior: `sleep_quality` y `study_method`.
+A continuación, evaluamos si `resultado` está asociado con las dos variables categóricas que mostraron el mayor tamaño del efecto en la sección anterior: `sleep_quality` y `study_method`.
 
 * `resultado` vs `sleep_quality`
 
-Construyamos la tabla de contingencia:
-
 ```{r, cache=TRUE}
-observados_sq <- table(trainset$resultado, trainset$sleep_quality)
-observados_sq
+tabla_resultado_sq <- table(trainset$resultado, trainset$sleep_quality)
+tabla_resultado_sq
 ```
 
-Calculemos los totales por fila, por columna y el total general:
-
 ```{r, cache=TRUE}
-fila_totales_sq <- rowSums(observados_sq)
-col_totales_sq <- colSums(observados_sq)
-total_general_sq <- sum(observados_sq)
-
-fila_totales_sq
-col_totales_sq
-total_general_sq
+chisq_sq <- chisq.test(tabla_resultado_sq)
+chisq_sq
 ```
 
-Ahora, hallemos las frecuencias esperadas bajo $H_0$:
+Antes de interpretar la prueba, verificamos el supuesto de χ²: todas las frecuencias esperadas deben ser mayores o iguales a 5.
 
 ```{r, cache=TRUE}
-esperados_sq <- outer(fila_totales_sq, col_totales_sq,
-                   FUN = function(f, c) f * c / total_general_sq)
-esperados_sq
+min(chisq_sq$expected)
 ```
 
-Verifiquemos el supuesto de la prueba: todas las frecuencias esperadas deben ser mayores o iguales a 5.
+La frecuencia esperada mínima es de 91.035,86, muy por encima de 5, por lo que se cumple el supuesto y la prueba χ² es válida.
+
+Con una confianza del 95%, la prueba χ² de independencia $(χ²₍₂₎ = 19531, p-valor < 0.001)$ nos indica que `resultado` y `sleep_quality` no son independientes; existe asociación estadísticamente significativa entre la calidad del sueño y el hecho de aprobar o reprobar el examen.
 
 ```{r, cache=TRUE}
-min(esperados_sq)
+k_sq <- min(nrow(tabla_resultado_sq) - 1, ncol(tabla_resultado_sq) - 1)
+v_sq <- sqrt(chisq_sq$statistic / (sum(tabla_resultado_sq) * k_sq))
+v_sq
 ```
 
-La frecuencia esperada mínima es de 91.035,86, muy por encima de 5, por lo que se cumple el supuesto y la prueba $\chi^2$ es válida.
-
-Seguido, calculemos el estadístico $\chi^2$:
-
-```{r, cache=TRUE}
-chi_cuadrado_sq <- sum((observados_sq - esperados_sq)^2 / esperados_sq)
-chi_cuadrado_sq
-```
-
-Determinemos los grados de libertad:
-
-```{r, cache=TRUE}
-gl_sq <- (nrow(observados_sq) - 1) * (ncol(observados_sq) - 1)
-gl_sq
-```
-
-Ahora, el valor crítico y la decisión al $5\%$:
-
-```{r, cache=TRUE}
-alfa <- 0.05
-valor_critico_sq <- qchisq(1 - alfa, gl_sq)
-valor_critico_sq
-
-# Comparación
-rechaza_H0_sq <- chi_cuadrado_sq > valor_critico_sq
-rechaza_H0_sq
-```
-
-Si calculamos el p-valor:
-
-```{r, cache=TRUE}
-valor_p_sq <- pchisq(chi_cuadrado_sq, gl_sq, lower.tail = FALSE)
-valor_p_sq
-```
-
-Si usamos la función `chisq.test` del paquete `stats` nos queda:
-
-```{r, cache=TRUE}
-chisq.test(observados_sq)
-```
-
-Como $\chi^2 = 19531 > \chi^2_{0.05} = 5.9915$, con una confianza del $95\%$ se rechaza $H_0$: la prueba $\chi^2$ de independencia $(\chi^2_{(2)} = 19531,\ p-valor < 0.001)$ nos indica que `resultado` y `sleep_quality` no son independientes, es decir, existe asociación estadísticamente significativa entre la calidad del sueño y el hecho de aprobar o reprobar el examen.
-
-Calculemos la $V$ de Cramer para medir la fuerza de esa asociación:
-
-```{r, cache=TRUE}
-k_sq <- min(nrow(observados_sq) - 1, ncol(observados_sq) - 1)
-v_cramer_sq <- sqrt(chi_cuadrado_sq / (total_general_sq * k_sq))
-v_cramer_sq
-```
-
-La $V$ de Cramer obtenida es de 0,1761, lo que indica una asociación débil entre ambas variables.
+La V de Cramer obtenida es de 0,1761, lo que indica una asociación débil entre ambas variables. Esto es consistente con el tamaño del efecto pequeño (η² = 0,0526) encontrado con Kruskal-Wallis en la sección anterior: la calidad del sueño está relacionada con el desempeño académico, pero de forma modesta.
 
 * `resultado` vs `study_method`
 
-Construyamos la tabla de contingencia:
-
 ```{r, cache=TRUE}
-observados_sm <- table(trainset$resultado, trainset$study_method)
-observados_sm
+tabla_resultado_sm <- table(trainset$resultado, trainset$study_method)
+tabla_resultado_sm
 ```
 
-Calculemos los totales por fila, por columna y el total general:
-
 ```{r, cache=TRUE}
-fila_totales_sm <- rowSums(observados_sm)
-col_totales_sm <- colSums(observados_sm)
-total_general_sm <- sum(observados_sm)
-
-fila_totales_sm
-col_totales_sm
-total_general_sm
+chisq_sm <- chisq.test(tabla_resultado_sm)
+chisq_sm
 ```
 
-Ahora, hallemos las frecuencias esperadas bajo $H_0$:
-
 ```{r, cache=TRUE}
-esperados_sm <- outer(fila_totales_sm, col_totales_sm,
-                   FUN = function(f, c) f * c / total_general_sm)
-esperados_sm
+min(chisq_sm$expected)
 ```
 
-Verifiquemos el supuesto de la prueba: todas las frecuencias esperadas deben ser mayores o iguales a 5.
+La frecuencia esperada mínima es de 54.234,23, también muy por encima de 5, por lo que se cumple el supuesto de la prueba χ².
+
+Con una confianza del 95%, la prueba χ² de independencia $(χ²₍₄₎ = 17569, p-valor < 0.001)$ nos indica que `resultado` y `study_method` tampoco son independientes.
 
 ```{r, cache=TRUE}
-min(esperados_sm)
+k_sm <- min(nrow(tabla_resultado_sm) - 1, ncol(tabla_resultado_sm) - 1)
+v_sm <- sqrt(chisq_sm$statistic / (sum(tabla_resultado_sm) * k_sm))
+v_sm
 ```
 
-La frecuencia esperada mínima es de 54.234,23, muy por encima de 5, por lo que se cumple el supuesto y la prueba $\chi^2$ es válida.
+La V de Cramer para `study_method` es de 0,1670, prácticamente igual a la obtenida con `sleep_quality` (0,1761), lo que vuelve a confirmar una asociación débil.
 
-Seguido, calculemos el estadístico $\chi^2$:
+En conjunto, ambas pruebas χ² resultan estadísticamente significativas, pero al igual que con Kruskal-Wallis, el tamaño del efecto (V de Cramer ≈ 0,17 en los dos casos) confirma que la asociación entre estas variables categóricas y el resultado del examen (`resultado`) es real pero débil. Ninguna de las dos alcanza sola para predecir con fuerza si un estudiante va a aprobar o no.
 
-```{r, cache=TRUE}
-chi_cuadrado_sm <- sum((observados_sm - esperados_sm)^2 / esperados_sm)
-chi_cuadrado_sm
-```
-
-Determinemos los grados de libertad:
-
-```{r, cache=TRUE}
-gl_sm <- (nrow(observados_sm) - 1) * (ncol(observados_sm) - 1)
-gl_sm
-```
-
-Ahora, el valor crítico y la decisión al $5\%$:
-
-```{r, cache=TRUE}
-alfa <- 0.05
-valor_critico_sm <- qchisq(1 - alfa, gl_sm)
-valor_critico_sm
-
-# Comparación
-rechaza_H0_sm <- chi_cuadrado_sm > valor_critico_sm
-rechaza_H0_sm
-```
-
-Si calculamos el p-valor:
-
-```{r, cache=TRUE}
-valor_p_sm <- pchisq(chi_cuadrado_sm, gl_sm, lower.tail = FALSE)
-valor_p_sm
-```
-
-Si usamos la función `chisq.test` del paquete `stats` nos queda:
-
-```{r, cache=TRUE}
-chisq.test(observados_sm)
-```
-
-Como $\chi^2 = 17569 > \chi^2_{0.05} = 9.4877$, con una confianza del $95\%$ se rechaza $H_0$: la prueba $\chi^2$ de independencia $(\chi^2_{(4)} = 17569,\ p-valor < 0.001)$ nos indica que `resultado` y `study_method` no son independientes, es decir, existe asociación estadísticamente significativa entre el método de estudio y el hecho de aprobar o reprobar el examen.
-
-Calculemos la $V$ de Cramer para medir la fuerza de esa asociación:
-
-```{r, cache=TRUE}
-k_sm <- min(nrow(observados_sm) - 1, ncol(observados_sm) - 1)
-v_cramer_sm <- sqrt(chi_cuadrado_sm / (total_general_sm * k_sm))
-v_cramer_sm
-```
-
-La $V$ de Cramer obtenida es de 0,1670, lo que indica una asociación débil entre ambas variables.
-
-En conjunto, ambas pruebas $\chi^2$ resultan estadísticamente significativas, pero al igual que en la sección anterior, la $V$ de Cramer ($\approx 0,17$ en los dos casos) confirma que la asociación entre estas variables categóricas y el resultado del examen es real pero débil. Ninguna de las dos alcanza por sí sola para predecir con fuerza si un estudiante va a aprobar o no.
-
-# Correlación lineal
+# Correlación
 
 En el EDA ya habíamos observado, a través de diagramas de dispersión, que `study_hours` y `class_attendance` parecían tener una relación positiva con `exam_score`, mientras que `age` y `sleep_hours` no mostraban un patrón claro. En esta sección cuantificamos esas relaciones con el coeficiente de correlación.
 
-El coeficiente de Pearson es una medida paramétrica y exige, entre otros supuestos, que ambas variables tengan un comportamiento normal. Como ya establecimos que `exam_score` no sigue una distribución normal, verificamos ahora la normalidad de las cuatro variables numéricas independientes para decidir entre la correlación de Pearson (paramétrica) y la de Spearman (no paramétrica). Al igual que antes, descartamos Shapiro-Wilk por el tamaño de la muestra (630.000) y usamos la prueba de Lilliefors.
+Como ya establecimos que `exam_score` no sigue una distribución normal (Lilliefors, sección anterior), primero verificamos la normalidad de las cuatro variables numéricas independientes para decidir entre correlación de Pearson (paramétrica) o de Spearman (no paramétrica). Al igual que antes, descartamos Shapiro-Wilk por el tamaño de la muestra (630.000) y usamos Lilliefors.
 
 ```{r, cache=TRUE}
-trainset %>%
-  select(age, study_hours, class_attendance, sleep_hours) %>%
-  pivot_longer(
-    cols = everything(),
-    names_to = "variable",
-    values_to = "valor"
-  ) %>%
-  group_by(variable) %>%
-  summarise(n = length(valor),
-            est_lt = lillie.test(valor)$statistic,
-            p_lt = lillie.test(valor)$p.value)
+c(age = lillie.test(trainset$age)$statistic,
+  study_hours = lillie.test(trainset$study_hours)$statistic,
+  class_attendance = lillie.test(trainset$class_attendance)$statistic,
+  sleep_hours = lillie.test(trainset$sleep_hours)$statistic)
+
+c(age = lillie.test(trainset$age)$p.value,
+  study_hours = lillie.test(trainset$study_hours)$p.value,
+  class_attendance = lillie.test(trainset$class_attendance)$p.value,
+  sleep_hours = lillie.test(trainset$sleep_hours)$p.value)
 ```
 
-Con una confianza del $95\%$, ninguna de las cuatro variables numéricas proviene de una distribución normal (`age`: $D = 0.1152$; `study_hours`: $D = 0.0628$; `class_attendance`: $D = 0.0611$; `sleep_hours`: $D = 0.0738$; en los cuatro casos $p-valor < 0.001$). Al no cumplirse el supuesto de normalidad, usamos el coeficiente de correlación de Spearman en lugar del de Pearson, consistente con el enfoque no paramétrico usado en todo el proyecto.
+Ninguna de las cuatro variables numéricas sigue una distribución normal (`age`: D = 0,1152; `study_hours`: D = 0,0628; `class_attendance`: D = 0,0611; `sleep_hours`: D = 0,0738; en los cuatro casos p-valor < 0,001). Por lo tanto, usamos el coeficiente de correlación de Spearman en lugar de Pearson, consistente con el enfoque no paramétrico usado en toda la sección anterior.
+
+* Matriz de correlación de Spearman entre las variables numéricas:
+, cache=TRUE
+```{r}
+numericas <- trainset %>%
+  select(age, study_hours, class_attendance, sleep_hours, exam_score)
+
+round(cor(numericas, method = "spearman"), 3)
+```
+
+```{r correlacion heatmap, cache=TRUE}
+ggcorr(numericas, method = c("pairwise", "spearman"),
+       label = TRUE, label_round = 2,
+       low = "#f8f4ff", mid = "#c5b0ff", high = "#2f0be0",
+       hjust = 0.8, size = 4) +
+  labs(title = "Matriz de correlación de Spearman")
+```
+
+La matriz confirma lo observado visualmente en el EDA: `study_hours` es, por lejos, la variable más correlacionada con `exam_score`; le sigue `class_attendance` con una correlación moderada-débil; `sleep_hours` y `age` muestran correlaciones muy débiles, tanto con `exam_score` como entre ellas.
 
 * `study_hours` vs `exam_score`
-
-Hallemos primero el coeficiente de Spearman paso a paso. Como la variable tiene empates, los rangos se asignan por promedios y el coeficiente se calcula como la correlación de Pearson aplicada a esos rangos:
-
-```{r spearman manual, cache=TRUE}
-# 1) Vectores, rangos y tamaño muestral
-x <- trainset$study_hours
-y <- trainset$exam_score
-n <- length(x)
-
-rx <- rank(x)
-ry <- rank(y)
-
-# 2) promedios de los rangos
-rxbar <- sum(rx) / n
-rybar <- sum(ry) / n
-
-# 3) desviaciones
-rxc <- rx - rxbar
-ryc <- ry - rybar
-
-Sxy <- sum(rxc * ryc)   # sumatoria de productos centrados
-Sxx <- sum(rxc^2)       # sumatoria de cuadrados centrados de los rangos de x
-Syy <- sum(ryc^2)       # sumatoria de cuadrados centrados de los rangos de y
-
-# 4) Coeficiente de correlación de Spearman
-rho <- Sxy / sqrt(Sxx * Syy)
-rho
-```
-
-Usando la función `cor` tenemos:
-
-```{r, cache=TRUE}
-cor(x, y, method = "spearman")
-```
-
-Ahora veamos si la correlación es significativa. El estadístico de prueba para $H_0: \rho_S = 0$ es
-
-$$
-t_0 = \rho_S \sqrt{\frac{n-2}{1 - \rho_S^2}}
-$$
-
-con $n-2$ grados de libertad:
-
-```{r, cache=TRUE}
-# 5) Estadístico t para H0: rho_S = 0
-gl <- n - 2
-t_0 <- rho * sqrt(gl / (1 - rho^2))
-t_0
-
-# 6) Valor crítico t_(alpha/2, gl) para alpha = 0.05 (bilateral)
-alpha <- 0.05
-t_tab <- qt(1 - alpha/2, df = gl)
-t_tab
-
-# decisión
-if (abs(t_0) > t_tab) {
-  decision <- "Rechazar H0: la correlación es significativa"
-} else {
-  decision <- "No rechazar H0: no hay evidencia suficiente de correlación"
-}
-decision
-
-# 7) p-valor (bilateral) desde la t de Student
-p_valor <- 2 * pt(-abs(t_0), df = gl)
-p_valor
-```
-
-Usando la función `cor.test` nos queda:
 
 ```{r, cache=TRUE}
 cor.test(trainset$study_hours, trainset$exam_score, method = "spearman", exact = FALSE)
 ```
 
-```{r, include=FALSE}
-rm(x, y, n, rx, ry, rxbar, rybar, rxc, ryc, Sxy, Sxx, Syy, rho,
-   gl, t_0, alpha, t_tab, decision, p_valor)
-gc()
-```
-
-El coeficiente obtenido a mano, $\rho_S = 0.7698$, coincide exactamente con el de `cor()` y con el de `cor.test()` $(S = 9.5952\times 10^{15},\ p-valor < 0.001)$. Según la tabla de interpretación del curso, un valor entre 0,75 y 1,00 corresponde a una **correlación positiva muy fuerte**. Con una confianza del $95\%$ se rechaza la hipótesis nula de ausencia de correlación: a más horas de estudio, mayor es la nota. Este es, por lejos, el predictor numérico más fuerte del conjunto de datos.
-
-Para las tres variables restantes aplicamos directamente `cor.test`.
+Se obtiene un coeficiente $\rho = 0.7698$ $(S = 9.5952e+15, p-valor < 0.001)$. Con una confianza del 95%, existe evidencia de una correlación positiva muy fuerte y estadísticamente significativa entre las horas de estudio y la calificación del examen: a más horas de estudio, mayor es la nota. Este es, por lejos, el predictor numérico más fuerte del dataset.
 
 * `class_attendance` vs `exam_score`
 
@@ -1760,7 +1243,7 @@ Para las tres variables restantes aplicamos directamente `cor.test`.
 cor.test(trainset$class_attendance, trainset$exam_score, method = "spearman", exact = FALSE)
 ```
 
-Se obtiene un coeficiente $\rho = 0.3515$ $(S = 2.7025\times 10^{16},\ p-valor < 0.001)$, que al estar en el rango de 0,25 a 0,50 corresponde a una **correlación positiva débil**. La asistencia a clases está relacionada con el desempeño académico, pero de forma bastante más modesta que las horas de estudio.
+Se obtiene un coeficiente $\rho = 0.3515$ $(S = 2.7025e+16, p-valor < 0.001)$, lo que corresponde a una correlación positiva débil-moderada: la asistencia a clases está relacionada con el desempeño académico, pero de forma bastante más modesta que las horas de estudio.
 
 * `sleep_hours` vs `exam_score`
 
@@ -1768,7 +1251,7 @@ Se obtiene un coeficiente $\rho = 0.3515$ $(S = 2.7025\times 10^{16},\ p-valor <
 cor.test(trainset$sleep_hours, trainset$exam_score, method = "spearman", exact = FALSE)
 ```
 
-Se obtiene un coeficiente $\rho = 0.1600$ $(S = 3.5005\times 10^{16},\ p-valor < 0.001)$. Al caer en el rango de $-0,25$ a $0,25$, la tabla lo clasifica como **sin correlación o muy débil**: aunque el contraste resulta estadísticamente significativo, dormir más o menos horas prácticamente no se traduce en diferencias en el puntaje del examen.
+Se obtiene un coeficiente $\rho = 0.1600$ $(S = 3.5005e+16, p-valor < 0.001)$. Aunque estadísticamente significativa, la correlación es muy débil, casi nula en la práctica: dormir más o menos horas prácticamente no se traduce en diferencias en el puntaje del examen.
 
 * `age` vs `exam_score`
 
@@ -1776,8 +1259,7 @@ Se obtiene un coeficiente $\rho = 0.1600$ $(S = 3.5005\times 10^{16},\ p-valor <
 cor.test(trainset$age, trainset$exam_score, method = "spearman", exact = FALSE)
 ```
 
-Se obtiene un coeficiente $\rho = 0.0072$ $(S = 4.1376\times 10^{16},\ p-valor = 1.303\times 10^{-8})$, es decir, **sin correlación**. A pesar de que el tamaño de muestra hace que hasta un coeficiente tan pequeño resulte significativo, su valor es prácticamente cero: la edad del estudiante no tiene ninguna relación relevante con su desempeño en el examen, confirmando lo que ya se veía en el diagrama de dispersión del EDA.
+Se obtiene un coeficiente $\rho = 0.0072$ $(S = 4.1376e+16, p-valor = 1.303e-08)$. A pesar de que el tamaño de muestra hace que hasta esta correlación tan pequeña resulte "significativa", el coeficiente es prácticamente cero: la edad del estudiante no tiene ninguna relación relevante con su desempeño en el examen, confirmando lo que ya se veía en el diagrama de dispersión del EDA.
 
-Este es un buen ejemplo de la advertencia que hace el curso sobre el coeficiente de correlación: una correlación débil puede ser estadísticamente significativa y una fuerte puede no serlo, dependiendo del tamaño de muestra, la variabilidad y el poder de la prueba. Con 630.000 observaciones, la significancia estadística deja de ser informativa por sí sola y hay que apoyarse en la magnitud del coeficiente.
+En conjunto, de las cuatro variables numéricas independientes, `study_hours` es por mucho la que mejor se relaciona con `exam_score` (ρ = 0,77, correlación muy fuerte), seguida bastante más atrás por `class_attendance` (ρ = 0,35, débil-moderada). `sleep_hours` (ρ = 0,16) y `age` (ρ ≈ 0) prácticamente no aportan nada. Y comparando con las secciones anteriores, ninguna variable categórica (ni siquiera `sleep_quality` o `study_method`) se acerca a la fuerza de esta relación. Todo apunta a que `study_hours` va a ser el predictor más importante cuando lleguemos a la regresión lineal.
 
-En conjunto, de las cuatro variables numéricas independientes, `study_hours` es por mucho la que mejor se relaciona con `exam_score` ($\rho = 0,77$, correlación positiva muy fuerte), seguida bastante más atrás por `class_attendance` ($\rho = 0,35$, correlación positiva débil). `sleep_hours` ($\rho = 0,16$) y `age` ($\rho \approx 0$) prácticamente no aportan nada. Y comparando con las secciones anteriores, ninguna variable categórica (ni siquiera `sleep_quality` o `study_method`) se acerca a la fuerza de esta relación. Todo apunta a que `study_hours` va a ser el predictor más importante cuando lleguemos a la regresión lineal simple.

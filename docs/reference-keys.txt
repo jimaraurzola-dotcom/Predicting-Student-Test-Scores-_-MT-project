@@ -4,12 +4,6 @@ análisis-exploratorio-de-datos-eda
 análisis-exploratorio-de-exam_score-target
 análisis-de-las-variables-independientes-características
 análisis-exploratorio-bivariado
-anova-análisis-de-varianza
-el-modelo-y-las-hipótesis
-supuesto-de-normalidad
-supuesto-de-homogeneidad-de-varianzas
-se-puede-aplicar-el-anova
-verificación-del-teorema-de-descomposición
 análisis-de-estadística-paramétrica-y-no-paramétrica
 tabla-de-contingencia
-correlación-lineal
+correlación

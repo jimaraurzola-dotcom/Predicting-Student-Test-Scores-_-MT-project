@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Tabla de contingencia | Predicting Student Test Scores</title>
-  <meta name="description" content="5 Tabla de contingencia | Predicting Student Test Scores" />
-  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+  <title>4 Tabla de contingencia | Predicting Student Test Scores</title>
+  <meta name="description" content="4 Tabla de contingencia | Predicting Student Test Scores" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Tabla de contingencia | Predicting Student Test Scores" />
+  <meta property="og:title" content="4 Tabla de contingencia | Predicting Student Test Scores" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Tabla de contingencia | Predicting Student Test Scores" />
+  <meta name="twitter:title" content="4 Tabla de contingencia | Predicting Student Test Scores" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Jimara Urzola" />
 
 
-<meta name="date" content="2026-09-16" />
+<meta name="date" content="2026-09-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"/>
-<link rel="next" href="correlación-lineal.html"/>
+<link rel="next" href="correlación.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -147,17 +147,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-de-las-variables-independientes-caracter%C3%ADsticas"><i class="fa fa-check"></i><b>2.2</b> Análisis de las variables independientes (características)</a></li>
 <li class="chapter" data-level="2.3" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html#an%C3%A1lisis-exploratorio-bivariado"><i class="fa fa-check"></i><b>2.3</b> Análisis exploratorio bivariado</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html"><i class="fa fa-check"></i><b>3</b> ANOVA (análisis de varianza)</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#el-modelo-y-las-hip%C3%B3tesis"><i class="fa fa-check"></i><b>3.1</b> El modelo y las hipótesis</a></li>
-<li class="chapter" data-level="3.2" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#supuesto-de-normalidad"><i class="fa fa-check"></i><b>3.2</b> Supuesto de normalidad</a></li>
-<li class="chapter" data-level="3.3" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#supuesto-de-homogeneidad-de-varianzas"><i class="fa fa-check"></i><b>3.3</b> Supuesto de homogeneidad de varianzas</a></li>
-<li class="chapter" data-level="3.4" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#se-puede-aplicar-el-anova"><i class="fa fa-check"></i><b>3.4</b> ¿Se puede aplicar el ANOVA?</a></li>
-<li class="chapter" data-level="3.5" data-path="anova-análisis-de-varianza.html"><a href="anova-análisis-de-varianza.html#verificaci%C3%B3n-del-teorema-de-descomposici%C3%B3n"><i class="fa fa-check"></i><b>3.5</b> Verificación del teorema de descomposición</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>4</b> Análisis de estadística paramétrica y no paramétrica</a></li>
-<li class="chapter" data-level="5" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>5</b> Tabla de contingencia</a></li>
-<li class="chapter" data-level="6" data-path="correlación-lineal.html"><a href="correlación-lineal.html"><i class="fa fa-check"></i><b>6</b> Correlación lineal</a></li>
+<li class="chapter" data-level="3" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>3</b> Análisis de estadística paramétrica y no paramétrica</a></li>
+<li class="chapter" data-level="4" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>4</b> Tabla de contingencia</a></li>
+<li class="chapter" data-level="5" data-path="correlación.html"><a href="correlación.html"><i class="fa fa-check"></i><b>5</b> Correlación</a></li>
 </ul>
 
       </nav>
@@ -175,165 +167,75 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tabla-de-contingencia" class="section level1 hasAnchor" number="5">
-<h1><span class="header-section-number">5</span> Tabla de contingencia<a href="tabla-de-contingencia.html#tabla-de-contingencia" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Hasta ahora hemos comparado <code>exam_score</code> (numérica) entre los grupos de cada variable categórica. Una forma complementaria de explorar relaciones es a través de tablas de contingencia, que permiten estudiar la asociación entre dos variables categóricas usando la prueba <span class="math inline">\(\chi^2\)</span> de independencia.</p>
+<div id="tabla-de-contingencia" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Tabla de contingencia<a href="tabla-de-contingencia.html#tabla-de-contingencia" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Hasta ahora hemos comparado <code>exam_score</code> (numérica) entre los grupos de cada variable categórica. Una forma complementaria de explorar relaciones es a través de tablas de contingencia, que permiten estudiar la asociación entre dos variables categóricas usando la prueba χ² de independencia.</p>
 <p>Para conectar este análisis con la pregunta de investigación del proyecto, creamos una versión categórica de la variable respuesta: <code>resultado</code>, que clasifica a cada estudiante como <code>aprobado</code> (<code>exam_score &gt;= 60</code>) o <code>reprobado</code> (<code>exam_score &lt; 60</code>).</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="tabla-de-contingencia.html#cb188-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
-<span id="cb188-2"><a href="tabla-de-contingencia.html#cb188-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">ifelse</span>(exam_score <span class="sc">&gt;=</span> <span class="dv">60</span>, <span class="st">&quot;aprobado&quot;</span>, <span class="st">&quot;reprobado&quot;</span>))</span>
-<span id="cb188-3"><a href="tabla-de-contingencia.html#cb188-3" tabindex="-1"></a></span>
-<span id="cb188-4"><a href="tabla-de-contingencia.html#cb188-4" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb188-5"><a href="tabla-de-contingencia.html#cb188-5" tabindex="-1"></a>  <span class="fu">count</span>(resultado, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb188-6"><a href="tabla-de-contingencia.html#cb188-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="tabla-de-contingencia.html#cb112-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb112-2"><a href="tabla-de-contingencia.html#cb112-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">ifelse</span>(exam_score <span class="sc">&gt;=</span> <span class="dv">60</span>, <span class="st">&quot;aprobado&quot;</span>, <span class="st">&quot;reprobado&quot;</span>))</span>
+<span id="cb112-3"><a href="tabla-de-contingencia.html#cb112-3" tabindex="-1"></a></span>
+<span id="cb112-4"><a href="tabla-de-contingencia.html#cb112-4" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb112-5"><a href="tabla-de-contingencia.html#cb112-5" tabindex="-1"></a>  <span class="fu">count</span>(resultado, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb112-6"><a href="tabla-de-contingencia.html#cb112-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>##   resultado Frecuencia Porcentaje
 ## 1  aprobado     347803      55.21
 ## 2 reprobado     282197      44.79</code></pre>
-<p>El <span class="math inline">\(55,21\%\)</span> de los estudiantes aprueba (<code>exam_score &gt;= 60</code>) y el <span class="math inline">\(44,79\%\)</span> reprueba, una distribución razonablemente balanceada para el análisis.</p>
-<p>Como cada estudiante es una única unidad experimental clasificada simultáneamente según dos atributos, el contraste que corresponde es el de <strong>independencia</strong> y no el de homogeneidad. La hipótesis nula es entonces:</p>
-<p><span class="math display">\[
-H_0: \text{los dos atributos en la población son independientes,}
-\]</span></p>
-<p>es decir, <span class="math inline">\(p_{ij} = p_{i\cdot}\, p_{\cdot j}\)</span> para todo <span class="math inline">\(i\)</span> y todo <span class="math inline">\(j\)</span>, frente a la alternativa de que no lo son.</p>
-<p>A continuación, evaluamos si <code>resultado</code> está asociado con las dos variables categóricas que mostraron la mayor separación entre grupos en la sección anterior: <code>sleep_quality</code> y <code>study_method</code>.</p>
+<p>El 55,21% de los estudiantes aprueba (<code>exam_score &gt;= 60</code>) y el 44,79% reprueba, una distribución razonablemente balanceada para el análisis.</p>
+<p>A continuación, evaluamos si <code>resultado</code> está asociado con las dos variables categóricas que mostraron el mayor tamaño del efecto en la sección anterior: <code>sleep_quality</code> y <code>study_method</code>.</p>
 <ul>
 <li><code>resultado</code> vs <code>sleep_quality</code></li>
 </ul>
-<p>Construyamos la tabla de contingencia:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="tabla-de-contingencia.html#cb190-1" tabindex="-1"></a>observados_sq <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>sleep_quality)</span>
-<span id="cb190-2"><a href="tabla-de-contingencia.html#cb190-2" tabindex="-1"></a>observados_sq</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="tabla-de-contingencia.html#cb114-1" tabindex="-1"></a>tabla_resultado_sq <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>sleep_quality)</span>
+<span id="cb114-2"><a href="tabla-de-contingencia.html#cb114-2" tabindex="-1"></a>tabla_resultado_sq</span></code></pre></div>
 <pre><code>##            
 ##             average   good   poor
 ##   aprobado   111912 140482  95409
 ##   reprobado   91324  72607 118266</code></pre>
-<p>Calculemos los totales por fila, por columna y el total general:</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="tabla-de-contingencia.html#cb192-1" tabindex="-1"></a>fila_totales_sq <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observados_sq)</span>
-<span id="cb192-2"><a href="tabla-de-contingencia.html#cb192-2" tabindex="-1"></a>col_totales_sq <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observados_sq)</span>
-<span id="cb192-3"><a href="tabla-de-contingencia.html#cb192-3" tabindex="-1"></a>total_general_sq <span class="ot">&lt;-</span> <span class="fu">sum</span>(observados_sq)</span>
-<span id="cb192-4"><a href="tabla-de-contingencia.html#cb192-4" tabindex="-1"></a></span>
-<span id="cb192-5"><a href="tabla-de-contingencia.html#cb192-5" tabindex="-1"></a>fila_totales_sq</span></code></pre></div>
-<pre><code>##  aprobado reprobado 
-##    347803    282197</code></pre>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="tabla-de-contingencia.html#cb194-1" tabindex="-1"></a>col_totales_sq</span></code></pre></div>
-<pre><code>## average    good    poor 
-##  203236  213089  213675</code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="tabla-de-contingencia.html#cb196-1" tabindex="-1"></a>total_general_sq</span></code></pre></div>
-<pre><code>## [1] 630000</code></pre>
-<p>Ahora, hallemos las frecuencias esperadas bajo <span class="math inline">\(H_0\)</span>:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="tabla-de-contingencia.html#cb198-1" tabindex="-1"></a>esperados_sq <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila_totales_sq, col_totales_sq,</span>
-<span id="cb198-2"><a href="tabla-de-contingencia.html#cb198-2" tabindex="-1"></a>                   <span class="at">FUN =</span> <span class="cf">function</span>(f, c) f <span class="sc">*</span> c <span class="sc">/</span> total_general_sq)</span>
-<span id="cb198-3"><a href="tabla-de-contingencia.html#cb198-3" tabindex="-1"></a>esperados_sq</span></code></pre></div>
-<pre><code>##             average      good      poor
-## aprobado  112200.14 117639.67 117963.18
-## reprobado  91035.86  95449.33  95711.82</code></pre>
-<p>Verifiquemos el supuesto de la prueba: todas las frecuencias esperadas deben ser mayores o iguales a 5.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="tabla-de-contingencia.html#cb200-1" tabindex="-1"></a><span class="fu">min</span>(esperados_sq)</span></code></pre></div>
-<pre><code>## [1] 91035.86</code></pre>
-<p>La frecuencia esperada mínima es de 91.035,86, muy por encima de 5, por lo que se cumple el supuesto y la prueba <span class="math inline">\(\chi^2\)</span> es válida.</p>
-<p>Seguido, calculemos el estadístico <span class="math inline">\(\chi^2\)</span>:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="tabla-de-contingencia.html#cb202-1" tabindex="-1"></a>chi_cuadrado_sq <span class="ot">&lt;-</span> <span class="fu">sum</span>((observados_sq <span class="sc">-</span> esperados_sq)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperados_sq)</span>
-<span id="cb202-2"><a href="tabla-de-contingencia.html#cb202-2" tabindex="-1"></a>chi_cuadrado_sq</span></code></pre></div>
-<pre><code>## [1] 19530.58</code></pre>
-<p>Determinemos los grados de libertad:</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="tabla-de-contingencia.html#cb204-1" tabindex="-1"></a>gl_sq <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observados_sq) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observados_sq) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb204-2"><a href="tabla-de-contingencia.html#cb204-2" tabindex="-1"></a>gl_sq</span></code></pre></div>
-<pre><code>## [1] 2</code></pre>
-<p>Ahora, el valor crítico y la decisión al <span class="math inline">\(5\%\)</span>:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="tabla-de-contingencia.html#cb206-1" tabindex="-1"></a>alfa <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb206-2"><a href="tabla-de-contingencia.html#cb206-2" tabindex="-1"></a>valor_critico_sq <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alfa, gl_sq)</span>
-<span id="cb206-3"><a href="tabla-de-contingencia.html#cb206-3" tabindex="-1"></a>valor_critico_sq</span></code></pre></div>
-<pre><code>## [1] 5.991465</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="tabla-de-contingencia.html#cb208-1" tabindex="-1"></a><span class="co"># Comparación</span></span>
-<span id="cb208-2"><a href="tabla-de-contingencia.html#cb208-2" tabindex="-1"></a>rechaza_H0_sq <span class="ot">&lt;-</span> chi_cuadrado_sq <span class="sc">&gt;</span> valor_critico_sq</span>
-<span id="cb208-3"><a href="tabla-de-contingencia.html#cb208-3" tabindex="-1"></a>rechaza_H0_sq</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<p>Si calculamos el p-valor:</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="tabla-de-contingencia.html#cb210-1" tabindex="-1"></a>valor_p_sq <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_cuadrado_sq, gl_sq, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb210-2"><a href="tabla-de-contingencia.html#cb210-2" tabindex="-1"></a>valor_p_sq</span></code></pre></div>
-<pre><code>## [1] 0</code></pre>
-<p>Si usamos la función <code>chisq.test</code> del paquete <code>stats</code> nos queda:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="tabla-de-contingencia.html#cb212-1" tabindex="-1"></a><span class="fu">chisq.test</span>(observados_sq)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="tabla-de-contingencia.html#cb116-1" tabindex="-1"></a>chisq_sq <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_resultado_sq)</span>
+<span id="cb116-2"><a href="tabla-de-contingencia.html#cb116-2" tabindex="-1"></a>chisq_sq</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
-## data:  observados_sq
+## data:  tabla_resultado_sq
 ## X-squared = 19531, df = 2, p-value &lt; 2.2e-16</code></pre>
-<p>Como <span class="math inline">\(\chi^2 = 19531 &gt; \chi^2_{0.05} = 5.9915\)</span>, con una confianza del <span class="math inline">\(95\%\)</span> se rechaza <span class="math inline">\(H_0\)</span>: la prueba <span class="math inline">\(\chi^2\)</span> de independencia <span class="math inline">\((\chi^2_{(2)} = 19531,\ p-valor &lt; 0.001)\)</span> nos indica que <code>resultado</code> y <code>sleep_quality</code> no son independientes, es decir, existe asociación estadísticamente significativa entre la calidad del sueño y el hecho de aprobar o reprobar el examen.</p>
-<p>Calculemos la <span class="math inline">\(V\)</span> de Cramer para medir la fuerza de esa asociación:</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="tabla-de-contingencia.html#cb214-1" tabindex="-1"></a>k_sq <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(observados_sq) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(observados_sq) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb214-2"><a href="tabla-de-contingencia.html#cb214-2" tabindex="-1"></a>v_cramer_sq <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_cuadrado_sq <span class="sc">/</span> (total_general_sq <span class="sc">*</span> k_sq))</span>
-<span id="cb214-3"><a href="tabla-de-contingencia.html#cb214-3" tabindex="-1"></a>v_cramer_sq</span></code></pre></div>
-<pre><code>## [1] 0.1760708</code></pre>
-<p>La <span class="math inline">\(V\)</span> de Cramer obtenida es de 0,1761, lo que indica una asociación débil entre ambas variables.</p>
+<p>Antes de interpretar la prueba, verificamos el supuesto de χ²: todas las frecuencias esperadas deben ser mayores o iguales a 5.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="tabla-de-contingencia.html#cb118-1" tabindex="-1"></a><span class="fu">min</span>(chisq_sq<span class="sc">$</span>expected)</span></code></pre></div>
+<pre><code>## [1] 91035.86</code></pre>
+<p>La frecuencia esperada mínima es de 91.035,86, muy por encima de 5, por lo que se cumple el supuesto y la prueba χ² es válida.</p>
+<p>Con una confianza del 95%, la prueba χ² de independencia <span class="math inline">\((χ²₍₂₎ = 19531, p-valor &lt; 0.001)\)</span> nos indica que <code>resultado</code> y <code>sleep_quality</code> no son independientes; existe asociación estadísticamente significativa entre la calidad del sueño y el hecho de aprobar o reprobar el examen.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="tabla-de-contingencia.html#cb120-1" tabindex="-1"></a>k_sq <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(tabla_resultado_sq) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(tabla_resultado_sq) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb120-2"><a href="tabla-de-contingencia.html#cb120-2" tabindex="-1"></a>v_sq <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chisq_sq<span class="sc">$</span>statistic <span class="sc">/</span> (<span class="fu">sum</span>(tabla_resultado_sq) <span class="sc">*</span> k_sq))</span>
+<span id="cb120-3"><a href="tabla-de-contingencia.html#cb120-3" tabindex="-1"></a>v_sq</span></code></pre></div>
+<pre><code>## X-squared 
+## 0.1760708</code></pre>
+<p>La V de Cramer obtenida es de 0,1761, lo que indica una asociación débil entre ambas variables. Esto es consistente con el tamaño del efecto pequeño (η² = 0,0526) encontrado con Kruskal-Wallis en la sección anterior: la calidad del sueño está relacionada con el desempeño académico, pero de forma modesta.</p>
 <ul>
 <li><code>resultado</code> vs <code>study_method</code></li>
 </ul>
-<p>Construyamos la tabla de contingencia:</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="tabla-de-contingencia.html#cb216-1" tabindex="-1"></a>observados_sm <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>study_method)</span>
-<span id="cb216-2"><a href="tabla-de-contingencia.html#cb216-2" tabindex="-1"></a>observados_sm</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="tabla-de-contingencia.html#cb122-1" tabindex="-1"></a>tabla_resultado_sm <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>study_method)</span>
+<span id="cb122-2"><a href="tabla-de-contingencia.html#cb122-2" tabindex="-1"></a>tabla_resultado_sm</span></code></pre></div>
 <pre><code>##            
 ##             coaching group study mixed online videos self-study
 ##   aprobado     88790       63351 76249         59758      59655
 ##   reprobado    42907       59658 46837         61319      71476</code></pre>
-<p>Calculemos los totales por fila, por columna y el total general:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="tabla-de-contingencia.html#cb218-1" tabindex="-1"></a>fila_totales_sm <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observados_sm)</span>
-<span id="cb218-2"><a href="tabla-de-contingencia.html#cb218-2" tabindex="-1"></a>col_totales_sm <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observados_sm)</span>
-<span id="cb218-3"><a href="tabla-de-contingencia.html#cb218-3" tabindex="-1"></a>total_general_sm <span class="ot">&lt;-</span> <span class="fu">sum</span>(observados_sm)</span>
-<span id="cb218-4"><a href="tabla-de-contingencia.html#cb218-4" tabindex="-1"></a></span>
-<span id="cb218-5"><a href="tabla-de-contingencia.html#cb218-5" tabindex="-1"></a>fila_totales_sm</span></code></pre></div>
-<pre><code>##  aprobado reprobado 
-##    347803    282197</code></pre>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="tabla-de-contingencia.html#cb220-1" tabindex="-1"></a>col_totales_sm</span></code></pre></div>
-<pre><code>##      coaching   group study         mixed online videos    self-study 
-##        131697        123009        123086        121077        131131</code></pre>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="tabla-de-contingencia.html#cb222-1" tabindex="-1"></a>total_general_sm</span></code></pre></div>
-<pre><code>## [1] 630000</code></pre>
-<p>Ahora, hallemos las frecuencias esperadas bajo <span class="math inline">\(H_0\)</span>:</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="tabla-de-contingencia.html#cb224-1" tabindex="-1"></a>esperados_sm <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila_totales_sm, col_totales_sm,</span>
-<span id="cb224-2"><a href="tabla-de-contingencia.html#cb224-2" tabindex="-1"></a>                   <span class="at">FUN =</span> <span class="cf">function</span>(f, c) f <span class="sc">*</span> c <span class="sc">/</span> total_general_sm)</span>
-<span id="cb224-3"><a href="tabla-de-contingencia.html#cb224-3" tabindex="-1"></a>esperados_sm</span></code></pre></div>
-<pre><code>##           coaching group study    mixed online videos self-study
-## aprobado  72705.73    67909.36 67951.87      66842.77   72393.26
-## reprobado 58991.27    55099.64 55134.13      54234.23   58737.74</code></pre>
-<p>Verifiquemos el supuesto de la prueba: todas las frecuencias esperadas deben ser mayores o iguales a 5.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="tabla-de-contingencia.html#cb226-1" tabindex="-1"></a><span class="fu">min</span>(esperados_sm)</span></code></pre></div>
-<pre><code>## [1] 54234.23</code></pre>
-<p>La frecuencia esperada mínima es de 54.234,23, muy por encima de 5, por lo que se cumple el supuesto y la prueba <span class="math inline">\(\chi^2\)</span> es válida.</p>
-<p>Seguido, calculemos el estadístico <span class="math inline">\(\chi^2\)</span>:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="tabla-de-contingencia.html#cb228-1" tabindex="-1"></a>chi_cuadrado_sm <span class="ot">&lt;-</span> <span class="fu">sum</span>((observados_sm <span class="sc">-</span> esperados_sm)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperados_sm)</span>
-<span id="cb228-2"><a href="tabla-de-contingencia.html#cb228-2" tabindex="-1"></a>chi_cuadrado_sm</span></code></pre></div>
-<pre><code>## [1] 17568.86</code></pre>
-<p>Determinemos los grados de libertad:</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="tabla-de-contingencia.html#cb230-1" tabindex="-1"></a>gl_sm <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observados_sm) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observados_sm) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb230-2"><a href="tabla-de-contingencia.html#cb230-2" tabindex="-1"></a>gl_sm</span></code></pre></div>
-<pre><code>## [1] 4</code></pre>
-<p>Ahora, el valor crítico y la decisión al <span class="math inline">\(5\%\)</span>:</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="tabla-de-contingencia.html#cb232-1" tabindex="-1"></a>alfa <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb232-2"><a href="tabla-de-contingencia.html#cb232-2" tabindex="-1"></a>valor_critico_sm <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alfa, gl_sm)</span>
-<span id="cb232-3"><a href="tabla-de-contingencia.html#cb232-3" tabindex="-1"></a>valor_critico_sm</span></code></pre></div>
-<pre><code>## [1] 9.487729</code></pre>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="tabla-de-contingencia.html#cb234-1" tabindex="-1"></a><span class="co"># Comparación</span></span>
-<span id="cb234-2"><a href="tabla-de-contingencia.html#cb234-2" tabindex="-1"></a>rechaza_H0_sm <span class="ot">&lt;-</span> chi_cuadrado_sm <span class="sc">&gt;</span> valor_critico_sm</span>
-<span id="cb234-3"><a href="tabla-de-contingencia.html#cb234-3" tabindex="-1"></a>rechaza_H0_sm</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<p>Si calculamos el p-valor:</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="tabla-de-contingencia.html#cb236-1" tabindex="-1"></a>valor_p_sm <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_cuadrado_sm, gl_sm, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb236-2"><a href="tabla-de-contingencia.html#cb236-2" tabindex="-1"></a>valor_p_sm</span></code></pre></div>
-<pre><code>## [1] 0</code></pre>
-<p>Si usamos la función <code>chisq.test</code> del paquete <code>stats</code> nos queda:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="tabla-de-contingencia.html#cb238-1" tabindex="-1"></a><span class="fu">chisq.test</span>(observados_sm)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="tabla-de-contingencia.html#cb124-1" tabindex="-1"></a>chisq_sm <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla_resultado_sm)</span>
+<span id="cb124-2"><a href="tabla-de-contingencia.html#cb124-2" tabindex="-1"></a>chisq_sm</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
-## data:  observados_sm
+## data:  tabla_resultado_sm
 ## X-squared = 17569, df = 4, p-value &lt; 2.2e-16</code></pre>
-<p>Como <span class="math inline">\(\chi^2 = 17569 &gt; \chi^2_{0.05} = 9.4877\)</span>, con una confianza del <span class="math inline">\(95\%\)</span> se rechaza <span class="math inline">\(H_0\)</span>: la prueba <span class="math inline">\(\chi^2\)</span> de independencia <span class="math inline">\((\chi^2_{(4)} = 17569,\ p-valor &lt; 0.001)\)</span> nos indica que <code>resultado</code> y <code>study_method</code> no son independientes, es decir, existe asociación estadísticamente significativa entre el método de estudio y el hecho de aprobar o reprobar el examen.</p>
-<p>Calculemos la <span class="math inline">\(V\)</span> de Cramer para medir la fuerza de esa asociación:</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="tabla-de-contingencia.html#cb240-1" tabindex="-1"></a>k_sm <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(observados_sm) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(observados_sm) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb240-2"><a href="tabla-de-contingencia.html#cb240-2" tabindex="-1"></a>v_cramer_sm <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_cuadrado_sm <span class="sc">/</span> (total_general_sm <span class="sc">*</span> k_sm))</span>
-<span id="cb240-3"><a href="tabla-de-contingencia.html#cb240-3" tabindex="-1"></a>v_cramer_sm</span></code></pre></div>
-<pre><code>## [1] 0.1669942</code></pre>
-<p>La <span class="math inline">\(V\)</span> de Cramer obtenida es de 0,1670, lo que indica una asociación débil entre ambas variables.</p>
-<p>En conjunto, ambas pruebas <span class="math inline">\(\chi^2\)</span> resultan estadísticamente significativas, pero al igual que en la sección anterior, la <span class="math inline">\(V\)</span> de Cramer (<span class="math inline">\(\approx 0,17\)</span> en los dos casos) confirma que la asociación entre estas variables categóricas y el resultado del examen es real pero débil. Ninguna de las dos alcanza por sí sola para predecir con fuerza si un estudiante va a aprobar o no.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="tabla-de-contingencia.html#cb126-1" tabindex="-1"></a><span class="fu">min</span>(chisq_sm<span class="sc">$</span>expected)</span></code></pre></div>
+<pre><code>## [1] 54234.23</code></pre>
+<p>La frecuencia esperada mínima es de 54.234,23, también muy por encima de 5, por lo que se cumple el supuesto de la prueba χ².</p>
+<p>Con una confianza del 95%, la prueba χ² de independencia <span class="math inline">\((χ²₍₄₎ = 17569, p-valor &lt; 0.001)\)</span> nos indica que <code>resultado</code> y <code>study_method</code> tampoco son independientes.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="tabla-de-contingencia.html#cb128-1" tabindex="-1"></a>k_sm <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(tabla_resultado_sm) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(tabla_resultado_sm) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb128-2"><a href="tabla-de-contingencia.html#cb128-2" tabindex="-1"></a>v_sm <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chisq_sm<span class="sc">$</span>statistic <span class="sc">/</span> (<span class="fu">sum</span>(tabla_resultado_sm) <span class="sc">*</span> k_sm))</span>
+<span id="cb128-3"><a href="tabla-de-contingencia.html#cb128-3" tabindex="-1"></a>v_sm</span></code></pre></div>
+<pre><code>## X-squared 
+## 0.1669942</code></pre>
+<p>La V de Cramer para <code>study_method</code> es de 0,1670, prácticamente igual a la obtenida con <code>sleep_quality</code> (0,1761), lo que vuelve a confirmar una asociación débil.</p>
+<p>En conjunto, ambas pruebas χ² resultan estadísticamente significativas, pero al igual que con Kruskal-Wallis, el tamaño del efecto (V de Cramer ≈ 0,17 en los dos casos) confirma que la asociación entre estas variables categóricas y el resultado del examen (<code>resultado</code>) es real pero débil. Ninguna de las dos alcanza sola para predecir con fuerza si un estudiante va a aprobar o no.</p>
 </div>
             </section>
 
@@ -341,7 +243,7 @@ H_0: \text{los dos atributos en la población son independientes,}
         </div>
       </div>
 <a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="correlación-lineal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="correlación.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
