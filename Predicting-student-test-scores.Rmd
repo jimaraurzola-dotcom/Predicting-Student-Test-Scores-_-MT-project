@@ -866,6 +866,12 @@ trainset %>%
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los dos grupos analizados. En el caso de los estudiantes con acceso a internet $(D = 0.023561, p-valor < 0.001)$; mientras que para los estudiantes sin acceso a internet $(D = 0.027935, p-valor < 0.001)$.
 
+```{r}
+leveneTest(exam_score ~ internet_access, data = trainset, center = "median")
+```
+
+La prueba de Levene indica que, con una confianza del 95%, existe una diferencia estadísticamente significativa en la varianza de exam_score entre los estudiantes con y sin acceso a internet ($F_{(1, 629998)}$ = 60.968, p-valor menor a 0.001). Esto confirma que no se cumple el supuesto de homogeneidad de varianzas entre los dos grupos, lo cual refuerza — junto con la no normalidad ya confirmada por Lilliefors — la decisión de usar la prueba no paramétrica de Mann-Whitney-Wilcoxon en lugar de un t-test, ya que este último exige tanto normalidad como homogeneidad de varianzas para ser válido.
+
 
 ```{r, cache=TRUE}
 
@@ -890,6 +896,7 @@ gc()
 ```
 
 Con base en el resultado del tamaño del efecto $r$, se obtiene un valor estimado de 0.0028 (magnitud: pequeña), lo que indica un efecto prácticamente nulo. Esto indica que, aunque la diferencia es estadísticamente significativa, no es relevante desde el punto de vista práctico; El acceso a internet no parece tener una influencia considerable en el desempeño académico de los estudiantes.
+
 
 En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` según el acceso a internet, su magnitud es prácticamente nula, por lo que esta variable no representa un factor relevante para explicar el desempeño académico de los estudiantes. En otras palabras, el acceso a internet no parece influir de manera importante en el desempeño académico.
 
@@ -924,6 +931,14 @@ trainset %>%
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según género. Para el grupo "other" $(D = 0.025855, p-valor < 0.001)$; para el grupo masculino $(D = 0.021919, p-valor < 0.001)$; y para el grupo femenino $(D = 0.023756, p-valor < 0.001)$.
 
+
+```{r}
+leveneTest(exam_score ~ gender , data = trainset, center = "median")
+```
+La prueba de Levene indica que, con una confianza del 95%, existe una diferencia estadísticamente significativa en la varianza de `exam_score` entre los grupos de género ($F_{(2, 629997)}$ = 64.94, p-valor menor a 0.001). Esto confirma que no se cumple el supuesto de homogeneidad de varianzas entre los grupos, lo cual refuerza — junto con la no normalidad ya confirmada por Lilliefors — la decisión de usar la prueba no paramétrica de Kruskal-Wallis en lugar de ANOVA, ya que este último exige tanto normalidad como homogeneidad de varianzas para ser válido.
+
+
+
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ gender, data = trainset)
 ```
@@ -943,6 +958,14 @@ gc()
 
 
 Con base en el resultado del tamaño del efecto $(η² = 0.000126, magnitud: pequeña)$, se obtiene un valor prácticamente nulo. Esto indica que, aunque la diferencia entre los grupos de género es estadísticamente significativa, no es relevante desde el punto de vista práctico — el género explica una proporción mínima de la variabilidad en el puntaje del examen, por lo que no parece ser un factor determinante en el desempeño académico de los estudiantes.
+
+```{r}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$gender,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
 
 En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` entre los grupos de género, su magnitud es prácticamente nula, por lo que el género no representa un factor relevante para explicar el desempeño académico de los estudiantes. En otras palabras, el género no genera diferencias importantes en el desempeño académico.
 
@@ -969,6 +992,13 @@ trainset %>%
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguno de los tres grupos analizados según calidad del sueño. Para el grupo "average" $(D = 0.024268, p-valor < 0.001)$; para el grupo "good" $(D = 0.038146, p-valor < 0.001)$; y para el grupo "poor" $(D = 0.021183, p-valor < 0.001)$.
 
+
+```{r}
+leveneTest(exam_score ~ sleep_quality , data = trainset, center = "median")
+```
+La prueba de Levene indica que, con una confianza del 95%, existe una diferencia estadísticamente significativa en la varianza de `exam_score` entre los grupos de calidad del sueño ($F_{(2, 629997)}$ = 85.1, p-valor menor a 0.001). Esto confirma que no se cumple el supuesto de homogeneidad de varianzas entre los grupos, lo cual refuerza — junto con la no normalidad ya confirmada por Lilliefors — la decisión de usar la prueba no paramétrica de Kruskal-Wallis en lugar de ANOVA, ya que este último exige tanto normalidad como homogeneidad de varianzas para ser válido.
+
+
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ sleep_quality, data = trainset)
 ```
@@ -987,6 +1017,14 @@ gc()
 
 Con base en el resultado del tamaño del efecto $(η² = 0,0526, magnitud: pequeña$, se obtiene un valor considerablemente mayor al observado en `internet_access` (0,0028) y `gender` (0,000126). Esto indica que la calidad del sueño explica una proporción algo mayor de la variabilidad en el puntaje del examen en comparación con las otras variables categóricas analizadas hasta ahora.
 
+```{r}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$sleep_quality,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
+
 En conjunto, estos resultados indican que existe una diferencia estadísticamente significativa en `exam_score` entre los grupos de calidad del sueño, con un tamaño del efecto mayor al de las variables anteriores, aunque aún clasificado como pequeño. En otras palabras, la calidad del sueño sí se relaciona con el desempeño académico, aunque de forma modesta.
 
 
@@ -1004,6 +1042,14 @@ trainset %>%
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las tres categorías de calificación de instalaciones. Para `high` $(D = 0.0362, p-valor < 0.001)$; para `low` $(D = 0.0207, p-valor < 0.001)$; y para `medium` $(D = 0.0236, p-valor < 0.001)$.
 
+```{r}
+leveneTest(exam_score ~ facility_rating , data = trainset, center = "median")
+```
+
+La prueba de Levene indica que, con una confianza del 95%, existe una diferencia estadísticamente significativa en la varianza de `exam_score` entre los grupos de calificación de instalaciones ($F_{(2, 629997)}$ = 3.9771, p-valor = 0.01874). Esto confirma que no se cumple el supuesto de homogeneidad de varianzas entre los grupos, lo cual refuerza — junto con la no normalidad ya confirmada por Lilliefors — la decisión de usar la prueba no paramétrica de Kruskal-Wallis en lugar de ANOVA, ya que este último exige tanto normalidad como homogeneidad de varianzas para ser válido.
+
+
+
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ facility_rating, data = trainset)
 ```
@@ -1016,6 +1062,14 @@ trainset %>%
 ```
 
 Con base en el resultado del tamaño del efecto $(η² = 0,0328, magnitud: pequeña)$, se obtiene un valor intermedio entre lo observado en `study_method` (que veremos a continuación) y variables como `gender` o `internet_access`. Esto sugiere que la calidad de las instalaciones tiene alguna influencia sobre el desempeño académico, aunque, al igual que las demás variables categóricas, su efecto práctico sigue siendo pequeño.
+
+```{r}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$facility_rating,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
 
 En conjunto, estos resultados indican que existe una diferencia estadísticamente significativa en `exam_score` según `facility_rating`, con un tamaño del efecto pequeño, similar en orden de magnitud al de `sleep_quality`. En otras palabras, la calificación de las instalaciones sí está relacionada con el desempeño académico, aunque de forma limitada.
 
@@ -1035,6 +1089,16 @@ trainset %>%
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las tres categorías de dificultad del examen. Para `easy` $(D = 0.0217, p-valor < 0.001)$; para `hard` $(D = 0.0255, p-valor < 0.001)$; y para `moderate` $(D = 0.0243, p-valor < 0.001)$.
 
+
+
+```{r}
+leveneTest(exam_score ~ exam_difficulty , data = trainset, center = "median")
+```
+
+La prueba de Levene indica que, con una confianza del 95%, existe una diferencia estadísticamente significativa en la varianza de `exam_score` entre los grupos de dificultad del examen ($F_{(2, 629997)}$ = 50.325, p-valor menor a 0.001). Esto confirma que no se cumple el supuesto de homogeneidad de varianzas entre los grupos, lo cual refuerza — junto con la no normalidad ya confirmada por Lilliefors — la decisión de usar la prueba no paramétrica de Kruskal-Wallis en lugar de ANOVA, ya que este último exige tanto normalidad como homogeneidad de varianzas para ser válido.
+
+
+
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ exam_difficulty, data = trainset)
 ```
@@ -1047,6 +1111,14 @@ trainset %>%
 ```
 
 Con base en el resultado del tamaño del efecto $(η² = 0,0000825, magnitud: pequeña)$, se obtiene el valor más bajo de todas las variables categóricas analizadas hasta ahora, incluso menor que `gender` (0,000126). Esto indica que la dificultad percibida del examen prácticamente no explica variabilidad alguna en `exam_score`.
+
+```{r}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$exam_difficulty,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
 
 En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` según `exam_difficulty`, su magnitud es prácticamente nula, por lo que esta variable no representa un factor relevante para explicar el desempeño académico de los estudiantes. En otras palabras, la dificultad percibida del examen no afecta de manera importante la calificación obtenida.
 
@@ -1065,6 +1137,13 @@ trainset %>%
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las cinco categorías de método de estudio. Para `coaching` $(D = 0.0478, p-valor < 0.001)$; para `group study` $(D = 0.0199, p-valor < 0.001)$; para `mixed` $(D = 0.0317, p-valor < 0.001)$; para `online videos` $(D = 0.0238, p-valor < 0.001)$; y para `self-study` $(D = 0.0258, p-valor < 0.001)$.
 
+```{r}
+leveneTest(exam_score ~ study_method , data = trainset, center = "median")
+```
+La prueba de Levene indica que, con una confianza del 95%, existe una diferencia estadísticamente significativa en la varianza de exam_score entre los grupos de método de estudio ($F_{(4, 629995)}$ = 63.867, p-valor menor a 0.001). Esto confirma que no se cumple el supuesto de homogeneidad de varianzas entre los grupos, lo cual refuerza — junto con la no normalidad ya confirmada por Lilliefors — la decisión de usar la prueba no paramétrica de Kruskal-Wallis en lugar de ANOVA, ya que este último exige tanto normalidad como homogeneidad de varianzas para ser válido.
+
+
+
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ study_method, data = trainset)
 ```
@@ -1077,6 +1156,14 @@ trainset %>%
 ```
 
 Con base en el resultado del tamaño del efecto $(η² = 0,0469, magnitud: pequeña)$, se obtiene el segundo valor más alto entre todas las variables categóricas analizadas, muy cerca del observado en `sleep_quality` (0,0526) y por encima de `facility_rating` (0,0328). Esto sugiere que el método de estudio, junto con la calidad del sueño, es de las variables categóricas con mayor relación (aunque todavía modesta) con el desempeño académico.
+
+```{r}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$study_method,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
 
 En conjunto, estos resultados indican que existe una diferencia estadísticamente significativa en exam_score según study_method, con un tamaño del efecto pequeño pero comparativamente de los más altos entre las variables categóricas del dataset. En otras palabras, el método de estudio sí influye en el desempeño académico, siendo una de las variables más relevantes encontradas.
 
@@ -1095,6 +1182,14 @@ trainset %>%
 
 La prueba de Lilliefors muestra que el puntaje del examen `exam_score` no presenta un comportamiento normal en ninguna de las siete categorías de programa académico (en todos los casos $p-valor < 0.001$).
 
+
+```{r}
+leveneTest(exam_score ~ course , data = trainset, center = "median")
+```
+
+La prueba de Levene indica que, con una confianza del 95%, existe una diferencia estadísticamente significativa en la varianza de `exam_score` entre los grupos de programa académico ($F_{(6, 629993)}$ = 49.585, p-valor menor a 0.001). Esto confirma que no se cumple el supuesto de homogeneidad de varianzas entre los grupos, lo cual refuerza — junto con la no normalidad ya confirmada por Lilliefors — la decisión de usar la prueba no paramétrica de Kruskal-Wallis en lugar de ANOVA, ya que este último exige tanto normalidad como homogeneidad de varianzas para ser válido.
+
+
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ course, data = trainset)
 ```
@@ -1107,6 +1202,16 @@ trainset %>%
 ```
 
 Con base en el resultado del tamaño del efecto $(η² = 0,000307, magnitud: pequeña)$, se obtiene un valor prácticamente nulo, similar al de `gender` y muy por debajo del de `sleep_quality` o `study_method`. Esto indica que el programa académico que cursa el estudiante no explica una proporción relevante de la variabilidad en `exam_score`.
+
+
+```{r}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$course,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
+
 
 En conjunto, estos resultados indican que, si bien existe una diferencia estadísticamente significativa en `exam_score` según `course`, su magnitud es prácticamente nula, por lo que esta variable no representa un factor relevante para explicar el desempeño académico de los estudiantes. En otras palabras, el programa académico no se relaciona de manera importante con el desempeño de los estudiantes.
 

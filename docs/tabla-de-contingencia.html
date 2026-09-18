@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 Tabla de contingencia | Predicting Student Test Scores</title>
   <meta name="description" content="4 Tabla de contingencia | Predicting Student Test Scores" />
-  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 Tabla de contingencia | Predicting Student Test Scores" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jimara Urzola" />
 
 
-<meta name="date" content="2026-09-17" />
+<meta name="date" content="2026-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,12 +171,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="tabla-de-contingencia" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Tabla de contingencia<a href="tabla-de-contingencia.html#tabla-de-contingencia" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Para estudiar la asociación entre dos variables categóricas creamos <code>resultado</code>, que clasifica a cada estudiante como <code>aprobado</code> (<code>exam_score &gt;= 60</code>) o <code>reprobado</code>.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="tabla-de-contingencia.html#cb120-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
-<span id="cb120-2"><a href="tabla-de-contingencia.html#cb120-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">ifelse</span>(exam_score <span class="sc">&gt;=</span> <span class="dv">60</span>, <span class="st">&quot;aprobado&quot;</span>, <span class="st">&quot;reprobado&quot;</span>))</span>
-<span id="cb120-3"><a href="tabla-de-contingencia.html#cb120-3" tabindex="-1"></a></span>
-<span id="cb120-4"><a href="tabla-de-contingencia.html#cb120-4" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb120-5"><a href="tabla-de-contingencia.html#cb120-5" tabindex="-1"></a>  <span class="fu">count</span>(resultado, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb120-6"><a href="tabla-de-contingencia.html#cb120-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="tabla-de-contingencia.html#cb145-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
+<span id="cb145-2"><a href="tabla-de-contingencia.html#cb145-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">resultado =</span> <span class="fu">ifelse</span>(exam_score <span class="sc">&gt;=</span> <span class="dv">60</span>, <span class="st">&quot;aprobado&quot;</span>, <span class="st">&quot;reprobado&quot;</span>))</span>
+<span id="cb145-3"><a href="tabla-de-contingencia.html#cb145-3" tabindex="-1"></a></span>
+<span id="cb145-4"><a href="tabla-de-contingencia.html#cb145-4" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb145-5"><a href="tabla-de-contingencia.html#cb145-5" tabindex="-1"></a>  <span class="fu">count</span>(resultado, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb145-6"><a href="tabla-de-contingencia.html#cb145-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Porcentaje =</span> <span class="fu">round</span>(Frecuencia <span class="sc">/</span> <span class="fu">sum</span>(Frecuencia) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>))</span></code></pre></div>
 <pre><code>##   resultado Frecuencia Porcentaje
 ## 1  aprobado     347803      55.21
 ## 2 reprobado     282197      44.79</code></pre>
@@ -188,92 +188,92 @@ H_0: \text{los dos atributos son independientes} \quad vs \quad H_1: \text{no lo
 <ul>
 <li><code>resultado</code> vs <code>sleep_quality</code></li>
 </ul>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="tabla-de-contingencia.html#cb122-1" tabindex="-1"></a>observados <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>sleep_quality)</span>
-<span id="cb122-2"><a href="tabla-de-contingencia.html#cb122-2" tabindex="-1"></a>observados</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="tabla-de-contingencia.html#cb147-1" tabindex="-1"></a>observados <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>sleep_quality)</span>
+<span id="cb147-2"><a href="tabla-de-contingencia.html#cb147-2" tabindex="-1"></a>observados</span></code></pre></div>
 <pre><code>##            
 ##             average   good   poor
 ##   aprobado   111912 140482  95409
 ##   reprobado   91324  72607 118266</code></pre>
 <p>Hallemos los totales y los valores esperados:</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="tabla-de-contingencia.html#cb124-1" tabindex="-1"></a>fila_totales <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observados)</span>
-<span id="cb124-2"><a href="tabla-de-contingencia.html#cb124-2" tabindex="-1"></a>col_totales <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observados)</span>
-<span id="cb124-3"><a href="tabla-de-contingencia.html#cb124-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(observados)</span>
-<span id="cb124-4"><a href="tabla-de-contingencia.html#cb124-4" tabindex="-1"></a></span>
-<span id="cb124-5"><a href="tabla-de-contingencia.html#cb124-5" tabindex="-1"></a>esperados <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila_totales, col_totales) <span class="sc">/</span> n</span>
-<span id="cb124-6"><a href="tabla-de-contingencia.html#cb124-6" tabindex="-1"></a>esperados</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="tabla-de-contingencia.html#cb149-1" tabindex="-1"></a>fila_totales <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observados)</span>
+<span id="cb149-2"><a href="tabla-de-contingencia.html#cb149-2" tabindex="-1"></a>col_totales <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observados)</span>
+<span id="cb149-3"><a href="tabla-de-contingencia.html#cb149-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(observados)</span>
+<span id="cb149-4"><a href="tabla-de-contingencia.html#cb149-4" tabindex="-1"></a></span>
+<span id="cb149-5"><a href="tabla-de-contingencia.html#cb149-5" tabindex="-1"></a>esperados <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila_totales, col_totales) <span class="sc">/</span> n</span>
+<span id="cb149-6"><a href="tabla-de-contingencia.html#cb149-6" tabindex="-1"></a>esperados</span></code></pre></div>
 <pre><code>##             average      good      poor
 ## aprobado  112200.14 117639.67 117963.18
 ## reprobado  91035.86  95449.33  95711.82</code></pre>
 <p>Todos los esperados son mayores que 5, así que la prueba es válida. Calculemos el estadístico, los grados de libertad, el valor crítico y el p-valor:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="tabla-de-contingencia.html#cb126-1" tabindex="-1"></a>chi_cuadrado <span class="ot">&lt;-</span> <span class="fu">sum</span>((observados <span class="sc">-</span> esperados)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperados)</span>
-<span id="cb126-2"><a href="tabla-de-contingencia.html#cb126-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb126-3"><a href="tabla-de-contingencia.html#cb126-3" tabindex="-1"></a></span>
-<span id="cb126-4"><a href="tabla-de-contingencia.html#cb126-4" tabindex="-1"></a>alfa <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb126-5"><a href="tabla-de-contingencia.html#cb126-5" tabindex="-1"></a>valor_critico <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alfa, df)</span>
-<span id="cb126-6"><a href="tabla-de-contingencia.html#cb126-6" tabindex="-1"></a>valor_p <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_cuadrado, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb126-7"><a href="tabla-de-contingencia.html#cb126-7" tabindex="-1"></a></span>
-<span id="cb126-8"><a href="tabla-de-contingencia.html#cb126-8" tabindex="-1"></a>chi_cuadrado</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="tabla-de-contingencia.html#cb151-1" tabindex="-1"></a>chi_cuadrado <span class="ot">&lt;-</span> <span class="fu">sum</span>((observados <span class="sc">-</span> esperados)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperados)</span>
+<span id="cb151-2"><a href="tabla-de-contingencia.html#cb151-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb151-3"><a href="tabla-de-contingencia.html#cb151-3" tabindex="-1"></a></span>
+<span id="cb151-4"><a href="tabla-de-contingencia.html#cb151-4" tabindex="-1"></a>alfa <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb151-5"><a href="tabla-de-contingencia.html#cb151-5" tabindex="-1"></a>valor_critico <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alfa, df)</span>
+<span id="cb151-6"><a href="tabla-de-contingencia.html#cb151-6" tabindex="-1"></a>valor_p <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_cuadrado, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb151-7"><a href="tabla-de-contingencia.html#cb151-7" tabindex="-1"></a></span>
+<span id="cb151-8"><a href="tabla-de-contingencia.html#cb151-8" tabindex="-1"></a>chi_cuadrado</span></code></pre></div>
 <pre><code>## [1] 19530.58</code></pre>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="tabla-de-contingencia.html#cb128-1" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="tabla-de-contingencia.html#cb153-1" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="tabla-de-contingencia.html#cb130-1" tabindex="-1"></a>valor_critico</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="tabla-de-contingencia.html#cb155-1" tabindex="-1"></a>valor_critico</span></code></pre></div>
 <pre><code>## [1] 5.991465</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="tabla-de-contingencia.html#cb132-1" tabindex="-1"></a>valor_p</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="tabla-de-contingencia.html#cb157-1" tabindex="-1"></a>valor_p</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Con la función <code>chisq.test</code> nos queda:</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="tabla-de-contingencia.html#cb134-1" tabindex="-1"></a><span class="fu">chisq.test</span>(observados)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="tabla-de-contingencia.html#cb159-1" tabindex="-1"></a><span class="fu">chisq.test</span>(observados)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  observados
 ## X-squared = 19531, df = 2, p-value &lt; 2.2e-16</code></pre>
 <p>Como <span class="math inline">\(\chi^2 = 19531 &gt; \chi^2_{0.05} = 5{,}99\)</span>, con una confianza del 95% se rechaza <span class="math inline">\(H_0\)</span>: <code>resultado</code> y <code>sleep_quality</code> no son independientes <span class="math inline">\((\chi^2_{(2)} = 19531,\ p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="tabla-de-contingencia.html#cb136-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb136-2"><a href="tabla-de-contingencia.html#cb136-2" tabindex="-1"></a>v_cramer <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_cuadrado <span class="sc">/</span> (n <span class="sc">*</span> k))</span>
-<span id="cb136-3"><a href="tabla-de-contingencia.html#cb136-3" tabindex="-1"></a>v_cramer</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="tabla-de-contingencia.html#cb161-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb161-2"><a href="tabla-de-contingencia.html#cb161-2" tabindex="-1"></a>v_cramer <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_cuadrado <span class="sc">/</span> (n <span class="sc">*</span> k))</span>
+<span id="cb161-3"><a href="tabla-de-contingencia.html#cb161-3" tabindex="-1"></a>v_cramer</span></code></pre></div>
 <pre><code>## [1] 0.1760708</code></pre>
 <p>La V de Cramer es 0,176, es decir, la asociación existe pero es débil.</p>
 <ul>
 <li><code>resultado</code> vs <code>study_method</code></li>
 </ul>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="tabla-de-contingencia.html#cb138-1" tabindex="-1"></a>observados <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>study_method)</span>
-<span id="cb138-2"><a href="tabla-de-contingencia.html#cb138-2" tabindex="-1"></a>observados</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="tabla-de-contingencia.html#cb163-1" tabindex="-1"></a>observados <span class="ot">&lt;-</span> <span class="fu">table</span>(trainset<span class="sc">$</span>resultado, trainset<span class="sc">$</span>study_method)</span>
+<span id="cb163-2"><a href="tabla-de-contingencia.html#cb163-2" tabindex="-1"></a>observados</span></code></pre></div>
 <pre><code>##            
 ##             coaching group study mixed online videos self-study
 ##   aprobado     88790       63351 76249         59758      59655
 ##   reprobado    42907       59658 46837         61319      71476</code></pre>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="tabla-de-contingencia.html#cb140-1" tabindex="-1"></a>fila_totales <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observados)</span>
-<span id="cb140-2"><a href="tabla-de-contingencia.html#cb140-2" tabindex="-1"></a>col_totales <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observados)</span>
-<span id="cb140-3"><a href="tabla-de-contingencia.html#cb140-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(observados)</span>
-<span id="cb140-4"><a href="tabla-de-contingencia.html#cb140-4" tabindex="-1"></a></span>
-<span id="cb140-5"><a href="tabla-de-contingencia.html#cb140-5" tabindex="-1"></a>esperados <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila_totales, col_totales) <span class="sc">/</span> n</span>
-<span id="cb140-6"><a href="tabla-de-contingencia.html#cb140-6" tabindex="-1"></a>esperados</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="tabla-de-contingencia.html#cb165-1" tabindex="-1"></a>fila_totales <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observados)</span>
+<span id="cb165-2"><a href="tabla-de-contingencia.html#cb165-2" tabindex="-1"></a>col_totales <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observados)</span>
+<span id="cb165-3"><a href="tabla-de-contingencia.html#cb165-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(observados)</span>
+<span id="cb165-4"><a href="tabla-de-contingencia.html#cb165-4" tabindex="-1"></a></span>
+<span id="cb165-5"><a href="tabla-de-contingencia.html#cb165-5" tabindex="-1"></a>esperados <span class="ot">&lt;-</span> <span class="fu">outer</span>(fila_totales, col_totales) <span class="sc">/</span> n</span>
+<span id="cb165-6"><a href="tabla-de-contingencia.html#cb165-6" tabindex="-1"></a>esperados</span></code></pre></div>
 <pre><code>##           coaching group study    mixed online videos self-study
 ## aprobado  72705.73    67909.36 67951.87      66842.77   72393.26
 ## reprobado 58991.27    55099.64 55134.13      54234.23   58737.74</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="tabla-de-contingencia.html#cb142-1" tabindex="-1"></a>chi_cuadrado <span class="ot">&lt;-</span> <span class="fu">sum</span>((observados <span class="sc">-</span> esperados)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperados)</span>
-<span id="cb142-2"><a href="tabla-de-contingencia.html#cb142-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb142-3"><a href="tabla-de-contingencia.html#cb142-3" tabindex="-1"></a></span>
-<span id="cb142-4"><a href="tabla-de-contingencia.html#cb142-4" tabindex="-1"></a>valor_critico <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alfa, df)</span>
-<span id="cb142-5"><a href="tabla-de-contingencia.html#cb142-5" tabindex="-1"></a>valor_p <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_cuadrado, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb142-6"><a href="tabla-de-contingencia.html#cb142-6" tabindex="-1"></a></span>
-<span id="cb142-7"><a href="tabla-de-contingencia.html#cb142-7" tabindex="-1"></a>chi_cuadrado</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="tabla-de-contingencia.html#cb167-1" tabindex="-1"></a>chi_cuadrado <span class="ot">&lt;-</span> <span class="fu">sum</span>((observados <span class="sc">-</span> esperados)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperados)</span>
+<span id="cb167-2"><a href="tabla-de-contingencia.html#cb167-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb167-3"><a href="tabla-de-contingencia.html#cb167-3" tabindex="-1"></a></span>
+<span id="cb167-4"><a href="tabla-de-contingencia.html#cb167-4" tabindex="-1"></a>valor_critico <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alfa, df)</span>
+<span id="cb167-5"><a href="tabla-de-contingencia.html#cb167-5" tabindex="-1"></a>valor_p <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_cuadrado, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb167-6"><a href="tabla-de-contingencia.html#cb167-6" tabindex="-1"></a></span>
+<span id="cb167-7"><a href="tabla-de-contingencia.html#cb167-7" tabindex="-1"></a>chi_cuadrado</span></code></pre></div>
 <pre><code>## [1] 17568.86</code></pre>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="tabla-de-contingencia.html#cb144-1" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="tabla-de-contingencia.html#cb169-1" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="tabla-de-contingencia.html#cb146-1" tabindex="-1"></a>valor_critico</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="tabla-de-contingencia.html#cb171-1" tabindex="-1"></a>valor_critico</span></code></pre></div>
 <pre><code>## [1] 9.487729</code></pre>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="tabla-de-contingencia.html#cb148-1" tabindex="-1"></a>valor_p</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="tabla-de-contingencia.html#cb173-1" tabindex="-1"></a>valor_p</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="tabla-de-contingencia.html#cb150-1" tabindex="-1"></a><span class="fu">chisq.test</span>(observados)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="tabla-de-contingencia.html#cb175-1" tabindex="-1"></a><span class="fu">chisq.test</span>(observados)</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test
 ## 
 ## data:  observados
 ## X-squared = 17569, df = 4, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="tabla-de-contingencia.html#cb152-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb152-2"><a href="tabla-de-contingencia.html#cb152-2" tabindex="-1"></a>v_cramer <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_cuadrado <span class="sc">/</span> (n <span class="sc">*</span> k))</span>
-<span id="cb152-3"><a href="tabla-de-contingencia.html#cb152-3" tabindex="-1"></a>v_cramer</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="tabla-de-contingencia.html#cb177-1" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">nrow</span>(observados) <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">ncol</span>(observados) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb177-2"><a href="tabla-de-contingencia.html#cb177-2" tabindex="-1"></a>v_cramer <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_cuadrado <span class="sc">/</span> (n <span class="sc">*</span> k))</span>
+<span id="cb177-3"><a href="tabla-de-contingencia.html#cb177-3" tabindex="-1"></a>v_cramer</span></code></pre></div>
 <pre><code>## [1] 0.1669942</code></pre>
 <p>También se rechaza <span class="math inline">\(H_0\)</span> <span class="math inline">\((\chi^2_{(4)} = 17569,\ p-valor &lt; 0.001)\)</span>, con una V de Cramer de 0,167. En los dos casos la asociación es estadísticamente significativa pero débil: ninguna de las dos variables alcanza sola para predecir si un estudiante aprueba.</p>
 </div>
