@@ -1,6 +1,6 @@
 ---
 title: "Predicting Student Test Scores"
-author: "Jimara Urzola"
+author: "Jimara Urzola y Jose Castro"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook

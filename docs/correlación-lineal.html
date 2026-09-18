@@ -20,7 +20,7 @@
   
   
 
-<meta name="author" content="Jimara Urzola" />
+<meta name="author" content="Jimara Urzola y Jose Castro" />
 
 
 <meta name="date" content="2026-09-18" />
@@ -172,25 +172,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">5</span> Correlación lineal<a href="correlación-lineal.html#correlaci%C3%B3n-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>En el EDA vimos que <code>study_hours</code> y <code>class_attendance</code> parecían tener relación positiva con <code>exam_score</code>, mientras que <code>age</code> y <code>sleep_hours</code> no mostraban un patrón claro. Aquí cuantificamos esas relaciones.</p>
 <p>El coeficiente de Pearson exige normalidad, así que primero la verificamos. Por el tamaño de muestra (630.000) descartamos Shapiro-Wilk y usamos Lilliefors:</p>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="correlación-lineal.html#cb179-1" tabindex="-1"></a><span class="fu">lillie.test</span>(trainset<span class="sc">$</span>study_hours)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="correlación-lineal.html#cb175-1" tabindex="-1"></a><span class="fu">lillie.test</span>(trainset<span class="sc">$</span>study_hours)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  trainset$study_hours
 ## D = 0.062765, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="correlación-lineal.html#cb181-1" tabindex="-1"></a><span class="fu">lillie.test</span>(trainset<span class="sc">$</span>class_attendance)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="correlación-lineal.html#cb177-1" tabindex="-1"></a><span class="fu">lillie.test</span>(trainset<span class="sc">$</span>class_attendance)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  trainset$class_attendance
 ## D = 0.061114, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="correlación-lineal.html#cb183-1" tabindex="-1"></a><span class="fu">lillie.test</span>(trainset<span class="sc">$</span>sleep_hours)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="correlación-lineal.html#cb179-1" tabindex="-1"></a><span class="fu">lillie.test</span>(trainset<span class="sc">$</span>sleep_hours)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
 ## data:  trainset$sleep_hours
 ## D = 0.0738, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="correlación-lineal.html#cb185-1" tabindex="-1"></a><span class="fu">lillie.test</span>(trainset<span class="sc">$</span>age)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="correlación-lineal.html#cb181-1" tabindex="-1"></a><span class="fu">lillie.test</span>(trainset<span class="sc">$</span>age)</span></code></pre></div>
 <pre><code>## 
 ##  Lilliefors (Kolmogorov-Smirnov) normality test
 ## 
@@ -200,7 +200,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>study_hours</code> vs <code>exam_score</code></li>
 </ul>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="correlación-lineal.html#cb187-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>study_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="correlación-lineal.html#cb183-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>study_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
@@ -214,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>class_attendance</code> vs <code>exam_score</code></li>
 </ul>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="correlación-lineal.html#cb189-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>class_attendance, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="correlación-lineal.html#cb185-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>class_attendance, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
@@ -228,7 +228,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>sleep_hours</code> vs <code>exam_score</code></li>
 </ul>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="correlación-lineal.html#cb191-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>sleep_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="correlación-lineal.html#cb187-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>sleep_hours, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
@@ -242,7 +242,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li><code>age</code> vs <code>exam_score</code></li>
 </ul>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="correlación-lineal.html#cb193-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>age, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="correlación-lineal.html#cb189-1" tabindex="-1"></a><span class="fu">cor.test</span>(trainset<span class="sc">$</span>age, trainset<span class="sc">$</span>exam_score, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
