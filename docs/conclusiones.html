@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 Conclusiones | Predicting Student Test Scores</title>
   <meta name="description" content="6 Conclusiones | Predicting Student Test Scores" />
-  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 Conclusiones | Predicting Student Test Scores" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jimara Urzola y Jose Castro" />
 
 
-<meta name="date" content="2026-09-18" />
+<meta name="date" content="2026-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,12 +170,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="conclusiones" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">6</span> Conclusiones<a href="conclusiones.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>La pregunta de investigación era qué factores influyen en el desempeño académico (<code>exam_score</code>) y en qué magnitud. Con el análisis completo podemos responderla.</p>
-<p><strong>Variables numéricas.</strong> <code>study_hours</code> es el factor determinante: <span class="math inline">\(\rho = 0{,}77\)</span>, correlación positiva muy fuerte. Le sigue <code>class_attendance</code> con <span class="math inline">\(\rho = 0{,}35\)</span>, una correlación débil. Ni <code>sleep_hours</code> (<span class="math inline">\(\rho = 0{,}16\)</span>) ni <code>age</code> (<span class="math inline">\(\rho \approx 0\)</span>) tienen relación relevante con la nota.</p>
-<p><strong>Variables categóricas.</strong> Las siete arrojaron diferencias estadísticamente significativas, pero solo tres muestran una separación apreciable entre grupos: <code>study_method</code> (de 57,7 puntos en <code>self-study</code> a 69,3 en <code>coaching</code>), <code>sleep_quality</code> (de 57,0 en <code>poor</code> a 67,9 en <code>good</code>) y <code>facility_rating</code> (de 58,0 en <code>low</code> a 66,7 en <code>high</code>). En cambio <code>gender</code>, <code>course</code>, <code>exam_difficulty</code> e <code>internet_access</code> se mueven en rangos de menos de 1,5 puntos, sin relevancia práctica.</p>
-<p><strong>Asociación con aprobar o reprobar.</strong> Las tablas de contingencia confirman lo anterior: <code>sleep_quality</code> y <code>study_method</code> están asociadas con <code>resultado</code>, pero con una V de Cramer de 0,176 y 0,167, es decir, asociaciones débiles.</p>
-<p><strong>Sobre el tamaño de muestra.</strong> Con 630.000 observaciones todas las pruebas resultaron significativas, incluso las de variables que no aportan nada. La lección del proyecto es que el p-valor por sí solo no sirve para decidir si algo es relevante: hay que mirar siempre la magnitud del coeficiente o de la diferencia entre grupos.</p>
-<p><strong>En resumen</strong>, el desempeño académico depende sobre todo de cuánto estudia el estudiante y de cómo lo hace, y en menor medida de su asistencia, su calidad de sueño y las instalaciones. Características como la edad, el género, el programa académico o el acceso a internet no lo explican. El siguiente paso es ajustar una regresión lineal simple de <code>exam_score</code> sobre <code>study_hours</code>.</p>
+<p>La pregunta de investigación era qué factores influyen en el desempeño académico (<code>exam_score</code>) y en qué magnitud.</p>
+<p>En el EDA vimos que <code>exam_score</code> tiene una distribución simétrica (media de 62,51 y mediana de 62,60) y sin valores atípicos. Sin embargo, la prueba de Lilliefors rechazó la normalidad en todos los grupos y variables, así que usamos pruebas no paramétricas: U de Mann-Whitney y Kruskal-Wallis con post-hoc de Bonferroni para las variables categóricas, y Spearman para las numéricas.</p>
+<p>Con 630.000 observaciones todas las pruebas resultaron significativas, incluso las de variables sin relevancia práctica, y lo mismo pasó con Levene aunque las desviaciones estándar entre grupos difieren en menos de 1 punto. Por eso la relevancia de cada variable la juzgamos por la magnitud de la diferencia entre grupos o del coeficiente de correlación, y no solo por el p-valor.</p>
+<p>Entre las variables numéricas, <code>study_hours</code> es la más relacionada con la nota, con una correlación positiva muy fuerte <span class="math inline">\((\rho = 0{,}77)\)</span>. <code>class_attendance</code> tiene una correlación positiva débil <span class="math inline">\((\rho = 0{,}35)\)</span>, y <code>sleep_hours</code> <span class="math inline">\((\rho = 0{,}16)\)</span> y <code>age</code> <span class="math inline">\((\rho \approx 0)\)</span> no tienen correlación o es muy débil.</p>
+<p>Entre las categóricas, <code>study_method</code>, <code>sleep_quality</code> y <code>facility_rating</code> muestran diferencias claras: la mediana pasa de 57,3 en self-study a 69,3 en coaching, de 57,2 con sueño poor a 68,2 con sueño good, y de 58,3 con instalaciones low a 67,3 con instalaciones high. En <code>gender</code>, <code>internet_access</code>, <code>exam_difficulty</code> y <code>course</code> las medianas difieren en menos de 2 puntos. Las tablas de contingencia confirman que aprobar o reprobar no es independiente de <code>sleep_quality</code> ni de <code>study_method</code>: aprueba el 65,9% de quienes duermen bien frente al 44,7% de quienes duermen mal, y el 67,4% de quienes usan coaching frente al 45,5% de quienes estudian solos.</p>
+<p>En resumen, el desempeño académico depende sobre todo de cuántas horas estudia el estudiante y, en menor medida, de su método de estudio, su calidad de sueño, la calidad de las instalaciones y su asistencia a clases. La edad, el género, el programa académico, la dificultad del examen y el acceso a internet no lo explican. El siguiente paso es ajustar una regresión lineal simple de <code>exam_score</code> sobre <code>study_hours</code>.</p>
 
 </div>
             </section>

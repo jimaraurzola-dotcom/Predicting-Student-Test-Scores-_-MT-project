@@ -10,6 +10,8 @@ github-repo: jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project
 
 # Introducción
 
+El código y los datos del proyecto están en el [repositorio de GitHub](https://github.com/jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project/tree/proyecto).
+
 Para el desarrollo del análisis trabajaremos con el conjunto de datos Predicting Student Test Scores, un conjunto de datos sintético diseñado para problemas de regresión en el ámbito educativo. Este conjunto contiene información sobre características académicas, conductuales y de acceso a recursos de 630.000 estudiantes, con el objetivo de analizar y predecir el desempeño académico a partir de variables como las horas de estudio, la asistencia a clases, el método de estudio empleado y el acceso a recursos como internet.
 
 A partir de este conjunto de datos, el presente proyecto busca responder la siguiente pregunta de investigación:

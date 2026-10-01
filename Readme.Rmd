@@ -186,3 +186,20 @@ Faltaba esta etapa. Lo desarrollé sobre `study_method`, que es la categórica c
 - **Conclusiones:** capítulo nuevo al final respondiendo la pregunta de investigación.
 
 ---------------------------------
+
+### 01/10/26
+---------------------------------
+
+**Avance:** Revisión general del proyecto contra las notas de clase
+
+- **Inicio:** saqué `moments` y `GGally`, que no se usaban, agregué `dim(trainset)` como en el ETL de las notas, quité el conteo de `NA` repetido y arreglé el CSS.
+- **EDA:** la tabla de `exam_score` ahora tiene las columnas de las notas (`n, media, ds, mediana, minimo, maximo, Q1, Q3, IQR`). Saqué `skewness` y argumenté la simetría comparando media y mediana. El resumen de las numéricas incluía `id`; lo quité. Corregí las etiquetas que decían "media" (venían del dataset de vivienda) y los typos `internet_acces` y `clase_attendance`.
+- **Bivariado:** todos los diagramas de dispersión llevan `geom_smooth(method = "lm")` como en las notas. Cada boxplot de una categórica ahora tiene su tabla `group_by() + summarise()`, igual que el bloque `ocean_house` del capítulo 3 de las notas.
+- **Paramétrica y no paramétrica:** saqué `kruskal_effsize` y todo el ranking de η², que no está en las notas. Reescribí las interpretaciones de Levene: antes decían que rechazar la homogeneidad justificaba Kruskal-Wallis, pero Kruskal-Wallis también la asume (sección 4.6.3). La justificación correcta es la no normalidad, y las desviaciones estándar por grupo (18,1 a 19,3) muestran que las varianzas son prácticamente iguales. Agregué `factor()` en `leveneTest` para quitar el warning. Ahora cada post-hoc se interpreta par a par como en el ejemplo de las notas.
+- **Contingencia:** saqué la V de Cramer porque no está en las notas. El sentido de la asociación lo muestro con los porcentajes de aprobados por grupo.
+- **Correlación:** agregué Lilliefors para `exam_score`, porque las notas verifican la normalidad de las dos variables.
+- **Conclusiones:** las reescribí para que cubran todo el proyecto.
+- Quité los guiones largos y acorté las interpretaciones.
+- Borré el caché y rendericé desde cero: tenía figuras viejas que se seguían publicando en `docs/`.
+
+---------------------------------

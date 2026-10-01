@@ -10,9 +10,7 @@ forcats
 lubridate
 Rcpp
 Amelia
-moments
 patchwork
-GGally
 nortest
 rstatix
 carData
