@@ -2,3 +2,5 @@ bookdown::gitbook:
   config:
     toc:
       collapse: section
+      after: |
+        <li><a href="https://github.com/jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project/tree/proyecto" target="_blank">Repositorio en GitHub</a></li>
