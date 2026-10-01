@@ -232,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##       629997                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 64.94, p-valor &lt; 0.001)\)</span>, pero las desviaciones estándar por grupo van de 18,8 a 19,1, una diferencia mínima.</p>
+<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 64.94, p-valor &lt; 0.001)\)</span>, pero las desviaciones estándar por grupo van de 18,8 a 19,1 (tabla del EDA), una diferencia mínima.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb96-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> gender, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
@@ -277,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##       629997                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 85.1, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,1 a 18,6.</p>
+<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 85.1, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,1 a 18,6 (tabla del EDA).</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb104-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> sleep_quality, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
@@ -322,7 +322,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##       629997                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 3.98, p-valor = 0.0187)\)</span>, aunque las desviaciones estándar por grupo son casi idénticas (18,5 a 18,6).</p>
+<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 3.98, p-valor = 0.0187)\)</span>, aunque las desviaciones estándar por grupo son casi idénticas, de 18,5 a 18,6 (tabla del EDA).</p>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb112-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> facility_rating, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
@@ -367,7 +367,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##       629997                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 50.33, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,7 a 19,1.</p>
+<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 50.33, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,7 a 19,1 (tabla del EDA).</p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb120-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> exam_difficulty, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
@@ -414,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##       629995                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(4, 629995)} = 63.87, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,2 a 18,7.</p>
+<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(4, 629995)} = 63.87, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,2 a 18,7 (tabla del EDA).</p>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb128-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> study_method, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
@@ -465,7 +465,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##       629993                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(6, 629993)} = 49.59, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,4 a 19,3.</p>
+<p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(6, 629993)} = 49.59, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,4 a 19,3 (tabla del EDA).</p>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb136-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> course, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test

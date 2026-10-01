@@ -958,7 +958,7 @@ La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal 
 leveneTest(exam_score ~ factor(gender), data = trainset, center = "median")
 ```
 
-La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 64.94, p-valor < 0.001)$, pero las desviaciones estándar por grupo van de 18,8 a 19,1, una diferencia mínima.
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 64.94, p-valor < 0.001)$, pero las desviaciones estándar por grupo van de 18,8 a 19,1 (tabla del EDA), una diferencia mínima.
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ gender, data = trainset)
@@ -992,7 +992,7 @@ La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal 
 leveneTest(exam_score ~ factor(sleep_quality), data = trainset, center = "median")
 ```
 
-La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 85.1, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,1 a 18,6.
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 85.1, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,1 a 18,6 (tabla del EDA).
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ sleep_quality, data = trainset)
@@ -1026,7 +1026,7 @@ La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal 
 leveneTest(exam_score ~ factor(facility_rating), data = trainset, center = "median")
 ```
 
-La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 3.98, p-valor = 0.0187)$, aunque las desviaciones estándar por grupo son casi idénticas (18,5 a 18,6).
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 3.98, p-valor = 0.0187)$, aunque las desviaciones estándar por grupo son casi idénticas, de 18,5 a 18,6 (tabla del EDA).
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ facility_rating, data = trainset)
@@ -1060,7 +1060,7 @@ La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal 
 leveneTest(exam_score ~ factor(exam_difficulty), data = trainset, center = "median")
 ```
 
-La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 50.33, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,7 a 19,1.
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 50.33, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,7 a 19,1 (tabla del EDA).
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ exam_difficulty, data = trainset)
@@ -1094,7 +1094,7 @@ La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal 
 leveneTest(exam_score ~ factor(study_method), data = trainset, center = "median")
 ```
 
-La prueba de Levene rechaza la igualdad de varianzas $(F_{(4, 629995)} = 63.87, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,2 a 18,7.
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(4, 629995)} = 63.87, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,2 a 18,7 (tabla del EDA).
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ study_method, data = trainset)
@@ -1128,7 +1128,7 @@ La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal 
 leveneTest(exam_score ~ factor(course), data = trainset, center = "median")
 ```
 
-La prueba de Levene rechaza la igualdad de varianzas $(F_{(6, 629993)} = 49.59, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,4 a 19,3.
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(6, 629993)} = 49.59, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,4 a 19,3 (tabla del EDA).
 
 ```{r, cache=TRUE}
 kruskal.test(exam_score ~ course, data = trainset)
