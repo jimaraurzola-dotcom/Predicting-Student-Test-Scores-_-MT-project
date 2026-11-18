@@ -1,5 +1,5 @@
 ---
-title: "Predicting Student Test Scores"
+title: "Predicción de calificaciones de estudiantes"
 author: "Jimara Urzola y Jose Castro"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -16,7 +16,7 @@ A partir de este conjunto de datos, el presente proyecto busca responder la sigu
 
 ¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?
 
-### Contexto de los datos de student test scores
+## Contexto de los datos
 
 Las variables del conjunto de datos son:
 

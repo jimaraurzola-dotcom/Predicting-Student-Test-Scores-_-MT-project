@@ -203,3 +203,48 @@ Faltaba esta etapa. Lo desarrollé sobre `study_method`, que es la categórica c
 - Borré el caché y rendericé desde cero: tenía figuras viejas que se seguían publicando en `docs/`.
 
 ---------------------------------
+
+### 18/11/26
+---------------------------------
+
+**Avance:** Correcciones del profesor a la última entrega
+
+- **Título:** lo pasé a español, "Predicción de calificaciones de estudiantes".
+- **Mensajes:** el chunk de librerías ahora lleva `message=FALSE, warning=FALSE`, igual que en las notas, para que no salga el texto de carga de `tidyverse`.
+- **Histograma de `age`:** como la edad solo toma 8 valores, con `bins = 30` las barras quedaban separadas y parecía un gráfico de barras. Lo cambié a `binwidth = 1`.
+- **Líneas de regresión:** quité `geom_smooth()` de los 10 diagramas de dispersión del EDA y ajusté las interpretaciones que hablaban de la línea de tendencia.
+- **Tablas:** todas las tablas que salían como print de consola (resúmenes, frecuencias, Lilliefors por grupo, Mann-Whitney) ahora salen con `kable()`.
+- Rendericé desde cero, sin caché.
+
+**Regresión lineal múltiple (capítulo nuevo)**
+
+- Empecé el capítulo con el mismo orden del punto 1 del parcial 4: red de diagramas de dispersión con `ggpairs()` (el mismo bloque de las notas) y análisis de multicolinealidad con VIF.
+- Correlaciones de Pearson con `exam_score`: `study_hours` 0,762, `class_attendance` 0,361, `sleep_hours` 0,167 y `age` 0,010. Entre las variables independientes la mayor es 0,088.
+- VIF paso a paso con $VIF_j = 1/(1 - R_j^2)$ y después con `vif()` de `car`. Los cuatro dan prácticamente 1, así que no hay multicolinealidad entre las numéricas.
+
+- Variables cualitativas (sección 8.12 de las notas): pasé las siete categóricas a factor, hice el ejemplo de `exam_score` vs `sleep_quality` con el factor y con las dummy creadas a mano (`SleepAvg`, `SleepGood`), como en `variablecualitativa.R`, y ajusté el modelo completo con `lm(exam_score ~ ., data = df)`.
+- El modelo completo da $R^2_{ajustado} = 0{,}7789$. No salen significativos `internet_access`, `exam_difficulty` y dos categorías de `course`. El VIF del modelo completo es prácticamente 1 en todas las variables.
+- Le quité el caché al chunk del modelo porque el objeto `lm` pesaba 35 MB y la carpeta de caché está en el repositorio.
+
+- Selección de variables (sección 8.13 de las notas): `stepAIC` backward, forward y stepwise, como en el punto 2 del parcial 4. Los tres métodos llegan al mismo modelo de 9 variables, sin `internet_access` ni `exam_difficulty`. AIC = 2753675 frente a 2753680 del completo, mismo $R^2_{ajustado} = 0{,}7789$. Verifiqué el AIC con la fórmula $n\ln(SSE/n) + 2p$ y comparé los dos modelos con `anova()` $(F = 0{,}33,\ p = 0{,}807)$.
+- Ojo: `library(MASS)` tapa el `select` de `dplyr`. Desde ese chunk en adelante hay que escribir `dplyr::select`.
+
+- Coeficientes paso a paso (sección 8.2 de las notas, punto 3 del parcial 4): $\hat{\boldsymbol{\beta}} = (\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}$. Como hay 16 dummy, la matriz $\mathbf{X}$ la saqué con `model.matrix(modelo)` en vez de `cbind`. Los 21 coeficientes coinciden con los de `lm`. Después los valores ajustados y los residuos, comparados con `resid()`.
+
+- Inferencia (secciones 8.4 a 8.8 de las notas, punto 4 del parcial 4), todo paso a paso y después con la función: tabla ANOVA $(F_0 = 110983{,}08)$, $R^2 = 0{,}7789$, $\hat{\sigma}^2 = 79{,}113$, prueba $t$ de cada coeficiente e intervalos de confianza comparados con `confint.default`. Los únicos coeficientes no significativos son las dummy de `course` ba y bca.
+
+- Análisis de residuales (sección 8.10 de las notas, mismo orden de `dummy.R`):
+  - Independencia: Durbin-Watson $= 2{,}001$ y ACF dentro de las bandas. Se cumple. Tuve que poner `reps = 100` porque con las 1000 simulaciones por defecto la función arma una matriz de 630000 x 1000.
+  - Normalidad: Lilliefors rechaza $(D = 0{,}0021)$, pero el Q-Q plot sigue la recta. Otra vez el efecto del tamaño de muestra.
+  - Media cero: se cumple.
+  - Varianza constante: Breusch-Pagan rechaza $(BP = 867{,}4)$. La dispersión se reduce en los extremos porque `exam_score` está acotada entre 19,6 y 100. Lo dejé dicho como limitación.
+  - Outliers: 1723 residuales estudentizados fuera de $(-3, 3)$, el 0,27%, lo esperado en una normal. La prueba de Bonferroni no detecta ninguno.
+  - Influenciales: 28648 observaciones superan $4/(n-p-2)$, pero la mayor distancia de Cook es 0,00005. Ajusté el modelo sin ellas y los coeficientes casi no cambian.
+
+- Inferencia para la respuesta (sección 8.9 de las notas): para una estudiante de b.tech de 21 años con 4 horas de estudio, 72% de asistencia, 7 horas de sueño average, self-study e instalaciones medium, la calificación estimada es 59,39. Intervalo de confianza del promedio: (59,30; 59,47). Intervalo de predicción: (41,95; 76,82). Los dos hechos con `predict` y paso a paso.
+- Actualicé las conclusiones con los resultados de la regresión múltiple.
+- Quité las líneas de ajuste del `ggpairs` (panel inferior con `points` en vez de `smooth`), por la misma corrección del profesor sobre los diagramas de dispersión.
+- Revisión final de todo el libro contra los resultados: las cifras del texto coinciden con las tablas. Arreglos: en el capítulo de regresión pasé los decimales del texto a coma, como en el resto del libro; agregué una frase que explica por qué ahí se usa Pearson y no Spearman; el encabezado de contexto de la introducción salía numerado como 1.0.1 y ahora es 1.1; actualicé `README.md`.
+- Agregué `RESUMEN.md`, un resumen corto para explicar el proyecto.
+
+---------------------------------

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Conclusiones | Predicting Student Test Scores</title>
-  <meta name="description" content="6 Conclusiones | Predicting Student Test Scores" />
+  <title>7 Conclusiones | Predicción de calificaciones de estudiantes</title>
+  <meta name="description" content="7 Conclusiones | Predicción de calificaciones de estudiantes" />
   <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Conclusiones | Predicting Student Test Scores" />
+  <meta property="og:title" content="7 Conclusiones | Predicción de calificaciones de estudiantes" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Conclusiones | Predicting Student Test Scores" />
+  <meta name="twitter:title" content="7 Conclusiones | Predicción de calificaciones de estudiantes" />
   
   
   
@@ -23,14 +23,14 @@
 <meta name="author" content="Jimara Urzola y Jose Castro" />
 
 
-<meta name="date" content="2026-10-01" />
+<meta name="date" content="2026-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="correlación-lineal.html"/>
+<link rel="prev" href="regresión-lineal-múltiple.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
-<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#contexto-de-los-datos-de-student-test-scores"><i class="fa fa-check"></i><b>1.0.1</b> Contexto de los datos de student test scores</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#contexto-de-los-datos"><i class="fa fa-check"></i><b>1.1</b> Contexto de los datos</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html"><i class="fa fa-check"></i><b>2</b> Análisis exploratorio de datos (EDA)</a>
 <ul>
@@ -150,7 +150,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>3</b> Análisis de estadística paramétrica y no paramétrica</a></li>
 <li class="chapter" data-level="4" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>4</b> Tabla de contingencia</a></li>
 <li class="chapter" data-level="5" data-path="correlación-lineal.html"><a href="correlación-lineal.html"><i class="fa fa-check"></i><b>5</b> Correlación lineal</a></li>
-<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a></li>
+<li class="chapter" data-level="6" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html"><i class="fa fa-check"></i><b>6</b> Regresión lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#relaci%C3%B3n-entre-las-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>6.1</b> Relación entre las variables numéricas</a></li>
+<li class="chapter" data-level="6.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#an%C3%A1lisis-de-multicolinealidad"><i class="fa fa-check"></i><b>6.2</b> Análisis de multicolinealidad</a></li>
+<li class="chapter" data-level="6.3" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#modelo-con-variables-cualitativas"><i class="fa fa-check"></i><b>6.3</b> Modelo con variables cualitativas</a></li>
+<li class="chapter" data-level="6.4" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#selecci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>6.4</b> Selección de variables</a></li>
+<li class="chapter" data-level="6.5" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#estimaci%C3%B3n-de-los-coeficientes-del-modelo"><i class="fa fa-check"></i><b>6.5</b> Estimación de los coeficientes del modelo</a></li>
+<li class="chapter" data-level="6.6" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#prueba-de-significancia-global"><i class="fa fa-check"></i><b>6.6</b> Prueba de significancia global</a></li>
+<li class="chapter" data-level="6.7" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#coeficiente-de-determinaci%C3%B3n-y-estimaci%C3%B3n-de-sigma2"><i class="fa fa-check"></i><b>6.7</b> Coeficiente de determinación y estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="6.8" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#prueba-individual-de-significancia-para-los-coeficientes"><i class="fa fa-check"></i><b>6.8</b> Prueba individual de significancia para los coeficientes</a></li>
+<li class="chapter" data-level="6.9" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalos-de-confianza-para-beta_j"><i class="fa fa-check"></i><b>6.9</b> Intervalos de confianza para <span class="math inline">\(\beta_j\)</span></a></li>
+<li class="chapter" data-level="6.10" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#an%C3%A1lisis-de-residuales"><i class="fa fa-check"></i><b>6.10</b> Análisis de residuales</a>
+<ul>
+<li class="chapter" data-level="6.10.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#validaci%C3%B3n-de-los-supuestos"><i class="fa fa-check"></i><b>6.10.1</b> Validación de los supuestos</a></li>
+<li class="chapter" data-level="6.10.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#identificaci%C3%B3n-de-outliers"><i class="fa fa-check"></i><b>6.10.2</b> Identificación de outliers</a></li>
+<li class="chapter" data-level="6.10.3" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#identificaci%C3%B3n-de-observaciones-influenciales"><i class="fa fa-check"></i><b>6.10.3</b> Identificación de observaciones influenciales</a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#inferencia-para-la-respuesta"><i class="fa fa-check"></i><b>6.11</b> Inferencia para la respuesta</a>
+<ul>
+<li class="chapter" data-level="6.11.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalo-de-confianza-para-ey-mid-mathbfx_0"><i class="fa fa-check"></i><b>6.11.1</b> Intervalo de confianza para <span class="math inline">\(E[Y \mid \mathbf{x}_0]\)</span></a></li>
+<li class="chapter" data-level="6.11.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalo-de-predicci%C3%B3n-para-una-nueva-observaci%C3%B3n"><i class="fa fa-check"></i><b>6.11.2</b> Intervalo de predicción para una nueva observación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>7</b> Conclusiones</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project/tree/proyecto" target="_blank">Repositorio en GitHub</a></li>
 </ul>
@@ -162,7 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicting Student Test Scores</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicción de calificaciones de estudiantes</a>
           </h1>
         </div>
 
@@ -170,14 +193,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="conclusiones" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">6</span> Conclusiones<a href="conclusiones.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="conclusiones" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Conclusiones<a href="conclusiones.html#conclusiones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>La pregunta de investigación era qué factores influyen en el desempeño académico (<code>exam_score</code>) y en qué magnitud.</p>
-<p>En el EDA vimos que <code>exam_score</code> tiene una distribución simétrica (media de 62,51 y mediana de 62,60) y sin valores atípicos. Sin embargo, la prueba de Lilliefors rechazó la normalidad en todos los grupos y variables, así que usamos pruebas no paramétricas: U de Mann-Whitney y Kruskal-Wallis con post-hoc de Bonferroni para las variables categóricas, y Spearman para las numéricas.</p>
+<p>En el EDA vimos que <code>exam_score</code> tiene una distribución simétrica (media de 62,51 y mediana de 62,60) y sin valores atípicos. Sin embargo, la prueba de Lilliefors rechazó la normalidad en todos los grupos y variables, así que usamos pruebas no paramétricas: U de Mann-Whitney y Kruskal-Wallis con post-hoc de Bonferroni para las variables categóricas, y Spearman para las numéricas. Al final ajustamos un modelo de regresión lineal múltiple con todas las variables.</p>
 <p>Con 630.000 observaciones todas las pruebas resultaron significativas, incluso las de variables sin relevancia práctica, y lo mismo pasó con Levene aunque las desviaciones estándar entre grupos difieren en menos de 1 punto. Por eso la relevancia de cada variable la juzgamos por la magnitud de la diferencia entre grupos o del coeficiente de correlación, y no solo por el p-valor.</p>
 <p>Entre las variables numéricas, <code>study_hours</code> es la más relacionada con la nota, con una correlación positiva muy fuerte <span class="math inline">\((\rho = 0{,}77)\)</span>. <code>class_attendance</code> tiene una correlación positiva débil <span class="math inline">\((\rho = 0{,}35)\)</span>, y <code>sleep_hours</code> <span class="math inline">\((\rho = 0{,}16)\)</span> y <code>age</code> <span class="math inline">\((\rho \approx 0)\)</span> no tienen correlación o es muy débil.</p>
 <p>Entre las categóricas, <code>study_method</code>, <code>sleep_quality</code> y <code>facility_rating</code> muestran diferencias claras: la mediana pasa de 57,3 en self-study a 69,3 en coaching, de 57,2 con sueño poor a 68,2 con sueño good, y de 58,3 con instalaciones low a 67,3 con instalaciones high. En <code>gender</code>, <code>internet_access</code>, <code>exam_difficulty</code> y <code>course</code> las medianas difieren en menos de 2 puntos. Las tablas de contingencia confirman que aprobar o reprobar no es independiente de <code>sleep_quality</code> ni de <code>study_method</code>: aprueba el 65,9% de quienes duermen bien frente al 44,7% de quienes duermen mal, y el 67,4% de quienes usan coaching frente al 45,5% de quienes estudian solos.</p>
-<p>En resumen, el desempeño académico depende sobre todo de cuántas horas estudia el estudiante y, en menor medida, de su método de estudio, su calidad de sueño, la calidad de las instalaciones y su asistencia a clases. La edad, el género, el programa académico, la dificultad del examen y el acceso a internet no lo explican. El siguiente paso es ajustar una regresión lineal simple de <code>exam_score</code> sobre <code>study_hours</code>.</p>
+<p>Con la regresión lineal múltiple medimos la magnitud de cada factor manteniendo constantes los demás. No hay multicolinealidad (todos los VIF son prácticamente 1) y la selección por AIC deja por fuera <code>internet_access</code> y <code>exam_difficulty</code>. El modelo seleccionado es significativo en conjunto <span class="math inline">\((F_0 = 110983.08,\ p-valor &lt; 0.001)\)</span> y explica el 77,89% de la variabilidad de <code>exam_score</code>. Por cada hora adicional de estudio la calificación promedio aumenta 5,68 puntos, por cada punto porcentual de asistencia 0,31 puntos y por cada hora de sueño 1,32 puntos. Frente a coaching, los demás métodos de estudio bajan la calificación promedio entre 4,45 y 9,10 puntos; una calidad de sueño good la sube 8,92 puntos frente a poor, y unas instalaciones high la suben 7,28 puntos frente a low. Los coeficientes de <code>age</code>, <code>gender</code> y <code>course</code> son menores de 0,25 puntos.</p>
+<p>En el análisis de residuales se cumplen la independencia y la media cero de los errores, y los residuales son aproximadamente normales. La varianza constante no se cumple en los extremos, porque la calificación está acotada entre 19,6 y 100, así que las estimaciones para las calificaciones más bajas y más altas hay que tomarlas con precaución. No se encontraron outliers y el modelo no cambia al remover las observaciones influenciales.</p>
+<p>En resumen, el desempeño académico depende sobre todo de cuántas horas estudia el estudiante y, en menor medida, de su método de estudio, su calidad de sueño, la calidad de las instalaciones, su asistencia a clases y sus horas de sueño. La edad, el género, el programa académico, la dificultad del examen y el acceso a internet no lo explican.</p>
 
 </div>
             </section>
@@ -185,7 +210,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="correlación-lineal.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regresión-lineal-múltiple.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

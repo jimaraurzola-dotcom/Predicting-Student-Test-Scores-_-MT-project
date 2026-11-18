@@ -6,3 +6,7 @@ rmd_files: [
   
 ]
 output_dir: "docs"
+language:
+  label:
+    tab: "Tabla "
+    fig: "Figura "

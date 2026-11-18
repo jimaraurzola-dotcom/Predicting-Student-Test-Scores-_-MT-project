@@ -8,6 +8,7 @@ dplyr
 stringr
 forcats
 lubridate
+knitr
 Rcpp
 Amelia
 patchwork
@@ -15,3 +16,6 @@ nortest
 rstatix
 carData
 car
+GGally
+zoo
+lmtest

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Análisis de estadística paramétrica y no paramétrica | Predicting Student Test Scores</title>
-  <meta name="description" content="3 Análisis de estadística paramétrica y no paramétrica | Predicting Student Test Scores" />
+  <title>3 Análisis de estadística paramétrica y no paramétrica | Predicción de calificaciones de estudiantes</title>
+  <meta name="description" content="3 Análisis de estadística paramétrica y no paramétrica | Predicción de calificaciones de estudiantes" />
   <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Análisis de estadística paramétrica y no paramétrica | Predicting Student Test Scores" />
+  <meta property="og:title" content="3 Análisis de estadística paramétrica y no paramétrica | Predicción de calificaciones de estudiantes" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Análisis de estadística paramétrica y no paramétrica | Predicting Student Test Scores" />
+  <meta name="twitter:title" content="3 Análisis de estadística paramétrica y no paramétrica | Predicción de calificaciones de estudiantes" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Jimara Urzola y Jose Castro" />
 
 
-<meta name="date" content="2026-10-01" />
+<meta name="date" content="2026-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
-<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#contexto-de-los-datos-de-student-test-scores"><i class="fa fa-check"></i><b>1.0.1</b> Contexto de los datos de student test scores</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#contexto-de-los-datos"><i class="fa fa-check"></i><b>1.1</b> Contexto de los datos</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html"><i class="fa fa-check"></i><b>2</b> Análisis exploratorio de datos (EDA)</a>
 <ul>
@@ -150,7 +150,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>3</b> Análisis de estadística paramétrica y no paramétrica</a></li>
 <li class="chapter" data-level="4" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>4</b> Tabla de contingencia</a></li>
 <li class="chapter" data-level="5" data-path="correlación-lineal.html"><a href="correlación-lineal.html"><i class="fa fa-check"></i><b>5</b> Correlación lineal</a></li>
-<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a></li>
+<li class="chapter" data-level="6" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html"><i class="fa fa-check"></i><b>6</b> Regresión lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#relaci%C3%B3n-entre-las-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>6.1</b> Relación entre las variables numéricas</a></li>
+<li class="chapter" data-level="6.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#an%C3%A1lisis-de-multicolinealidad"><i class="fa fa-check"></i><b>6.2</b> Análisis de multicolinealidad</a></li>
+<li class="chapter" data-level="6.3" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#modelo-con-variables-cualitativas"><i class="fa fa-check"></i><b>6.3</b> Modelo con variables cualitativas</a></li>
+<li class="chapter" data-level="6.4" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#selecci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>6.4</b> Selección de variables</a></li>
+<li class="chapter" data-level="6.5" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#estimaci%C3%B3n-de-los-coeficientes-del-modelo"><i class="fa fa-check"></i><b>6.5</b> Estimación de los coeficientes del modelo</a></li>
+<li class="chapter" data-level="6.6" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#prueba-de-significancia-global"><i class="fa fa-check"></i><b>6.6</b> Prueba de significancia global</a></li>
+<li class="chapter" data-level="6.7" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#coeficiente-de-determinaci%C3%B3n-y-estimaci%C3%B3n-de-sigma2"><i class="fa fa-check"></i><b>6.7</b> Coeficiente de determinación y estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="6.8" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#prueba-individual-de-significancia-para-los-coeficientes"><i class="fa fa-check"></i><b>6.8</b> Prueba individual de significancia para los coeficientes</a></li>
+<li class="chapter" data-level="6.9" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalos-de-confianza-para-beta_j"><i class="fa fa-check"></i><b>6.9</b> Intervalos de confianza para <span class="math inline">\(\beta_j\)</span></a></li>
+<li class="chapter" data-level="6.10" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#an%C3%A1lisis-de-residuales"><i class="fa fa-check"></i><b>6.10</b> Análisis de residuales</a>
+<ul>
+<li class="chapter" data-level="6.10.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#validaci%C3%B3n-de-los-supuestos"><i class="fa fa-check"></i><b>6.10.1</b> Validación de los supuestos</a></li>
+<li class="chapter" data-level="6.10.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#identificaci%C3%B3n-de-outliers"><i class="fa fa-check"></i><b>6.10.2</b> Identificación de outliers</a></li>
+<li class="chapter" data-level="6.10.3" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#identificaci%C3%B3n-de-observaciones-influenciales"><i class="fa fa-check"></i><b>6.10.3</b> Identificación de observaciones influenciales</a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#inferencia-para-la-respuesta"><i class="fa fa-check"></i><b>6.11</b> Inferencia para la respuesta</a>
+<ul>
+<li class="chapter" data-level="6.11.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalo-de-confianza-para-ey-mid-mathbfx_0"><i class="fa fa-check"></i><b>6.11.1</b> Intervalo de confianza para <span class="math inline">\(E[Y \mid \mathbf{x}_0]\)</span></a></li>
+<li class="chapter" data-level="6.11.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalo-de-predicci%C3%B3n-para-una-nueva-observaci%C3%B3n"><i class="fa fa-check"></i><b>6.11.2</b> Intervalo de predicción para una nueva observación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>7</b> Conclusiones</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project/tree/proyecto" target="_blank">Repositorio en GitHub</a></li>
 </ul>
@@ -162,7 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicting Student Test Scores</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicción de calificaciones de estudiantes</a>
           </h1>
         </div>
 
@@ -177,18 +200,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>¿El hecho de contar con acceso a internet influye en el desempeño académico de los estudiantes?</li>
 </ul>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb84-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb84-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb84-2" tabindex="-1"></a>  <span class="fu">group_by</span>(internet_access) <span class="sc">%&gt;%</span></span>
-<span id="cb84-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb84-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
-<span id="cb84-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb84-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
-<span id="cb84-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb84-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value)</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 4
-##   internet_access      n est_lt      p_lt
-##   &lt;chr&gt;            &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-## 1 no               50577 0.0279 5.04e-102
-## 2 yes             579423 0.0236 0</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb59-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb59-2" tabindex="-1"></a>  <span class="fu">group_by</span>(internet_access) <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb59-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb59-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb59-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
+<span id="cb59-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb59-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb59-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb59-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">internet_access</th>
+<th align="right">n</th>
+<th align="right">est_lt</th>
+<th align="right">p_lt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">no</td>
+<td align="right">50577</td>
+<td align="right">0.0279352</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">yes</td>
+<td align="right">579423</td>
+<td align="right">0.0235605</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <p>La prueba de Lilliefors muestra que <code>exam_score</code> no tiene comportamiento normal en ninguno de los dos grupos: con acceso a internet <span class="math inline">\((D = 0.0236, p-valor &lt; 0.001)\)</span> y sin acceso <span class="math inline">\((D = 0.0279, p-valor &lt; 0.001)\)</span>. Usamos entonces la prueba U de Mann-Whitney.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb86-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(internet_access), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb60-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(internet_access), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##           Df F value   Pr(&gt;F)    
 ## group      1  60.968 5.81e-15 ***
@@ -196,36 +239,103 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(1, 629998)} = 60.97, p-valor &lt; 0.001)\)</span>. Sin embargo, las desviaciones estándar de los dos grupos son 19,3 y 18,9 (tabla del EDA), una diferencia de 0,4 puntos. Con 630.000 observaciones la prueba detecta diferencias muy pequeñas, así que consideramos que las varianzas son similares. Lo mismo ocurre en todas las variables de este capítulo.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb88-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb88-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb88-2" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 7
-##   .y.        group1 group2    n1     n2    statistic      p
-## * &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt;  &lt;int&gt;        &lt;dbl&gt;  &lt;dbl&gt;
-## 1 exam_score no     yes    50577 579423 14565777034. 0.0266</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb62-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-2" tabindex="-1"></a>  <span class="fu">wilcox_test</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb62-3" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">.y.</th>
+<th align="left">group1</th>
+<th align="left">group2</th>
+<th align="right">n1</th>
+<th align="right">n2</th>
+<th align="right">statistic</th>
+<th align="right">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">exam_score</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="right">50577</td>
+<td align="right">579423</td>
+<td align="right">14565777034</td>
+<td align="right">0.0266193</td>
+</tr>
+</tbody>
+</table>
 <p>La prueba U de Mann-Whitney muestra, con una confianza del 95%, una diferencia estadísticamente significativa en <code>exam_score</code> entre los estudiantes con y sin acceso a internet <span class="math inline">\((W = 14565777034, p-valor = 0.0266)\)</span>.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb90-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb90-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb90-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 7
-##   .y.        group1 group2 effsize    n1     n2 magnitude
-## * &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;int&gt; &lt;ord&gt;    
-## 1 exam_score no     yes    0.00279 50577 579423 small</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb63-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb63-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(exam_score <span class="sc">~</span> internet_access, <span class="at">paired =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb63-3" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">.y.</th>
+<th align="left">group1</th>
+<th align="left">group2</th>
+<th align="right">effsize</th>
+<th align="right">n1</th>
+<th align="right">n2</th>
+<th align="left">magnitude</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">exam_score</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="right">0.0027932</td>
+<td align="right">50577</td>
+<td align="right">579423</td>
+<td align="left">small</td>
+</tr>
+</tbody>
+</table>
 <p>El tamaño del efecto es <span class="math inline">\(r = 0.0028\)</span>, prácticamente nulo. Aunque la diferencia es significativa, el acceso a internet no tiene relevancia práctica en el desempeño: las medianas difieren en menos de un punto.</p>
 <ul>
 <li>¿Existen diferencias en el desempeño académico según el género del estudiante?</li>
 </ul>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb92-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-2" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
-<span id="cb92-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
-<span id="cb92-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
-<span id="cb92-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 4
-##   gender      n est_lt      p_lt
-##   &lt;chr&gt;   &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-## 1 female 208310 0.0238 2.66e-303
-## 2 male   210593 0.0219 3.31e-260
-## 3 other  211097 0.0259 0</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb64-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb64-2" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span></span>
+<span id="cb64-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb64-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb64-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb64-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
+<span id="cb64-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb64-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb64-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb64-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gender</th>
+<th align="right">n</th>
+<th align="right">est_lt</th>
+<th align="right">p_lt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">female</td>
+<td align="right">208310</td>
+<td align="right">0.0237556</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">male</td>
+<td align="right">210593</td>
+<td align="right">0.0219193</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">other</td>
+<td align="right">211097</td>
+<td align="right">0.0258549</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <p>La prueba de Lilliefors muestra que <code>exam_score</code> no tiene comportamiento normal en ninguno de los tres grupos: female <span class="math inline">\((D = 0.0238, p-valor &lt; 0.001)\)</span>, male <span class="math inline">\((D = 0.0219, p-valor &lt; 0.001)\)</span> y other <span class="math inline">\((D = 0.0259, p-valor &lt; 0.001)\)</span>. Usamos entonces Kruskal-Wallis.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb94-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(gender), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb65-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(gender), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##           Df F value    Pr(&gt;F)    
 ## group      2   64.94 &lt; 2.2e-16 ***
@@ -233,17 +343,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 64.94, p-valor &lt; 0.001)\)</span>, pero las desviaciones estándar por grupo van de 18,8 a 19,1 (tabla del EDA), una diferencia mínima.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb96-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> gender, <span class="at">data =</span> trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb67-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> gender, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  exam_score by gender
 ## Kruskal-Wallis chi-squared = 81.54, df = 2, p-value &lt; 2.2e-16</code></pre>
 <p>La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en <code>exam_score</code> entre al menos dos de los grupos de género <span class="math inline">\((\chi^2_{(2)} = 81.54, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb98-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
-<span id="cb98-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb98-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>gender,</span>
-<span id="cb98-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb98-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb98-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb98-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb69-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
+<span id="cb69-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb69-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>gender,</span>
+<span id="cb69-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb69-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb69-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb69-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 
@@ -258,19 +368,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>¿La calidad del sueño percibida por el estudiante se relaciona con su desempeño en el examen?</li>
 </ul>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb100-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb100-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb100-2" tabindex="-1"></a>  <span class="fu">group_by</span>(sleep_quality) <span class="sc">%&gt;%</span></span>
-<span id="cb100-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb100-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
-<span id="cb100-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb100-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
-<span id="cb100-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb100-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 4
-##   sleep_quality      n est_lt      p_lt
-##   &lt;chr&gt;          &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-## 1 average       203236 0.0243 4.51e-309
-## 2 good          213089 0.0381 0        
-## 3 poor          213675 0.0212 3.19e-246</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb71-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb71-2" tabindex="-1"></a>  <span class="fu">group_by</span>(sleep_quality) <span class="sc">%&gt;%</span></span>
+<span id="cb71-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb71-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb71-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb71-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
+<span id="cb71-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb71-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb71-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb71-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">sleep_quality</th>
+<th align="right">n</th>
+<th align="right">est_lt</th>
+<th align="right">p_lt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">average</td>
+<td align="right">203236</td>
+<td align="right">0.0242678</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">good</td>
+<td align="right">213089</td>
+<td align="right">0.0381461</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">poor</td>
+<td align="right">213675</td>
+<td align="right">0.0211830</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <p>La prueba de Lilliefors muestra que <code>exam_score</code> no tiene comportamiento normal en ninguno de los tres grupos: average <span class="math inline">\((D = 0.0243, p-valor &lt; 0.001)\)</span>, good <span class="math inline">\((D = 0.0381, p-valor &lt; 0.001)\)</span> y poor <span class="math inline">\((D = 0.0212, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb102-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(sleep_quality), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb72-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(sleep_quality), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##           Df F value    Pr(&gt;F)    
 ## group      2    85.1 &lt; 2.2e-16 ***
@@ -278,17 +413,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 85.1, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,1 a 18,6 (tabla del EDA).</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb104-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> sleep_quality, <span class="at">data =</span> trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb74-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> sleep_quality, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  exam_score by sleep_quality
 ## Kruskal-Wallis chi-squared = 33168, df = 2, p-value &lt; 2.2e-16</code></pre>
 <p>La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en <code>exam_score</code> entre al menos dos de los grupos de calidad del sueño <span class="math inline">\((\chi^2_{(2)} = 33168, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb106-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
-<span id="cb106-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb106-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>sleep_quality,</span>
-<span id="cb106-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb106-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb106-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb106-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb76-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
+<span id="cb76-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb76-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>sleep_quality,</span>
+<span id="cb76-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb76-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb76-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb76-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 
@@ -303,19 +438,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>¿La calificación que los estudiantes dan a las instalaciones educativas está relacionada con su desempeño académico?</li>
 </ul>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb108-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb108-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb108-2" tabindex="-1"></a>  <span class="fu">group_by</span>(facility_rating) <span class="sc">%&gt;%</span></span>
-<span id="cb108-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb108-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
-<span id="cb108-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb108-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
-<span id="cb108-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb108-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 4
-##   facility_rating      n est_lt      p_lt
-##   &lt;chr&gt;            &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-## 1 high            203540 0.0362 0        
-## 2 low             212378 0.0207 1.67e-232
-## 3 medium          214082 0.0236 1.49e-308</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb78-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb78-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb78-2" tabindex="-1"></a>  <span class="fu">group_by</span>(facility_rating) <span class="sc">%&gt;%</span></span>
+<span id="cb78-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb78-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb78-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb78-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
+<span id="cb78-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb78-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb78-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb78-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">facility_rating</th>
+<th align="right">n</th>
+<th align="right">est_lt</th>
+<th align="right">p_lt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">high</td>
+<td align="right">203540</td>
+<td align="right">0.0361600</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">low</td>
+<td align="right">212378</td>
+<td align="right">0.0206584</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">medium</td>
+<td align="right">214082</td>
+<td align="right">0.0236378</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <p>La prueba de Lilliefors muestra que <code>exam_score</code> no tiene comportamiento normal en ninguno de los tres grupos: high <span class="math inline">\((D = 0.0362, p-valor &lt; 0.001)\)</span>, low <span class="math inline">\((D = 0.0207, p-valor &lt; 0.001)\)</span> y medium <span class="math inline">\((D = 0.0236, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb110-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(facility_rating), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb79-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(facility_rating), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##           Df F value  Pr(&gt;F)  
 ## group      2  3.9771 0.01874 *
@@ -323,17 +483,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 3.98, p-valor = 0.0187)\)</span>, aunque las desviaciones estándar por grupo son casi idénticas, de 18,5 a 18,6 (tabla del EDA).</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb112-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> facility_rating, <span class="at">data =</span> trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb81-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> facility_rating, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  exam_score by facility_rating
 ## Kruskal-Wallis chi-squared = 20684, df = 2, p-value &lt; 2.2e-16</code></pre>
 <p>La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en <code>exam_score</code> entre al menos dos de los grupos de calificación de instalaciones <span class="math inline">\((\chi^2_{(2)} = 20684, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb114-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
-<span id="cb114-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb114-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>facility_rating,</span>
-<span id="cb114-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb114-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb114-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb114-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb83-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
+<span id="cb83-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb83-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>facility_rating,</span>
+<span id="cb83-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb83-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb83-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb83-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 
@@ -348,19 +508,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>¿La dificultad percibida del examen afecta la calificación obtenida por los estudiantes?</li>
 </ul>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb116-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb116-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb116-2" tabindex="-1"></a>  <span class="fu">group_by</span>(exam_difficulty) <span class="sc">%&gt;%</span></span>
-<span id="cb116-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb116-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
-<span id="cb116-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb116-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
-<span id="cb116-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb116-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 4
-##   exam_difficulty      n est_lt      p_lt
-##   &lt;chr&gt;            &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-## 1 easy            176540 0.0217 8.05e-214
-## 2 hard             99478 0.0255 7.47e-168
-## 3 moderate        353982 0.0243 0</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb85-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb85-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb85-2" tabindex="-1"></a>  <span class="fu">group_by</span>(exam_difficulty) <span class="sc">%&gt;%</span></span>
+<span id="cb85-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb85-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb85-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb85-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
+<span id="cb85-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb85-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb85-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb85-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">exam_difficulty</th>
+<th align="right">n</th>
+<th align="right">est_lt</th>
+<th align="right">p_lt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">easy</td>
+<td align="right">176540</td>
+<td align="right">0.0217087</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">hard</td>
+<td align="right">99478</td>
+<td align="right">0.0255487</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">moderate</td>
+<td align="right">353982</td>
+<td align="right">0.0242697</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <p>La prueba de Lilliefors muestra que <code>exam_score</code> no tiene comportamiento normal en ninguno de los tres grupos: easy <span class="math inline">\((D = 0.0217, p-valor &lt; 0.001)\)</span>, hard <span class="math inline">\((D = 0.0255, p-valor &lt; 0.001)\)</span> y moderate <span class="math inline">\((D = 0.0243, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb118-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(exam_difficulty), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb86-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(exam_difficulty), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##           Df F value    Pr(&gt;F)    
 ## group      2  50.325 &lt; 2.2e-16 ***
@@ -368,17 +553,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(2, 629997)} = 50.33, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,7 a 19,1 (tabla del EDA).</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb120-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> exam_difficulty, <span class="at">data =</span> trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb88-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> exam_difficulty, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  exam_score by exam_difficulty
 ## Kruskal-Wallis chi-squared = 53.954, df = 2, p-value = 1.924e-12</code></pre>
 <p>La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en <code>exam_score</code> entre al menos dos de los grupos de dificultad del examen <span class="math inline">\((\chi^2_{(2)} = 53.95, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb122-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
-<span id="cb122-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb122-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>exam_difficulty,</span>
-<span id="cb122-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb122-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb122-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb122-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb90-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
+<span id="cb90-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb90-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>exam_difficulty,</span>
+<span id="cb90-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb90-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb90-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb90-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 
@@ -393,21 +578,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>¿El método de estudio empleado influye en el puntaje obtenido en el examen?</li>
 </ul>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb124-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb124-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb124-2" tabindex="-1"></a>  <span class="fu">group_by</span>(study_method) <span class="sc">%&gt;%</span></span>
-<span id="cb124-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb124-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
-<span id="cb124-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb124-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
-<span id="cb124-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb124-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value)</span></code></pre></div>
-<pre><code>## # A tibble: 5 × 4
-##   study_method       n est_lt      p_lt
-##   &lt;chr&gt;          &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-## 1 coaching      131697 0.0478 0        
-## 2 group study   123009 0.0199 1.75e-124
-## 3 mixed         123086 0.0317 9.88e-324
-## 4 online videos 121077 0.0238 1.05e-176
-## 5 self-study    131131 0.0258 4.69e-225</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb92-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-2" tabindex="-1"></a>  <span class="fu">group_by</span>(study_method) <span class="sc">%&gt;%</span></span>
+<span id="cb92-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb92-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
+<span id="cb92-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb92-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb92-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">study_method</th>
+<th align="right">n</th>
+<th align="right">est_lt</th>
+<th align="right">p_lt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">coaching</td>
+<td align="right">131697</td>
+<td align="right">0.0478451</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">group study</td>
+<td align="right">123009</td>
+<td align="right">0.0199055</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">mixed</td>
+<td align="right">123086</td>
+<td align="right">0.0317424</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">online videos</td>
+<td align="right">121077</td>
+<td align="right">0.0237928</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">self-study</td>
+<td align="right">131131</td>
+<td align="right">0.0257506</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <p>La prueba de Lilliefors muestra que <code>exam_score</code> no tiene comportamiento normal en ninguno de los cinco grupos: coaching <span class="math inline">\((D = 0.0478)\)</span>, group study <span class="math inline">\((D = 0.0199)\)</span>, mixed <span class="math inline">\((D = 0.0317)\)</span>, online videos <span class="math inline">\((D = 0.0238)\)</span> y self-study <span class="math inline">\((D = 0.0258)\)</span>, todos con <span class="math inline">\(p-valor &lt; 0.001\)</span>.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb126-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(study_method), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb93-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(study_method), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##           Df F value    Pr(&gt;F)    
 ## group      4  63.867 &lt; 2.2e-16 ***
@@ -415,17 +635,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(4, 629995)} = 63.87, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,2 a 18,7 (tabla del EDA).</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb128-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> study_method, <span class="at">data =</span> trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb95-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> study_method, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  exam_score by study_method
 ## Kruskal-Wallis chi-squared = 29548, df = 4, p-value &lt; 2.2e-16</code></pre>
 <p>La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en <code>exam_score</code> entre al menos dos de los métodos de estudio <span class="math inline">\((\chi^2_{(4)} = 29548, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb130-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
-<span id="cb130-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb130-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>study_method,</span>
-<span id="cb130-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb130-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb130-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb130-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb97-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
+<span id="cb97-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb97-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>study_method,</span>
+<span id="cb97-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb97-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb97-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb97-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 
@@ -442,23 +662,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>¿El programa académico que cursa el estudiante se relaciona con su desempeño en el examen?</li>
 </ul>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb132-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb132-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb132-2" tabindex="-1"></a>  <span class="fu">group_by</span>(course) <span class="sc">%&gt;%</span></span>
-<span id="cb132-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb132-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
-<span id="cb132-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb132-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
-<span id="cb132-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb132-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value)</span></code></pre></div>
-<pre><code>## # A tibble: 7 × 4
-##   course       n est_lt      p_lt
-##   &lt;chr&gt;    &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt;
-## 1 b.com   110932 0.0226 5.06e-146
-## 2 b.sc    111554 0.0254 1.91e-185
-## 3 b.tech  131236 0.0254 1.20e-218
-## 4 ba       61989 0.0278 3.70e-124
-## 5 bba      75644 0.0275 4.20e-148
-## 6 bca      88721 0.0240 1.25e-131
-## 7 diploma  49924 0.0245 1.11e- 76</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb99-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb99-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb99-2" tabindex="-1"></a>  <span class="fu">group_by</span>(course) <span class="sc">%&gt;%</span></span>
+<span id="cb99-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb99-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">length</span>(exam_score),</span>
+<span id="cb99-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb99-4" tabindex="-1"></a>            <span class="at">est_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>statistic,</span>
+<span id="cb99-5"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb99-5" tabindex="-1"></a>            <span class="at">p_lt =</span> <span class="fu">lillie.test</span>(exam_score)<span class="sc">$</span>p.value) <span class="sc">%&gt;%</span></span>
+<span id="cb99-6"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb99-6" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">course</th>
+<th align="right">n</th>
+<th align="right">est_lt</th>
+<th align="right">p_lt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">b.com</td>
+<td align="right">110932</td>
+<td align="right">0.0226301</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">b.sc</td>
+<td align="right">111554</td>
+<td align="right">0.0253576</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">b.tech</td>
+<td align="right">131236</td>
+<td align="right">0.0253793</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">ba</td>
+<td align="right">61989</td>
+<td align="right">0.0278136</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">bba</td>
+<td align="right">75644</td>
+<td align="right">0.0274890</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">bca</td>
+<td align="right">88721</td>
+<td align="right">0.0240050</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">diploma</td>
+<td align="right">49924</td>
+<td align="right">0.0244837</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <p>La prueba de Lilliefors muestra que <code>exam_score</code> no tiene comportamiento normal en ninguno de los siete programas académicos (en todos los casos <span class="math inline">\(p-valor &lt; 0.001\)</span>).</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb134-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(course), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb100-1" tabindex="-1"></a><span class="fu">leveneTest</span>(exam_score <span class="sc">~</span> <span class="fu">factor</span>(course), <span class="at">data =</span> trainset, <span class="at">center =</span> <span class="st">&quot;median&quot;</span>)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = &quot;median&quot;)
 ##           Df F value    Pr(&gt;F)    
 ## group      6  49.585 &lt; 2.2e-16 ***
@@ -466,17 +731,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>La prueba de Levene rechaza la igualdad de varianzas <span class="math inline">\((F_{(6, 629993)} = 49.59, p-valor &lt; 0.001)\)</span>, aunque las desviaciones estándar por grupo van de 18,4 a 19,3 (tabla del EDA).</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb136-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> course, <span class="at">data =</span> trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb102-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(exam_score <span class="sc">~</span> course, <span class="at">data =</span> trainset)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  exam_score by course
 ## Kruskal-Wallis chi-squared = 199.28, df = 6, p-value &lt; 2.2e-16</code></pre>
 <p>La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en <code>exam_score</code> entre al menos dos de los programas académicos <span class="math inline">\((\chi^2_{(6)} = 199.28, p-valor &lt; 0.001)\)</span>.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb138-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
-<span id="cb138-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb138-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>course,</span>
-<span id="cb138-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb138-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb138-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb138-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb104-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(<span class="at">x =</span> trainset<span class="sc">$</span>exam_score,</span>
+<span id="cb104-2"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb104-2" tabindex="-1"></a>                     <span class="at">g =</span> trainset<span class="sc">$</span>course,</span>
+<span id="cb104-3"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb104-3" tabindex="-1"></a>                     <span class="at">exact =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb104-4"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html#cb104-4" tabindex="-1"></a>                     <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Predicting Student Test Scores</title>
-  <meta name="description" content="Predicting Student Test Scores" />
+  <title>Predicción de calificaciones de estudiantes</title>
+  <meta name="description" content="Predicción de calificaciones de estudiantes" />
   <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Predicting Student Test Scores" />
+  <meta property="og:title" content="Predicción de calificaciones de estudiantes" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Predicting Student Test Scores" />
+  <meta name="twitter:title" content="Predicción de calificaciones de estudiantes" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Jimara Urzola y Jose Castro" />
 
 
-<meta name="date" content="2026-10-01" />
+<meta name="date" content="2026-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -139,7 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
-<li class="chapter" data-level="1.0.1" data-path="index.html"><a href="index.html#contexto-de-los-datos-de-student-test-scores"><i class="fa fa-check"></i><b>1.0.1</b> Contexto de los datos de student test scores</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#contexto-de-los-datos"><i class="fa fa-check"></i><b>1.1</b> Contexto de los datos</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="análisis-exploratorio-de-datos-eda.html"><a href="análisis-exploratorio-de-datos-eda.html"><i class="fa fa-check"></i><b>2</b> Análisis exploratorio de datos (EDA)</a>
 <ul>
@@ -150,7 +150,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><a href="análisis-de-estadística-paramétrica-y-no-paramétrica.html"><i class="fa fa-check"></i><b>3</b> Análisis de estadística paramétrica y no paramétrica</a></li>
 <li class="chapter" data-level="4" data-path="tabla-de-contingencia.html"><a href="tabla-de-contingencia.html"><i class="fa fa-check"></i><b>4</b> Tabla de contingencia</a></li>
 <li class="chapter" data-level="5" data-path="correlación-lineal.html"><a href="correlación-lineal.html"><i class="fa fa-check"></i><b>5</b> Correlación lineal</a></li>
-<li class="chapter" data-level="6" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>6</b> Conclusiones</a></li>
+<li class="chapter" data-level="6" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html"><i class="fa fa-check"></i><b>6</b> Regresión lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#relaci%C3%B3n-entre-las-variables-num%C3%A9ricas"><i class="fa fa-check"></i><b>6.1</b> Relación entre las variables numéricas</a></li>
+<li class="chapter" data-level="6.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#an%C3%A1lisis-de-multicolinealidad"><i class="fa fa-check"></i><b>6.2</b> Análisis de multicolinealidad</a></li>
+<li class="chapter" data-level="6.3" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#modelo-con-variables-cualitativas"><i class="fa fa-check"></i><b>6.3</b> Modelo con variables cualitativas</a></li>
+<li class="chapter" data-level="6.4" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#selecci%C3%B3n-de-variables"><i class="fa fa-check"></i><b>6.4</b> Selección de variables</a></li>
+<li class="chapter" data-level="6.5" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#estimaci%C3%B3n-de-los-coeficientes-del-modelo"><i class="fa fa-check"></i><b>6.5</b> Estimación de los coeficientes del modelo</a></li>
+<li class="chapter" data-level="6.6" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#prueba-de-significancia-global"><i class="fa fa-check"></i><b>6.6</b> Prueba de significancia global</a></li>
+<li class="chapter" data-level="6.7" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#coeficiente-de-determinaci%C3%B3n-y-estimaci%C3%B3n-de-sigma2"><i class="fa fa-check"></i><b>6.7</b> Coeficiente de determinación y estimación de <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="6.8" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#prueba-individual-de-significancia-para-los-coeficientes"><i class="fa fa-check"></i><b>6.8</b> Prueba individual de significancia para los coeficientes</a></li>
+<li class="chapter" data-level="6.9" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalos-de-confianza-para-beta_j"><i class="fa fa-check"></i><b>6.9</b> Intervalos de confianza para <span class="math inline">\(\beta_j\)</span></a></li>
+<li class="chapter" data-level="6.10" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#an%C3%A1lisis-de-residuales"><i class="fa fa-check"></i><b>6.10</b> Análisis de residuales</a>
+<ul>
+<li class="chapter" data-level="6.10.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#validaci%C3%B3n-de-los-supuestos"><i class="fa fa-check"></i><b>6.10.1</b> Validación de los supuestos</a></li>
+<li class="chapter" data-level="6.10.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#identificaci%C3%B3n-de-outliers"><i class="fa fa-check"></i><b>6.10.2</b> Identificación de outliers</a></li>
+<li class="chapter" data-level="6.10.3" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#identificaci%C3%B3n-de-observaciones-influenciales"><i class="fa fa-check"></i><b>6.10.3</b> Identificación de observaciones influenciales</a></li>
+</ul></li>
+<li class="chapter" data-level="6.11" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#inferencia-para-la-respuesta"><i class="fa fa-check"></i><b>6.11</b> Inferencia para la respuesta</a>
+<ul>
+<li class="chapter" data-level="6.11.1" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalo-de-confianza-para-ey-mid-mathbfx_0"><i class="fa fa-check"></i><b>6.11.1</b> Intervalo de confianza para <span class="math inline">\(E[Y \mid \mathbf{x}_0]\)</span></a></li>
+<li class="chapter" data-level="6.11.2" data-path="regresión-lineal-múltiple.html"><a href="regresión-lineal-múltiple.html#intervalo-de-predicci%C3%B3n-para-una-nueva-observaci%C3%B3n"><i class="fa fa-check"></i><b>6.11.2</b> Intervalo de predicción para una nueva observación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>7</b> Conclusiones</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project/tree/proyecto" target="_blank">Repositorio en GitHub</a></li>
 </ul>
@@ -162,7 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicting Student Test Scores</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicción de calificaciones de estudiantes</a>
           </h1>
         </div>
 
@@ -171,17 +194,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">Predicting Student Test Scores</h1>
+<h1 class="title">Predicción de calificaciones de estudiantes</h1>
 <p class="author"><em>Jimara Urzola y Jose Castro</em></p>
-<p class="date"><em>2026-10-01</em></p>
+<p class="date"><em>2026-11-18</em></p>
 </div>
 <div id="introducción" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Introducción<a href="index.html#introducci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Para el desarrollo del análisis trabajaremos con el conjunto de datos Predicting Student Test Scores, un conjunto de datos sintético diseñado para problemas de regresión en el ámbito educativo. Este conjunto contiene información sobre características académicas, conductuales y de acceso a recursos de 630.000 estudiantes, con el objetivo de analizar y predecir el desempeño académico a partir de variables como las horas de estudio, la asistencia a clases, el método de estudio empleado y el acceso a recursos como internet.</p>
 <p>A partir de este conjunto de datos, el presente proyecto busca responder la siguiente pregunta de investigación:</p>
 <p>¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?</p>
-<div id="contexto-de-los-datos-de-student-test-scores" class="section level3 hasAnchor" number="1.0.1">
-<h3><span class="header-section-number">1.0.1</span> Contexto de los datos de student test scores<a href="index.html#contexto-de-los-datos-de-student-test-scores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="contexto-de-los-datos" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Contexto de los datos<a href="index.html#contexto-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Las variables del conjunto de datos son:</p>
 <ul>
 <li><p><code>age</code>: Edad del estudiante.</p></li>
@@ -214,75 +237,137 @@ a:hover {
 }
 </style>
 <p>Carguemos las librerías y el conjunto de datos:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.2.1     ✔ readr     2.2.0
-## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
-## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
-## ✔ purrr     1.2.2     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span></code></pre></div>
-<pre><code>## Loading required package: Rcpp
-## ## 
-## ## Amelia II: Multiple Imputation
-## ## (Version 1.8.3, built: 2024-11-07)
-## ## Copyright (C) 2005-2026 James Honaker, Gary King and Matthew Blackwell
-## ## Refer to http://gking.harvard.edu/amelia/ for more information
-## ##</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="index.html#cb5-1" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb5-2"><a href="index.html#cb5-2" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
-<span id="cb5-3"><a href="index.html#cb5-3" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;rstatix&#39;
-## 
-## The following object is masked from &#39;package:stats&#39;:
-## 
-##     filter</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="index.html#cb7-1" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
-<pre><code>## Loading required package: carData
-## 
-## Attaching package: &#39;car&#39;
-## 
-## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     recode
-## 
-## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     some</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="index.html#cb9-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;Datos/train.csv&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="index.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-3"><a href="index.html#cb1-3" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb1-4"><a href="index.html#cb1-4" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb1-5"><a href="index.html#cb1-5" tabindex="-1"></a><span class="fu">library</span>(Amelia)</span>
+<span id="cb1-6"><a href="index.html#cb1-6" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-7"><a href="index.html#cb1-7" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
+<span id="cb1-8"><a href="index.html#cb1-8" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb1-9"><a href="index.html#cb1-9" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1" tabindex="-1"></a>trainset <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&#39;Datos/train.csv&#39;</span>)</span></code></pre></div>
 <p>Verifiquemos que leímos bien los datos observando las primeras filas:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="index.html#cb10-1" tabindex="-1"></a><span class="fu">head</span>(trainset, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>##   id age gender  course study_hours class_attendance internet_access
-## 1  0  21 female    b.sc        7.91             98.8              no
-## 2  1  18  other diploma        4.95             94.8             yes
-## 3  2  20 female    b.sc        4.68             92.6             yes
-## 4  3  19   male    b.sc        2.00             49.5             yes
-## 5  4  23   male     bca        7.65             86.9             yes
-##   sleep_hours sleep_quality  study_method facility_rating exam_difficulty
-## 1         4.9       average online videos             low            easy
-## 2         4.7          poor    self-study          medium        moderate
-## 3         5.8          poor      coaching            high        moderate
-## 4         8.3       average   group study            high        moderate
-## 5         9.6          good    self-study            high            easy
-##   exam_score
-## 1       78.3
-## 2       46.7
-## 3       99.0
-## 4       63.9
-## 5      100.0</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1" tabindex="-1"></a><span class="fu">dim</span>(trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="index.html#cb3-1" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(trainset, <span class="at">n=</span><span class="dv">5</span>))</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="1%" />
+<col width="2%" />
+<col width="4%" />
+<col width="5%" />
+<col width="7%" />
+<col width="11%" />
+<col width="10%" />
+<col width="7%" />
+<col width="9%" />
+<col width="9%" />
+<col width="10%" />
+<col width="10%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">id</th>
+<th align="right">age</th>
+<th align="left">gender</th>
+<th align="left">course</th>
+<th align="right">study_hours</th>
+<th align="right">class_attendance</th>
+<th align="left">internet_access</th>
+<th align="right">sleep_hours</th>
+<th align="left">sleep_quality</th>
+<th align="left">study_method</th>
+<th align="left">facility_rating</th>
+<th align="left">exam_difficulty</th>
+<th align="right">exam_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">21</td>
+<td align="left">female</td>
+<td align="left">b.sc</td>
+<td align="right">7.91</td>
+<td align="right">98.8</td>
+<td align="left">no</td>
+<td align="right">4.9</td>
+<td align="left">average</td>
+<td align="left">online videos</td>
+<td align="left">low</td>
+<td align="left">easy</td>
+<td align="right">78.3</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">18</td>
+<td align="left">other</td>
+<td align="left">diploma</td>
+<td align="right">4.95</td>
+<td align="right">94.8</td>
+<td align="left">yes</td>
+<td align="right">4.7</td>
+<td align="left">poor</td>
+<td align="left">self-study</td>
+<td align="left">medium</td>
+<td align="left">moderate</td>
+<td align="right">46.7</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">20</td>
+<td align="left">female</td>
+<td align="left">b.sc</td>
+<td align="right">4.68</td>
+<td align="right">92.6</td>
+<td align="left">yes</td>
+<td align="right">5.8</td>
+<td align="left">poor</td>
+<td align="left">coaching</td>
+<td align="left">high</td>
+<td align="left">moderate</td>
+<td align="right">99.0</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="right">19</td>
+<td align="left">male</td>
+<td align="left">b.sc</td>
+<td align="right">2.00</td>
+<td align="right">49.5</td>
+<td align="left">yes</td>
+<td align="right">8.3</td>
+<td align="left">average</td>
+<td align="left">group study</td>
+<td align="left">high</td>
+<td align="left">moderate</td>
+<td align="right">63.9</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">23</td>
+<td align="left">male</td>
+<td align="left">bca</td>
+<td align="right">7.65</td>
+<td align="right">86.9</td>
+<td align="left">yes</td>
+<td align="right">9.6</td>
+<td align="left">good</td>
+<td align="left">self-study</td>
+<td align="left">high</td>
+<td align="left">easy</td>
+<td align="right">100.0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1" tabindex="-1"></a><span class="fu">dim</span>(trainset)</span></code></pre></div>
 <pre><code>## [1] 630000     13</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="index.html#cb14-1" tabindex="-1"></a><span class="fu">colnames</span>(trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="index.html#cb6-1" tabindex="-1"></a><span class="fu">colnames</span>(trainset)</span></code></pre></div>
 <pre><code>##  [1] &quot;id&quot;               &quot;age&quot;              &quot;gender&quot;           &quot;course&quot;          
 ##  [5] &quot;study_hours&quot;      &quot;class_attendance&quot; &quot;internet_access&quot;  &quot;sleep_hours&quot;     
 ##  [9] &quot;sleep_quality&quot;    &quot;study_method&quot;     &quot;facility_rating&quot;  &quot;exam_difficulty&quot; 
 ## [13] &quot;exam_score&quot;</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="index.html#cb16-1" tabindex="-1"></a><span class="fu">str</span>(trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="index.html#cb8-1" tabindex="-1"></a><span class="fu">str</span>(trainset)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    630000 obs. of  13 variables:
 ##  $ id              : int  0 1 2 3 4 5 6 7 8 9 ...
 ##  $ age             : int  21 18 20 19 23 24 20 22 22 18 ...
@@ -299,15 +384,61 @@ a:hover {
 ##  $ exam_score      : num  78.3 46.7 99 63.9 100 70.1 63.4 76.8 46.7 58.2 ...</code></pre>
 <p>El conjunto tiene 630.000 estudiantes y 13 columnas: <code>id</code>, cuatro variables numéricas independientes, siete categóricas y la variable respuesta <code>exam_score</code>.</p>
 <p>Identifiquemos si existen valores <code>NA</code> por columna:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="index.html#cb18-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="index.html#cb18-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), <span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>))</span></code></pre></div>
-<pre><code>##   NA_id NA_age NA_gender NA_course NA_study_hours NA_class_attendance
-## 1     0      0         0         0              0                   0
-##   NA_internet_access NA_sleep_hours NA_sleep_quality NA_study_method
-## 1                  0              0                0               0
-##   NA_facility_rating NA_exam_difficulty NA_exam_score
-## 1                  0                  0             0</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="index.html#cb20-1" tabindex="-1"></a><span class="fu">missmap</span>(trainset)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="index.html#cb10-1" tabindex="-1"></a>trainset <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="index.html#cb10-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)), <span class="at">.names =</span> <span class="st">&quot;NA_{.col}&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="index.html#cb10-3" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="3%" />
+<col width="3%" />
+<col width="5%" />
+<col width="5%" />
+<col width="8%" />
+<col width="10%" />
+<col width="10%" />
+<col width="8%" />
+<col width="9%" />
+<col width="8%" />
+<col width="10%" />
+<col width="10%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">NA_id</th>
+<th align="right">NA_age</th>
+<th align="right">NA_gender</th>
+<th align="right">NA_course</th>
+<th align="right">NA_study_hours</th>
+<th align="right">NA_class_attendance</th>
+<th align="right">NA_internet_access</th>
+<th align="right">NA_sleep_hours</th>
+<th align="right">NA_sleep_quality</th>
+<th align="right">NA_study_method</th>
+<th align="right">NA_facility_rating</th>
+<th align="right">NA_exam_difficulty</th>
+<th align="right">NA_exam_score</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="index.html#cb11-1" tabindex="-1"></a><span class="fu">missmap</span>(trainset)</span></code></pre></div>
 <p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
 <p>No existe ningún dato faltante en el conjunto <code>train.csv</code>.</p>
 </div>
