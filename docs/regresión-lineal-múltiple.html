@@ -23,7 +23,7 @@
 <meta name="author" content="Jimara Urzola y Jose Castro" />
 
 
-<meta name="date" content="2026-11-18" />
+<meta name="date" content="2026-11-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1482,12 +1482,12 @@ t_j = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2 \, ( \mathbf{X}&#39;\mathbf{X} )
 <span id="cb208-2"><a href="regresión-lineal-múltiple.html#cb208-2" tabindex="-1"></a><span class="co"># (reps = 100 porque con 630000 observaciones la simulación del p-valor es muy pesada)</span></span>
 <span id="cb208-3"><a href="regresión-lineal-múltiple.html#cb208-3" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(modelo, <span class="at">reps =</span> <span class="dv">100</span>)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1   -0.0007133672      2.001422    0.44
+##    1   -0.0007133672      2.001422    0.58
 ##  Alternative hypothesis: rho != 0</code></pre>
 <div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="regresión-lineal-múltiple.html#cb210-1" tabindex="-1"></a><span class="co"># ACF de los residuales</span></span>
 <span id="cb210-2"><a href="regresión-lineal-múltiple.html#cb210-2" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">residuals</span>(modelo)  <span class="co"># cálculo de los residuales</span></span>
 <span id="cb210-3"><a href="regresión-lineal-múltiple.html#cb210-3" tabindex="-1"></a><span class="fu">acf</span>(r, <span class="at">las =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">lag.max =</span> <span class="dv">80</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/acf-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/acf-1.png" width="672" /></p>
 <p>El estadístico de Durbin-Watson es <span class="math inline">\(2.001\)</span>, la autocorrelación es prácticamente cero <span class="math inline">\((-0.0007)\)</span> y no se rechaza <span class="math inline">\(H_0\)</span> <span class="math inline">\((p-valor &gt; 0.05)\)</span>. En el ACF ninguna autocorrelación se sale de las bandas. Se cumple que los residuales del modelo ajustado son independientes.</p>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Normalidad en los errores</li>
@@ -1502,7 +1502,7 @@ t_j = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2 \, ( \mathbf{X}&#39;\mathbf{X} )
 ## D = 0.0020863, p-value = 6.199e-06</code></pre>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="regresión-lineal-múltiple.html#cb213-1" tabindex="-1"></a><span class="co"># Q-Q plot usando el paquete car</span></span>
 <span id="cb213-2"><a href="regresión-lineal-múltiple.html#cb213-2" tabindex="-1"></a><span class="fu">qqPlot</span>(r, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/qqplot-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/qqplot-1.png" width="672" /></p>
 <pre><code>## [1] 553892  78393</code></pre>
 <p>La prueba de Lilliefors rechaza la normalidad <span class="math inline">\((D = 0.0021,\ p-valor &lt; 0.001)\)</span>. Sin embargo, el estadístico <span class="math inline">\(D\)</span> es muy pequeño y en el Q-Q plot los residuales siguen la recta en casi todo el rango; solo se separan un poco en los extremos. Igual que en los capítulos anteriores, con 630.000 observaciones la prueba detecta desviaciones mínimas. Los residuales tienen un comportamiento aproximadamente normal.</p>
 <ol start="3" style="list-style-type: lower-alpha">
@@ -1514,13 +1514,13 @@ t_j = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2 \, ( \mathbf{X}&#39;\mathbf{X} )
 ##  One Sample t-test
 ## 
 ## data:  r
-## t = -2.7376e-16, df = 629999, p-value = 1
+## t = -1.3985e-14, df = 629999, p-value = 1
 ## alternative hypothesis: true mean is not equal to 0
 ## 95 percent confidence interval:
 ##  -0.02196323  0.02196323
 ## sample estimates:
-##    mean of x 
-## -3.06774e-18</code></pre>
+##     mean of x 
+## -1.567092e-16</code></pre>
 <p>Concluimos, con una confianza del 95%, que la media de los residuales es cero a nivel poblacional <span class="math inline">\((t = 0,\ p-valor = 1)\)</span>.</p>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Varianza constante en los errores</li>
@@ -1534,7 +1534,7 @@ t_j = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2 \, ( \mathbf{X}&#39;\mathbf{X} )
 ## BP = 867.4, df = 20, p-value &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="regresión-lineal-múltiple.html#cb219-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
 <span id="cb219-2"><a href="regresión-lineal-múltiple.html#cb219-2" tabindex="-1"></a><span class="fu">plot</span>(modelo, <span class="at">las=</span><span class="dv">1</span>, <span class="at">col=</span><span class="st">&#39;darkseagreen&#39;</span>, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/plot-modelo-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/plot-modelo-1.png" width="672" /></p>
 <p>La prueba de Breusch-Pagan rechaza la varianza constante <span class="math inline">\((BP = 867.4,\ gl = 20,\ p-valor &lt; 0.001)\)</span>. En los gráficos, la dispersión de los residuales es similar en la mayor parte de los valores ajustados y se reduce en los extremos. Esto ocurre porque <code>exam_score</code> está acotada entre 19,6 y 100: el modelo llega a ajustar valores mayores que 100 y allí los residuales solo pueden ser negativos. El supuesto de varianza constante no se cumple en los extremos, así que la inferencia sobre las calificaciones más bajas y más altas hay que tomarla con precaución.</p>
 </div>
 <div id="identificación-de-outliers" class="section level3 hasAnchor" number="6.10.2">
@@ -1552,7 +1552,7 @@ t_j = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2 \, ( \mathbf{X}&#39;\mathbf{X} )
 ##        rstudent unadjusted p-value Bonferroni p
 ## 553892  5.27441         1.3323e-07     0.083933</code></pre>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="regresión-lineal-múltiple.html#cb224-1" tabindex="-1"></a><span class="fu">influenceIndexPlot</span>(modelo, <span class="at">vars =</span> <span class="st">&quot;Bonf&quot;</span>, <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/bonf-plot-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/bonf-plot-1.png" width="672" /></p>
 <p>La observación 553892 tiene el mayor residual estudentizado <span class="math inline">\((r_i = 5.27)\)</span>, pero su p-valor de Bonferroni <span class="math inline">\((0.084)\)</span> es mayor que <span class="math inline">\(0.05\)</span>: no hay evidencia suficiente para concluir que alguna observación sea un outlier.</p>
 </div>
 <div id="identificación-de-observaciones-influenciales" class="section level3 hasAnchor" number="6.10.3">
@@ -1645,7 +1645,7 @@ t_j = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2 \, ( \mathbf{X}&#39;\mathbf{X} )
 <span id="cb230-3"><a href="regresión-lineal-múltiple.html#cb230-3" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Cook&#39;s distance (D_i)&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Índice&quot;</span>,</span>
 <span id="cb230-4"><a href="regresión-lineal-múltiple.html#cb230-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Distancia de Cook (línea = umbral)&quot;</span>)</span>
 <span id="cb230-5"><a href="regresión-lineal-múltiple.html#cb230-5" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> umbral, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/cook-plot-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/cook-plot-1.png" width="672" /></p>
 <p>Hay 28.648 observaciones (el 4,5%) que superan el umbral, pero el umbral es muy pequeño por el tamaño de la muestra <span class="math inline">\((0.0000063)\)</span> y la mayor distancia de Cook es apenas <span class="math inline">\(0.00005\)</span>. Para saber si esas observaciones controlan el modelo, lo ajustamos sin ellas y comparamos los coeficientes:</p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="regresión-lineal-múltiple.html#cb231-1" tabindex="-1"></a>modelo_sin <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">formula</span>(modelo), <span class="at">data =</span> df[<span class="sc">-</span>infl_idx, ])</span>
 <span id="cb231-2"><a href="regresión-lineal-múltiple.html#cb231-2" tabindex="-1"></a></span>
