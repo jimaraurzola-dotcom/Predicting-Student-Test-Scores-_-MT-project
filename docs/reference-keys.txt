@@ -26,3 +26,4 @@ inferencia-para-la-respuesta
 intervalo-de-confianza-para-ey-mid-mathbfx_0
 intervalo-de-predicción-para-una-nueva-observación
 conclusiones
+video-explicativo
