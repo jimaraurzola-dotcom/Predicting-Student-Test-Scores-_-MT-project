@@ -1,0 +1,2179 @@
+---
+title: "Predicción de calificaciones de estudiantes"
+author: "Jimara Urzola y Jose Castro"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+github-repo: jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project
+---
+
+# Introducción
+
+Para el desarrollo del análisis trabajaremos con el conjunto de datos Predicting Student Test Scores, un conjunto de datos sintético diseñado para problemas de regresión en el ámbito educativo. Este conjunto contiene información sobre características académicas, conductuales y de acceso a recursos de 630.000 estudiantes, con el objetivo de analizar y predecir el desempeño académico a partir de variables como las horas de estudio, la asistencia a clases, el método de estudio empleado y el acceso a recursos como internet.
+
+A partir de este conjunto de datos, el presente proyecto busca responder la siguiente pregunta de investigación:
+
+¿Cuáles son los factores académicos, conductuales y de acceso a recursos que influyen significativamente en el desempeño académico (exam_score) de los estudiantes, y en qué magnitud lo hacen?
+
+## Contexto de los datos
+
+Las variables del conjunto de datos son:
+
+* `age`: Edad del estudiante.
+
+* `gender`: Género del estudiante (female, male, other).
+
+* `study_hours`: Número de horas dedicadas al estudio.
+
+* `study_method`: Método de estudio empleado (coaching, group study, mixed, online videos, self-study).
+
+* `class_attendance`: Porcentaje de asistencia a clases.
+
+* `sleep_hours`: Número de horas de sueño.
+
+* `sleep_quality`: Calidad del sueño percibida (poor, average, good).
+
+* `course`: Programa académico que cursa el estudiante.
+
+* `internet_access`: Indica si el estudiante cuenta con acceso a internet (yes, no).
+
+* `facility_rating`: Calificación de las instalaciones educativas (low, medium, high).
+
+* `exam_difficulty`: Dificultad percibida del examen (easy, moderate, hard).
+
+* `exam_score`: Calificación obtenida por el estudiante en el examen, en una escala de 0 a 100.
+
+
+Iniciaremos con un análisis exploratorio de datos (EDA) del conjunto Predicting Student Test Scores, con el propósito de comprender la estructura de los datos, identificar patrones, detectar valores atípicos y analizar las relaciones entre las variables que pueden influir en el desempeño académico de los estudiantes.
+
+
+
+
+<!--chapter:end:index.Rmd-->
+
+```{css, echo=FALSE}
+body {
+  background-color: #F8F4FF;
+  font-family: Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+```
+
+Carguemos las librerías y el conjunto de datos:
+
+```{r librerias, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+library(GGally)
+library(lmtest)
+library(Amelia)
+library(patchwork)
+library(nortest)
+library(rstatix)
+library(car)
+```
+
+```{r dataset}
+trainset <- read.csv('Datos/train.csv')
+```
+
+Verifiquemos que leímos bien los datos observando las primeras filas:
+
+```{r head}
+kable(head(trainset, n=5))
+```
+
+```{r dimension}
+dim(trainset)
+```
+
+```{r variables}
+colnames(trainset)
+```
+
+```{r tipos de variable}
+str(trainset)
+```
+
+El conjunto tiene 630.000 estudiantes y 13 columnas: `id`, cuatro variables numéricas independientes, siete categóricas y la variable respuesta `exam_score`.
+
+Identifiquemos si existen valores `NA` por columna:
+
+```{r valNA}
+trainset %>%
+  summarise(across(everything(), ~ sum(is.na(.)), .names = "NA_{.col}")) %>%
+  kable()
+```
+
+```{r, cache=TRUE}
+missmap(trainset)
+```
+
+No existe ningún dato faltante en el conjunto `train.csv`.
+
+
+# Análisis exploratorio de datos (EDA)
+
+## Análisis exploratorio de `exam_score` (Target)
+
+```{r exscor resumen}
+trainset %>%
+  summarise(
+    n = length(exam_score),
+    media = mean(exam_score),
+    ds = sd(exam_score),
+    mediana = median(exam_score),
+    minimo = min(exam_score),
+    maximo = max(exam_score),
+    Q1 = quantile(exam_score, 0.25),
+    Q3 = quantile(exam_score, 0.75),
+    IQR = IQR(exam_score)
+  ) %>%
+  kable()
+```
+
+La variable `exam_score` se analizó a partir de 630.000 estudiantes, donde cada fila representa un estudiante. El puntaje promedio es de 62,51 puntos, con una desviación estándar de 18,92 puntos.
+
+El 50% de los estudiantes obtiene un puntaje menor o igual a 62,60 puntos, prácticamente igual a la media, lo que indica una distribución simétrica. El IQR es de 27,5 puntos (entre Q1 = 48,8 y Q3 = 76,3). El puntaje mínimo es 19,60 y el máximo 100.
+
+* Histograma de densidad de la variable:
+
+```{r exscore histograma, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = exam_score)) +
+  geom_histogram(aes(y = after_stat(density)),
+                 binwidth = 5,
+                 fill = "#c5b0ff",
+                 color = "white",
+                 alpha = 0.6) +
+  geom_density(color = "darkblue", linewidth = 1.2) +
+  coord_cartesian(xlim = c(0, 100), expand = FALSE) +
+  labs(title = "Distribución de la calificación del examen",
+       x = "Calificación del examen",
+       y = "Densidad") +
+  theme_bw()
+```
+
+La mayor parte de los puntajes se concentra entre 50 y 75 puntos y la forma es aproximadamente simétrica. Al final se ve un aumento en 100 porque es el puntaje máximo posible: 15.458 estudiantes (2,45%) lo alcanzan.
+
+* Diagrama de cajas y bigotes:
+
+```{r exscore boxplot}
+trainset %>%
+  ggplot(aes(x = "", y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", color = "darkblue",
+               outlier.color = "#2f0be0") +
+  stat_summary(fun = mean, geom = "point", shape = 20,
+               size = 3, color = "black") +
+  labs(title = "Diagrama de cajas y bigotes de la calificación del examen",
+       x = "",
+       y = "Calificación del examen") +
+  theme_bw()
+```
+
+El boxplot confirma lo visto en el histograma: la mediana (62,6) está prácticamente centrada entre Q1 (48,8) y Q3 (76,3), la media (punto negro) coincide con ella y no hay valores atípicos.
+
+
+## Análisis de las variables independientes (características)
+
+* Inicialmente, analizaremos las variables numéricas.
+
+```{r Ind-Num}
+resumen_numericas <- trainset %>%
+ select(where(is.numeric), -any_of(c("exam_score", "id"))) %>%
+  pivot_longer(
+    cols = everything(),
+    names_to = "variable",
+    values_to = "valor"
+  ) %>%
+  group_by(variable) %>%
+  summarise(
+    n = sum(!is.na(valor)),
+    media = round(mean(valor, na.rm = TRUE),3),
+    ds = round(sd(valor, na.rm = TRUE),3),
+    mediana = median(valor, na.rm = TRUE),
+    minimo = min(valor, na.rm = TRUE),
+    maximo = max(valor, na.rm = TRUE),
+    Q1 = quantile(valor, 0.25, na.rm = TRUE),
+    Q3 = quantile(valor, 0.75, na.rm = TRUE),
+    IQR = IQR(valor, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+kable(resumen_numericas)
+```
+
+```{r ind bxplot}
+# Boxplot de age
+p1 <- trainset %>%
+  ggplot(aes(x = "", y = age)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "Edad de los estudiantes", y = "Edad", x = "") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 10, face = "bold"))
+
+# Boxplot de study_hours
+p2 <- trainset %>%
+  ggplot(aes(x = "", y = study_hours)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "Horas de estudio", y = "Horas", x = "") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 10, face = "bold"))
+
+# Boxplot de class_attendance
+p3 <- trainset %>%
+  ggplot(aes(x = "", y = class_attendance)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "Porcentaje de asistencia", y = "%", x = "") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 10, face = "bold"))
+
+# Boxplot de sleep_hours
+p4 <- trainset %>%
+  ggplot(aes(x = "", y = sleep_hours)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  labs(title = "Horas de sueño", y = "Horas", x = "") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 10, face = "bold"))
+
+# Cuadrícula 2x2
+(p1 + p2) / (p3 + p4)
+```
+
+```{r, include=FALSE}
+rm(p1, p2, p3, p4)
+gc()
+```
+
+
+Los boxplots muestran que las cuatro variables numéricas independientes tienen distribuciones bastante simétricas y sin valores atípicos.
+
+* `age`: la mayoría de los estudiantes tiene entre 19 y 23 años; el 50% tiene una edad menor o igual a 21 años.
+
+* `study_hours`: las horas de estudio van desde casi 0 hasta cerca de 8 horas; el 50% dedica 4 horas o menos al estudio.
+
+* `class_attendance`: la asistencia se concentra entre 57% y 87%; el 50% de los estudiantes tiene una asistencia menor o igual a 72,6%.
+
+* `sleep_hours`: la mayoría de los estudiantes duerme entre 5,6 y 8,6 horas; el 50% duerme 7,1 horas o menos.
+
+En las cuatro variables la media y la mediana son prácticamente iguales, lo que coincide con lo observado en la tabla resumen.
+
+
+```{r, cache=TRUE}
+# Histograma de age
+trainset %>%
+  ggplot(aes(x = age)) +
+  geom_histogram(fill = "#c5b0ff", alpha = 0.7, binwidth = 1, color = "white") +
+  labs(title = "Edad de los estudiantes", x = "Edad", y = "Frecuencia") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 10, face = "bold"))
+```
+
+Las barras tienen una altura muy similar entre los 17 y 24 años: la edad es una variable discreta y prácticamente uniforme, sin una edad que predomine sobre las demás.
+
+
+
+```{r, cache=TRUE}
+# Histograma de study_hours
+trainset %>%
+  ggplot(aes(x = study_hours)) +
+  geom_histogram(fill = "#c5b0ff", alpha = 0.7, bins = 50, color = "white") +
+  labs(title = "Horas de estudio", x = "Horas", y = "Frecuencia") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 10, face = "bold"))
+```
+
+La distribución es bastante uniforme en todo el rango (0 a 8 horas), con algunas barras puntuales de mayor frecuencia. Los estudiantes se reparten de forma pareja entre quienes estudian pocas y muchas horas.
+
+
+```{r, cache=TRUE}
+# Histograma de class_attendance
+trainset %>%
+  ggplot(aes(x = class_attendance)) +
+  geom_histogram(fill = "#c5b0ff", alpha = 0.7, bins = 50, color = "white") +
+  labs(title = "Porcentaje de asistencia", x = "%", y = "Frecuencia") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 10, face = "bold"))
+```
+
+La distribución es relativamente uniforme entre 40% y 90%, con un aumento cerca del 100%: hay un grupo considerable de estudiantes con asistencia casi perfecta.
+
+
+```{r, cache=TRUE}
+# Histograma de sleep_hours
+trainset %>%
+  ggplot(aes(x = sleep_hours)) +
+  geom_histogram(fill = "#c5b0ff", alpha = 0.7, bins = 50, color = "white") +
+  labs(title = "Horas de sueño", x = "Horas", y = "Frecuencia") +
+  theme_bw() +
+  theme(plot.title = element_text(size = 10, face = "bold"))
+```
+
+La distribución es bastante homogénea entre 4 y 10 horas, sin una concentración marcada en ningún valor.
+
+
+
+
+* A continuación, trabajaremos con las variables categóricas.
+
+```{r tbfr-cat}
+tabla_study_method <- trainset %>%
+  count(study_method, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "study_method",
+    Categoria = as.character(study_method)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+kable(tabla_study_method)
+```
+
+```{r}
+tabla_study_method <- trainset %>%
+  count(study_method, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_study_method, aes(x = reorder(study_method, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#c5b0ff", width = 0.4) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable study_method") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Método de estudio", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+Las cinco categorías de `study_method` están equilibradas: coaching (20,90%) y self-study (20,81%) son las más frecuentes, seguidas de mixed (19,54%), group study (19,53%) y online videos (19,22%). Ninguna categoría domina.
+
+
+
+```{r}
+tabla_gender <- trainset %>%
+  count(gender, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "gender",
+    Categoria = as.character(gender)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+kable(tabla_gender)
+```
+
+```{r}
+tabla_gender <- trainset %>%
+  count(gender, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_gender, aes(x = reorder(gender, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3) +
+  facet_wrap(~ "Distribución de la variable gender") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Género", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+La variable `gender` está repartida de forma muy pareja: other (33,51%), male (33,43%) y female (33,07%).
+
+
+```{r}
+tabla_internet_access <- trainset %>%
+  count(internet_access, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "internet_access",
+    Categoria = as.character(internet_access)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+kable(tabla_internet_access)
+```
+
+```{r}
+tabla_internet_access <- trainset %>%
+  count(internet_access, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_internet_access, aes(x = reorder(internet_access, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable internet_access") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.6))) +
+  labs(x = "Acceso a internet", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+Aquí sí hay un desbalance marcado: el 91,97% de los estudiantes tiene acceso a internet (yes) y solo el 8,03% no lo tiene (no). Aun así, el grupo sin acceso tiene 50.577 estudiantes, suficientes para compararlo con el otro.
+
+
+```{r}
+tabla_course <- trainset %>%
+  count(course, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "course",
+    Categoria = as.character(course)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+kable(tabla_course)
+```
+
+```{r}
+tabla_course <- trainset %>%
+  count(course, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_course, aes(x = reorder(course, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#c5b0ff", width = 0.45) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 2.8) +
+  facet_wrap(~ "Distribución de la variable course") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Curso", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+b.tech concentra la mayor proporción de estudiantes (20,83%), seguida por b.sc (17,71%) y b.com (17,61%); entre las tres suman cerca del 56%. Las menos representadas son diploma (7,92%) y ba (9,84%). El desbalance es moderado: las siete categorías van del 8% al 21%.
+
+```{r}
+tabla_sleep_quality <- trainset %>%
+  count(sleep_quality, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "sleep_quality",
+    Categoria = as.character(sleep_quality)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+kable(tabla_sleep_quality)
+```
+
+```{r}
+tabla_sleep_quality <- trainset %>%
+  count(sleep_quality, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_sleep_quality, aes(x = reorder(sleep_quality, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable sleep_quality") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Calidad del sueño", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+Las tres categorías de `sleep_quality` tienen proporciones casi iguales: poor (33,92%), good (33,82%) y average (32,26%).
+
+
+
+```{r}
+tabla_facility_rating <- trainset %>%
+  count(facility_rating, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "facility_rating",
+    Categoria = as.character(facility_rating)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+kable(tabla_facility_rating)
+```
+
+```{r}
+tabla_facility_rating <- trainset %>%
+  count(facility_rating, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_facility_rating, aes(x = reorder(facility_rating, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable facility_rating") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Calificación de instalaciones", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+Igual que `sleep_quality`, las tres categorías de `facility_rating` están equilibradas: medium (33,98%), low (33,71%) y high (32,31%).
+
+
+```{r}
+tabla_exam_difficulty <- trainset %>%
+  count(exam_difficulty, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2),
+    Variable = "exam_difficulty",
+    Categoria = as.character(exam_difficulty)
+  ) %>%
+  select(Variable, Categoria, Frecuencia, Porcentaje)
+
+kable(tabla_exam_difficulty)
+```
+
+```{r}
+tabla_exam_difficulty <- trainset %>%
+  count(exam_difficulty, name = "Frecuencia") %>%
+  mutate(
+    Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 1),
+    Etiqueta = paste0(Frecuencia, " (", Porcentaje, "%)")
+  )
+
+ggplot(tabla_exam_difficulty, aes(x = reorder(exam_difficulty, -Frecuencia), y = Frecuencia)) +
+  geom_col(fill = "#c5b0ff", width = 0.3) +
+  geom_text(aes(label = Etiqueta), vjust = -0.5, size = 3.5) +
+  facet_wrap(~ "Distribución de la variable exam_difficulty") +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+  labs(x = "Dificultad del examen", y = "Frecuencia (Porcentaje)") +
+  theme_bw(base_size = 12) +
+  theme(
+    plot.title = element_blank(),
+    strip.background = element_rect(fill = "gray80", color = NA),
+    strip.text = element_text(face = "bold"),
+    panel.grid.major.x = element_blank()
+  )
+```
+
+Es la variable categórica con mayor desbalance después de `internet_access`: moderate concentra el 56,19% de las observaciones, easy el 28,02% y hard el 15,79%.
+
+```{r, include = FALSE}
+rm(list = setdiff(ls(), "trainset"))
+
+gc()
+```
+
+## Análisis exploratorio bivariado
+
+* A continuación, analizaremos la relación entre la variable objetivo `exam_score` y las variables numéricas independientes.
+
+`age` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = age, y = exam_score)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Edad", y = "Calificación del examen") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la edad y la calificación del examen")
+```
+
+La calificación se distribuye igual en todas las edades (17 a 24 años), con puntos en todo el rango de 20 a 100: no se ve una relación lineal entre la edad y la nota.
+
+`study_hours` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = study_hours, y = exam_score)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Horas de estudio", y = "Calificación del examen") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre las horas de estudio y la calificación del examen")
+```
+
+Hay una relación positiva clara: a más horas de estudio, mayor calificación. La nube de puntos sube de izquierda a derecha y es la relación más marcada de las cuatro.
+
+`class_attendance` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = class_attendance, y = exam_score)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Asistencia a clases (%)", y = "Calificación del examen") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la asistencia a clases y la calificación del examen")
+```
+
+Los estudiantes con mayor asistencia tienden a sacar mejor nota. Sin embargo, la nube de puntos cubre todo el rango de calificaciones para cualquier nivel de asistencia, así que la relación es más débil que con `study_hours`.
+
+`sleep_hours` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = sleep_hours, y = exam_score)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Horas de sueño", y = "Calificación del examen") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre las horas de sueño y la calificación del examen")
+```
+
+Los puntos cubren todo el rango de calificaciones para cualquier cantidad de horas de sueño. Si hay relación con la nota, es débil.
+
+* Ahora analizaremos la relación entre `exam_score` y las variables categóricas independientes.
+
+`gender` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = gender, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
+  labs(title = "Calificación del examen según gender",
+       x = "Género", y = "Calificación del examen") +
+  theme_bw()
+```
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(gender) %>%
+  summarise(n = length(exam_score),
+            media = mean(exam_score),
+            ds = sd(exam_score),
+            mediana = median(exam_score),
+            minimo = min(exam_score),
+            maximo = max(exam_score),
+            Q1 = quantile(exam_score, 0.25),
+            Q3 = quantile(exam_score, 0.75),
+            IQR = IQR(exam_score)) %>%
+  kable()
+```
+
+Las tres cajas se superponen casi por completo. Las medias van de 62,2 a 62,8 y las medianas de 62,5 a 62,6: el género no marca diferencias en el desempeño.
+
+`internet_access` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = internet_access, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
+  labs(title = "Calificación del examen según internet_access",
+       x = "Acceso a internet", y = "Calificación del examen") +
+  theme_bw()
+```
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(internet_access) %>%
+  summarise(n = length(exam_score),
+            media = mean(exam_score),
+            ds = sd(exam_score),
+            mediana = median(exam_score),
+            minimo = min(exam_score),
+            maximo = max(exam_score),
+            Q1 = quantile(exam_score, 0.25),
+            Q3 = quantile(exam_score, 0.75),
+            IQR = IQR(exam_score)) %>%
+  kable()
+```
+
+La mediana es 61,9 en el grupo sin internet y 62,6 en el grupo con internet, y las medias son iguales (62,5). Las cajas se solapan casi por completo.
+
+`course` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = course, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
+  labs(title = "Calificación del examen según course",
+       x = "Curso", y = "Calificación del examen") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(course) %>%
+  summarise(n = length(exam_score),
+            media = mean(exam_score),
+            ds = sd(exam_score),
+            mediana = median(exam_score),
+            minimo = min(exam_score),
+            maximo = max(exam_score),
+            Q1 = quantile(exam_score, 0.25),
+            Q3 = quantile(exam_score, 0.75),
+            IQR = IQR(exam_score)) %>%
+  kable()
+```
+
+Las medianas van de 61,8 (diploma) a 63,6 (bba), un rango de 1,8 puntos entre los siete cursos. Ningún programa académico se distingue del resto.
+
+`sleep_quality` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = sleep_quality, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
+  labs(title = "Calificación del examen según sleep_quality",
+       x = "Calidad del sueño", y = "Calificación del examen") +
+  theme_bw()
+```
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(sleep_quality) %>%
+  summarise(n = length(exam_score),
+            media = mean(exam_score),
+            ds = sd(exam_score),
+            mediana = median(exam_score),
+            minimo = min(exam_score),
+            maximo = max(exam_score),
+            Q1 = quantile(exam_score, 0.25),
+            Q3 = quantile(exam_score, 0.75),
+            IQR = IQR(exam_score)) %>%
+  kable()
+```
+
+Aquí sí hay diferencias: la mediana es 57,2 en poor, 62,6 en average y 68,2 en good, 11 puntos entre los extremos. A mejor calidad de sueño, mejor nota.
+
+`facility_rating` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = facility_rating, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
+  labs(title = "Calificación del examen según facility_rating",
+       x = "Calificación de instalaciones", y = "Calificación del examen") +
+  theme_bw()
+```
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(facility_rating) %>%
+  summarise(n = length(exam_score),
+            media = mean(exam_score),
+            ds = sd(exam_score),
+            mediana = median(exam_score),
+            minimo = min(exam_score),
+            maximo = max(exam_score),
+            Q1 = quantile(exam_score, 0.25),
+            Q3 = quantile(exam_score, 0.75),
+            IQR = IQR(exam_score)) %>%
+  kable()
+```
+
+La mediana es 58,3 en low, 63,1 en medium y 67,3 en high, unos 9 puntos entre los extremos. Las cajas se desplazan hacia arriba a medida que mejora la calificación de las instalaciones.
+
+`exam_difficulty` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = exam_difficulty, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
+  labs(title = "Calificación del examen según exam_difficulty",
+       x = "Dificultad del examen", y = "Calificación del examen") +
+  theme_bw()
+```
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(exam_difficulty) %>%
+  summarise(n = length(exam_score),
+            media = mean(exam_score),
+            ds = sd(exam_score),
+            mediana = median(exam_score),
+            minimo = min(exam_score),
+            maximo = max(exam_score),
+            Q1 = quantile(exam_score, 0.25),
+            Q3 = quantile(exam_score, 0.75),
+            IQR = IQR(exam_score)) %>%
+  kable()
+```
+
+Las medianas son casi iguales en las tres categorías (62,5 a 62,8) y las cajas prácticamente coinciden: la dificultad percibida del examen no genera diferencias en la nota.
+
+`study_method` vs `exam_score`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = study_method, y = exam_score)) +
+  geom_boxplot(fill = "#c5b0ff", alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black") +
+  labs(title = "Calificación del examen según study_method",
+       x = "Método de estudio", y = "Calificación del examen") +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(study_method) %>%
+  summarise(n = length(exam_score),
+            media = mean(exam_score),
+            ds = sd(exam_score),
+            mediana = median(exam_score),
+            minimo = min(exam_score),
+            maximo = max(exam_score),
+            Q1 = quantile(exam_score, 0.25),
+            Q3 = quantile(exam_score, 0.75),
+            IQR = IQR(exam_score)) %>%
+  kable()
+```
+
+Es la variable con mayor diferencia entre grupos: la mediana va de 57,3 en self-study a 69,3 en coaching, 12 puntos. Coaching y mixed quedan por encima de group study, online videos y self-study.
+
+En las siete variables la desviación estándar de `exam_score` es muy parecida entre grupos (entre 18,1 y 19,3 puntos), es decir, la dispersión de la nota casi no cambia de un grupo a otro.
+
+```{r, include = FALSE}
+rm(list = setdiff(ls(), "trainset"))
+gc()
+```
+
+* Por último, veamos cómo se relacionan entre sí las variables numéricas independientes.
+
+`age` vs `study_hours`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = age, y = study_hours)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Edad", y = "Horas de estudio") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la edad y las horas de estudio")
+```
+
+La nube de puntos cubre todo el rango de ambas variables: la edad no se relaciona con las horas de estudio.
+
+`age` vs `class_attendance`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = age, y = class_attendance)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Edad", y = "Asistencia a clases (%)") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la edad y la asistencia a clases")
+```
+
+La asistencia se comporta igual entre los 17 y los 24 años.
+
+`age` vs `sleep_hours`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = age, y = sleep_hours)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Edad", y = "Horas de sueño") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la edad y las horas de sueño")
+```
+
+Los puntos se distribuyen de forma uniforme sin importar la edad.
+
+`study_hours` vs `class_attendance`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = study_hours, y = class_attendance)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Horas de estudio", y = "Asistencia a clases (%)") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre las horas de estudio y la asistencia a clases")
+```
+
+Los puntos cubren todo el rango de ambas variables: no se ve relación entre las horas de estudio y la asistencia.
+
+`study_hours` vs `sleep_hours`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = study_hours, y = sleep_hours)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Horas de estudio", y = "Horas de sueño") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre las horas de estudio y las horas de sueño")
+```
+
+La nube de puntos es homogénea: estudiar más o menos horas no se asocia con dormir más o menos.
+
+`class_attendance` vs `sleep_hours`
+
+```{r, cache=TRUE}
+trainset %>%
+  ggplot(aes(x = class_attendance, y = sleep_hours)) +
+  geom_point(alpha = 0.4, color = "#c5b0ff") +
+  labs(x = "Asistencia a clases (%)", y = "Horas de sueño") +
+  theme_bw() +
+  facet_grid(. ~ "Dispersión entre la asistencia a clases y las horas de sueño")
+```
+
+Tampoco hay relación entre la asistencia a clases y las horas de sueño: la nube de puntos es homogénea.
+
+Las variables numéricas independientes prácticamente no se relacionan entre sí, así que cada una aporta información distinta sobre `exam_score`.
+
+
+# Análisis de estadística paramétrica y no paramétrica
+
+En este capítulo comparamos `exam_score` entre los grupos de cada variable categórica. En cada caso verificamos primero la normalidad por grupo. Como cada grupo tiene más de 5.000 observaciones, no usamos Shapiro-Wilk sino Lilliefors.
+
+Si la normalidad no se cumple, no aplican el t-test ni el ANOVA y usamos sus alternativas no paramétricas: la prueba U de Mann-Whitney para dos grupos y Kruskal-Wallis para tres o más. Antes de cada una verificamos la homogeneidad de varianzas con la prueba de Levene centrada en la mediana, que es la indicada cuando los datos no son normales.
+
+* ¿El hecho de contar con acceso a internet influye en el desempeño académico de los estudiantes?
+
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(internet_access) %>%
+  summarise(n = length(exam_score),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value) %>%
+  kable()
+```
+
+La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal en ninguno de los dos grupos: con acceso a internet $(D = 0.0236, p-valor < 0.001)$ y sin acceso $(D = 0.0279, p-valor < 0.001)$. Usamos entonces la prueba U de Mann-Whitney.
+
+```{r, cache=TRUE}
+leveneTest(exam_score ~ factor(internet_access), data = trainset, center = "median")
+```
+
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(1, 629998)} = 60.97, p-valor < 0.001)$. Sin embargo, las desviaciones estándar de los dos grupos son 19,3 y 18,9 (tabla del EDA), una diferencia de 0,4 puntos. Con 630.000 observaciones la prueba detecta diferencias muy pequeñas, así que consideramos que las varianzas son similares. Lo mismo ocurre en todas las variables de este capítulo.
+
+```{r, cache=TRUE}
+trainset %>%
+  wilcox_test(exam_score ~ internet_access, paired = FALSE) %>%
+  kable()
+```
+
+La prueba U de Mann-Whitney muestra, con una confianza del 95%, una diferencia estadísticamente significativa en `exam_score` entre los estudiantes con y sin acceso a internet $(W = 14565777034, p-valor = 0.0266)$.
+
+```{r, cache=TRUE}
+trainset %>%
+  wilcox_effsize(exam_score ~ internet_access, paired = FALSE) %>%
+  kable()
+```
+
+El tamaño del efecto es $r = 0.0028$, prácticamente nulo. Aunque la diferencia es significativa, el acceso a internet no tiene relevancia práctica en el desempeño: las medianas difieren en menos de un punto.
+
+
+* ¿Existen diferencias en el desempeño académico según el género del estudiante?
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(gender) %>%
+  summarise(n = length(exam_score),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value) %>%
+  kable()
+```
+
+La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal en ninguno de los tres grupos: female $(D = 0.0238, p-valor < 0.001)$, male $(D = 0.0219, p-valor < 0.001)$ y other $(D = 0.0259, p-valor < 0.001)$. Usamos entonces Kruskal-Wallis.
+
+```{r, cache=TRUE}
+leveneTest(exam_score ~ factor(gender), data = trainset, center = "median")
+```
+
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 64.94, p-valor < 0.001)$, pero las desviaciones estándar por grupo van de 18,8 a 19,1 (tabla del EDA), una diferencia mínima.
+
+```{r, cache=TRUE}
+kruskal.test(exam_score ~ gender, data = trainset)
+```
+
+La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en `exam_score` entre al menos dos de los grupos de género $(\chi^2_{(2)} = 81.54, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$gender,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
+Con el ajuste de Bonferroni los tres pares de grupos difieren entre sí $(p < 0.001)$. Sin embargo, las medianas van de 62,5 a 62,6 y las medias de 62,2 a 62,8: la diferencia es significativa por el tamaño de muestra, pero no tiene relevancia práctica.
+
+
+* ¿La calidad del sueño percibida por el estudiante se relaciona con su desempeño en el examen?
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(sleep_quality) %>%
+  summarise(n = length(exam_score),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value) %>%
+  kable()
+```
+
+La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal en ninguno de los tres grupos: average $(D = 0.0243, p-valor < 0.001)$, good $(D = 0.0381, p-valor < 0.001)$ y poor $(D = 0.0212, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+leveneTest(exam_score ~ factor(sleep_quality), data = trainset, center = "median")
+```
+
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 85.1, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,1 a 18,6 (tabla del EDA).
+
+```{r, cache=TRUE}
+kruskal.test(exam_score ~ sleep_quality, data = trainset)
+```
+
+La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en `exam_score` entre al menos dos de los grupos de calidad del sueño $(\chi^2_{(2)} = 33168, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$sleep_quality,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
+Con el ajuste de Bonferroni los tres pares difieren entre sí $(p < 0.001)$. Aquí la diferencia sí es relevante: la mediana pasa de 57,2 en poor a 62,6 en average y 68,2 en good.
+
+
+* ¿La calificación que los estudiantes dan a las instalaciones educativas está relacionada con su desempeño académico?
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(facility_rating) %>%
+  summarise(n = length(exam_score),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value) %>%
+  kable()
+```
+
+La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal en ninguno de los tres grupos: high $(D = 0.0362, p-valor < 0.001)$, low $(D = 0.0207, p-valor < 0.001)$ y medium $(D = 0.0236, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+leveneTest(exam_score ~ factor(facility_rating), data = trainset, center = "median")
+```
+
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 3.98, p-valor = 0.0187)$, aunque las desviaciones estándar por grupo son casi idénticas, de 18,5 a 18,6 (tabla del EDA).
+
+```{r, cache=TRUE}
+kruskal.test(exam_score ~ facility_rating, data = trainset)
+```
+
+La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en `exam_score` entre al menos dos de los grupos de calificación de instalaciones $(\chi^2_{(2)} = 20684, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$facility_rating,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
+Con el ajuste de Bonferroni los tres pares difieren entre sí $(p < 0.001)$. La mediana pasa de 58,3 en low a 63,1 en medium y 67,3 en high.
+
+
+* ¿La dificultad percibida del examen afecta la calificación obtenida por los estudiantes?
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(exam_difficulty) %>%
+  summarise(n = length(exam_score),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value) %>%
+  kable()
+```
+
+La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal en ninguno de los tres grupos: easy $(D = 0.0217, p-valor < 0.001)$, hard $(D = 0.0255, p-valor < 0.001)$ y moderate $(D = 0.0243, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+leveneTest(exam_score ~ factor(exam_difficulty), data = trainset, center = "median")
+```
+
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(2, 629997)} = 50.33, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,7 a 19,1 (tabla del EDA).
+
+```{r, cache=TRUE}
+kruskal.test(exam_score ~ exam_difficulty, data = trainset)
+```
+
+La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en `exam_score` entre al menos dos de los grupos de dificultad del examen $(\chi^2_{(2)} = 53.95, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$exam_difficulty,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
+Con el ajuste de Bonferroni, easy difiere de hard y de moderate $(p < 0.001)$, pero hard y moderate no difieren $(p = 0.41)$. Las medianas van de 62,5 a 62,8, así que la dificultad percibida no tiene relevancia práctica en la nota.
+
+
+* ¿El método de estudio empleado influye en el puntaje obtenido en el examen?
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(study_method) %>%
+  summarise(n = length(exam_score),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value) %>%
+  kable()
+```
+
+La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal en ninguno de los cinco grupos: coaching $(D = 0.0478)$, group study $(D = 0.0199)$, mixed $(D = 0.0317)$, online videos $(D = 0.0238)$ y self-study $(D = 0.0258)$, todos con $p-valor < 0.001$.
+
+```{r, cache=TRUE}
+leveneTest(exam_score ~ factor(study_method), data = trainset, center = "median")
+```
+
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(4, 629995)} = 63.87, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,2 a 18,7 (tabla del EDA).
+
+```{r, cache=TRUE}
+kruskal.test(exam_score ~ study_method, data = trainset)
+```
+
+La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en `exam_score` entre al menos dos de los métodos de estudio $(\chi^2_{(4)} = 29548, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$study_method,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
+Con el ajuste de Bonferroni los diez pares de métodos difieren entre sí $(p < 0.001)$. Es la variable con mayor diferencia: la mediana va de 57,3 en self-study a 69,3 en coaching.
+
+
+* ¿El programa académico que cursa el estudiante se relaciona con su desempeño en el examen?
+
+```{r, cache=TRUE}
+trainset %>%
+  group_by(course) %>%
+  summarise(n = length(exam_score),
+            est_lt = lillie.test(exam_score)$statistic,
+            p_lt = lillie.test(exam_score)$p.value) %>%
+  kable()
+```
+
+La prueba de Lilliefors muestra que `exam_score` no tiene comportamiento normal en ninguno de los siete programas académicos (en todos los casos $p-valor < 0.001$).
+
+```{r, cache=TRUE}
+leveneTest(exam_score ~ factor(course), data = trainset, center = "median")
+```
+
+La prueba de Levene rechaza la igualdad de varianzas $(F_{(6, 629993)} = 49.59, p-valor < 0.001)$, aunque las desviaciones estándar por grupo van de 18,4 a 19,3 (tabla del EDA).
+
+```{r, cache=TRUE}
+kruskal.test(exam_score ~ course, data = trainset)
+```
+
+La prueba de Kruskal-Wallis indica, con una confianza del 95%, que hay una diferencia estadísticamente significativa en `exam_score` entre al menos dos de los programas académicos $(\chi^2_{(6)} = 199.28, p-valor < 0.001)$.
+
+```{r, cache=TRUE}
+pairwise.wilcox.test(x = trainset$exam_score,
+                     g = trainset$course,
+                     exact = FALSE,
+                     p.adjust.method = "bonferroni")
+```
+
+Con el ajuste de Bonferroni, b.com, b.sc, b.tech, bca y diploma no difieren entre sí $(p > 0.05)$; las diferencias aparecen con bba y ba. Aun así, las medianas solo van de 61,8 a 63,6, así que el programa académico no tiene relevancia práctica en la nota.
+
+
+En las siete variables las pruebas resultaron significativas, algo esperable con 630.000 observaciones. Por eso juzgamos la relevancia de cada variable por la diferencia entre grupos: `study_method`, `sleep_quality` y `facility_rating` muestran diferencias de 9 a 12 puntos en la mediana, mientras que en `gender`, `internet_access`, `exam_difficulty` y `course` las medianas difieren en menos de 2 puntos.
+
+# Tabla de contingencia
+
+Para estudiar la asociación entre dos variables categóricas creamos `resultado`, que clasifica a cada estudiante como `aprobado` (`exam_score >= 60`) o `reprobado`.
+
+```{r, cache=TRUE}
+trainset <- trainset %>%
+  mutate(resultado = ifelse(exam_score >= 60, "aprobado", "reprobado"))
+
+trainset %>%
+  count(resultado, name = "Frecuencia") %>%
+  mutate(Porcentaje = round(Frecuencia / sum(Frecuencia) * 100, 2)) %>%
+  kable()
+```
+
+El 55,21% aprueba y el 44,79% reprueba. Como cada estudiante se clasifica según dos atributos, el contraste que corresponde es el de independencia:
+
+$$
+H_0: \text{los dos atributos son independientes} \quad vs \quad H_1: \text{no lo son}
+$$
+
+Evaluamos `resultado` frente a las dos variables categóricas con mayor diferencia entre grupos en el capítulo anterior: `sleep_quality` y `study_method`.
+
+* `resultado` vs `sleep_quality`
+
+```{r, cache=TRUE}
+observados <- table(trainset$resultado, trainset$sleep_quality)
+observados
+```
+
+Hallemos los totales y los valores esperados:
+
+```{r, cache=TRUE}
+fila_totales <- rowSums(observados)
+col_totales <- colSums(observados)
+n <- sum(observados)
+
+esperados <- outer(fila_totales, col_totales) / n
+esperados
+```
+
+Todos los esperados son mayores que 5, así que la prueba es válida. Calculemos el estadístico, los grados de libertad, el valor crítico y el p-valor:
+
+```{r, cache=TRUE}
+chi_cuadrado <- sum((observados - esperados)^2 / esperados)
+df <- (nrow(observados) - 1) * (ncol(observados) - 1)
+
+alfa <- 0.05
+valor_critico <- qchisq(1 - alfa, df)
+valor_p <- pchisq(chi_cuadrado, df, lower.tail = FALSE)
+
+chi_cuadrado
+df
+valor_critico
+valor_p
+```
+
+Con la función `chisq.test` nos queda:
+
+```{r, cache=TRUE}
+chisq.test(observados)
+```
+
+Como $\chi^2 = 19531 > \chi^2_{0.05} = 5{,}99$, con una confianza del 95% se rechaza $H_0$: `resultado` y `sleep_quality` no son independientes $(\chi^2_{(2)} = 19531,\ p-valor < 0.001)$. Con la tabla de observados se ve el sentido de la asociación: aprueba el 65,9% de los estudiantes con sueño good, el 55,1% con average y el 44,7% con poor.
+
+* `resultado` vs `study_method`
+
+```{r, cache=TRUE}
+observados <- table(trainset$resultado, trainset$study_method)
+observados
+
+fila_totales <- rowSums(observados)
+col_totales <- colSums(observados)
+n <- sum(observados)
+
+esperados <- outer(fila_totales, col_totales) / n
+esperados
+```
+
+```{r, cache=TRUE}
+chi_cuadrado <- sum((observados - esperados)^2 / esperados)
+df <- (nrow(observados) - 1) * (ncol(observados) - 1)
+
+valor_critico <- qchisq(1 - alfa, df)
+valor_p <- pchisq(chi_cuadrado, df, lower.tail = FALSE)
+
+chi_cuadrado
+df
+valor_critico
+valor_p
+
+chisq.test(observados)
+```
+
+```{r, include=FALSE}
+rm(observados, esperados, fila_totales, col_totales, n, chi_cuadrado,
+   df, alfa, valor_critico, valor_p)
+gc()
+```
+
+Todos los esperados son mayores que 5. Como $\chi^2 = 17569 > \chi^2_{0.05} = 9{,}49$, con una confianza del 95% se rechaza $H_0$: `resultado` y `study_method` no son independientes $(\chi^2_{(4)} = 17569,\ p-valor < 0.001)$. Aprueba el 67,4% de los estudiantes con coaching y el 61,9% con mixed, frente al 51,5% con group study, el 49,4% con online videos y el 45,5% con self-study.
+
+# Correlación lineal
+
+En el EDA vimos que `study_hours` y `class_attendance` tenían relación positiva con `exam_score`, que la de `sleep_hours` era débil y que `age` no mostraba relación. Aquí cuantificamos esas relaciones.
+
+El coeficiente de Pearson exige normalidad en las dos variables, así que primero la verificamos. Por el tamaño de muestra descartamos Shapiro-Wilk y usamos Lilliefors:
+
+```{r, cache=TRUE}
+lillie.test(trainset$exam_score)
+lillie.test(trainset$study_hours)
+lillie.test(trainset$class_attendance)
+lillie.test(trainset$sleep_hours)
+lillie.test(trainset$age)
+```
+
+Con una confianza del 95%, ninguna de las cinco variables tiene comportamiento normal (`exam_score`: $D = 0{,}0237$; `study_hours`: $D = 0{,}0628$; `class_attendance`: $D = 0{,}0611$; `sleep_hours`: $D = 0{,}0738$; `age`: $D = 0{,}1152$; en todos los casos $p-valor < 0.001$). Usamos entonces el coeficiente de Spearman.
+
+* `study_hours` vs `exam_score`
+
+```{r, cache=TRUE}
+cor.test(trainset$study_hours, trainset$exam_score, method = "spearman", exact = FALSE)
+```
+
+Se obtiene $\rho = 0{,}7698$ $(S = 9{,}5952\times 10^{15},\ p-valor < 0.001)$: correlación positiva muy fuerte. A más horas de estudio, mayor es la nota. Es el predictor numérico más fuerte del conjunto de datos.
+
+* `class_attendance` vs `exam_score`
+
+```{r, cache=TRUE}
+cor.test(trainset$class_attendance, trainset$exam_score, method = "spearman", exact = FALSE)
+```
+
+Se obtiene $\rho = 0{,}3515$ $(S = 2{,}7025\times 10^{16},\ p-valor < 0.001)$: correlación positiva débil. La asistencia se relaciona con la nota, pero mucho menos que las horas de estudio.
+
+* `sleep_hours` vs `exam_score`
+
+```{r, cache=TRUE}
+cor.test(trainset$sleep_hours, trainset$exam_score, method = "spearman", exact = FALSE)
+```
+
+Se obtiene $\rho = 0{,}1600$ $(S = 3{,}5005\times 10^{16},\ p-valor < 0.001)$: sin correlación o muy débil. Dormir más o menos horas prácticamente no cambia el puntaje.
+
+* `age` vs `exam_score`
+
+```{r, cache=TRUE}
+cor.test(trainset$age, trainset$exam_score, method = "spearman", exact = FALSE)
+```
+
+Se obtiene $\rho = 0{,}0072$ $(S = 4{,}1376\times 10^{16},\ p-valor = 1{,}303\times 10^{-8})$: sin correlación. El coeficiente es prácticamente cero aunque el p-valor sea significativo, lo que confirma lo visto en el diagrama de dispersión del EDA.
+
+De las cuatro variables numéricas, `study_hours` ($\rho = 0{,}77$) es la única con una relación fuerte con `exam_score`; `class_attendance` ($\rho = 0{,}35$) queda bastante más atrás y `sleep_hours` ($\rho = 0{,}16$) y `age` ($\rho \approx 0$) no aportan nada.
+
+# Regresión lineal múltiple
+
+En los capítulos anteriores vimos que `exam_score` se relaciona con varias variables a la vez. Como el número de variables independientes es $k > 1$, usamos el modelo de regresión lineal múltiple (RLM):
+
+$$
+y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_k x_{ik} + \varepsilon_i, \qquad \varepsilon_i \sim N(0, \sigma^2)
+$$
+
+## Relación entre las variables numéricas
+
+Exploremos la relación lineal entre `exam_score` y las variables numéricas con una red de diagramas de dispersión:
+
+```{r ggpairs, cache=TRUE, message=FALSE, warning=FALSE}
+# Etiquetas para ejes/paneles
+labs_cols <- c("study_hours" = "Estudio (h)",
+               "class_attendance" = "Asistencia",
+               "sleep_hours" = "Sueño (h)",
+               "age" = "Edad",
+               "exam_score" = "Calificación")
+
+# Red de gráficos:
+trainset %>%
+  ggpairs(
+    columns = c("study_hours", "class_attendance", "sleep_hours", "age", "exam_score"),
+    columnLabels = labs_cols[c("study_hours", "class_attendance", "sleep_hours", "age", "exam_score")],
+    diag  = list(continuous = "densityDiag"),
+    upper = list(continuous = GGally::wrap("cor", method = "pearson", stars = TRUE, size = 4)),
+    lower = list(continuous = GGally::wrap("points", color = "#c5b0ff", alpha = 0.4))
+  ) +
+  theme_bw() +
+  labs(title = "Relaciones entre la calificación y las variables numéricas",
+       subtitle = "Diagonal: densidades • Superior: correlación (* p-valor) • Inferior: dispersión")
+```
+
+A partir del gráfico se obtiene:
+
+a. Relación entre `exam_score` y `study_hours`: correlación positiva muy fuerte ($r = 0.762$). A más horas de estudio, mayor calificación.
+
+b. Relación entre `exam_score` y `class_attendance`: correlación positiva débil ($r = 0.361$).
+
+c. Relación entre `exam_score` y `sleep_hours` ($r = 0.167$) y entre `exam_score` y `age` ($r = 0.010$): sin correlación o muy débil.
+
+d. Relación entre las variables independientes: todas las correlaciones son muy bajas, la mayor es entre `study_hours` y `class_attendance` ($r = 0.088$). Esto es favorable, ya que sugiere ausencia de multicolinealidad.
+
+Todas las correlaciones salen significativas por el tamaño de la muestra, así que nos guiamos por su magnitud. Aquí usamos el coeficiente de Pearson porque mide la relación lineal, que es la que describe el modelo de regresión; los valores son muy parecidos a los de Spearman del capítulo anterior.
+
+## Análisis de multicolinealidad
+
+Buscamos un modelo en el que las variables independientes estén correlacionadas con la respuesta, pero mínimamente entre ellas. Para detectar cuál de las variables es la más colineal usamos el factor de inflación de varianza (VIF):
+
+$$
+VIF_j = \frac{1}{1 - R_j^2}
+$$
+
+donde $R_j^2$ es el $R^2$ del modelo $x_j \sim x_{-j}$. Decimos que la variable $x_j$ es responsable por la multicolinealidad si $VIF_j > 5$.
+
+Hagamos el paso a paso:
+
+```{r vif-paso, cache=TRUE}
+# R2_j del modelo x_j ~ demás x
+r2_x1 <- summary(lm(study_hours ~ class_attendance + sleep_hours + age, data = trainset))$r.squared
+r2_x2 <- summary(lm(class_attendance ~ study_hours + sleep_hours + age, data = trainset))$r.squared
+r2_x3 <- summary(lm(sleep_hours ~ study_hours + class_attendance + age, data = trainset))$r.squared
+r2_x4 <- summary(lm(age ~ study_hours + class_attendance + sleep_hours, data = trainset))$r.squared
+
+R2_j <- c(study_hours = r2_x1, class_attendance = r2_x2, sleep_hours = r2_x3, age = r2_x4)
+VIF_j <- 1 / (1 - R2_j)
+
+kable(data.frame(R2_j = R2_j, VIF = VIF_j), digits = 6)
+```
+
+Usando la función `vif` del paquete `car`:
+
+```{r vif}
+modelo_num <- lm(exam_score ~ study_hours + class_attendance + sleep_hours + age, data = trainset)
+
+# cálculo del VIF
+vif(modelo_num)
+```
+
+Los valores coinciden. Cada variable independiente explica menos del 1% de la variabilidad de las demás y los cuatro VIF son prácticamente 1. Puesto que en ninguna variable el $VIF > 5$, concluimos que no existe multicolinealidad entre las variables numéricas.
+
+```{r, include=FALSE}
+rm(r2_x1, r2_x2, r2_x3, r2_x4, R2_j, VIF_j, labs_cols, modelo_num)
+gc()
+```
+
+## Modelo con variables cualitativas
+
+Para incluir las variables categóricas en el modelo hay que transformarlas en variables dummy, que toman valores de 0 o de 1. Una variable con $m$ categorías se representa con $m - 1$ variables dummy y la categoría restante queda como referencia.
+
+En R esta codificación se genera automáticamente al usar `lm()` cuando la variable se declara como factor. En `sleep_quality`, `facility_rating` y `exam_difficulty` fijamos el orden de los niveles para que la referencia sea la categoría más baja:
+
+```{r factores}
+df <- trainset %>%
+  select(-id, -resultado)
+
+df$gender <- factor(df$gender)
+df$course <- factor(df$course)
+df$internet_access <- factor(df$internet_access)
+df$study_method <- factor(df$study_method)
+df$sleep_quality <- factor(df$sleep_quality,
+                           levels = c("poor", "average", "good"))
+df$facility_rating <- factor(df$facility_rating,
+                             levels = c("low", "medium", "high"))
+df$exam_difficulty <- factor(df$exam_difficulty,
+                             levels = c("easy", "moderate", "hard"))
+```
+
+* Hagamos primero la regresión de `exam_score` vs `sleep_quality`.
+
+Calculemos el promedio por categoría:
+
+```{r}
+df %>%
+  group_by(sleep_quality) %>%
+  summarise(promedio = mean(exam_score)) %>%
+  kable()
+```
+
+```{r}
+# modelo exam_score vs. sleep_quality
+modelo_sleep <- lm(exam_score ~ sleep_quality, data = df)
+summary(modelo_sleep)
+```
+
+Sin usar el factor, creamos las dos variables dummy:
+
+- `SleepAvg` = 1 si `sleep_quality` es "average", 0 en otro caso.
+- `SleepGood` = 1 si `sleep_quality` es "good", 0 en otro caso.
+
+La categoría "poor" es la referencia (ambas variables valen 0).
+
+```{r}
+df$SleepAvg = ifelse(df$sleep_quality == 'average', 1, 0)
+df$SleepGood = ifelse(df$sleep_quality == 'good', 1, 0)
+
+modelo_sleep_dummy <- lm(exam_score ~ SleepAvg + SleepGood, data = df)
+summary(modelo_sleep_dummy)
+```
+
+Los dos modelos son iguales:
+
+- `(Intercept)` = 56,995: calificación promedio de los estudiantes de la categoría base (`sleep_quality` = "poor").
+
+- `sleep_qualityaverage` = 5,667: los estudiantes con calidad de sueño average tienen una calificación promedio 5,67 puntos mayor que los de calidad poor $(56.995 + 5.667 = 62.66)$.
+
+- `sleep_qualitygood` = 10,889: los estudiantes con calidad de sueño good tienen una calificación promedio 10,89 puntos mayor que los de calidad poor $(56.995 + 10.889 = 67.88)$.
+
+Las dos diferencias son significativas $(p-valor < 0.001)$ y coinciden con los promedios por categoría.
+
+```{r, include=FALSE}
+df <- df %>%
+  select(-SleepAvg, -SleepGood)
+rm(modelo_sleep, modelo_sleep_dummy)
+gc()
+```
+
+* Hagamos el modelo de RLM con todas las variables:
+
+```{r modelo-full}
+# modelo de rlm
+modelo_full <- lm(exam_score ~ ., data = df)
+
+# resultado
+summary(modelo_full)
+```
+
+El modelo completo tiene 23 coeficientes además del intercepto: 4 de las variables numéricas y 19 de las variables dummy. Explica el 77,89% de la variabilidad de `exam_score` $(R^2_{ajustado} = 0.7789)$.
+
+Los coeficientes de `internet_access`, `exam_difficulty` y dos de las categorías de `course` (ba y bca) no son significativos $(p-valor > 0.05)$. Esto lo revisamos en la selección de variables.
+
+Verifiquemos la multicolinealidad del modelo completo:
+
+```{r vif-full}
+vif(modelo_full)
+```
+
+Todos los valores son prácticamente 1 y ninguno es mayor que 5: no existe multicolinealidad en el modelo completo.
+
+## Selección de variables
+
+Seleccionamos el mejor modelo con los métodos de selección secuencial, usando el AIC como criterio (menor AIC = mejor):
+
+$$
+\mathrm{AIC} = n \ln\left(\frac{SSE}{n}\right) + 2p
+$$
+
+* Método backward
+
+```{r backward, message=FALSE, warning=FALSE}
+library(MASS)
+
+# metodo de backward
+sel_backward <- stepAIC(modelo_full, direction = "backward")
+formula(sel_backward)
+```
+
+Se parte del modelo completo (AIC = 2753680) y en cada paso se quita la variable cuya eliminación más baja el AIC: primero `exam_difficulty` (AIC = 2753677) y después `internet_access` (AIC = 2753675). Quitar cualquiera de las demás sube el AIC, así que el proceso se detiene.
+
+* Método forward
+
+```{r forward}
+# metodo de forward
+modelo_null <- lm(exam_score ~ 1, data = df)
+sel_forward <- stepAIC(modelo_null,
+                       scope = list(lower = modelo_null,
+                                    upper = modelo_full),
+                       direction = "forward", trace = FALSE)
+formula(sel_forward)
+```
+
+* Método stepwise
+
+```{r both}
+sel_both <- stepAIC(modelo_null,
+                    scope = list(lower = modelo_null,
+                                 upper = modelo_full),
+                    direction = "both", trace = FALSE)
+formula(sel_both)
+```
+
+Los tres métodos coinciden: el mejor modelo según el AIC tiene 9 variables y deja por fuera `internet_access` y `exam_difficulty`. Las variables entran en orden de importancia: `study_hours`, `class_attendance`, `sleep_quality`, `study_method`, `facility_rating`, `sleep_hours`, `course`, `gender` y `age`.
+
+Verifiquemos el AIC con la fórmula y comparemos con el modelo completo:
+
+```{r aic-tabla}
+n <- nrow(df)
+SST <- sum((df$exam_score - mean(df$exam_score))^2)
+
+SSE_full <- sum(residuals(modelo_full)^2)
+SSE_sel  <- sum(residuals(sel_both)^2)
+p_full <- length(coef(modelo_full))
+p_sel  <- length(coef(sel_both))
+
+tab_aic <- data.frame(
+  Modelo = c("Completo", "Seleccionado"),
+  p   = c(p_full, p_sel),
+  SSE = c(SSE_full, SSE_sel),
+  AIC = c(n * log(SSE_full / n) + 2 * p_full,
+          n * log(SSE_sel / n) + 2 * p_sel),
+  R2_ajustado = c(1 - (SSE_full / (n - p_full)) / (SST / (n - 1)),
+                  1 - (SSE_sel / (n - p_sel)) / (SST / (n - 1)))
+)
+
+kable(tab_aic, digits = 6)
+```
+
+Veamos si hay diferencias significativas entre los dos modelos:
+
+```{r anova-modelos}
+anova(sel_both, modelo_full)
+```
+
+El modelo seleccionado tiene el menor AIC (2753675 frente a 2753680) con tres coeficientes menos y el mismo $R^2_{ajustado} = 0.7789$. La prueba F parcial no encuentra diferencias entre los dos modelos $(F_{(3,\,629976)} = 0.33,\ p-valor = 0.807)$: `internet_access` y `exam_difficulty` no aportan información.
+
+El modelo seleccionado es:
+
+```{r modelo}
+modelo <- lm(exam_score ~ study_hours + class_attendance + sleep_hours + age +
+               gender + course + sleep_quality + study_method + facility_rating,
+             data = df)
+summary(modelo)
+```
+
+El AIC conserva `age`, `gender` y `course`, pero sus coeficientes son muy pequeños (menos de 0,25 puntos de diferencia en la calificación). Por el tamaño de la muestra salen significativos aunque su efecto práctico es mínimo. El modelo lo explican sobre todo `study_hours`, `class_attendance`, `sleep_hours`, `sleep_quality`, `study_method` y `facility_rating`.
+
+```{r, include=FALSE}
+rm(sel_backward, sel_forward, sel_both, modelo_null, modelo_full, tab_aic,
+   SSE_full, SSE_sel, p_full, p_sel)
+gc()
+```
+
+## Estimación de los coeficientes del modelo
+
+En notación matricial el modelo es $\mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}$ y el estimador de $\boldsymbol{\beta}$ por mínimos cuadrados es:
+
+$$
+\hat{\boldsymbol{\beta}} = (\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{y}
+$$
+
+Encontremos los coeficientes paso a paso:
+
+```{r betas}
+# 1) Construir matriz de diseño X (con intercepto y variables dummy) y vector y
+X <- model.matrix(modelo)
+y <- as.matrix(df$exam_score)
+dim(X)
+
+# 2) Calcular X'X, su inversa y X'y
+XtX     <- t(X) %*% X
+XtX_inv <- solve(XtX)          # (X'X)^{-1}
+Xty     <- t(X) %*% y
+
+# 3) Estimadores del RLM: beta_hat = (X'X)^{-1} X'y
+beta_hat <- XtX_inv %*% Xty
+colnames(beta_hat) <- "Estimadores"
+```
+
+La matriz $\mathbf{X}$ tiene $n = 630000$ filas y $p = 21$ columnas: el intercepto, las 4 variables numéricas y las 16 variables dummy. Comparemos con los coeficientes de la función `lm`:
+
+```{r betas-lm}
+kable(data.frame(Paso_a_paso = beta_hat[, 1],
+                 lm = coefficients(modelo)),
+      digits = 6)
+```
+
+Los coeficientes calculados paso a paso coinciden con los de `lm`. El modelo estimado es:
+
+$$
+\begin{align}
+\widehat{exam\_score} = {} & 5.804 + 5.676\,study\_hours + 0.312\,class\_attendance + 1.322\,sleep\_hours - 0.014\,age \\
+& + \text{efectos de } gender,\ course,\ sleep\_quality,\ study\_method \text{ y } facility\_rating
+\end{align}
+$$
+
+y la interpretación sería:
+
+- `study_hours` = 5,676: por cada hora adicional de estudio, la calificación promedio aumenta 5,68 puntos, manteniendo constantes las demás variables.
+
+- `class_attendance` = 0,312: por cada punto porcentual adicional de asistencia, la calificación promedio aumenta 0,31 puntos, manteniendo constantes las demás variables.
+
+- `sleep_hours` = 1,322: por cada hora adicional de sueño, la calificación promedio aumenta 1,32 puntos, manteniendo constantes las demás variables.
+
+- `age` = -0,014: por cada año adicional de edad, la calificación promedio disminuye 0,01 puntos. El efecto es prácticamente nulo.
+
+- `sleep_quality` (referencia: poor): los estudiantes con calidad de sueño average tienen en promedio 4,68 puntos más que los de calidad poor, y los de calidad good 8,92 puntos más.
+
+- `study_method` (referencia: coaching): todos los coeficientes son negativos. Frente a coaching, la calificación promedio es 4,45 puntos menor con mixed, 7,24 con group study, 8,28 con online videos y 9,10 con self-study.
+
+- `facility_rating` (referencia: low): los estudiantes con instalaciones medium tienen en promedio 3,69 puntos más que los de instalaciones low, y los de instalaciones high 7,28 puntos más.
+
+- `gender` (referencia: female) y `course` (referencia: b.com): las diferencias con la categoría de referencia son menores de 0,25 puntos.
+
+- `(Intercept)` = 5,804: calificación promedio estimada cuando las variables numéricas valen cero y las categóricas están en su referencia. Es un valor teórico porque esas condiciones están fuera del rango de los datos (`age` va de 17 a 24 y `class_attendance` de 40 a 100).
+
+Ahora, obtengamos los residuos paso a paso:
+
+```{r residuos}
+# Valores ajustados y residuales
+y_hat <- X %*% beta_hat
+e <- y - y_hat
+kable(head(cbind(y_observado = y[, 1], y_ajustado = y_hat[, 1], residuo = e[, 1])))
+```
+
+Usando la función `resid`:
+
+```{r resid}
+residuos <- resid(modelo)
+head(residuos)
+```
+
+## Prueba de significancia global
+
+Con la prueba de significancia global determinamos si al menos una de las variables independientes explica a `exam_score`:
+
+$$
+\begin{align}
+H_0 &: \beta_1 = \beta_2 = \cdots = \beta_k = 0 \\
+H_1 &: \beta_j \neq 0 \quad \text{para al menos una } j
+\end{align}
+$$
+
+Hagamos el ANOVA paso a paso:
+
+```{r anova-rlm}
+# Dimensiones
+n <- nrow(X)        # número de observaciones
+p <- ncol(X)        # número de parámetros (incluye intercepto)
+k <- p - 1          # número de variables independientes
+
+# 1) Cálculo algebraico de SST
+SST <- as.numeric(t(y) %*% y - (sum(y)^2)/n)
+
+# 2) Cálculo algebraico de SSR
+SSR <- as.numeric(t(beta_hat) %*% t(X) %*% y - (sum(y)^2)/n)
+
+# 3) Cálculo algebraico de SSE
+SSE <- as.numeric(t(y) %*% y - t(beta_hat) %*% t(X) %*% y)
+
+# 4) ANOVA (df, MS, F0 y p-valor)
+df_reg <- k
+df_res <- n - k - 1
+df_tot <- n - 1
+
+MSR <- SSR / df_reg
+MSE <- SSE / df_res
+F0  <- MSR / MSE
+p_val <- pf(F0, df_reg, df_res, lower.tail = FALSE)
+
+alpha <- 0.05
+F_crit <- qf(1 - alpha, df1 = df_reg, df2 = df_res)
+
+# 5) Mostrar resultados en tablas
+tab_anova <- data.frame(
+  `Fuente de variación` = c("Regresión", "Residuales", "Total"),
+  `Suma de cuadrados`   = c(SSR, SSE, SST),
+  `Gl`                  = c(df_reg, df_res, df_tot),
+  `Cuadrado medio`      = c(MSR, MSE, NA),
+  `F0`                  = c(F0, NA, NA),
+  `p-valor`             = c(p_val, NA, NA),
+  check.names = FALSE
+)
+
+kable(
+  tab_anova,
+  digits = 4,
+  align = "lrrrrr",
+  caption = "Tabla ANOVA (derivada algebraicamente)"
+)
+
+F_crit
+```
+
+Usando la función `lm`:
+
+```{r fstat}
+summary(modelo)$fstatistic
+```
+
+Como $F_0 = 110983.08 > F_{0.05,\,20,\,629979} = 1.57$ $(p-valor < 0.001)$, se rechaza $H_0$. Con una confianza del 95%, al menos una de las variables influye significativamente sobre `exam_score`: el modelo de regresión es significativo en conjunto. El estadístico coincide con el de `summary`.
+
+## Coeficiente de determinación y estimación de $\sigma^2$
+
+```{r r2}
+R2 <- SSR/SST
+R2_ajusta <- 1-(SSE/(n-p))/(SST/(n-1))
+c(R2 = R2, R2_ajustado = R2_ajusta)
+
+summary(modelo)$r.squared
+summary(modelo)$adj.r.squared
+```
+
+El modelo explica el 77,89% de la variabilidad de `exam_score` $(R^2 = 0.7789;\ R^2_{ajustado} = 0.7789)$. El resto se debe a factores que no están en el modelo y al error aleatorio.
+
+```{r sigma2}
+# estimación de sigma^2
+sigma2_hat <- MSE
+c(sigma2_hat = sigma2_hat, sigma_hat = sqrt(sigma2_hat))
+
+summary(modelo)$sigma^2
+```
+
+Se obtiene $\hat{\sigma}^2 = MSE = 79.113$, es decir $\hat{\sigma} = 8.89$ puntos.
+
+## Prueba individual de significancia para los coeficientes
+
+Una vez rechazada la prueba de significancia global, analizamos la significancia individual de cada coeficiente:
+
+$$
+H_0 : \beta_j = 0 \quad vs \quad H_1 : \beta_j \neq 0
+$$
+
+$$
+t_j = \frac{\hat{\beta}_j}{\sqrt{\hat{\sigma}^2 \, ( \mathbf{X}'\mathbf{X} )^{-1}_{jj}}} \sim t_{n - p}
+$$
+
+Hagamos el paso a paso:
+
+```{r t-betas}
+# Varianza-covarianza de betas
+Vb <- as.matrix(MSE * XtX_inv)
+
+# Error estándar de cada beta_hat_j
+se_b <- sqrt(diag(Vb))
+
+# Estadístico t calculado
+tval <- as.vector(beta_hat) / se_b
+df_t <- n - p
+
+# p-valores bilaterales: 2*P(T > |t|)
+pval <- 2 * pt(-abs(tval), df = df_t)
+
+kable(data.frame(Estimador = as.vector(beta_hat),
+                 Std.Error = se_b,
+                 t_valor = tval,
+                 p_valor = pval),
+      digits = 6)
+```
+
+Usando las funciones `lm` y `summary`:
+
+```{r t-lm}
+summary(modelo)$coefficients
+```
+
+Los errores estándar, los $t$ y los p-valores coinciden con los de `summary`. Con una confianza del 95% se rechaza $H_0$ en todos los coeficientes, excepto en dos de las variables dummy de `course`: ba $(t = -0.75,\ p-valor = 0.453)$ y bca $(t = 0.52,\ p-valor = 0.606)$. Es decir, la calificación promedio de esos dos programas no difiere de la del programa de referencia (b.com).
+
+## Intervalos de confianza para $\beta_j$
+
+$$
+\hat{\beta}_j \pm t_{\alpha/2,\,n-p}\;\sqrt{\hat{\sigma}^2\,\big(\mathbf{X}'\mathbf{X}\big)^{-1}_{jj}}
+$$
+
+```{r ic-betas}
+alpha <- 0.05
+tcrit <- qt(1 - alpha/2, df = n - p)
+
+lower <- as.vector(beta_hat) - tcrit * se_b
+upper <- as.vector(beta_hat) + tcrit * se_b
+
+res_ci <- data.frame(
+  Coeficiente = colnames(X),
+  Estimador = as.vector(beta_hat),
+  Std.Error = se_b,
+  t_crit = tcrit,
+  IC_inf = lower,
+  IC_sup = upper,
+  check.names = FALSE
+)
+
+kable(res_ci, digits = 4, row.names = FALSE)
+```
+
+Usando la función `confint.default`:
+
+```{r confint}
+# intervalos de confianza del 95% para los coeficientes
+confint.default(modelo)
+```
+
+Los dos resultados coinciden: `confint.default` usa el cuantil de la normal $(z = 1.96)$ y con $n - p = 629979$ grados de libertad el de la $t$ de Student es el mismo. Con una confianza del 95%:
+
+- `study_hours`: por cada hora adicional de estudio la calificación promedio aumenta entre 5,667 y 5,686 puntos, manteniendo constantes las demás variables.
+
+- `class_attendance`: por cada punto porcentual adicional de asistencia la calificación promedio aumenta entre 0,311 y 0,314 puntos.
+
+- `sleep_hours`: por cada hora adicional de sueño la calificación promedio aumenta entre 1,309 y 1,334 puntos.
+
+- Los intervalos de `course` ba $(-0.121,\ 0.054)$ y bca $(-0.058,\ 0.099)$ contienen el 0, lo que coincide con la prueba $t$. Ningún otro intervalo contiene el 0.
+
+Los intervalos son muy estrechos por el tamaño de la muestra.
+
+```{r, include=FALSE}
+rm(tab_anova, Vb, tval, pval, lower, upper, res_ci, residuos, y_hat, e)
+gc()
+```
+
+## Análisis de residuales
+
+El análisis de residuales en RLM sirve para validar los supuestos del error, identificar observaciones outlier e identificar observaciones influenciales.
+
+### Validación de los supuestos
+
+a. Independencia en los errores
+
+```{r dw}
+# prueba de Durbin-Watson
+# (reps = 100 porque con 630000 observaciones la simulación del p-valor es muy pesada)
+durbinWatsonTest(modelo, reps = 100)
+```
+
+```{r acf}
+# ACF de los residuales
+r <- residuals(modelo)  # cálculo de los residuales
+acf(r, las = 1, main = "", lag.max = 80)
+```
+
+El estadístico de Durbin-Watson es $2.001$, la autocorrelación es prácticamente cero $(-0.0007)$ y no se rechaza $H_0$ $(p-valor > 0.05)$. En el ACF ninguna autocorrelación se sale de las bandas. Se cumple que los residuales del modelo ajustado son independientes.
+
+b. Normalidad en los errores
+
+Por el tamaño de la muestra usamos Lilliefors en lugar de Shapiro-Wilk:
+
+```{r lillie-res}
+# prueba de Normalidad de Lilliefors
+lillie.test(r)
+```
+
+```{r qqplot}
+# Q-Q plot usando el paquete car
+qqPlot(r, las = 1)
+```
+
+La prueba de Lilliefors rechaza la normalidad $(D = 0.0021,\ p-valor < 0.001)$. Sin embargo, el estadístico $D$ es muy pequeño y en el Q-Q plot los residuales siguen la recta en casi todo el rango; solo se separan un poco en los extremos. Igual que en los capítulos anteriores, con 630.000 observaciones la prueba detecta desviaciones mínimas. Los residuales tienen un comportamiento aproximadamente normal.
+
+c. Media de los errores
+
+```{r media-res}
+# validación media cero en RLM
+t.test(r, mu = 0)
+```
+
+Concluimos, con una confianza del 95%, que la media de los residuales es cero a nivel poblacional $(t = 0,\ p-valor = 1)$.
+
+d. Varianza constante en los errores
+
+```{r bp}
+# prueba de Breusch-Pagan para varianza constante
+bptest(modelo)
+```
+
+```{r plot-modelo, fig.height=8}
+par(mfrow=c(2, 2))
+plot(modelo, las=1, col='darkseagreen', which=1:3)
+```
+
+La prueba de Breusch-Pagan rechaza la varianza constante $(BP = 867.4,\ gl = 20,\ p-valor < 0.001)$. En los gráficos, la dispersión de los residuales es similar en la mayor parte de los valores ajustados y se reduce en los extremos. Esto ocurre porque `exam_score` está acotada entre 19,6 y 100: el modelo llega a ajustar valores mayores que 100 y allí los residuales solo pueden ser negativos. El supuesto de varianza constante no se cumple en los extremos, así que la inferencia sobre las calificaciones más bajas y más altas hay que tomarla con precaución.
+
+### Identificación de outliers
+
+Diremos que la $i$-ésima observación es un outlier si su residual estudentizado $r_i \notin (-3,\,3)$:
+
+```{r rstudent}
+# residuales estudentizados
+r_est <- rstudent(modelo)
+length(which(r_est < -3 | r_est > 3))
+```
+
+Hay 1.723 observaciones con $|r_i| > 3$, el 0,27% del total. Es la proporción que se espera en una distribución normal (cerca del 0,3%), así que no es evidencia de valores atípicos. Veamos la prueba de Bonferroni:
+
+```{r outlier-test}
+# prueba Bonferroni para outliers
+outlierTest(modelo, n.max = 5)
+```
+
+```{r bonf-plot}
+influenceIndexPlot(modelo, vars = "Bonf", las = 1)
+```
+
+La observación 553892 tiene el mayor residual estudentizado $(r_i = 5.27)$, pero su p-valor de Bonferroni $(0.084)$ es mayor que $0.05$: no hay evidencia suficiente para concluir que alguna observación sea un outlier.
+
+### Identificación de observaciones influenciales
+
+Usamos la distancia de Cook. Decimos que la $i$-ésima observación es influencial cuando $D_i > \frac{4}{n-p-2}$:
+
+```{r cook}
+# 1) Distancia de Cook
+Di <- cooks.distance(modelo)
+
+# 2) Umbral
+n <- nobs(modelo)
+p <- length(coef(modelo))
+umbral <- 4/(n-p-2)
+umbral
+
+# 3) Índices por encima del umbral
+infl_idx <- which(Di > umbral)
+length(infl_idx)
+
+# 4) Tabla ordenada
+ord <- order(Di, decreasing = TRUE)
+tab <- data.frame(
+  idx = ord,
+  cooks_distance = Di[ord],
+  supera_umbral  = Di[ord] > umbral
+)
+kable(head(tab, 10), row.names = FALSE)
+```
+
+```{r cook-plot}
+# 5) Gráfico con el umbral
+plot(Di, type = "h",
+     ylab = "Cook's distance (D_i)", xlab = "Índice",
+     main = "Distancia de Cook (línea = umbral)")
+abline(h = umbral, lty = 2)
+```
+
+Hay 28.648 observaciones (el 4,5%) que superan el umbral, pero el umbral es muy pequeño por el tamaño de la muestra $(0.0000063)$ y la mayor distancia de Cook es apenas $0.00005$. Para saber si esas observaciones controlan el modelo, lo ajustamos sin ellas y comparamos los coeficientes:
+
+```{r sin-influenciales}
+modelo_sin <- lm(formula(modelo), data = df[-infl_idx, ])
+
+kable(data.frame(modelo = coefficients(modelo),
+                 modelo_sin = coefficients(modelo_sin),
+                 diferencia = coefficients(modelo_sin) - coefficients(modelo)),
+      digits = 4)
+```
+
+Los coeficientes prácticamente no cambian: la mayor diferencia en una pendiente es de 0,15 puntos (`study_method` self-study) y ninguno cambia de signo. El modelo ajustado es consistente cuando se remueven estas observaciones y no hay una causa asignable para eliminarlas, así que conservamos el modelo con todos los datos.
+
+```{r, include=FALSE}
+rm(r_est, Di, infl_idx, ord, tab, modelo_sin, umbral)
+gc()
+```
+
+## Inferencia para la respuesta
+
+### Intervalo de confianza para $E[Y \mid \mathbf{x}_0]$
+
+El intervalo de confianza al $100(1-\alpha)\%$ para $E[Y\mid \mathbf{x}_0]$ es
+
+$$
+\hat{\mu}_{Y\mid \mathbf{x}_0} \pm t_{\alpha/2,\,n-p}\,
+\sqrt{\hat{\sigma}^2\,\mathbf{x}_0^{\top}(\mathbf{X}^{\top}\mathbf{X})^{-1}\mathbf{x}_0}
+$$
+
+Supongamos que queremos determinar la calificación de una estudiante de b.tech de 21 años que estudia 4 horas, asiste al 72% de las clases, duerme 7 horas con calidad de sueño average, estudia por su cuenta (self-study) y califica las instalaciones como medium:
+
+```{r dato-nuevo}
+dato_nuevo <- data.frame(study_hours = 4, class_attendance = 72,
+                         sleep_hours = 7, age = 21,
+                         gender = "female", course = "b.tech",
+                         sleep_quality = "average",
+                         study_method = "self-study",
+                         facility_rating = "medium")
+
+# cálculo de E[y|x_0]
+predict(modelo, newdata = dato_nuevo)
+
+# intervalo de confianza del 95%
+predict(modelo, newdata = dato_nuevo, interval = 'confidence')
+```
+
+Hagamos el proceso paso a paso:
+
+```{r ic-media}
+# 1) Construir la fila de diseño del punto nuevo x0
+TT <- delete.response(terms(modelo))
+x0 <- model.matrix(TT, dato_nuevo, xlev = modelo$xlevels)   # matriz 1x(p)
+
+# 2) Dimensiones
+n  <- nrow(X)                   # número de observaciones
+p  <- length(coef(modelo))      # número de parámetros (incluye intercepto)
+gl <- n - p                     # grados de libertad residuales
+
+# 3) E[Y|x0] estimado
+yhat_mean <- drop(x0 %*% beta_hat)
+
+# 4) Estimar sigma^2 = SSE/(n - p)
+SSE <- sum(residuals(modelo)^2)
+sigma2_hat <- SSE / gl
+
+# 5) se_mean = sqrt(sigma^2 * x0'(X'X)^{-1}x0)
+se_mean <- sqrt(drop(x0 %*% XtX_inv %*% t(x0)) * sigma2_hat)
+
+# 6) Valor crítico t para nivel 1 - alpha
+alpha <- 0.05
+tcrit <- qt(1 - alpha/2, df = gl)
+
+# 7) Intervalo de confianza para E[Y|x0]
+ci_low  <- yhat_mean - tcrit * se_mean
+ci_high <- yhat_mean + tcrit * se_mean
+
+resultado_media <- data.frame(
+  .fitted   = yhat_mean,
+  se_mean   = se_mean,
+  conf_low  = ci_low,
+  conf_high = ci_high,
+  df        = gl,
+  level     = 1 - alpha
+)
+
+kable(resultado_media, digits = 4, row.names = FALSE)
+```
+
+Los dos resultados coinciden. Se espera que, en promedio, los estudiantes con estas características obtengan una calificación de $59.39$ puntos. A nivel poblacional, dicho promedio se encontrará en el intervalo $(59.30,\ 59.47)$ con una confianza del 95%.
+
+### Intervalo de predicción para una nueva observación
+
+El intervalo de predicción incorpora la incertidumbre adicional del nuevo error $\varepsilon_0$:
+
+$$
+\hat y_0 \;\pm\; t_{\alpha/2,\,n-p}\;
+\sqrt{\,\hat\sigma^{2}\!\left(1+\mathbf{x}_0^{\top}
+(\mathbf{X}^{\top}\mathbf{X})^{-1}\mathbf{x}_0\right)}
+$$
+
+```{r pred}
+# intervalo de predicción del 95%
+predict(modelo, newdata = dato_nuevo, interval = 'prediction')
+```
+
+Hagámoslo paso a paso:
+
+```{r ip}
+# 1) Predicción puntual en x0
+yhat_0 <- drop(x0 %*% beta_hat)
+
+# 2) Calcular el leverage de x0: h0 = x0'(X'X)^{-1}x0
+h0 <- drop(x0 %*% XtX_inv %*% t(x0))
+
+# 3) se_pred = sqrt(sigma2 * (1 + h0))
+se_pred <- sqrt(sigma2_hat * (1 + h0))
+
+# 4) Extremos del intervalo
+pred_low  <- yhat_0 - tcrit * se_pred
+pred_high <- yhat_0 + tcrit * se_pred
+
+resultado <- data.frame(
+  .fitted   = yhat_0,
+  se_pred   = se_pred,
+  pred_low  = pred_low,
+  pred_high = pred_high,
+  df        = gl,
+  level     = 1 - alpha
+)
+
+kable(resultado, digits = 4, row.names = FALSE)
+```
+
+Para una estudiante con estas características, la calificación estimada es $59.39$ puntos y, con una confianza del 95%, su calificación se encontrará en el intervalo $(41.95,\ 76.82)$.
+
+El intervalo de confianza es muy estrecho porque el promedio se estima con 630.000 observaciones. El intervalo de predicción es mucho más amplio porque la calificación de un solo estudiante varía alrededor de ese promedio con $\hat{\sigma} = 8.89$ puntos.
+
+# Conclusiones
+
+La pregunta de investigación era qué factores influyen en el desempeño académico (`exam_score`) y en qué magnitud.
+
+En el EDA vimos que `exam_score` tiene una distribución simétrica (media de 62,51 y mediana de 62,60) y sin valores atípicos. Sin embargo, la prueba de Lilliefors rechazó la normalidad en todos los grupos y variables, así que usamos pruebas no paramétricas: U de Mann-Whitney y Kruskal-Wallis con post-hoc de Bonferroni para las variables categóricas, y Spearman para las numéricas. Al final ajustamos un modelo de regresión lineal múltiple con todas las variables.
+
+Con 630.000 observaciones todas las pruebas resultaron significativas, incluso las de variables sin relevancia práctica, y lo mismo pasó con Levene aunque las desviaciones estándar entre grupos difieren en menos de 1 punto. Por eso la relevancia de cada variable la juzgamos por la magnitud de la diferencia entre grupos o del coeficiente de correlación, y no solo por el p-valor.
+
+Entre las variables numéricas, `study_hours` es la más relacionada con la nota, con una correlación positiva muy fuerte $(\rho = 0{,}77)$. `class_attendance` tiene una correlación positiva débil $(\rho = 0{,}35)$, y `sleep_hours` $(\rho = 0{,}16)$ y `age` $(\rho \approx 0)$ no tienen correlación o es muy débil.
+
+Entre las categóricas, `study_method`, `sleep_quality` y `facility_rating` muestran diferencias claras: la mediana pasa de 57,3 en self-study a 69,3 en coaching, de 57,2 con sueño poor a 68,2 con sueño good, y de 58,3 con instalaciones low a 67,3 con instalaciones high. En `gender`, `internet_access`, `exam_difficulty` y `course` las medianas difieren en menos de 2 puntos. Las tablas de contingencia confirman que aprobar o reprobar no es independiente de `sleep_quality` ni de `study_method`: aprueba el 65,9% de quienes duermen bien frente al 44,7% de quienes duermen mal, y el 67,4% de quienes usan coaching frente al 45,5% de quienes estudian solos.
+
+Con la regresión lineal múltiple medimos la magnitud de cada factor manteniendo constantes los demás. No hay multicolinealidad (todos los VIF son prácticamente 1) y la selección por AIC deja por fuera `internet_access` y `exam_difficulty`. El modelo seleccionado es significativo en conjunto $(F_0 = 110983.08,\ p-valor < 0.001)$ y explica el 77,89% de la variabilidad de `exam_score`. Por cada hora adicional de estudio la calificación promedio aumenta 5,68 puntos, por cada punto porcentual de asistencia 0,31 puntos y por cada hora de sueño 1,32 puntos. Frente a coaching, los demás métodos de estudio bajan la calificación promedio entre 4,45 y 9,10 puntos; una calidad de sueño good la sube 8,92 puntos frente a poor, y unas instalaciones high la suben 7,28 puntos frente a low. Los coeficientes de `age`, `gender` y `course` son menores de 0,25 puntos.
+
+En el análisis de residuales se cumplen la independencia y la media cero de los errores, y los residuales son aproximadamente normales. La varianza constante no se cumple en los extremos, porque la calificación está acotada entre 19,6 y 100, así que las estimaciones para las calificaciones más bajas y más altas hay que tomarlas con precaución. No se encontraron outliers y el modelo no cambia al remover las observaciones influenciales.
+
+En resumen, el desempeño académico depende sobre todo de cuántas horas estudia el estudiante y, en menor medida, de su método de estudio, su calidad de sueño, la calidad de las instalaciones, su asistencia a clases y sus horas de sueño. La edad, el género, el programa académico, la dificultad del examen y el acceso a internet no lo explican.
+
+<!--chapter:end:Predicting-student-test-scores.Rmd-->
+

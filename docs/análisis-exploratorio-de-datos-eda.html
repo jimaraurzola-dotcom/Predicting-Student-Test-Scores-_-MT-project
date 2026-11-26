@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Análisis exploratorio de datos (EDA) | Predicción de calificaciones de estudiantes</title>
-  <meta name="description" content="2 Análisis exploratorio de datos (EDA) | Predicción de calificaciones de estudiantes" />
+  <title>2 Análisis exploratorio de datos (EDA) | video-explicativo</title>
+  <meta name="description" content="2 Análisis exploratorio de datos (EDA) | video-explicativo" />
   <meta name="generator" content="bookdown 0.47 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Análisis exploratorio de datos (EDA) | Predicción de calificaciones de estudiantes" />
+  <meta property="og:title" content="2 Análisis exploratorio de datos (EDA) | video-explicativo" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Análisis exploratorio de datos (EDA) | Predicción de calificaciones de estudiantes" />
+  <meta name="twitter:title" content="2 Análisis exploratorio de datos (EDA) | video-explicativo" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Jimara Urzola y Jose Castro" />
 
 
-<meta name="date" content="2026-11-18" />
+<meta name="date" content="2026-11-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -174,6 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>7</b> Conclusiones</a></li>
+<li class="chapter" data-level="8" data-path="video-explicativo.html"><a href="video-explicativo.html"><i class="fa fa-check"></i><b>8</b> Video explicativo</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/jimaraurzola-dotcom/Predicting-Student-Test-Scores-_-MT-project/tree/proyecto" target="_blank">Repositorio en GitHub</a></li>
 </ul>
@@ -185,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Predicción de calificaciones de estudiantes</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">video-explicativo</a>
           </h1>
         </div>
 
@@ -256,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb13-11"><a href="análisis-exploratorio-de-datos-eda.html#cb13-11" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Calificación del examen&quot;</span>,</span>
 <span id="cb13-12"><a href="análisis-exploratorio-de-datos-eda.html#cb13-12" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Densidad&quot;</span>) <span class="sc">+</span></span>
 <span id="cb13-13"><a href="análisis-exploratorio-de-datos-eda.html#cb13-13" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/exscore%20histograma-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/exscore histograma-1.png" alt="" width="672" /></p>
 <p>La mayor parte de los puntajes se concentra entre 50 y 75 puntos y la forma es aproximadamente simétrica. Al final se ve un aumento en 100 porque es el puntaje máximo posible: 15.458 estudiantes (2,45%) lo alcanzan.</p>
 <ul>
 <li>Diagrama de cajas y bigotes:</li>
@@ -271,7 +272,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-8"><a href="análisis-exploratorio-de-datos-eda.html#cb14-8" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
 <span id="cb14-9"><a href="análisis-exploratorio-de-datos-eda.html#cb14-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Calificación del examen&quot;</span>) <span class="sc">+</span></span>
 <span id="cb14-10"><a href="análisis-exploratorio-de-datos-eda.html#cb14-10" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/exscore%20boxplot-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/exscore%20boxplot-1.png" width="672" /></p>
 <p>El boxplot confirma lo visto en el histograma: la mediana (62,6) está prácticamente centrada entre Q1 (48,8) y Q3 (76,3), la media (punto negro) coincide con ella y no hay valores atípicos.</p>
 </div>
 <div id="análisis-de-las-variables-independientes-características" class="section level2 hasAnchor" number="2.2">
@@ -413,7 +414,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb16-32"><a href="análisis-exploratorio-de-datos-eda.html#cb16-32" tabindex="-1"></a></span>
 <span id="cb16-33"><a href="análisis-exploratorio-de-datos-eda.html#cb16-33" tabindex="-1"></a><span class="co"># Cuadrícula 2x2</span></span>
 <span id="cb16-34"><a href="análisis-exploratorio-de-datos-eda.html#cb16-34" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> (p3 <span class="sc">+</span> p4)</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/ind%20bxplot-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/ind%20bxplot-1.png" width="672" /></p>
 <p>Los boxplots muestran que las cuatro variables numéricas independientes tienen distribuciones bastante simétricas y sin valores atípicos.</p>
 <ul>
 <li><p><code>age</code>: la mayoría de los estudiantes tiene entre 19 y 23 años; el 50% tiene una edad menor o igual a 21 años.</p></li>
@@ -533,7 +534,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb22-18"><a href="análisis-exploratorio-de-datos-eda.html#cb22-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb22-19"><a href="análisis-exploratorio-de-datos-eda.html#cb22-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb22-20"><a href="análisis-exploratorio-de-datos-eda.html#cb22-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-8-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Las cinco categorías de <code>study_method</code> están equilibradas: coaching (20,90%) y self-study (20,81%) son las más frecuentes, seguidas de mixed (19,54%), group study (19,53%) y online videos (19,22%). Ninguna categoría domina.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="análisis-exploratorio-de-datos-eda.html#cb23-1" tabindex="-1"></a>tabla_gender <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="análisis-exploratorio-de-datos-eda.html#cb23-2" tabindex="-1"></a>  <span class="fu">count</span>(gender, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -595,7 +596,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb24-18"><a href="análisis-exploratorio-de-datos-eda.html#cb24-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb24-19"><a href="análisis-exploratorio-de-datos-eda.html#cb24-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb24-20"><a href="análisis-exploratorio-de-datos-eda.html#cb24-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>La variable <code>gender</code> está repartida de forma muy pareja: other (33,51%), male (33,43%) y female (33,07%).</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="análisis-exploratorio-de-datos-eda.html#cb25-1" tabindex="-1"></a>tabla_internet_access <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb25-2"><a href="análisis-exploratorio-de-datos-eda.html#cb25-2" tabindex="-1"></a>  <span class="fu">count</span>(internet_access, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -651,7 +652,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-18"><a href="análisis-exploratorio-de-datos-eda.html#cb26-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb26-19"><a href="análisis-exploratorio-de-datos-eda.html#cb26-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb26-20"><a href="análisis-exploratorio-de-datos-eda.html#cb26-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Aquí sí hay un desbalance marcado: el 91,97% de los estudiantes tiene acceso a internet (yes) y solo el 8,03% no lo tiene (no). Aun así, el grupo sin acceso tiene 50.577 estudiantes, suficientes para compararlo con el otro.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="análisis-exploratorio-de-datos-eda.html#cb27-1" tabindex="-1"></a>tabla_course <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb27-2"><a href="análisis-exploratorio-de-datos-eda.html#cb27-2" tabindex="-1"></a>  <span class="fu">count</span>(course, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -737,7 +738,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb28-18"><a href="análisis-exploratorio-de-datos-eda.html#cb28-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb28-19"><a href="análisis-exploratorio-de-datos-eda.html#cb28-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb28-20"><a href="análisis-exploratorio-de-datos-eda.html#cb28-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>b.tech concentra la mayor proporción de estudiantes (20,83%), seguida por b.sc (17,71%) y b.com (17,61%); entre las tres suman cerca del 56%. Las menos representadas son diploma (7,92%) y ba (9,84%). El desbalance es moderado: las siete categorías van del 8% al 21%.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="análisis-exploratorio-de-datos-eda.html#cb29-1" tabindex="-1"></a>tabla_sleep_quality <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="análisis-exploratorio-de-datos-eda.html#cb29-2" tabindex="-1"></a>  <span class="fu">count</span>(sleep_quality, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -799,7 +800,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-18"><a href="análisis-exploratorio-de-datos-eda.html#cb30-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb30-19"><a href="análisis-exploratorio-de-datos-eda.html#cb30-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb30-20"><a href="análisis-exploratorio-de-datos-eda.html#cb30-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Las tres categorías de <code>sleep_quality</code> tienen proporciones casi iguales: poor (33,92%), good (33,82%) y average (32,26%).</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="análisis-exploratorio-de-datos-eda.html#cb31-1" tabindex="-1"></a>tabla_facility_rating <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="análisis-exploratorio-de-datos-eda.html#cb31-2" tabindex="-1"></a>  <span class="fu">count</span>(facility_rating, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -861,7 +862,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb32-18"><a href="análisis-exploratorio-de-datos-eda.html#cb32-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb32-19"><a href="análisis-exploratorio-de-datos-eda.html#cb32-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb32-20"><a href="análisis-exploratorio-de-datos-eda.html#cb32-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-18-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Igual que <code>sleep_quality</code>, las tres categorías de <code>facility_rating</code> están equilibradas: medium (33,98%), low (33,71%) y high (32,31%).</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="análisis-exploratorio-de-datos-eda.html#cb33-1" tabindex="-1"></a>tabla_exam_difficulty <span class="ot">&lt;-</span> trainset <span class="sc">%&gt;%</span></span>
 <span id="cb33-2"><a href="análisis-exploratorio-de-datos-eda.html#cb33-2" tabindex="-1"></a>  <span class="fu">count</span>(exam_difficulty, <span class="at">name =</span> <span class="st">&quot;Frecuencia&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -923,7 +924,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb34-18"><a href="análisis-exploratorio-de-datos-eda.html#cb34-18" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
 <span id="cb34-19"><a href="análisis-exploratorio-de-datos-eda.html#cb34-19" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb34-20"><a href="análisis-exploratorio-de-datos-eda.html#cb34-20" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" /></p>
+<p><img src="Predicting-Student-Test-Scores-Book_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>Es la variable categórica con mayor desbalance después de <code>internet_access</code>: moderate concentra el 56,19% de las observaciones, easy el 28,02% y hard el 15,79%.</p>
 </div>
 <div id="análisis-exploratorio-bivariado" class="section level2 hasAnchor" number="2.3">
