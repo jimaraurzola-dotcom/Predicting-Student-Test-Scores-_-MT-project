@@ -188,7 +188,11 @@ El boxplot confirma lo visto en el histograma: la mediana (62,6) está práctica
 
 ```{r Ind-Num}
 resumen_numericas <- trainset %>%
+<<<<<<< HEAD
  select(where(is.numeric), -any_of(c("exam_score", "id"))) %>%
+=======
+  select(where(is.numeric), -exam_score, -id) %>%
+>>>>>>> 1a0588a2e052a89d24d686315484812c1ef9b0ef
   pivot_longer(
     cols = everything(),
     names_to = "variable",
